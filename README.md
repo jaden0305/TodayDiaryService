@@ -14,3 +14,5 @@ https://littlefoxdiary.tistory.com/42
 https://corpus.korean.go.kr/
 
 사회적약자를 위한 키오스크 보안 서비스
+
+유사상품 검색 + 컬러 조합 추천 서비스
