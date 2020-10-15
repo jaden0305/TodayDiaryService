@@ -9,7 +9,7 @@
 - develop (feature 종합 + 필요시 배포 전 테스트)
 
 
-
+**feature는 최신 develop 브랜치에서 생성합시다**
 - feature/login (feature 브랜치, / 뒤에 feature 이름 붙이기)
   - feature/login-jw (- 뒤에 작업자 이름 이니셜 붙이기)
   - feature/login-js
