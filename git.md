@@ -17,6 +17,9 @@
 - feature/{feature_name} 
   - ...
 
+- feature 이름에 띄어쓰기는 `_`를 사용합시다.
+  - ex) `feature/django_init`
+
 
 
 ## Commit
