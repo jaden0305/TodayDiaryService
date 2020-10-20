@@ -19,48 +19,256 @@
 			<span class="calendar-weekday saturday">토</span>
 		</div>
 		<div class="calendar-days">
-			<span class="calendar-day">27</span>
-			<span class="calendar-day">28</span>
-			<span class="calendar-day">29</span>
-			<span class="calendar-day">30</span>
-			<span class="calendar-day">1</span>
-			<span class="calendar-day">2</span>
-			<span class="calendar-day">3</span>
-			<span class="calendar-day">4</span>
-			<span class="calendar-day">5</span>
-			<span class="calendar-day">6</span>
-			<span class="calendar-day">7</span>
-			<span class="calendar-day">8</span>
-			<span class="calendar-day">9</span>
-			<span class="calendar-day">10</span>
-			<span class="calendar-day">11</span>
-			<span class="calendar-day">12</span>
-			<span class="calendar-day">13</span>
-			<span class="calendar-day">14</span>
-			<span class="calendar-day">15</span>
-			<span class="calendar-day">16</span>
-			<span class="calendar-day">17</span>
-			<span class="calendar-day">18</span>
-			<span class="calendar-day">19</span>
-			<span class="calendar-day">20</span>
-			<span class="calendar-day">21</span>
-			<span class="calendar-day">22</span>
-			<span class="calendar-day">23</span>
-			<span class="calendar-day">24</span>
-			<span class="calendar-day">25</span>
-			<span class="calendar-day">26</span>
-			<span class="calendar-day">27</span>
-			<span class="calendar-day">28</span>
-			<span class="calendar-day">29</span>
-			<span class="calendar-day">30</span>
-			<span class="calendar-day">31</span>
-			<span class="calendar-day">1</span>
-			<span class="calendar-day">2</span>
-			<span class="calendar-day">3</span>
-			<span class="calendar-day">4</span>
-			<span class="calendar-day">5</span>
-			<span class="calendar-day">6</span>
-			<span class="calendar-day">7</span>
+			<span class="calendar-day"
+				><i class="icon ion-ios-brush"></i>
+				<p class="calendar-day__title">27</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-ios-brush"></i>
+				<p class="calendar-day__title">
+					28
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-ios-brush"></i>
+				<p class="calendar-day__title">
+					29
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-ios-brush"></i>
+				<p class="calendar-day__title">
+					30
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-ios-brush today"></i>
+				<p class="calendar-day__title">
+					1
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					2
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					3
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					4
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					5
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					6
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					7
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					8
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					9
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					10
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					11
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					12
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					13
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					14
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					15
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					16
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					17
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					18
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					19
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					20
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					21
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					22
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					23
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					24
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					25
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					26
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					27
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					28
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					29
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					30
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					31
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					1
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					2
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					3
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					4
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					5
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					6
+				</p></span
+			>
+			<span class="calendar-day"
+				><i class="icon ion-logo-snapchat"></i>
+				<p class="calendar-day__title">
+					7
+				</p></span
+			>
 		</div>
 	</section>
 </template>
@@ -86,12 +294,18 @@ export default {};
 	.calendar-header__prev {
 		margin-right: 1.5rem;
 		font-size: 1rem;
-		border: none;
+		border: 0;
+		outline: 0;
+		background: none;
+		cursor: pointer;
 	}
 	.calendar-header__next {
 		margin-left: 1.5rem;
 		font-size: 1rem;
-		border: none;
+		border: 0;
+		outline: 0;
+		background: none;
+		cursor: pointer;
 	}
 }
 
@@ -103,6 +317,9 @@ export default {};
 		width: 100 / 7 * 1%;
 		text-align: center;
 	}
+	.sunday {
+		color: red;
+	}
 }
 
 .calendar-days {
@@ -111,8 +328,31 @@ export default {};
 	justify-content: space-evenly;
 	flex-wrap: wrap;
 	.calendar-day {
+		display: flex;
+		flex-direction: column;
 		width: 100 / 7 * 1%;
+		margin-bottom: 1.25rem;
 		text-align: center;
+		i {
+			display: flex;
+			font-size: 2rem;
+			justify-content: center;
+			align-items: center;
+		}
+		.ion-ios-brush {
+			color: grey;
+		}
+		.today {
+			color: crimson;
+		}
+		p {
+			margin: 0;
+			font-size: 0.5rem;
+			color: #495057;
+		}
+	}
+	.calendar-day__title:nth-child(7n) {
+		color: crimson;
 	}
 }
 </style>
