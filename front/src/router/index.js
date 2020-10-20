@@ -8,6 +8,11 @@ const routes = [
 		name: 'test',
 		component: () => import('@/views/Test.vue'),
 	},
+	{
+		path: '/diary',
+		name: 'diary',
+		component: () => import('@/views/WriteDiaryPage.vue'),
+	},
 ];
 
 const router = new VueRouter({
