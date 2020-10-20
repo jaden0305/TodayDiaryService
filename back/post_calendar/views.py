@@ -17,4 +17,4 @@ def get_calendar_info(request):
     message = {
         'deatail': '년도 또는 월 정보가 누락되었습니다.'
     }
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+    return Response(message, status=status.HTTP_400_BAD_REQUEST)
