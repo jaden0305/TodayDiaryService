@@ -8,6 +8,11 @@ const routes = [
 		name: 'test',
 		component: () => import('@/views/Test.vue'),
 	},
+	{
+		path: '/calendar',
+		name: 'calendar',
+		component: () => import('@/views/calendar.vue'),
+	},
 ];
 
 const router = new VueRouter({
