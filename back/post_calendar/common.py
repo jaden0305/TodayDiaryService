@@ -74,41 +74,6 @@ def date_to_dict(year, month):
             "week": result_week,
             "day": result_day})
         total_day += 1
-        
-    
-    # d = 1
-    # start_week = (start_date.weekday() + 1) % 7
-    # while True:
-    #     delta = datetime.timedelta(days=d)
-    #     result = start_date - delta
-    #     result_day = result.day
-    #     result_week = (result.weekday() + 1) % 7
-    #     if result_week >= start_week:
-    #         break
-    #     before_month.append({
-    #         "week": result_week,
-    #         "day": result_day})
-
-    #     d += 1
-
-    # before_month = list(reversed(before_month))
-
-    # end_date = datetime.datetime(year, month, day_count)
-    # d = 1
-    # end_week = (end_date.weekday() + 1) % 7
-    # while True:
-    #     delta = datetime.timedelta(days=d)
-    #     result = end_date + delta
-    #     result_day = result.day
-    #     result_week = (result.weekday() + 1) % 7
-    #     if result_week <= end_week:
-    #         break
-        
-    #     after_month.append({
-    #         "week": result_week,
-    #         "day": result_day})
-
-    #     d += 1
     
     before = (start_date - relativedelta(months=1)).month
     after = (start_date + relativedelta(months=1)).month
