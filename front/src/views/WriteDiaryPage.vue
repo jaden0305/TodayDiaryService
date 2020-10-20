@@ -4,9 +4,20 @@
 			<div class="diary-header">
 				<input
 					id="diary-header__title"
-					placeholder="이 곳에 오늘 하루를 한 줄로 말해주세요:)"
+					placeholder="오늘 하루, 한 줄로 말해주세요:)"
 					type="text"
 				/>
+				<img
+					src="@/assets/images/menu.svg"
+					class="diary-header__menu"
+					alt="메뉴"
+					@click="onOpenMenu"
+				/>
+				<ul class="diary-header__func">
+					<li><img src="@/assets/images/pencil.svg" alt="편집" /></li>
+					<li><img src="@/assets/images/sticker.svg" alt="스티커" /></li>
+					<li><img src="@/assets/images/bgm.svg" alt="음악추가" /></li>
+				</ul>
 			</div>
 			<div class="diary-image">
 				<img
@@ -37,6 +48,7 @@
 					rows="6"
 				></textarea>
 			</div>
+			<button class="diary-complete-btn">오늘 하루 기록할게요</button>
 		</div>
 	</section>
 </template>
@@ -56,6 +68,13 @@ export default {
 			this.diaryImageUrl = URL.createObjectURL(this.diaryImage);
 			this.diaryImageFile = false;
 		},
+		onOpenMenu() {
+			const menu = document.querySelector('.diary-header__menu');
+			const menus = document.querySelector('.diary-header__func');
+			menu.style.display = 'none';
+			menus.style.right = '0px';
+			menus.style.transition = '.5s';
+		},
 	},
 };
 </script>
@@ -66,13 +85,35 @@ export default {
 	flex-direction: column;
 	justify-content: center;
 	.diary-header {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
 		margin: 10px 0;
+		position: relative;
+		.diary-header__menu {
+			width: 18px;
+		}
+		.diary-header__func {
+			display: flex;
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			top: 0;
+			right: -110px;
+			list-style-type: none;
+			li {
+				img {
+					width: 18px;
+					margin: 0 6px;
+				}
+			}
+		}
 		label {
 			color: rgb(61, 61, 61);
 			font-size: 14px;
 		}
 		#diary-header__title {
-			width: 95%;
+			width: 60%;
 			margin-left: 5px;
 			padding-bottom: 5px;
 			border: none;
@@ -90,6 +131,9 @@ export default {
 		label {
 			display: flex;
 			justify-content: center;
+			&:hover {
+				cursor: pointer;
+			}
 			.diary-image__file {
 				width: 35%;
 				margin: 50px;
@@ -125,6 +169,15 @@ export default {
 					white 31px
 				);
 		}
+	}
+	.diary-complete-btn {
+		width: 95%;
+		margin: 15px auto;
+		padding: 8px;
+		border: none;
+		border-radius: 5px;
+		background: rgba(53, 53, 53, 0.8);
+		color: white;
 	}
 }
 </style>
