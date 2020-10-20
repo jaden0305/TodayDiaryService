@@ -9,8 +9,10 @@
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	width: 100%;
-	min-height: 100vh;
+	max-width: 768px;
+	min-width: 280px;
+	margin: 50px auto;
+	padding: 10px;
 }
 
 #nav {
