@@ -45,11 +45,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # rest framework
     "rest_framework",
-
+    # test
+    "django_extensions",
+    # swagger
+    "drf_yasg",
     # app
     "accounts",
     "post",
     "post_calendar",
+
 ]
 
 MIDDLEWARE = [
@@ -131,5 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
+# media setting
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = "accounts.User"

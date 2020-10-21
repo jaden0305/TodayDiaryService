@@ -5,31 +5,40 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from drf_yasg.utils import swagger_auto_schema
+
 from .models import *
 from .serializers import *
 
-class diary(APIView):
-    def get_object(self, pk):
-        return get_object_or_404(Post, pk=post_id)
 
+class CreateDiary(APIView):
+    @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
         serializer = CreatePostSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             # emotion = AI 분석
             # music = emotion 통한 추천
-            serializer.save()
-            return Response(serializer.data)
+            serializer.save(user_id=1)
+            # 로그인 로직 구현 후 user=request.user로 변경
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class diary(APIView):
+    def get_object(self, post_id):
+        return get_object_or_404(Post, pk=post_id)
         
     def get(self, request, post_id):
         mypost = self.get_object(post_id)
-        serializer = ReadPostSr(instance = mypost)
-        return Response(serializer.data)
+        serializer = ReadPostSerializer(instance=mypost)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def put(self, request):
-        serializer = UpdatePostSerializer(data=request.data)
+    @swagger_auto_schema(request_body=UpdatePostSerializer)
+    def put(self, request, post_id):
+        mypost = self.get_object(post_id)
+        serializer = UpdatePostSerializer(instance=mypost,data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
     
     def delete(self, request, post_id):
         mypost = self.get_object(post_id)
