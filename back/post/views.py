@@ -19,6 +19,7 @@ class CreateDiary(APIView):
             # emotion = AI 분석
             # music = emotion 통한 추천
             serializer.save(user_id=1)
+            # 로그인 로직 구현 후 user=request.user로 변경
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
