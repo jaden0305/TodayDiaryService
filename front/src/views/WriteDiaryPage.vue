@@ -74,6 +74,7 @@ export default {
 			menu.style.display = 'none';
 			menus.style.right = '0px';
 			menus.style.transition = '.5s';
+			// menus.style.display = 'flex';
 		},
 	},
 };
@@ -90,6 +91,7 @@ export default {
 		justify-content: space-between;
 		margin: 10px 0;
 		position: relative;
+		overflow: hidden;
 		.diary-header__menu {
 			width: 18px;
 		}
