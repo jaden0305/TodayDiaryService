@@ -16,15 +16,12 @@ class Emotion(models.Model):
     name = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
 
-class Sticker(models.Model):
-    path = models.CharField(max_length=100)
-
 class Tag(models.Model):
     name = models.CharField(max_length=100)
-
-class StickerTag(models.Model):
-    sticker = models.ForeignKey(Sticker, on_delete=models.CASCADE)
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    
+class Sticker(models.Model):
+    path = models.CharField(max_length=100)
+    tags = models.ManyToManyField(Tag, related_name="stickers")
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
