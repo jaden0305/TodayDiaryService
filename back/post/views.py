@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.parsers import FormParser, MultiPartParser
 
 from drf_yasg.utils import swagger_auto_schema
 
@@ -12,6 +13,9 @@ from .serializers import *
 
 
 class CreateDiary(APIView):
+
+    parser_classes = (FormParser, MultiPartParser, )
+
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
         serializer = CreatePostSerializer(data=request.data)
