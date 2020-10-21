@@ -22,7 +22,7 @@
 			<span class="calendar-day"
 				><img
 					class="calendar-day emoticon"
-					src="@/assets/images/pencil.svg"
+					src="@/assets/images/pencil-c.svg"
 					alt=""
 				/>
 				<p class="calendar-day__title">27</p></span
@@ -30,7 +30,7 @@
 			<span class="calendar-day"
 				><img
 					class="calendar-day emoticon"
-					src="@/assets/images/pencil.svg"
+					src="@/assets/images/pencil-c.svg"
 					alt=""
 				/>
 				<p class="calendar-day__title">
@@ -40,7 +40,7 @@
 			<span class="calendar-day"
 				><img
 					class="calendar-day emoticon"
-					src="@/assets/images/pencil.svg"
+					src="@/assets/images/pencil-c.svg"
 					alt=""
 				/>
 				<p class="calendar-day__title">
@@ -50,7 +50,7 @@
 			<span class="calendar-day"
 				><img
 					class="calendar-day emoticon"
-					src="@/assets/images/pencil.svg"
+					src="@/assets/images/pencil-c.svg"
 					alt=""
 				/>
 				<p class="calendar-day__title">
@@ -58,7 +58,11 @@
 				</p></span
 			>
 			<span class="calendar-day"
-				><i class="icon ion-ios-brush today"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/pencil-c.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">
 					1
 				</p></span
@@ -366,6 +370,7 @@ export default {};
 	.calendar-day {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		width: 100 / 7 * 1%;
 		margin-bottom: 1.25rem;
 		text-align: center;
@@ -379,10 +384,10 @@ export default {};
 			color: grey;
 		}
 		.emoticon {
-			/* display: flex;
+			display: flex;
 			justify-content: center;
-			align-items: center; */
-			width: 100%;
+			align-items: center;
+			width: 70%;
 			margin: 0;
 		}
 		.today {
