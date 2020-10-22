@@ -28,6 +28,7 @@ class CreateDiary(APIView):
 
 
 class diary(APIView):
+    
     def get_object(self, post_id):
         return get_object_or_404(Post, pk=post_id)
         
