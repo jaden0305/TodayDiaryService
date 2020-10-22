@@ -16,7 +16,13 @@
 				<ul class="diary-header__func">
 					<li><img src="@/assets/images/pencil.svg" alt="편집" /></li>
 					<li><img src="@/assets/images/sticker.svg" alt="스티커" /></li>
-					<li><img src="@/assets/images/bgm.svg" alt="음악추가" /></li>
+					<li>
+						<img
+							src="@/assets/images/bgm.svg"
+							alt="음악추가"
+							@click="openMusicModal"
+						/>
+					</li>
 				</ul>
 			</div>
 			<div class="diary-image">
@@ -54,6 +60,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus';
 export default {
 	data() {
 		return {
@@ -74,7 +81,9 @@ export default {
 			menu.style.display = 'none';
 			menus.style.right = '0px';
 			menus.style.transition = '.5s';
-			// menus.style.display = 'flex';
+		},
+		openMusicModal() {
+			bus.$emit('show:musicModal', '추천 음악입니다:)');
 		},
 	},
 };

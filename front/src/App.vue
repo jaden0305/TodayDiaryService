@@ -1,8 +1,18 @@
 <template>
 	<div id="app">
 		<router-view> </router-view>
+		<ToastMusic />
 	</div>
 </template>
+
+<script>
+import ToastMusic from '@/components/modal/ToastMusic.vue';
+export default {
+	components: {
+		ToastMusic,
+	},
+};
+</script>
 
 <style lang="scss">
 #app {
