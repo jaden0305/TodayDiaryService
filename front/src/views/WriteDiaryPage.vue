@@ -14,7 +14,13 @@
 					@click="onOpenMenu"
 				/>
 				<ul class="diary-header__func">
-					<li><img src="@/assets/images/pencil.svg" alt="편집" /></li>
+					<li>
+						<img
+							src="@/assets/images/pencil.svg"
+							alt="편집"
+							@click="openThemeModal"
+						/>
+					</li>
 					<li>
 						<img
 							src="@/assets/images/sticker.svg"
@@ -93,6 +99,9 @@ export default {
 		},
 		openStickerModal() {
 			bus.$emit('show:stickerModal', '스티커입니다:)');
+		},
+		openThemeModal() {
+			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
 	},
 };

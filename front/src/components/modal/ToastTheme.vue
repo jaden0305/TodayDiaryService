@@ -1,8 +1,8 @@
 <template>
 	<section class="toast" :class="toastAnimationClass">
 		<section class="toast-wrap">
-			<div class="toast-stickers">
-				전체 동물 도형
+			<div class="toast-themes">
+				테마 폰트
 			</div>
 			<div class="toast-close">
 				<button class="toast-close__btn" @click="open = false">
@@ -32,7 +32,7 @@ export default {
 		},
 	},
 	created() {
-		bus.$on('show:stickerModal', this.openMethod);
+		bus.$on('show:themeModal', this.openMethod);
 	},
 };
 </script>
