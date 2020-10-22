@@ -8,12 +8,27 @@
 					type="text"
 				/>
 				<button class="toast-search__btn">
-					<!-- <img src="@/assets/images/search.svg" alt="" /> -->
+					<img src="@/assets/images/search.svg" alt="" />
 				</button>
 			</div>
-
-			<!-- <button class="toast-btn-white" @click="open = false">취소</button>
-			<button class="toast-btn-purple" @click="showToast">삭제</button> -->
+			<div class="toast-musics">
+				<ol>
+					<li class="toast-musics__item">DON'T TOUCH ME</li>
+					<li class="toast-musics__item">취기를 빌려</li>
+					<li class="toast-musics__item">오래된 노래</li>
+					<li class="toast-musics__item">힘든 건 사랑이 아니다</li>
+					<li class="toast-musics__item">DON'T TOUCH ME</li>
+					<li class="toast-musics__item">힘든 건 사랑이 아니다</li>
+					<li class="toast-musics__item">취기를 빌려</li>
+					<li class="toast-musics__item">오래된 노래</li>
+				</ol>
+			</div>
+			<div class="toast-close">
+				<button class="toast-close__btn" @click="open = false">
+					<img src="@/assets/images/delete.svg" alt="" />
+				</button>
+			</div>
+			<!-- <button class="toast-btn-purple" @click="showToast">삭제</button> -->
 		</section>
 	</section>
 </template>
@@ -35,22 +50,22 @@ export default {
 		openMethod() {
 			this.open = true;
 		},
-		async showToast() {
-			// await deleteMyStories(this.storyId);
-			this.open = false;
-		},
+		// async showToast() {
+		// 	// await deleteMyStories(this.storyId);
+		// 	this.open = false;
+		// },
 	},
 	created() {
 		bus.$on('show:musicModal', this.openMethod);
 	},
-	beforeDestroy() {
-		bus.$off('show:delete', this.openMethod);
-	},
-	watch: {
-		$route() {
-			this.open = false;
-		},
-	},
+	// beforeDestroy() {
+	// 	bus.$off('show:delete', this.openMethod);
+	// },
+	// watch: {
+	// 	$route() {
+	// 		this.open = false;
+	// 	},
+	// },
 };
 </script>
 
@@ -89,6 +104,9 @@ export default {
 				right: 20px;
 				border: none;
 				background: none;
+				img {
+					width: 20px;
+				}
 			}
 		}
 		.toast-musics {
@@ -97,33 +115,20 @@ export default {
 				line-height: 2.3;
 			}
 		}
+		.toast-close {
+			margin-top: 30px;
+			text-align: center;
+			.toast-close__btn {
+				border: none;
+				background: none;
+				img {
+					width: 30px;
+				}
+			}
+		}
 	}
 }
 .toast.none {
 	display: none;
-}
-.toast-btn-white {
-	border: none;
-	border-radius: 3px;
-	padding: 0 1rem;
-	font-size: 1rem;
-	font-weight: 700;
-	background: white;
-	color: black;
-	height: 2rem;
-	margin-top: 1.5rem;
-	margin-right: 0.5rem;
-}
-.toast-btn-purple {
-	border: none;
-	border-radius: 3px;
-	padding: 0 1rem;
-	font-size: 1rem;
-	font-weight: 700;
-	background: purple;
-	color: white;
-	height: 2rem;
-	margin-top: 1.5rem;
-	margin-left: 0.5rem;
 }
 </style>
