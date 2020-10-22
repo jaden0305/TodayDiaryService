@@ -54,7 +54,7 @@ class Post(models.Model):
 
 
 class PostSticker(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='stickers')
     sticker = models.ForeignKey(Sticker, on_delete=models.CASCADE)
     width = models.IntegerField()
     deg = models.IntegerField()
