@@ -15,7 +15,13 @@
 				/>
 				<ul class="diary-header__func">
 					<li><img src="@/assets/images/pencil.svg" alt="편집" /></li>
-					<li><img src="@/assets/images/sticker.svg" alt="스티커" /></li>
+					<li>
+						<img
+							src="@/assets/images/sticker.svg"
+							alt="스티커"
+							@click="openStickerModal"
+						/>
+					</li>
 					<li>
 						<img
 							src="@/assets/images/bgm.svg"
@@ -84,6 +90,9 @@ export default {
 		},
 		openMusicModal() {
 			bus.$emit('show:musicModal', '추천 음악입니다:)');
+		},
+		openStickerModal() {
+			bus.$emit('show:stickerModal', '스티커입니다:)');
 		},
 	},
 };

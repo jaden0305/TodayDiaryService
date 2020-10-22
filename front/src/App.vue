@@ -2,14 +2,17 @@
 	<div id="app">
 		<router-view> </router-view>
 		<ToastMusic />
+		<ToastSticker />
 	</div>
 </template>
 
 <script>
 import ToastMusic from '@/components/modal/ToastMusic.vue';
+import ToastSticker from '@/components/modal/ToastSticker.vue';
 export default {
 	components: {
 		ToastMusic,
+		ToastSticker,
 	},
 };
 </script>

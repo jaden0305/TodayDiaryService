@@ -4,7 +4,7 @@
 			<div class="toast-search">
 				<input
 					class="toast-search__input"
-					placeholder="음악을 검색하세요 :)"
+					placeholder="음악을 검색하세요"
 					type="text"
 				/>
 				<button class="toast-search__btn">
