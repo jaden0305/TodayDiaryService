@@ -45,6 +45,7 @@ class diary(APIView):
         serializer = ReadPostSerializer(instance=mypost)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    # [{"id":1,"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":22},{"id":2, "post":1,"sticker":1,"width":23,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=UpdatePostSerializer)
     def put(self, request, post_id):
         mypost = self.get_object(post_id)
