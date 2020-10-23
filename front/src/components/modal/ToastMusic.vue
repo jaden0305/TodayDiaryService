@@ -72,7 +72,7 @@ export default {
 <style lang="scss">
 .toast {
 	width: 98%;
-	height: 65%;
+	height: 550px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
