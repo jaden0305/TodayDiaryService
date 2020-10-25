@@ -2,12 +2,12 @@
 	<section class="toast" :class="toastAnimationClass">
 		<section class="toast-wrap">
 			<div class="toast-stickers">
-				<router-link :to="{ name: 'stickerAll' }">전체</router-link>
+				<!-- <router-link :to="{ name: 'stickerAll' }">전체</router-link>
 				<router-link :to="{ name: 'stickerFigure' }">도형</router-link>
 				<router-link :to="{ name: 'stickerAnimal' }">동물</router-link>
 				<div class="toast-sticker">
 					<router-view></router-view>
-				</div>
+				</div> -->
 			</div>
 			<div class="toast-close">
 				<button class="toast-close__btn" @click="open = false">
