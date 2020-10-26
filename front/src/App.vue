@@ -5,6 +5,7 @@
 </template>
 
 <style lang="scss">
+@import './assets/css/reset.css';
 #app {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -13,18 +14,5 @@
 	min-width: 280px;
 	margin: 50px auto;
 	padding: 10px;
-}
-
-#nav {
-	padding: 30px;
-
-	a {
-		font-weight: bold;
-		color: #2c3e50;
-
-		&.router-link-exact-active {
-			color: #42b983;
-		}
-	}
 }
 </style>

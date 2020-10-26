@@ -317,6 +317,10 @@ export default {};
 .calendar-wrap {
 	width: 100%;
 	/* height: 70vh; */
+	height: 100%;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3);
 }
 .calendar-header {
 	display: flex;

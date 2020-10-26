@@ -3,11 +3,14 @@
    License: none (public domain)
 */
 html {
+	width: 100%;
 	height: 100%;
 }
 body {
-	min-height: 100vh;
+	min-height: 100%;
+	background: #e9ecef;
 }
+
 
 
 html, body, div, span, applet, object, iframe,
