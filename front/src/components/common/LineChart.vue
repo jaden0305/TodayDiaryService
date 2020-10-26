@@ -6,7 +6,7 @@ export default {
 	props: ['chartData'],
 	data: () => ({
 		colorSets: [
-			{ fore: 'black', back: 'black' },
+			{ fore: '#343a40', back: '#868e96' },
 			{ fore: '#F48FB1', back: '#880E4F' },
 			{ fore: '#CE93D8', back: '#4A148C' },
 			{ fore: '#B39DDB', back: '#311B92' },

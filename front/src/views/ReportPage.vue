@@ -1,9 +1,9 @@
 <template>
 	<div class="report-wrap">
 		<div class="report-wordcloud">
-			<span class="report-title">나의 감정 사전</span>
+			<span class="report-title">감정 사전</span>
 			<vue-word-cloud
-				style="height:40vh; border-radius: 8px;"
+				style="height:35vh; border-radius: 8px;"
 				:words="words"
 				:color="
 					([, weight]) =>
@@ -15,7 +15,7 @@
 			/>
 		</div>
 		<div class="report-chart">
-			<span class="report-title">나의 감정 그래프</span>
+			<span class="report-title">감정 그래프</span>
 			<div class="report-btnbox">
 				<button @click="selectChart(0)" class="report-btn">이번주</button>
 				<button @click="selectChart(1)" class="report-btn select">
@@ -46,7 +46,7 @@ export default {
 				labels: ['01', '02', '03', '04', '05', '06', '07'],
 				chartData: [
 					{
-						label: '뉴스원',
+						label: '',
 						data: ['61', '7', '17', '63', '28', '99', '-70'],
 					},
 				],
@@ -87,19 +87,35 @@ export default {
 	justify-content: center;
 	align-content: center;
 	padding: 1rem;
+	background: #e9ecef;
 	.report-wordcloud {
 		width: 100%;
 		height: 50%;
+		border-radius: 0.5rem;
+		padding: 1rem;
+		background: white;
+		box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3);
+		margin-bottom: 1rem;
 	}
 	.report-chart {
 		width: 100%;
 		height: 50%;
+		border-radius: 0.5rem;
+		padding: 1rem;
+		background: white;
+		// box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.1);
+		box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3);
 	}
-	.report-title::before {
+	.report-title::after {
 		content: '';
+		display: block;
+		width: 100%;
+		border-bottom: 2px solid #e9ecef;
+		margin: 16px 0 0 0;
 	}
 	.report-title {
-		font-size: 1.5rem;
+		color: #495057;
+		font-size: 1.25rem;
 		font-weight: 800;
 	}
 }
@@ -116,18 +132,18 @@ export default {
 		color: #868e96;
 		font-size: 1rem;
 		font-weight: 800;
-		margin: 0 auto;
+		margin: 0 auto 0.5rem;
 	}
 	.select {
-		color: black;
+		color: #343a40;
 	}
-	.select:after {
-		content: '';
-		display: block;
-		width: 2rem;
-		border-bottom: 2px solid black;
-		margin: 0 auto;
-	}
+	// .select:after {
+	// 	content: '';
+	// 	display: block;
+	// 	width: 2rem;
+	// 	border-bottom: 2px solid black;
+	// 	margin: 0 auto;
+	// }
 }
 .line-container {
 	box-sizing: border-box;
