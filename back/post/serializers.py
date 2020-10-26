@@ -59,7 +59,7 @@ class CreatePostSerializer(serializers.ModelSerializer):
     # stickers = serializers.ListField(required=False)
     class Meta:
         model = Post
-        exclude = ('id',)
+        exclude = ('id', 'user')
 
 
 class ReadPostSerializer(serializers.ModelSerializer):
