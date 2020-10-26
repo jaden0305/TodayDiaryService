@@ -13,6 +13,11 @@ const routes = [
 		name: 'diary',
 		component: () => import('@/views/WriteDiaryPage.vue'),
 	},
+	{
+		path: '/report',
+		name: 'report',
+		component: () => import('@/views/ReportPage'),
+	},
 ];
 
 const router = new VueRouter({

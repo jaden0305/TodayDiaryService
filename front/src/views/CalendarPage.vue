@@ -20,53 +20,89 @@
 		</div>
 		<div class="calendar-days">
 			<span class="calendar-day"
-				><i class="icon ion-ios-brush"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/pencil-c.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">27</p></span
 			>
 			<span class="calendar-day"
-				><i class="icon ion-ios-brush"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/pencil-c.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">
 					28
 				</p></span
 			>
 			<span class="calendar-day"
-				><i class="icon ion-ios-brush"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/pencil-c.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">
 					29
 				</p></span
 			>
 			<span class="calendar-day"
-				><i class="icon ion-ios-brush"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/pencil-c.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">
 					30
 				</p></span
 			>
 			<span class="calendar-day"
-				><i class="icon ion-ios-brush today"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/pencil-c.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">
 					1
 				</p></span
 			>
 			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/happiness.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">
 					2
 				</p></span
 			>
 			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/cry.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">
 					3
 				</p></span
 			>
 			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/neutral.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">
 					4
 				</p></span
 			>
 			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
+				><img
+					class="calendar-day emoticon"
+					src="@/assets/images/sad.svg"
+					alt=""
+				/>
 				<p class="calendar-day__title">
 					5
 				</p></span
@@ -280,13 +316,14 @@ export default {};
 <style lang="scss">
 .calendar-wrap {
 	width: 100%;
-	height: 70vh;
+	/* height: 70vh; */
 }
 .calendar-header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+	margin-bottom: 0.5rem;
 
 	.calendar-header__month {
 		font-size: 2rem;
@@ -313,12 +350,15 @@ export default {};
 	width: 100%;
 	display: flex;
 	justify-content: space-evenly;
+	color: #343a40;
+	margin-bottom: 0.5rem;
 	.calendar-weekday {
 		width: 100 / 7 * 1%;
 		text-align: center;
 	}
-	.sunday {
-		color: red;
+	.sunday,
+	.saturday {
+		color: #868e96;
 	}
 }
 
@@ -330,6 +370,7 @@ export default {};
 	.calendar-day {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		width: 100 / 7 * 1%;
 		margin-bottom: 1.25rem;
 		text-align: center;
@@ -342,17 +383,29 @@ export default {};
 		.ion-ios-brush {
 			color: grey;
 		}
+		.emoticon {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 70%;
+			margin: 0;
+		}
 		.today {
-			color: crimson;
+			color: royalblue;
 		}
 		p {
 			margin: 0;
+			margin-top: 0.1rem;
 			font-size: 0.5rem;
-			color: #495057;
+			font-weight: 600;
+			color: #343a40;
 		}
 	}
-	.calendar-day__title:nth-child(7n) {
-		color: crimson;
+	.calendar-day:nth-child(7n + 1),
+	.calendar-day:nth-child(7n) {
+		.calendar-day__title {
+			color: #868e96;
+		}
 	}
 }
 </style>

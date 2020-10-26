@@ -4,10 +4,11 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 
 from drf_yasg.utils import swagger_auto_schema
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, CheckEmailSerializer
 
 
 User = get_user_model()
@@ -34,3 +35,18 @@ class UserDetailView(APIView):
         user = self.get_object(user_id)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@swagger_auto_schema(methods=['get'], query_serializer=CheckEmailSerializer)
+@api_view(['GET'])
+def check_email(request):
+    email = request.GET.get('email', None)
+    if email is None:
+        msg = "잘못된 요청입니다."
+        return Response({
+            'msg': msg
+        }, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({
+            'exist': User.objects.filter(email=email).exists(),
+        }, status=status.HTTP_200_OK)
