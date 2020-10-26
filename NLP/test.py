@@ -23,14 +23,15 @@ def count_words(text):
 
 def decompose(ls):
     tag = ['VCP', 'VCN', 'NNG', 'IC', 'MAG', 'VA', 'VV', 'XR']
-    
+    stopwords=['의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하','다','있']
+
     word_list = []
 
     for word in ls:
-        if word[1] in tag:
+        if word[1] in tag and word[0] not in stopwords:
             word_list.append(word[0])
     
-    return word_list
+    return list(set(word_list))
 
 def day_score(text):    
     cnt = 0
@@ -38,8 +39,38 @@ def day_score(text):
     p = []
     n = []
     txt = decompose(text)
+
     for word in txt:
-        if word in pos:
+        if word in delight:
+            score += 2
+            cnt += 2
+            print('d',word)
+            feel['delight'] = feel.get('delight',0) + 1    
+        elif word in happy:
+            score += 3
+            cnt += 3
+            feel['happy'] = feel.get('happy',0) + 1    
+        elif word in minus2:
+            score -= 2
+            cnt += 2
+            if word in horror:
+                feel['horror'] = feel.get('horror',0) + 1    
+            elif word in angry:
+                feel['angry'] = feel.get('angry',0) + 1    
+                print('a',word)
+            elif word in sad:
+                feel['sad'] = feel.get('sad',0) + 1    
+        elif word in minus3:
+            score -= 3
+            cnt += 3
+            if word in horror:
+                feel['horror'] = feel.get('horror',0) + 1    
+            elif word in angry:
+                feel['angry'] = feel.get('angry',0) + 1
+                print('a',word)
+            elif word in sad:
+                feel['sad'] = feel.get('sad',0) + 1    
+        elif word in pos:
             score += 1
             cnt += 1
             p.append(word)
@@ -78,9 +109,32 @@ neg.pop()
 print(len(pos))
 # print(neg)
 
+공포 = pd.read_csv('공포.txt', encoding='UTF-8', names=['word'], sep='\n')
+# print(' '.join(공포.T.values[0]))
+horror = decompose(mecab.pos(' '.join(공포.T.values[0])))
+# print(horror)
+기쁨 = pd.read_csv('기쁨.txt', encoding='UTF-8', names=['word'], sep='\n')
+delight = decompose(mecab.pos(' '.join(기쁨.T.values[0])))
+놀람 = pd.read_csv('놀람.txt', encoding='UTF-8', names=['word'], sep='\n')
+surprise = decompose(mecab.pos(' '.join(놀람.T.values[0])))
+분노 = pd.read_csv('분노.txt', encoding='UTF-8', names=['word'], sep='\n')
+angry = decompose(mecab.pos(' '.join(분노.T.values[0])))
+슬픔 = pd.read_csv('슬픔.txt', encoding='UTF-8', names=['word'], sep='\n')
+sad = decompose(mecab.pos(' '.join(슬픔.T.values[0])))
+sad.append('싫')
+지루함 = pd.read_csv('지루함.txt', encoding='UTF-8', names=['word'], sep='\n')
+boring = decompose(mecab.pos(' '.join(지루함.T.values[0])))
+행복 = pd.read_csv('행복.txt', encoding='UTF-8', names=['word'], sep='\n')
+happy = decompose(mecab.pos(' '.join(행복.T.values[0])))
+down2 = pd.read_csv('down2.txt', encoding='UTF-8', names=['word'], sep='\n')
+minus2 = decompose(mecab.pos(' '.join(down2.T.values[0])))
+down3 = pd.read_csv('down3.txt', encoding='UTF-8', names=['word'], sep='\n')
+minus3 = decompose(mecab.pos(' '.join(down3.T.values[0])))
+
+feel = {}
 score = day_score(out3)
 print(score)
-
+print(feel)
 
 # spwords = set(STOPWORDS)
 
