@@ -41,8 +41,22 @@ class StickerSerializer(serializers.ModelSerializer):
         depth = 2
 
 
+class PostStickerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostSticker
+        fields = '__all__'
+
+
+class PostStickerReadSerializer(serializers.ModelSerializer):
+    sticker = StickerSerializer()
+    class Meta:
+        model = PostSticker
+        fields = '__all__'
+
+
 class CreatePostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
+    # stickers = serializers.ListField(required=False)
     class Meta:
         model = Post
         exclude = ('id',)
@@ -54,6 +68,7 @@ class ReadPostSerializer(serializers.ModelSerializer):
     font = PostFontSerializer()
     pattern = PatternSerializer()
     emotion = EmotionSerializer()
+    stickers = PostStickerReadSerializer(many=True)
     class Meta:
         model = Post
         fields = '__all__'
