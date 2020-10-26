@@ -23,8 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('post/', include('post.urls')),
     path('calendar/', include('post_calendar.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
-
 
 
 from rest_framework import permissions
