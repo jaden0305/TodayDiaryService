@@ -6,7 +6,7 @@ export default {
 	props: ['chartData'],
 	data: () => ({
 		colorSets: [
-			{ fore: '#EF9A9A', back: '#B71C1C' },
+			{ fore: 'black', back: 'black' },
 			{ fore: '#F48FB1', back: '#880E4F' },
 			{ fore: '#CE93D8', back: '#4A148C' },
 			{ fore: '#B39DDB', back: '#311B92' },
@@ -47,38 +47,20 @@ export default {
 			scales: {
 				yAxes: [
 					{
-						ticks: { beginAtZero: true, suggestedMin: -100, suggestedMax: 100 },
-						gridLines: { display: true },
+						ticks: {
+							display: false,
+							beginAtZero: true,
+							suggestedMin: -100,
+							suggestedMax: 100,
+						},
+						gridLines: { display: false },
 					},
 				],
-				xAxes: [{ gridLines: { display: false } }],
+				xAxes: [{ gridLines: { display: true } }],
 			},
 			legend: { display: true },
 			responsive: false,
 			maintainAspectRatio: false,
-			plugins: [
-				{
-					id: 'kwhWeek',
-					beforeRender(x) {
-						console.log(x);
-						var c = x.chart;
-						var dataset = x.data.datasets[0];
-						var yScale = x.scales['y-axis-0'];
-						var yPos = yScale.getPixelForValue(0);
-
-						var gradientFill = c.ctx.createLinearGradient(0, 0, 0, c.height);
-						gradientFill.addColorStop(0, 'red');
-						gradientFill.addColorStop(yPos / c.height - 0.01, 'red');
-						gradientFill.addColorStop(yPos / c.height + 0.01, 'blue');
-						gradientFill.addColorStop(1, 'blue');
-
-						var model =
-							x.data.datasets[0]._meta[Object.keys(dataset._meta)[0]].dataset
-								._model;
-						model.backgroundColor = gradientFill;
-					},
-				},
-			],
 		},
 	}),
 	mounted() {
@@ -98,7 +80,7 @@ export default {
 					backgroundColor: colors.back,
 					pointBorderColor: colors.fore,
 					pointBackgroundColor: colors.fore,
-					fill: true,
+					fill: false,
 					data: site.data,
 				});
 				pos++;
