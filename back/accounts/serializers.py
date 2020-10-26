@@ -21,3 +21,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         fields = (
             'username',
         )
+    
+
+class CheckEmailSerializer(serializers.Serializer):
+    email = serializers.CharField()
