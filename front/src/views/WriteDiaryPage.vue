@@ -37,6 +37,9 @@
 					</li>
 				</ul>
 			</div>
+			<ToastMusic :open="openMusic" @close-music="openMusic = false" />
+			<ToastSticker :open="openSticker" @close-sticker="openSticker = false" />
+			<ToastTheme :open="openTheme" @close-theme="openTheme = false" />
 			<div class="diary-image">
 				<img
 					class="diary-image__value"
@@ -73,13 +76,24 @@
 
 <script>
 import bus from '@/utils/bus';
+import ToastMusic from '@/components/modal/ToastMusic.vue';
+import ToastSticker from '@/components/modal/ToastSticker.vue';
+import ToastTheme from '@/components/modal/ToastTheme.vue';
 export default {
 	data() {
 		return {
 			diaryImage: null,
 			diaryImageUrl: null,
 			diaryImageFile: true,
+			openMusic: false,
+			openSticker: false,
+			openTheme: false,
 		};
+	},
+	components: {
+		ToastMusic,
+		ToastSticker,
+		ToastTheme,
 	},
 	methods: {
 		onChangeDiaryImage() {
@@ -95,12 +109,21 @@ export default {
 			menus.style.transition = '.5s';
 		},
 		openMusicModal() {
+			this.openMusic = true;
+			this.openSticker = false;
+			this.openTheme = false;
 			bus.$emit('show:musicModal', '추천 음악입니다:)');
 		},
 		openStickerModal() {
+			this.openMusic = false;
+			this.openSticker = true;
+			this.openTheme = false;
 			bus.$emit('show:stickerModal', '스티커입니다:)');
 		},
 		openThemeModal() {
+			this.openMusic = false;
+			this.openSticker = false;
+			this.openTheme = true;
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
 	},

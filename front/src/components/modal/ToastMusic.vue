@@ -24,7 +24,7 @@
 				</ol>
 			</div>
 			<div class="toast-close">
-				<button class="toast-close__btn" @click="open = false">
+				<button class="toast-close__btn" @click="closeMusic">
 					<img src="@/assets/images/delete.svg" alt="" />
 				</button>
 			</div>
@@ -34,12 +34,9 @@
 </template>
 
 <script>
-import bus from '@/utils/bus.js';
 export default {
-	data() {
-		return {
-			open: false,
-		};
+	props: {
+		open: Boolean,
 	},
 	computed: {
 		toastAnimationClass() {
@@ -47,25 +44,10 @@ export default {
 		},
 	},
 	methods: {
-		openMethod() {
-			this.open = true;
+		closeMusic() {
+			this.$emit('close-music');
 		},
-		// async showToast() {
-		// 	// await deleteMyStories(this.storyId);
-		// 	this.open = false;
-		// },
 	},
-	created() {
-		bus.$on('show:musicModal', this.openMethod);
-	},
-	// beforeDestroy() {
-	// 	bus.$off('show:delete', this.openMethod);
-	// },
-	// watch: {
-	// 	$route() {
-	// 		this.open = false;
-	// 	},
-	// },
 };
 </script>
 

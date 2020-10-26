@@ -5,7 +5,7 @@
 				테마 폰트
 			</div>
 			<div class="toast-close">
-				<button class="toast-close__btn" @click="open = false">
+				<button class="toast-close__btn" @click="closeTheme">
 					<img src="@/assets/images/delete.svg" alt="" />
 				</button>
 			</div>
@@ -14,12 +14,9 @@
 </template>
 
 <script>
-import bus from '@/utils/bus.js';
 export default {
-	data() {
-		return {
-			open: false,
-		};
+	props: {
+		open: Boolean,
 	},
 	computed: {
 		toastAnimationClass() {
@@ -27,12 +24,9 @@ export default {
 		},
 	},
 	methods: {
-		openMethod() {
-			this.open = true;
+		closeTheme() {
+			this.$emit('close-theme');
 		},
-	},
-	created() {
-		bus.$on('show:themeModal', this.openMethod);
 	},
 };
 </script>
