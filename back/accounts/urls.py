@@ -10,6 +10,5 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('', include('rest_auth.urls')),
-    path('signup/', RegisterView.as_view()),
     path('check/email/', views.check_email),
 ]

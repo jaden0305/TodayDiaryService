@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('post/', include('post.urls')),
     path('calendar/', include('post_calendar.urls')),
+
+    path('accounts/signup/', include('rest_auth.registration.urls')),
     path('accounts/', include('accounts.urls')),
 ]
 
