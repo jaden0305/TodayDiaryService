@@ -40,7 +40,7 @@ unknown = pd.read_csv('unknown.txt', sep="\t", engine="python", encoding = "utf-
 unk = decompose(unknown.T.values[0],0)
 
 # 불용어 정의
-stopwords=['의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하다','있']
+stopwords=['의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하','다','있']
 
 chk = []
 for word in pos:
