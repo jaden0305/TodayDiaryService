@@ -56,6 +56,7 @@ class PostStickerReadSerializer(serializers.ModelSerializer):
 
 class CreatePostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
+    # stickers = serializers.ListField(required=False)
     class Meta:
         model = Post
         exclude = ('id', 'user')
