@@ -61,6 +61,9 @@ INSTALLED_APPS = [
     "drf_yasg",
     # apps
     "accounts",
+    "post",
+    "post_calendar",
+    "text",
 ]
 
 SITE_ID = 1
@@ -157,7 +160,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "back_accounts.urls"
+ROOT_URLCONF = "backend.urls"
 
 TEMPLATES = [
     {
@@ -175,7 +178,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "back_accounts.wsgi.application"
+WSGI_APPLICATION = "backend.wsgi.application"
 
 
 # Database
