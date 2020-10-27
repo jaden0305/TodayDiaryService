@@ -87,7 +87,7 @@ export default {
 	justify-content: center;
 	align-content: center;
 	padding: 1rem;
-	background: #e9ecef;
+	background: #f1f3f5;
 	.report-wordcloud {
 		width: 100%;
 		height: 50%;

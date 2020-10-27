@@ -48,12 +48,13 @@ export default {
 				yAxes: [
 					{
 						ticks: {
-							display: false,
+							display: true,
+							stepSize: 50,
 							beginAtZero: true,
 							suggestedMin: -100,
 							suggestedMax: 100,
 						},
-						gridLines: { display: false },
+						gridLines: { display: true },
 					},
 				],
 				xAxes: [{ gridLines: { display: true } }],
