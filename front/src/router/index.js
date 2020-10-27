@@ -12,23 +12,12 @@ const routes = [
 		path: '/diary',
 		name: 'diary',
 		component: () => import('@/views/WriteDiaryPage.vue'),
-		children: [
-			{
-				path: 'stickerAll',
-				name: 'stickerAll',
-				component: () => import('@/views/modalChildren/StickerAll.vue'),
-			},
-			{
-				path: 'stickerAnimal',
-				name: 'stickerAnimal',
-				component: () => import('@/views/modalChildren/StickerAnimal.vue'),
-			},
-			{
-				path: 'stickerFigure',
-				name: 'stickerFigure',
-				component: () => import('@/views/modalChildren/StickerFigure.vue'),
-			},
-		],
+	},
+	{
+		path: '/diary/:diaryId',
+		name: 'fetchDiary',
+		props: route => ({ diaryId: Number(route.params.diaryId) }),
+		component: () => import('@/views/ReadDiaryPage.vue'),
 	},
 	{
 		path: '/report',
