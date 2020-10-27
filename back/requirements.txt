@@ -1,5 +1,0 @@
-Django==2.2.15
-django-settings-json==1.0.2
-djangorestframework==3.12.1
-pytz==2020.1
-sqlparse==0.4.1

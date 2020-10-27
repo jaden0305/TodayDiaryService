@@ -17,6 +17,9 @@
 - feature/{feature_name} 
   - ...
 
+- feature 이름에 띄어쓰기는 `_`를 사용합시다.
+  - ex) `feature/django_init`
+
 
 
 ## Commit
@@ -24,7 +27,7 @@
 - 길게 적을일 없을 것 같아서 git commit -m 옵션으로 작성합시다.
 - 한번에 서로 다른 작업 수정했을 경우 가능하면 add를 따로 해서 커밋합시다.
 - 커밋 메세지는 jira 이슈와 `|` 를 사용해 스마트커밋 합시다.
-  - ex) `S03P23D105-47| fix main display bug`
+  - ex) `S03P23D105-47 | fix main display bug`
 
 
 

@@ -315,7 +315,8 @@ export default {};
 
 <style lang="scss">
 .calendar-wrap {
-	width: 100%;
+	max-width: 100%;
+	padding: 10px;
 	/* height: 70vh; */
 	height: 100%;
 	background: white;
