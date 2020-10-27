@@ -1,5 +1,24 @@
 <template>
 	<div class="report-wrap">
+		<div class="report-btnbox">
+			<button @click="selectChart(0)" class="report-btn">전체</button>
+			<button @click="selectChart(1)" class="report-btn select">
+				주별
+			</button>
+			<button @click="selectChart(2)" class="report-btn">월별</button>
+		</div>
+		<div class="report-selectbox">
+			<button class="report-select__prev">
+				<i class="icon ion-ios-arrow-back"></i>
+			</button>
+			<div class="report-select">
+				<span class="report-select__month">10월</span>
+				<span class="report-select__span"></span>
+			</div>
+			<button class="report-select__next">
+				<i class="icon ion-ios-arrow-forward"></i>
+			</button>
+		</div>
 		<div class="report-wordcloud">
 			<span class="report-title">감정 사전</span>
 			<vue-word-cloud
@@ -16,13 +35,6 @@
 		</div>
 		<div class="report-chart">
 			<span class="report-title">감정 그래프</span>
-			<div class="report-btnbox">
-				<button @click="selectChart(0)" class="report-btn">이번주</button>
-				<button @click="selectChart(1)" class="report-btn select">
-					이번달
-				</button>
-				<button @click="selectChart(2)" class="report-btn">이번해</button>
-			</div>
 			<line-chart class="line-container" :chartData="chartData"></line-chart>
 		</div>
 	</div>
@@ -36,17 +48,17 @@ export default {
 	data() {
 		return {
 			words: [
-				['romance', 19],
-				['magic', 2],
-				['fantasy', 7],
-				['adventure', 4],
+				['romance', 300],
+				['magic', 200],
+				['fantasy', 100],
+				['adventure', 150],
 			],
 			chartLoading: false,
 			chartData: {
 				labels: ['01', '02', '03', '04', '05', '06', '07'],
 				chartData: [
 					{
-						label: '',
+						label: '메리윌',
 						data: ['61', '7', '17', '63', '28', '99', '-70'],
 					},
 				],
@@ -87,7 +99,6 @@ export default {
 	justify-content: center;
 	align-content: center;
 	padding: 1rem;
-	background: #f1f3f5;
 	.report-wordcloud {
 		width: 100%;
 		height: 50%;
@@ -103,7 +114,6 @@ export default {
 		border-radius: 0.5rem;
 		padding: 1rem;
 		background: white;
-		// box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.1);
 		box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3);
 	}
 	.report-title::after {
@@ -111,7 +121,7 @@ export default {
 		display: block;
 		width: 100%;
 		border-bottom: 2px solid #e9ecef;
-		margin: 16px 0 0 0;
+		margin: 16px 0 10px 0;
 	}
 	.report-title {
 		color: #495057;
@@ -120,7 +130,7 @@ export default {
 	}
 }
 .report-btnbox {
-	margin-top: 1rem;
+	margin-bottom: 1.5rem;
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -137,13 +147,61 @@ export default {
 	.select {
 		color: #343a40;
 	}
-	// .select:after {
-	// 	content: '';
+	.select:after {
+		content: '';
+		display: block;
+		width: 100%;
+		border-bottom: 2px solid black;
+		margin: 0 auto;
+	}
+}
+.report-selectbox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin-bottom: 1.5rem;
+	color: #495057;
+	font-weight: 400;
+	.report-select {
+		display: inline-block;
+		position: relative;
+		.report-select__month {
+			font-size: 1.5rem;
+		}
+	}
+	.report-select__span {
+		position: absolute;
+		bottom: -6px;
+		left: 0;
+		width: 100%;
+		height: 12px;
+		// border-radius: 2px;
+		background: linear-gradient(to right, #9200b9 8%, #6c23c0 75%, #5600c7);
+		opacity: 0.5;
+	}
+	// .report-select__month::after {
+	// 			content: '';
 	// 	display: block;
-	// 	width: 2rem;
-	// 	border-bottom: 2px solid black;
-	// 	margin: 0 auto;
+	// 	width: 100%;
+	// 	border-bottom: 5px solid black;
 	// }
+	.report-select__prev,
+	.report-select__next {
+		font-size: 1.5rem;
+		border: 0;
+		outline: 0;
+		background: none;
+		color: #adb5bd;
+		cursor: pointer;
+		font-weight: 800;
+	}
+	.report-select__prev {
+		margin-right: 1.5rem;
+	}
+	.report-select__next {
+		margin-left: 1.5rem;
+	}
 }
 .line-container {
 	box-sizing: border-box;

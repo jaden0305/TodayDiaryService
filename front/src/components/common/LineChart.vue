@@ -57,7 +57,7 @@ export default {
 						gridLines: { display: true },
 					},
 				],
-				xAxes: [{ gridLines: { display: true } }],
+				xAxes: [{ gridLines: { display: false } }],
 			},
 			legend: { display: true },
 			responsive: false,
