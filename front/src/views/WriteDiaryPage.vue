@@ -6,6 +6,7 @@
 					id="diary-header__title"
 					placeholder="오늘 하루, 한 줄로 말해주세요:)"
 					type="text"
+					v-model="diaryData.title"
 				/>
 				<img
 					src="@/assets/images/menu.svg"
@@ -67,9 +68,12 @@
 					name="diary-content"
 					class="diary-text__content"
 					rows="6"
+					v-model="diaryData.content"
 				></textarea>
 			</div>
-			<button class="diary-complete-btn">오늘 하루 기록할게요</button>
+			<button class="diary-complete-btn" @click="onSaveDiary">
+				오늘 하루 기록할게요
+			</button>
 		</div>
 	</section>
 </template>
@@ -79,6 +83,7 @@ import bus from '@/utils/bus';
 import ToastMusic from '@/components/modal/ToastMusic.vue';
 import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
+import { createDiary } from '@/api/diary';
 export default {
 	data() {
 		return {
@@ -88,6 +93,19 @@ export default {
 			openMusic: false,
 			openSticker: false,
 			openTheme: false,
+			diaryData: {
+				image: null,
+				title: null,
+				content: null,
+				fontsize: 14,
+				music_name: null,
+				music_artist: null,
+				postcolor: 1,
+				font: 1,
+				pattern: 1,
+				emotion: 1,
+				created: '2020-10-27',
+			},
 		};
 	},
 	components: {
@@ -99,6 +117,7 @@ export default {
 		onChangeDiaryImage() {
 			this.diaryImage = this.$refs.inputImage.files[0];
 			this.diaryImageUrl = URL.createObjectURL(this.diaryImage);
+			this.diaryData.image = this.$refs.inputImage.files[0];
 			this.diaryImageFile = false;
 		},
 		onOpenMenu() {
@@ -125,6 +144,14 @@ export default {
 			this.openSticker = false;
 			this.openTheme = true;
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
+		},
+		async onSaveDiary() {
+			try {
+				await createDiary(this.diaryData);
+			} catch (error) {
+				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
+				console.log(error.response);
+			}
 		},
 	},
 };
