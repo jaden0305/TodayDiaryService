@@ -1,5 +1,7 @@
 
 settings.json
+media/
+
 # Created by https://www.toptal.com/developers/gitignore/api/django,python,visualstudiocode,windows,macos,venv
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,visualstudiocode,windows,macos,venv
 
