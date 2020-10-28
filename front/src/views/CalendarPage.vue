@@ -335,7 +335,7 @@ export default {};
 }
 .calendar-header {
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	text-align: center;
 	padding-top: 1rem;
@@ -364,6 +364,7 @@ export default {};
 	.calendar-header__prev {
 		align-self: flex-end;
 		margin-right: 3.5rem;
+		margin-bottom: -10px;
 		font-weight: 600;
 		font-size: 0.8rem;
 		border: 0;
@@ -380,6 +381,7 @@ export default {};
 	.calendar-header__next {
 		align-self: flex-end;
 		margin-left: 3.5rem;
+		margin-bottom: -10px;
 		font-weight: 600;
 		font-size: 0.8rem;
 		border: 0;
