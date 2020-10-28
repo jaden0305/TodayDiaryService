@@ -70,7 +70,6 @@ class TextAnalysis:
         delight.discard('보')
         delight.discard('좋')
         delight.discard('재미있')
-        print(delight)
         cls.delight = delight
         return delight
     @classmethod
@@ -218,7 +217,11 @@ class TextAnalysis:
                 elif word in self.get_angry():
                     feel['angry'] = feel.get('angry',0) + 1
                 elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 1    
+                    feel['sad'] = feel.get('sad',0) + 1
+            elif word in self.get_boring():
+                feel['boring'] = feel.get('boring', 0) + 1
+            elif word in self.get_surprise():
+                feel['surprise'] = feel.get('surprise', 0) + 1    
             elif word in self.get_pos():
                 score += 1
                 cnt += 1
@@ -227,6 +230,12 @@ class TextAnalysis:
                 score -= 1
                 cnt += 1
                 n.append(word)
+
+        print('p', p)
+        print('n', n)
+
+        if cnt == 0:
+            return cnt, feel
         return score/cnt, feel
     def text_analysis(self):
         # 일일 감정점수
