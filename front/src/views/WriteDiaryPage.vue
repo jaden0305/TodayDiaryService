@@ -163,6 +163,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+
 	.diary-header {
 		width: 100%;
 		display: flex;

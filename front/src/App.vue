@@ -1,6 +1,12 @@
 <template>
 	<div id="app">
-		<header><img src="@/assets/images/logo3.png" alt="오늘하루로고" /></header>
+		<header>
+			<img
+				:class="[NoneLogo ? 'hidden-logo' : 'display-logo']"
+				src="@/assets/images/logo3.png"
+				alt="오늘하루로고"
+			/>
+		</header>
 		<main class="container">
 			<router-view> </router-view>
 		</main>
@@ -8,7 +14,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+	computed: {
+		NoneLogo() {
+			return this.$route.name === 'calendar' || this.$route.name === 'report';
+		},
+	},
+};
 </script>
 
 <style lang="scss">
@@ -25,9 +37,12 @@ export default {};
 	header {
 		display: flex;
 		justify-content: center;
-		padding: 18px 0 25px;
-		img {
+		.display-logo {
+			margin: 18px 0 25px;
 			width: 150px;
+		}
+		.hidden-logo {
+			display: none;
 		}
 	}
 }
