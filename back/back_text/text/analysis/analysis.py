@@ -83,7 +83,7 @@ class TextAnalysis:
         delight.discard('보')
         delight.discard('좋')
         delight.discard('재미있')
-        print(delight)
+        # print(delight)
         cls.delight = delight
         return delight
 
@@ -225,12 +225,12 @@ class TextAnalysis:
             if word in self.get_delight():
                 score += 2
                 cnt += 2
-                print('d',word)
+                # print('d',word)
                 feel['delight'] = feel.get('delight',0) + 1    
             elif word in self.get_happy():
                 score += 3
                 cnt += 3
-                print('h',word)
+                # print('h',word)
                 feel['happy'] = feel.get('happy',0) + 1    
             elif word in self.get_minus2():
                 score -= 2
@@ -280,7 +280,7 @@ class TextAnalysis:
         return {
             "score": score,
             "feel": sorted_feel,
-            "word_cound": word_count
+            "word_count": word_count
         }
 
 if __name__ == "__main__":
@@ -294,8 +294,4 @@ if __name__ == "__main__":
 좋은 몸매 만들어서 모쏠을 탈줄 해야되겠다...ㅎㅇㅌ
 '''
     a = TextAnalysis(text)
-    a.text_analysis()
-    a.text_analysis()
-    a.text_analysis()
-    a.text_analysis()
     a.text_analysis()
