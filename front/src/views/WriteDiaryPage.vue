@@ -147,7 +147,8 @@ export default {
 		},
 		async onSaveDiary() {
 			try {
-				await createDiary(this.diaryData);
+				const { data } = await createDiary(this.diaryData);
+				console.log(data);
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
@@ -162,6 +163,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+
 	.diary-header {
 		width: 100%;
 		display: flex;
