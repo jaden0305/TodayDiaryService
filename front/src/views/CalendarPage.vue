@@ -335,7 +335,7 @@ export default {};
 }
 .calendar-header {
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	text-align: center;
 	padding-top: 1rem;
@@ -364,6 +364,7 @@ export default {};
 	.calendar-header__prev {
 		align-self: flex-end;
 		margin-right: 3.5rem;
+		margin-bottom: -10px;
 		font-weight: 600;
 		font-size: 0.8rem;
 		border: 0;
@@ -380,6 +381,7 @@ export default {};
 	.calendar-header__next {
 		align-self: flex-end;
 		margin-left: 3.5rem;
+		margin-bottom: -10px;
 		font-weight: 600;
 		font-size: 0.8rem;
 		border: 0;
@@ -402,14 +404,14 @@ export default {};
 	color: #495057;
 	margin-top: 1.5rem;
 	margin-bottom: 0.5rem;
-	.calendar-weekday:nth-child(1) {
-		// border-top-left-radius: 8px;
-		// border-bottom-left-radius: 8px;
-	}
-	.calendar-weekday:nth-last-child(1) {
-		// border-top-right-radius: 8px;
-		// border-bottom-right-radius: 8px;
-	}
+	/* .calendar-weekday:nth-child(1) { */
+	// border-top-left-radius: 8px;
+	// border-bottom-left-radius: 8px;
+	/* } */
+	/* .calendar-weekday:nth-last-child(1) { */
+	// border-top-right-radius: 8px;
+	// border-bottom-right-radius: 8px;
+	/* } */
 	.calendar-weekday {
 		padding-top: 10px;
 		padding-bottom: 10px;
