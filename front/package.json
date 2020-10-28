@@ -16,6 +16,7 @@
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
     "vue-cookies": "^1.7.4",
+    "vue-kakao-login": "^1.0.5",
     "vue-router": "^3.2.0",
     "vue-styled-components": "^1.5.1",
     "vuewordcloud": "^18.7.12",
