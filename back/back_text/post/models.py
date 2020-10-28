@@ -13,46 +13,41 @@ def upload_location(instance, filename):
 
 class PostColor(models.Model):
     value = models.CharField(max_length=100)
-
-    @classmethod
-    def make(cls):
-        PostColor.objects.create(value='test')
+    class Meta:
+        db_table = 'post_postcolor'
 
 
 class PostFont(models.Model):
     name = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
-    @classmethod
-    def make(cls):
-        font_list = ['Gaegu', 'Nanum Gothic', 'Nanum Myeongjo', 'Nanum Pen Script', 'Poor Story']
-        for font in font_list:
-            PostFont.objects.create(name=font, path='')
-        
+    class Meta:
+        db_table = 'post_postfont'
+
 
 class Pattern(models.Model):
     path = models.CharField(max_length=100)
-
-    @classmethod
-    def make(cls):
-        Pattern.objects.create(path='test')
+    class Meta:
+        db_table = 'post_pattern'
 
 
 class Emotion(models.Model):
     name = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
-
-    @classmethod
-    def make(cls):
-        Emotion.objects.create(name='test', path='test')
+    class Meta:
+        db_table = 'post_emotion'
 
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
+    class Meta:
+        db_table = 'post_tag'
 
 
 class Sticker(models.Model):
     path = models.CharField(max_length=100)
     tags = models.ManyToManyField(Tag, related_name="stickers")
+    class Meta:
+        db_table = 'post_sticker'
 
 
 class Post(models.Model):
@@ -68,6 +63,8 @@ class Post(models.Model):
     music_artist = models.TextField(blank=True, null=True)
     created = models.DateField()
     image = models.ImageField(blank=True, null=True, upload_to=upload_location)
+    class Meta:
+        db_table = 'post_post'
 
 
 class PostSticker(models.Model):
@@ -77,3 +74,5 @@ class PostSticker(models.Model):
     deg = models.IntegerField()
     top = models.IntegerField()
     left = models.IntegerField()
+    class Meta:
+        db_table = 'post_poststicker'

@@ -34,6 +34,7 @@ class CreateDiary(APIView):
             # music = emotion 통한 추천
             p = serializer.save(user=request.user)
             post = Post.objects.get(pk=p.id)
+            # 로그인 로직 구현 후 user=request.user로 변경
             return Response(ReadPostSerializer(instance=post,).data, status=status.HTTP_201_CREATED)
 
 
@@ -72,11 +73,3 @@ class diary(APIView):
         }
 
         return Response(msg, status=status.HTTP_200_OK)
-
-
-@swagger_auto_schema()
-@api_view(['GET'])
-def get_fonts(request):
-    fonts = PostFont.objects.all()
-    serializer = PostFontSerializer(instance=fonts, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
