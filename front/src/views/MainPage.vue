@@ -78,9 +78,9 @@ export default {
 	align-items: center;
 	justify-content: space-around;
 	.main-title {
-		margin-top: -3rem;
+		margin-top: -5.5rem;
 		font-size: 1.1rem;
-		font-weight: 600;
+		// font-weight: 600;
 		@media (max-width: 300px) {
 			margin-top: -5rem;
 			font-size: 1rem;

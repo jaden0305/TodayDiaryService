@@ -17,7 +17,11 @@
 export default {
 	computed: {
 		NoneLogo() {
-			return this.$route.name === 'calendar' || this.$route.name === 'report';
+			return (
+				this.$route.name === 'main' ||
+				this.$route.name === 'calendar' ||
+				this.$route.name === 'report'
+			);
 		},
 	},
 };
