@@ -404,14 +404,14 @@ export default {};
 	color: #495057;
 	margin-top: 1.5rem;
 	margin-bottom: 0.5rem;
-	.calendar-weekday:nth-child(1) {
-		// border-top-left-radius: 8px;
-		// border-bottom-left-radius: 8px;
-	}
-	.calendar-weekday:nth-last-child(1) {
-		// border-top-right-radius: 8px;
-		// border-bottom-right-radius: 8px;
-	}
+	/* .calendar-weekday:nth-child(1) { */
+	// border-top-left-radius: 8px;
+	// border-bottom-left-radius: 8px;
+	/* } */
+	/* .calendar-weekday:nth-last-child(1) { */
+	// border-top-right-radius: 8px;
+	// border-bottom-right-radius: 8px;
+	/* } */
 	.calendar-weekday {
 		padding-top: 10px;
 		padding-bottom: 10px;
