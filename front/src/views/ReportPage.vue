@@ -1,22 +1,44 @@
 <template>
 	<div class="report-wrap">
 		<div class="report-btnbox">
-			<button @click="selectChart(0)" class="report-btn">전체</button>
-			<button @click="selectChart(1)" class="report-btn select">
+			<button
+				@click="
+					selectChart(0);
+					onDisplayNone();
+				"
+				class="report-btn"
+			>
+				전체
+			</button>
+			<button
+				@click="
+					selectChart(1);
+					onDisplay();
+				"
+				class="report-btn select"
+			>
 				주별
 			</button>
-			<button @click="selectChart(2)" class="report-btn">월별</button>
+			<button
+				@click="
+					selectChart(2);
+					onDisplay();
+				"
+				class="report-btn"
+			>
+				월별
+			</button>
 		</div>
 		<div class="report-selectbox">
 			<button class="report-select__prev">
-				<i class="icon ion-ios-arrow-back"></i>
+				이전달
 			</button>
 			<div class="report-select">
-				<span class="report-select__month">10월</span>
+				<span class="report-select__month">시월</span>
 				<span class="report-select__span"></span>
 			</div>
 			<button class="report-select__next">
-				<i class="icon ion-ios-arrow-forward"></i>
+				다음달
 			</button>
 		</div>
 		<div class="report-wordcloud">
@@ -76,6 +98,18 @@ export default {
 			selected.classList.remove('select');
 			charts[num].classList.add('select');
 		},
+		onDisplay() {
+			const selectBox = document.querySelector('.report-selectbox');
+			if (selectBox.classList.contains('display-none')) {
+				selectBox.classList.remove('display-none');
+			}
+		},
+		onDisplayNone() {
+			const selectBox = document.querySelector('.report-selectbox');
+			if (!selectBox.classList.contains('display-none')) {
+				selectBox.classList.add('display-none');
+			}
+		},
 	},
 };
 </script>
@@ -102,25 +136,31 @@ export default {
 	.report-wordcloud {
 		width: 100%;
 		height: 50%;
-		border-radius: 0.5rem;
 		padding: 1rem;
-		background: white;
-		box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3);
+		border-radius: 1rem;
+		background: #f0f0f0;
+		box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
+		/* border-radius: 0.5rem; */
+		/* background: white; */
+		/* box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3); */
 		margin-bottom: 1rem;
 	}
 	.report-chart {
 		width: 100%;
 		height: 50%;
-		border-radius: 0.5rem;
 		padding: 1rem;
+		border-radius: 1rem;
+		background: #f0f0f0;
+		box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
+		/* border-radius: 0.5rem;
 		background: white;
-		box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3);
+		box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3); */
 	}
 	.report-title::after {
 		content: '';
 		display: block;
 		width: 100%;
-		border-bottom: 2px solid #e9ecef;
+		border-bottom: 2px solid #d3d6d8;
 		margin: 16px 0 10px 0;
 	}
 	.report-title {
@@ -140,12 +180,17 @@ export default {
 		border: none;
 		background: none;
 		color: #868e96;
-		font-size: 1rem;
+		font-size: 0.8rem;
 		font-weight: 800;
+		padding: 0.75rem;
 		margin: 0 auto 0.5rem;
 	}
 	.select {
 		color: #343a40;
+		border-radius: 1rem;
+		padding: 0.75rem;
+		background: linear-gradient(145deg, #d8d8d8, #ffffff);
+		box-shadow: 5px 5px 10px #b4b4b4, -5px -5px 10px #ffffff;
 	}
 	.select:after {
 		content: '';
@@ -155,9 +200,13 @@ export default {
 		margin: 0 auto;
 	}
 }
+.display-none {
+	display: none !important;
+}
 .report-selectbox {
+	width: 100%;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	text-align: center;
 	margin-bottom: 1.5rem;
@@ -180,21 +229,37 @@ export default {
 		opacity: 0.5;
 	}
 
-	.report-select__prev,
-	.report-select__next {
-		font-size: 1.5rem;
+	.report-select__prev {
+		align-self: flex-end;
+		margin-right: 3.5rem;
+		margin-bottom: -10px;
+		font-weight: 600;
+		font-size: 0.8rem;
 		border: 0;
 		outline: 0;
+		color: #868e96;
 		background: none;
-		color: #adb5bd;
 		cursor: pointer;
-		font-weight: 800;
-	}
-	.report-select__prev {
-		margin-right: 1.5rem;
+		@media (max-width: 300px) {
+			margin-right: 3rem;
+			font-size: 0.6rem;
+		}
 	}
 	.report-select__next {
-		margin-left: 1.5rem;
+		align-self: flex-end;
+		margin-left: 3.5rem;
+		margin-bottom: -10px;
+		font-weight: 600;
+		font-size: 0.8rem;
+		border: 0;
+		outline: 0;
+		color: #868e96;
+		background: none;
+		cursor: pointer;
+		@media (max-width: 300px) {
+			margin-left: 3rem;
+			font-size: 0.6rem;
+		}
 	}
 }
 .line-container {
