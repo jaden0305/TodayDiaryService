@@ -176,16 +176,10 @@ export default {
 		left: 0;
 		width: 100%;
 		height: 12px;
-		// border-radius: 2px;
 		background: linear-gradient(to right, #9200b9 8%, #6c23c0 75%, #5600c7);
 		opacity: 0.5;
 	}
-	// .report-select__month::after {
-	// 			content: '';
-	// 	display: block;
-	// 	width: 100%;
-	// 	border-bottom: 5px solid black;
-	// }
+
 	.report-select__prev,
 	.report-select__next {
 		font-size: 1.5rem;
