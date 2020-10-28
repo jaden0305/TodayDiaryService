@@ -15,6 +15,15 @@
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+                    
+      if(!Kakao.isInitialized()){
+        Kakao.init('276bd42290c563afacc1c37b2406505a');
+      }
+    
+</script>
     <!-- built files will be auto injected -->
   </body>
 </html>
+
