@@ -4,6 +4,11 @@ Vue.use(VueRouter);
 
 const routes = [
 	{
+		path: '',
+		name: 'main',
+		component: () => import('@/views/MainPage'),
+	},
+	{
 		path: '/calendar',
 		name: 'calendar',
 		component: () => import('@/views/CalendarPage.vue'),
