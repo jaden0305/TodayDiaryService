@@ -53,7 +53,7 @@ export default {
 
 <style lang="scss">
 .toast {
-	width: 98%;
+	width: 85%;
 	height: 550px;
 	display: flex;
 	justify-content: center;
@@ -63,9 +63,9 @@ export default {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	color: #646464;
-	background-color: #ffffff;
-	box-shadow: 0 0 15px rgba(53, 53, 53, 0.5);
-	border-radius: 4px;
+	border-radius: 1rem;
+	background: #f0f0f0;
+	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	z-index: 100;
 	.toast-wrap {
 		width: 90%;
@@ -75,14 +75,17 @@ export default {
 			position: relative;
 			.toast-search__input {
 				width: 90%;
+				padding: 5px 10px;
 				font-size: 14px;
 				line-height: 2.3;
 				border: none;
-				border-bottom: 1px solid rgba(151, 151, 151, 0.5);
+				border-radius: 5px;
+				background: #f0f0f0;
+				box-shadow: inset 5px 5px 5px #d3d3d3, inset -5px -5px 5px #ffffff;
 			}
 			.toast-search__btn {
 				position: absolute;
-				top: 5px;
+				top: 12px;
 				right: 20px;
 				border: none;
 				background: none;
