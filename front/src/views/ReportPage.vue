@@ -136,6 +136,7 @@ export default {
 	.report-content {
 		margin-top: 1rem;
 		width: 100%;
+		height: 100%;
 		box-sizing: border-box;
 		padding: 1rem;
 	}
@@ -194,7 +195,7 @@ export default {
 		font-size: 0.8rem;
 		font-weight: 800;
 		padding: 0.75rem;
-		margin: 0 auto 0.5rem;
+		margin: 0.25rem auto;
 	}
 	.select {
 		color: #343a40;
