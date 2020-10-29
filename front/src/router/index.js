@@ -25,6 +25,11 @@ const routes = [
 		component: () => import('@/views/ReadDiaryPage.vue'),
 	},
 	{
+		path: '/saveDiary',
+		name: 'saveDiary',
+		component: () => import('@/views/CompleteDiaryPage.vue'),
+	},
+	{
 		path: '/report',
 		name: 'report',
 		component: () => import('@/views/ReportPage'),
