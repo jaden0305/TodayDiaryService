@@ -32,15 +32,14 @@ class CreateDiary(APIView):
             'date': date,
             'post_id': post_id,
         }
-        url = f'http://localhost:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
+        url = f'http://192.168.0.102:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
         print(url)
-        print(user)
-        print(requests.get('http://localhost:8001/post/fonts'))
-        # response = requests.post(url, data=payload)
-        # print((response))
-        print(3)
-        return 0
-        return response
+        response = requests.post(url, data=payload)
+        print(type(json.loads(response.text)
+))
+        return json.loads(response.text)
+
+
         
     # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
@@ -50,18 +49,20 @@ class CreateDiary(APIView):
         if serializer.is_valid(raise_exception=True):
             # emotion = AI 분석
             # music = emotion 통한 추천
-            print(request.user)
             p = serializer.save(user=request.user)
 
             print(request.data)
             text = request.data['content']
             date = request.data['created']
-            print(1)
-            response = self.analyze(request.user, text, date, p.id)
-            print(response)
-            print(4)
-            emotion = 0
-            emotion = None
+            # print(text, date)
+            try:
+                print(request.user, text, date, p.id)
+                response = self.analyze(request.user.id, text, date, p.id)
+                print(response)
+                emotion = 0
+            except:
+                print(222)
+                emotion = None
 
 
             stickers = json.loads(request.data.get('stickers','[]'))
