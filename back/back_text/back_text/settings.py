@@ -31,7 +31,7 @@ with open(os.path.join(os.path.dirname(BASE_DIR),'settings.json'), 'r') as f:
 SECRET_KEY = setting["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -67,10 +67,6 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
-
-# cors
-
-CORS_ORIGIN_ALLOW_ALL = True
 
 # authentication settings
 REST_USE_JWT = True
@@ -185,9 +181,16 @@ WSGI_APPLICATION = "back_text.wsgi.application"
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(os.path.dirname(BASE_DIR), "db.sqlite3"),
+    'default': {
+        'ENGINE': setting['DATABASE_ENGINE'],
+        'NAME': setting['DATABASE_NAME'],
+        'USER': setting['DATABASE_USER'],
+        'PASSWORD': setting['DATABASE_PASSWORD'],
+        'DATABASE_HOST': setting['DATABASE_HOST'],
+        'DATABASE_PORT': setting['DATABASE_PORT'],
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        }
     }
 }
 
@@ -236,3 +239,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = "accounts.User"
 
+
+if DEBUG:
+    CORS_ORIGIN_ALLOW_ALL = True
+    CORS_ALLOW_ALL_ORIGINS = True
+    ALLOWED_HOSTS = ['*']
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(os.path.dirname(BASE_DIR), "db.sqlite3"),
+        }
+    }
+    
