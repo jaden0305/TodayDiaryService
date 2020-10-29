@@ -8,6 +8,11 @@ import pandas as pd
 # import re
 # import collections
 
+import os
+
+from django.conf import settings
+
+
 class TextAnalysis:
 
     mecab = Mecab()

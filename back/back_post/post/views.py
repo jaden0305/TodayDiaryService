@@ -22,9 +22,10 @@ class CreateDiary(APIView):
     permission_classes = (AllowAny, )
 
     TEXT_ANALYZER_PORT = 8002
-    TEXT_ANALYZER_REQUEST_PATH = '/text/??'
+    TEXT_ANALYZER_REQUEST_PATH = '/text/'
 
     def analyze(self, user, text, date, post_id):
+        print(2)
         payload = {
             'user': user,
             'text': text,
@@ -32,8 +33,13 @@ class CreateDiary(APIView):
             'post_id': post_id,
         }
         url = f'http://localhost:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
-        response = requests.post(url, data=payload)
-        print(type(response))
+        print(url)
+        print(user)
+        print(requests.get('http://localhost:8001/post/fonts'))
+        # response = requests.post(url, data=payload)
+        # print((response))
+        print(3)
+        return 0
         return response
         
     # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
@@ -44,15 +50,18 @@ class CreateDiary(APIView):
         if serializer.is_valid(raise_exception=True):
             # emotion = AI 분석
             # music = emotion 통한 추천
-            p = serializer.save(user=request.user, emotion=emotion)
+            print(request.user)
+            p = serializer.save(user=request.user)
 
+            print(request.data)
             text = request.data['content']
-            date = request.data['date']
-            try:
-                response = self.analyze(request.user, text, date, p.id)
-                emotion = 0
-            except:
-                emotion = None
+            date = request.data['created']
+            print(1)
+            response = self.analyze(request.user, text, date, p.id)
+            print(response)
+            print(4)
+            emotion = 0
+            emotion = None
 
 
             stickers = json.loads(request.data.get('stickers','[]'))
