@@ -1,63 +1,67 @@
 <template>
 	<div class="report-wrap">
-		<div class="report-btnbox">
-			<button
-				@click="
-					selectChart(0);
-					onDisplayNone();
-				"
-				class="report-btn"
-			>
-				전체
-			</button>
-			<button
-				@click="
-					selectChart(1);
-					onDisplay();
-				"
-				class="report-btn select"
-			>
-				주별
-			</button>
-			<button
-				@click="
-					selectChart(2);
-					onDisplay();
-				"
-				class="report-btn"
-			>
-				월별
-			</button>
-		</div>
-		<div class="report-selectbox">
-			<button class="report-select__prev">
-				이전달
-			</button>
-			<div class="report-select">
-				<span class="report-select__month">시월</span>
-				<span class="report-select__span"></span>
+		<div class="report-header">
+			<div class="report-btnbox">
+				<button
+					@click="
+						selectChart(0);
+						onDisplayNone();
+					"
+					class="report-btn"
+				>
+					전체
+				</button>
+				<button
+					@click="
+						selectChart(1);
+						onDisplay();
+					"
+					class="report-btn select"
+				>
+					주별
+				</button>
+				<button
+					@click="
+						selectChart(2);
+						onDisplay();
+					"
+					class="report-btn"
+				>
+					월별
+				</button>
 			</div>
-			<button class="report-select__next">
-				다음달
-			</button>
 		</div>
-		<div class="report-wordcloud">
-			<span class="report-title">감정 사전</span>
-			<vue-word-cloud
-				style="height:35vh; border-radius: 8px;"
-				:words="words"
-				:color="
-					([, weight]) =>
-						weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'
-				"
-				:rotation="rotation"
-				font-family="Quicksand"
-				:spacing="parseInt(0.5)"
-			/>
-		</div>
-		<div class="report-chart">
-			<span class="report-title">감정 그래프</span>
-			<line-chart class="line-container" :chartData="chartData"></line-chart>
+		<div class="report-content">
+			<div class="report-selectbox">
+				<button class="report-select__prev">
+					이전달
+				</button>
+				<div class="report-select">
+					<span class="report-select__month">시월</span>
+					<span class="report-select__span"></span>
+				</div>
+				<button class="report-select__next">
+					다음달
+				</button>
+			</div>
+			<div class="report-wordcloud">
+				<span class="report-title">감정 사전</span>
+				<vue-word-cloud
+					style="height:35vh; border-radius: 8px;"
+					:words="words"
+					:color="
+						([, weight]) =>
+							weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'
+					"
+					:rotation="rotation"
+					font-family="Quicksand"
+					:spacing="parseInt(0.5)"
+				/>
+			</div>
+			<div class="report-chart">
+				<span class="report-title">감정 그래프</span>
+				<line-chart class="line-container" :chartData="chartData"></line-chart>
+			</div>
 		</div>
 	</div>
 </template>
@@ -115,37 +119,43 @@ export default {
 </script>
 
 <style lang="scss">
-:root {
-	--background: #005;
-	--primary: #88d5bf;
-	--secondary: #5d6bf8;
-	--third: #e27fcb;
-}
-
 .report-wrap {
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 100%;
-	min-height: 100vh;
 	height: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
-	padding: 1rem;
+	.report-header {
+		width: 100%;
+		background: #f0f0f0;
+		box-shadow: 5px 5px 10px #d8d8d8, -5px -5px 10px #ffffff;
+	}
+	.report-content {
+		margin-top: 1rem;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 1rem;
+	}
 	.report-wordcloud {
+		box-sizing: border-box;
+
 		width: 100%;
 		height: 50%;
-		padding: 1rem;
 		border-radius: 1rem;
 		background: #f0f0f0;
 		box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
+		padding: 1rem;
+
 		/* border-radius: 0.5rem; */
 		/* background: white; */
 		/* box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3); */
 		margin-bottom: 1rem;
 	}
 	.report-chart {
+		box-sizing: border-box;
 		width: 100%;
 		height: 50%;
 		padding: 1rem;
@@ -170,7 +180,8 @@ export default {
 	}
 }
 .report-btnbox {
-	margin-bottom: 1.5rem;
+	padding: 0.5rem;
+	box-sizing: border-box;
 	width: 100%;
 	display: flex;
 	justify-content: center;
