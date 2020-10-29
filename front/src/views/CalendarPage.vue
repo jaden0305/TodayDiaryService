@@ -324,13 +324,12 @@ export default {};
 <style lang="scss">
 .calendar-wrap {
 	max-width: 100%;
-	/* height: 70vh; */
 	height: 100%;
 	padding: 1rem;
 	.calendar-content {
-		border-radius: 10px;
-		background: rgb(249, 249, 249);
-		box-shadow: 5px 5px 80px -14px hsla(0, 0%, 70%, 0.4);
+		border-radius: 1rem;
+		background: #f0f0f0;
+		box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	}
 }
 .calendar-header {

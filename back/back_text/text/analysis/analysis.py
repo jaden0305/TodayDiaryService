@@ -15,7 +15,7 @@ from django.conf import settings
 
 class TextAnalysis:
 
-    mecab = Mecab('./NLP/mecab/mecab-ko-dic/')
+    mecab = Mecab(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'NLP', 'mecab', 'mecab-ko-dic'))
     tag = ['VCP', 'VCN', 'NNG', 'IC', 'MAG', 'VA', 'VV', 'XR']
     stopwords=['의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하','다','있']
     minus_discard_list = ['웃음', '남부럽', '탄복', '가슴', '기분', '개', '자식', '기집', '터지', '되', '오르', '만족', '속', '유쾌', '의심', '끼치', '치', '안정', '느끼']
@@ -50,7 +50,7 @@ class TextAnalysis:
     def get_pos(cls):
         if cls.pos:
             return cls.pos
-        pos = open('pos.txt', "r").read().split('\n')
+        pos = open('pos.txt', "r", encoding="cp949").read().split('\n')
         pos.pop()
 
         cls.pos = pos
@@ -60,7 +60,7 @@ class TextAnalysis:
     def get_neg(cls):
         if cls.neg:
             return cls.neg
-        neg = open('neg.txt', "r").read().split('\n')
+        neg = open('neg.txt', "r", encoding="cp949").read().split('\n')
         neg.pop()
 
         cls.neg = neg
