@@ -8,9 +8,14 @@ import pandas as pd
 # import re
 # import collections
 
+import os
+
+from django.conf import settings
+
+
 class TextAnalysis:
 
-    mecab = Mecab()
+    mecab = Mecab(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'NLP', 'mecab', 'mecab-ko-dic'))
     tag = ['VCP', 'VCN', 'NNG', 'IC', 'MAG', 'VA', 'VV', 'XR']
     stopwords=['의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하','다','있']
     minus_discard_list = ['웃음', '남부럽', '탄복', '가슴', '기분', '개', '자식', '기집', '터지', '되', '오르', '만족', '속', '유쾌', '의심', '끼치', '치', '안정', '느끼']

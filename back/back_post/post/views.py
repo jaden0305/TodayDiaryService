@@ -25,6 +25,7 @@ class CreateDiary(APIView):
     TEXT_ANALYZER_REQUEST_PATH = '/text/'
 
     def analyze(self, user, text, date, post_id):
+        print(2)
         payload = {
             'user': user,
             'text': text,
@@ -50,6 +51,7 @@ class CreateDiary(APIView):
             # music = emotion 통한 추천
             p = serializer.save(user=request.user)
 
+            print(request.data)
             text = request.data['content']
             date = request.data['created']
             # print(text, date)
