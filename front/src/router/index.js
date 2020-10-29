@@ -6,7 +6,7 @@ const routes = [
 	{
 		path: '',
 		name: 'main',
-		component: () => import('@/views/MainPage'),
+		component: () => import('@/views/MainPage.vue'),
 	},
 	{
 		path: '/calendar',
@@ -27,7 +27,12 @@ const routes = [
 	{
 		path: '/report',
 		name: 'report',
-		component: () => import('@/views/ReportPage'),
+		component: () => import('@/views/ReportPage.vue'),
+	},
+	{
+		path: '/music',
+		name: 'music',
+		component: () => import('@/views/MusicPlayerPage.vue'),
 	},
 ];
 
