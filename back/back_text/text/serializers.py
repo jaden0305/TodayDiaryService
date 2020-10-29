@@ -6,14 +6,14 @@ from .models import *
 class WordCloudReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = WordCloudReport
-        field = '__all__'
+        fields = '__all__'
 
 class MultipleEmotionSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyReport
-        include = ('emotions', 'date')
+        fields = ('emotions', 'date')
 
 class DailyReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyReport
-        include = ('score', 'emotion', 'date')
+        fields = ('score', 'emotion', 'date')

@@ -45,7 +45,7 @@ class TextAnalysis:
     def get_pos(cls):
         if cls.pos:
             return cls.pos
-        pos = open('pos.txt', "r").read().split('\n')
+        pos = open('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/pos.txt', "r").read().split('\n')
         pos.pop()
 
         cls.pos = pos
@@ -55,7 +55,7 @@ class TextAnalysis:
     def get_neg(cls):
         if cls.neg:
             return cls.neg
-        neg = open('neg.txt', "r").read().split('\n')
+        neg = open('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/neg.txt', "r").read().split('\n')
         neg.pop()
 
         cls.neg = neg
@@ -65,7 +65,7 @@ class TextAnalysis:
     def get_horror(cls):
         if cls.horror:
             return cls.horror
-        h = pd.read_csv('공포.txt', encoding='UTF-8', names=['word'], sep='\n')
+        h = pd.read_csv('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/horror.txt', encoding='UTF-8', names=['word'], sep='\n')
         horror = cls.decompose(cls.mecab.pos(' '.join(h.T.values[0])))
 
         for word in cls.minus_discard_list:
@@ -78,7 +78,7 @@ class TextAnalysis:
     def get_delight(cls):
         if cls.delight:
             return cls.delight
-        d = pd.read_csv('기쁨.txt', encoding='UTF-8', names=['word'], sep='\n')
+        d = pd.read_csv('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/delight.txt', encoding='UTF-8', names=['word'], sep='\n')
         delight = cls.decompose(cls.mecab.pos(' '.join(d.T.values[0])))
         delight.discard('보')
         delight.discard('좋')
@@ -91,7 +91,7 @@ class TextAnalysis:
     def get_surprise(cls):
         if cls.surprise:
             return cls.surprise
-        s = pd.read_csv('놀람.txt', encoding='UTF-8', names=['word'], sep='\n')
+        s = pd.read_csv('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/surprise.txt', encoding='UTF-8', names=['word'], sep='\n')
         surprise = cls.decompose(cls.mecab.pos(' '.join(s.T.values[0])))
         surprise.discard('금')
 
@@ -102,7 +102,7 @@ class TextAnalysis:
     def get_angry(cls):
         if cls.angry:
             return cls.angry
-        a = pd.read_csv('분노.txt', encoding='UTF-8', names=['word'], sep='\n')
+        a = pd.read_csv('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/angry.txt', encoding='UTF-8', names=['word'], sep='\n')
         angry = cls.decompose(cls.mecab.pos(' '.join(a.T.values[0])))
 
         for word in cls.minus_discard_list:
@@ -115,7 +115,7 @@ class TextAnalysis:
     def get_sad(cls):
         if cls.sad:
             return cls.sad
-        s = pd.read_csv('슬픔.txt', encoding='UTF-8', names=['word'], sep='\n')
+        s = pd.read_csv('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/sad.txt', encoding='UTF-8', names=['word'], sep='\n')
         sad = cls.decompose(cls.mecab.pos(' '.join(s.T.values[0])))
         sad.add('싫')
 
@@ -129,7 +129,7 @@ class TextAnalysis:
     def get_boring(cls):
         if cls.boring:
             return cls.boring
-        b = pd.read_csv('지루함.txt', encoding='UTF-8', names=['word'], sep='\n')
+        b = pd.read_csv('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/boring.txt', encoding='UTF-8', names=['word'], sep='\n')
         boring = cls.decompose(cls.mecab.pos(' '.join(b.T.values[0])))
 
         cls.boring = boring
@@ -139,7 +139,7 @@ class TextAnalysis:
     def get_happy(cls):
         if cls.happy:
             return cls.happy
-        h = pd.read_csv('행복.txt', encoding='UTF-8', names=['word'], sep='\n')
+        h = pd.read_csv('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/happy.txt', encoding='UTF-8', names=['word'], sep='\n')
         happy = cls.decompose(cls.mecab.pos(' '.join(h.T.values[0])))
         happy.discard('기분')
         happy.discard('속')
@@ -151,7 +151,7 @@ class TextAnalysis:
     def get_minus2(cls):
         if cls.minus2:
             return cls.minus2
-        down2 = pd.read_csv('down2.txt', encoding='UTF-8', names=['word'], sep='\n')
+        down2 = pd.read_csv('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/down2.txt', encoding='UTF-8', names=['word'], sep='\n')
         minus2 = cls.decompose(cls.mecab.pos(' '.join(down2.T.values[0])))
 
         for word in cls.minus_discard_list:
@@ -164,7 +164,7 @@ class TextAnalysis:
     def get_minus3(cls):
         if cls.minus3:
             return cls.minus3
-        down3 = pd.read_csv('down3.txt', encoding='UTF-8', names=['word'], sep='\n')
+        down3 = pd.read_csv('C:/Users/multicampus/Desktop/sub2/back/back_text/text/analysis/down3.txt', encoding='UTF-8', names=['word'], sep='\n')
         minus3 = cls.decompose(cls.mecab.pos(' '.join(down3.T.values[0])))
         minus3.add('싫')
 
@@ -287,11 +287,6 @@ if __name__ == "__main__":
     text = '''
     오늘 나는 워킹과 연기를 처음으로 배워 보았다.
 지금 까지 모델 일 하면서 나는 거의 배울거 없다고 생각 했지만,아직 많이 있다는 것을 깨달았다.
-오늘은 워킹 연기 배우고 내일은 워킹 광고를 배우는데,지금 까지 워킹이 제일 힘들면서도 재미있었다.
-내가 지금 까지 자세가 안 좋아서 지금 어깨가 너무 아프다.내일 아침에 일어나면 더 아프겠지?
-
-그래도 선배님들을 보니까 다 키가 크시고 어깨가 엄청 넓다.나도 열심히만 하면 몸매가 좋아지지 않을까?
-좋은 몸매 만들어서 모쏠을 탈줄 해야되겠다...ㅎㅇㅌ
 '''
     a = TextAnalysis(text)
     a.text_analysis()

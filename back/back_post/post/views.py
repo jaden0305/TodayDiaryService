@@ -22,7 +22,7 @@ class CreateDiary(APIView):
     permission_classes = (AllowAny, )
 
     TEXT_ANALYZER_PORT = 8002
-    TEXT_ANALYZER_REQUEST_PATH = '/text/??'
+    TEXT_ANALYZER_REQUEST_PATH = '/text/'
 
     def analyze(self, user, text, date, post_id):
         payload = {
@@ -31,10 +31,14 @@ class CreateDiary(APIView):
             'date': date,
             'post_id': post_id,
         }
-        url = f'http://localhost:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
+        url = f'http://192.168.0.102:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
+        print(url)
         response = requests.post(url, data=payload)
-        print(type(response))
-        return response
+        print(type(json.loads(response.text)
+))
+        return json.loads(response.text)
+
+
         
     # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
@@ -44,14 +48,18 @@ class CreateDiary(APIView):
         if serializer.is_valid(raise_exception=True):
             # emotion = AI 분석
             # music = emotion 통한 추천
-            p = serializer.save(user=request.user, emotion=emotion)
+            p = serializer.save(user=request.user)
 
             text = request.data['content']
-            date = request.data['date']
+            date = request.data['created']
+            # print(text, date)
             try:
-                response = self.analyze(request.user, text, date, p.id)
+                print(request.user, text, date, p.id)
+                response = self.analyze(request.user.id, text, date, p.id)
+                print(response)
                 emotion = 0
             except:
+                print(222)
                 emotion = None
 
 
