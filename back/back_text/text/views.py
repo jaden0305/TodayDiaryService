@@ -17,7 +17,7 @@ def statistics(request):
     date = request.data['date']
     post_id = request.data['post_id']
 
-    post = POST.get_object_or_404(pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
 
     ta = TextAnalysis()
     result = ta.text_analysis(text)
@@ -48,7 +48,7 @@ def statistics(request):
             multiple_emotion_serializer.save()
         return Response(multiple_emotion_serializer.data, status=status.HTTP_201_CREATED)
 
-    emotion = Emotion.get_object_or_404(name=result['feel'][0][0])
+    emotion = get_object_or_404(Emotion, name=result['feel'][0][0])
 
     data = {
         'user': user,

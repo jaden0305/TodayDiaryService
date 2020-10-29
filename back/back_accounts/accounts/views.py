@@ -47,6 +47,12 @@ def check_email(request):
             'msg': msg
         }, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response({
-            'exist': User.objects.filter(email=email).exists(),
-        }, status=status.HTTP_200_OK)
+        is_exist = User.objects.filter(email=email).exists()
+        if is_exist:
+            return Response({
+                'exist': is_exist,
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                'exist': is_exist
+            }, status=status.HTTP_204_NO_CONTENT)
