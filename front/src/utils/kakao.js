@@ -31,12 +31,12 @@ let GetMe = async authObj => {
 			// alert('로그인 했어용....')
 			axios
 				.get(
-					`http://192.168.0.107:8000/accounts/check/email/?email=${req_body.email}`,
+					`${process.env.VUE_APP_AUTH_API_URL}accounts/check/email/?email=${req_body.email}`,
 				)
 				.then(res => {
 					if (res.data.exist) {
 						axios
-							.post('http://192.168.0.107:8000/accounts/login/', {
+							.post(`${process.env.VUE_APP_AUTH_API_URL}accounts/login/`, {
 								email: req_body.email,
 								password: req_body.email,
 							})
@@ -51,7 +51,7 @@ let GetMe = async authObj => {
 							});
 					} else {
 						axios
-							.post('http://192.168.0.107:8000/accounts/signup/', {
+							.post(`${process.env.VUE_APP_AUTH_API_URL}accounts/signup/`, {
 								email: req_body.email,
 								password1: req_body.email,
 								password2: req_body.email,
