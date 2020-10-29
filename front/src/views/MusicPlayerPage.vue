@@ -7,10 +7,10 @@
 						<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
 						<div
 							class="player-cover__item"
-							v-if="index === currentTrackIndex"
+							v-if="$index === currentTrackIndex"
 							:style="{ backgroundImage: `url(${track.cover})` }"
-							v-for="(track, index) in tracks"
-							:key="index"
+							v-for="(track, $index) in tracks"
+							:key="$index"
 						></div>
 					</transition-group>
 				</div>
@@ -44,10 +44,6 @@
 						</svg>
 					</div> -->
 					<div class="player-controls__item -xl js-play" @click="play">
-						<!-- <svg class="icon">
-							<use xlink:href="#icon-pause" v-if="isTimerPlaying"></use>
-							<use xlink:href="#icon-play" v-else></use>
-						</svg> -->
 						<i class="player-font icon ion-md-play" v-if="!isTimerPlaying"></i>
 						<div class="player-font" v-else>
 							<i class="icon ion-md-pause player-pause"></i>
@@ -332,7 +328,6 @@ export default {
 	align-items: center;
 	justify-content: center;
 	height: 100%;
-	// background: url(../img/bg.png) no-repeat center;
 	background-size: cover;
 	@media screen and (max-width: 700px), (max-height: 500px) {
 		flex-wrap: wrap;
@@ -344,9 +339,6 @@ export default {
 	background: #eef3f7;
 	width: 410px;
 	min-height: 480px;
-	// box-shadow: 0px 55px 75px -10px rgba(76, 70, 124, 0.5);
-	// box-shadow: 0px 55px 105px 10px rgba(76, 70, 124, 0.35);
-	/* box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32); */
 	background: #f0f0f0;
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	border-radius: 15px;
