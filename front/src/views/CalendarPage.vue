@@ -374,7 +374,6 @@ export default {};
 		cursor: pointer;
 		@media (max-width: 300px) {
 			margin-right: 3rem;
-
 			font-size: 0.6rem;
 		}
 	}
@@ -391,7 +390,6 @@ export default {};
 		cursor: pointer;
 		@media (max-width: 300px) {
 			margin-left: 3rem;
-
 			font-size: 0.6rem;
 		}
 	}

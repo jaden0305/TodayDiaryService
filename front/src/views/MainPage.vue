@@ -12,8 +12,8 @@
 			<KakaoLogin
 				:api-key="kakaoAPI"
 				image="kakao_account_login_btn_medium_wide"
-				:on-success="Success"
-				:on-failure="Failure"
+				:on-success="onSuccess"
+				:on-failure="onFailure"
 				style="cursor:pointer;"
 			/>
 		</div>
@@ -28,12 +28,8 @@ export default {
 		KakaoLogin,
 	},
 	methods: {
-		async Success(data) {
-			await onSuccess(data);
-		},
-		async Failure(data) {
-			await onFailure(data);
-		},
+		onSuccess,
+		onFailure,
 	},
 	computed: {
 		kakaoAPI() {
