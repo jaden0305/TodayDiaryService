@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div id="app" :class="[NoneLogo ? '' : 'app-bloack']">
 		<header>
 			<img
 				:class="[NoneLogo ? 'hidden-logo' : 'display-logo']"
@@ -39,10 +39,6 @@ export default {
 	min-width: 280px;
 	margin: 0 auto;
 	box-sizing: border-box;
-	border: 8px solid #f0f0f0;
-	border-radius: 15px;
-	background: #f0f0f0;
-	box-shadow: inset 7px 7px 12px #dfdfdf, inset -7px -7px 12px #ffffff;
 	header {
 		display: flex;
 		justify-content: center;
@@ -54,6 +50,12 @@ export default {
 			display: none;
 		}
 	}
+}
+.app-block {
+	border: 8px solid #f0f0f0;
+	border-radius: 15px;
+	background: #f0f0f0;
+	box-shadow: inset 7px 7px 12px #dfdfdf, inset -7px -7px 12px #ffffff;
 }
 .container {
 	flex: 1 1 auto;
