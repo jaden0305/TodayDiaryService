@@ -43,7 +43,8 @@ class Emotion(models.Model):
 
     @classmethod
     def make(cls):
-        Emotion.objects.create(name='test', path='test')
+        for name in ['happy', 'sad', 'delight', 'boring', 'angry', 'surprise', 'horror']:
+            Emotion.objects.create(name=name)
 
 
 class Tag(models.Model):
@@ -62,7 +63,7 @@ class Post(models.Model):
     postcolor = models.ForeignKey(PostColor, on_delete=models.CASCADE)
     font = models.ForeignKey(PostFont, on_delete=models.CASCADE)
     pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE)
-    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
+    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, blank=True, null=True)
     fontsize = models.IntegerField()
     music_name = models.TextField(blank=True, null=True)
     music_artist = models.TextField(blank=True, null=True)
