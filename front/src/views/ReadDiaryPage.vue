@@ -2,7 +2,7 @@
 	<section>
 		<div class="diary-wrap">
 			<div class="diary-header">
-				<p>{{ diaryData.title }}</p>
+				<p class="diary-header__dataTitle">{{ diaryData.title }}</p>
 				<img
 					src="@/assets/images/menu.svg"
 					class="diary-header__menu"
@@ -29,12 +29,16 @@
 			<div class="diary-image">
 				<img
 					class="diary-image__value"
-					src="@/assets/images/photos.svg"
+					src="@/assets/images/temp/1.jpg"
 					alt="일기사진"
 				/>
 			</div>
 			<div class="diary-text">
-				<p class="diary-text__content">{{ diaryData.content }}</p>
+				<textarea class="read-diary-text__content" rows="6" readonly>
+dfss{diaryData.content}ddsfs{diaryData.content}
+				{diaryData.content}{diaryData.content}
+				</textarea
+				>
 			</div>
 		</div>
 	</section>
@@ -76,11 +80,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .diary-wrap {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	padding: 18px;
 	.diary-header {
 		width: 100%;
 		display: flex;
@@ -88,6 +93,9 @@ export default {
 		margin: 10px 0;
 		position: relative;
 		overflow: hidden;
+		.diary-header__dataTitle {
+			margin-left: 10px;
+		}
 		.diary-header__menu {
 			width: 18px;
 		}
@@ -101,7 +109,7 @@ export default {
 			list-style-type: none;
 			li {
 				img {
-					width: 18px;
+					width: 16px;
 					margin: 0 6px;
 				}
 			}
@@ -110,6 +118,7 @@ export default {
 	.diary-image {
 		display: flex;
 		justify-content: center;
+		margin: 10px 0;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
 		.diary-image__value {
@@ -118,7 +127,7 @@ export default {
 	}
 	.diary-text {
 		margin-top: 10px;
-		.diary-text__content {
+		.read-diary-text__content {
 			width: 100%;
 			padding: 5px 10px;
 			line-height: 2;
@@ -127,15 +136,22 @@ export default {
 			border: none;
 			resize: none;
 			background-attachment: local;
-			background-image: linear-gradient(to right, white 10px, transparent 10px),
-				linear-gradient(to left, white 10px, transparent 10px),
+			background-image: linear-gradient(
+					to right,
+					#f0f0f0 10px,
+					transparent 10px
+				),
+				linear-gradient(to left, #f0f0f0 10px, transparent 10px),
 				repeating-linear-gradient(
-					white,
-					white 30px,
+					#f0f0f0,
+					#f0f0f0 30px,
 					#ccc 30px,
 					#ccc 31px,
-					white 31px
+					#f0f0f0 31px
 				);
+			&:focus {
+				outline: none;
+			}
 		}
 	}
 }
