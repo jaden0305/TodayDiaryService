@@ -69,6 +69,7 @@
 <script src="https://unpkg.com/chance@1.1.6/dist/chance.min.js"></script>
 <script>
 import LineChart from '@/components/common/LineChart.vue';
+import cookies from 'vue-cookies';
 export default {
 	components: { LineChart },
 	data() {
@@ -84,7 +85,7 @@ export default {
 				labels: ['01', '02', '03', '04', '05', '06', '07'],
 				chartData: [
 					{
-						label: '메리윌',
+						label: `${cookies.get('username')}`,
 						data: ['61', '7', '17', '63', '28', '99', '-70'],
 					},
 				],
