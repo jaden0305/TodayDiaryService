@@ -1,5 +1,5 @@
 <template>
-	<div id="app" :class="[NoneLogo ? 'app-none' : 'app-block']">
+	<div id="app" :class="[appNone ? 'app-none' : 'app-block']">
 		<header>
 			<img
 				:class="[NoneLogo ? 'hidden-logo' : 'display-logo']"
@@ -21,6 +21,14 @@ export default {
 				this.$route.name === 'main' ||
 				this.$route.name === 'calendar' ||
 				this.$route.name === 'report'
+			);
+		},
+		appNone() {
+			return (
+				this.$route.name === 'main' ||
+				this.$route.name === 'calendar' ||
+				this.$route.name === 'report' ||
+				this.$route.name === 'music'
 			);
 		},
 	},

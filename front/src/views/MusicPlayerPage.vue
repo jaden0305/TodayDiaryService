@@ -7,15 +7,15 @@
 						<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
 						<div
 							class="player-cover__item"
-							v-if="index === currentTrackIndex"
+							v-if="$index === currentTrackIndex"
 							:style="{ backgroundImage: `url(${track.cover})` }"
-							v-for="(track, index) in tracks"
-							:key="index"
+							v-for="(track, $index) in tracks"
+							:key="$index"
 						></div>
 					</transition-group>
 				</div>
 				<div class="player-controls">
-					<div
+					<!-- <div
 						class="player-controls__item -favorite"
 						:class="{ active: currentTrack.favorited }"
 						@click="favorite"
@@ -23,7 +23,7 @@
 						<svg class="icon">
 							<use xlink:href="#icon-heart-o"></use>
 						</svg>
-					</div>
+					</div> -->
 					<a
 						:href="currentTrack.url"
 						target="_blank"
@@ -33,7 +33,7 @@
 							<use xlink:href="#icon-link"></use>
 						</svg>
 					</a>
-					<div class="player-controls__item" @click="prevTrack">
+					<!-- <div class="player-controls__item" @click="prevTrack">
 						<svg class="icon">
 							<use xlink:href="#icon-prev"></use>
 						</svg>
@@ -42,12 +42,12 @@
 						<svg class="icon">
 							<use xlink:href="#icon-next"></use>
 						</svg>
-					</div>
+					</div> -->
 					<div class="player-controls__item -xl js-play" @click="play">
-						<svg class="icon">
-							<use xlink:href="#icon-pause" v-if="isTimerPlaying"></use>
-							<use xlink:href="#icon-play" v-else></use>
-						</svg>
+						<i class="player-font icon ion-md-play" v-if="!isTimerPlaying"></i>
+						<div class="player-font" v-else>
+							<i class="icon ion-md-pause player-pause"></i>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -65,21 +65,6 @@
 				<div class="progress__time">{{ currentTime }}</div>
 			</div>
 			<div v-cloak></div>
-			<symbol id="icon-pause" viewBox="0 0 32 32">
-				<title>icon-pause</title>
-				<path
-					d="M16 0.32c-8.64 0-15.68 7.040-15.68 15.68s7.040 15.68 15.68 15.68 15.68-7.040 15.68-15.68-7.040-15.68-15.68-15.68zM16 29.216c-7.296 0-13.216-5.92-13.216-13.216s5.92-13.216 13.216-13.216 13.216 5.92 13.216 13.216-5.92 13.216-13.216 13.216z"
-				></path>
-				<path
-					d="M16 32c-8.832 0-16-7.168-16-16s7.168-16 16-16 16 7.168 16 16-7.168 16-16 16zM16 0.672c-8.448 0-15.328 6.88-15.328 15.328s6.88 15.328 15.328 15.328c8.448 0 15.328-6.88 15.328-15.328s-6.88-15.328-15.328-15.328zM16 29.568c-7.488 0-13.568-6.080-13.568-13.568s6.080-13.568 13.568-13.568c7.488 0 13.568 6.080 13.568 13.568s-6.080 13.568-13.568 13.568zM16 3.104c-7.104 0-12.896 5.792-12.896 12.896s5.792 12.896 12.896 12.896c7.104 0 12.896-5.792 12.896-12.896s-5.792-12.896-12.896-12.896z"
-				></path>
-				<path
-					d="M12.16 22.336v0c-0.896 0-1.6-0.704-1.6-1.6v-9.472c0-0.896 0.704-1.6 1.6-1.6v0c0.896 0 1.6 0.704 1.6 1.6v9.504c0 0.864-0.704 1.568-1.6 1.568z"
-				></path>
-				<path
-					d="M19.84 22.336v0c-0.896 0-1.6-0.704-1.6-1.6v-9.472c0-0.896 0.704-1.6 1.6-1.6v0c0.896 0 1.6 0.704 1.6 1.6v9.504c0 0.864-0.704 1.568-1.6 1.568z"
-				></path>
-			</symbol>
 			<symbol id="icon-link" viewBox="0 0 32 32">
 				<title>link</title>
 				<path
@@ -90,21 +75,6 @@
 				></path>
 				<path
 					d="M15.040 21.888c0.16-0.16 0.288-0.288 0.448-0.448 0.384-0.384 0.8-0.8 1.184-1.184 0.608-0.608 1.184-1.184 1.792-1.792 0.704-0.704 1.44-1.44 2.176-2.176 0.8-0.8 1.568-1.568 2.368-2.368s1.6-1.6 2.4-2.4c0.736-0.736 1.504-1.504 2.24-2.24 0.64-0.64 1.248-1.248 1.888-1.888 0.448-0.448 0.896-0.896 1.344-1.344 0.224-0.224 0.448-0.416 0.64-0.64 0 0 0.032-0.032 0.032-0.032 0.32-0.32 0.48-0.768 0.48-1.184s-0.192-0.896-0.48-1.184c-0.32-0.288-0.736-0.512-1.184-0.48-0.512 0.032-0.928 0.16-1.248 0.48-0.16 0.16-0.288 0.288-0.448 0.448-0.384 0.384-0.8 0.8-1.184 1.184-0.608 0.608-1.184 1.184-1.792 1.792-0.704 0.704-1.44 1.44-2.176 2.176-0.8 0.8-1.568 1.568-2.368 2.368s-1.6 1.6-2.4 2.4c-0.736 0.736-1.504 1.504-2.24 2.24-0.64 0.64-1.248 1.248-1.888 1.888-0.448 0.448-0.896 0.896-1.344 1.344-0.224 0.224-0.448 0.416-0.64 0.64 0 0-0.032 0.032-0.032 0.032-0.32 0.32-0.48 0.768-0.48 1.184s0.192 0.896 0.48 1.184c0.32 0.288 0.736 0.512 1.184 0.48 0.48 0 0.928-0.16 1.248-0.48v0z"
-				></path>
-			</symbol>
-			<symbol id="icon-play" viewBox="0 0 32 32">
-				<title>icon-play</title>
-				<path
-					d="M21.216 15.168l-7.616-5.088c-0.672-0.416-1.504 0.032-1.504 0.832v10.176c0 0.8 0.896 1.248 1.504 0.832l7.616-5.088c0.576-0.416 0.576-1.248 0-1.664z"
-				></path>
-				<path
-					d="M13.056 22.4c-0.224 0-0.416-0.064-0.608-0.16-0.448-0.224-0.704-0.672-0.704-1.152v-10.176c0-0.48 0.256-0.928 0.672-1.152s0.928-0.224 1.344 0.064l7.616 5.088c0.384 0.256 0.608 0.672 0.608 1.088s-0.224 0.864-0.608 1.088l-7.616 5.088c-0.192 0.16-0.448 0.224-0.704 0.224zM13.056 10.272c-0.096 0-0.224 0.032-0.32 0.064-0.224 0.128-0.352 0.32-0.352 0.576v10.176c0 0.256 0.128 0.48 0.352 0.576 0.224 0.128 0.448 0.096 0.64-0.032l7.616-5.088c0.192-0.128 0.288-0.32 0.288-0.544s-0.096-0.416-0.288-0.544l-7.584-5.088c-0.096-0.064-0.224-0.096-0.352-0.096z"
-				></path>
-				<path
-					d="M16 0.32c-8.64 0-15.68 7.040-15.68 15.68s7.040 15.68 15.68 15.68 15.68-7.040 15.68-15.68-7.040-15.68-15.68-15.68zM16 29.216c-7.296 0-13.216-5.92-13.216-13.216s5.92-13.216 13.216-13.216 13.216 5.92 13.216 13.216-5.92 13.216-13.216 13.216z"
-				></path>
-				<path
-					d="M16 32c-8.832 0-16-7.168-16-16s7.168-16 16-16 16 7.168 16 16-7.168 16-16 16zM16 0.672c-8.448 0-15.328 6.88-15.328 15.328s6.88 15.328 15.328 15.328c8.448 0 15.328-6.88 15.328-15.328s-6.88-15.328-15.328-15.328zM16 29.568c-7.488 0-13.568-6.080-13.568-13.568s6.080-13.568 13.568-13.568c7.488 0 13.568 6.080 13.568 13.568s-6.080 13.568-13.568 13.568zM16 3.104c-7.104 0-12.896 5.792-12.896 12.896s5.792 12.896 12.896 12.896c7.104 0 12.896-5.792 12.896-12.896s-5.792-12.896-12.896-12.896z"
 				></path>
 			</symbol>
 		</div>
@@ -123,13 +93,13 @@ export default {
 			isTimerPlaying: false,
 			tracks: [
 				{
-					name: 'Mekanın Sahibi',
-					artist: 'Norm Ender',
+					name: '나랑 같이 걸을래',
+					artist: '적재',
 					cover:
-						'https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/1.jpg',
+						'https://search.pstatic.net/common/?src=http%3A%2F%2Fpost.phinf.naver.net%2FMjAyMDEwMjNfMjkw%2FMDAxNjAzNDM2MzIwNDQ4.gWspMWOC5ia0rDVhd5ueMhdUfMwnEbXFDyG7OcqjqC8g.Pw0CPN0tsn_sdGfamKRD_Mza-cBPFJZTpwI7YaZ4cxAg.JPEG%2FIDNhUC-xLwt43BTznlapw3dDJFBA.jpg&type=sc960_832',
 					source:
 						'https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/1.mp3',
-					url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
+					url: 'https://youtu.be/26YwXUcUf4I',
 					favorited: false,
 				},
 				{
@@ -358,7 +328,6 @@ export default {
 	align-items: center;
 	justify-content: center;
 	height: 100%;
-	// background: url(../img/bg.png) no-repeat center;
 	background-size: cover;
 	@media screen and (max-width: 700px), (max-height: 500px) {
 		flex-wrap: wrap;
@@ -370,9 +339,6 @@ export default {
 	background: #eef3f7;
 	width: 410px;
 	min-height: 480px;
-	// box-shadow: 0px 55px 75px -10px rgba(76, 70, 124, 0.5);
-	// box-shadow: 0px 55px 105px 10px rgba(76, 70, 124, 0.35);
-	/* box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32); */
 	background: #f0f0f0;
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	border-radius: 15px;
@@ -380,7 +346,6 @@ export default {
 	@media screen and (max-width: 576px), (max-height: 500px) {
 		width: 95%;
 		padding: 20px;
-		margin-top: 75px;
 		min-height: initial;
 		padding-bottom: 30px;
 		max-width: 400px;
@@ -396,36 +361,34 @@ export default {
 	}
 
 	&-cover {
-		width: 300px;
-		height: 300px;
-		margin-left: -70px;
+		margin-bottom: 25px;
+		width: 250px;
+		height: 250px;
+		margin-left: auto;
+		margin-right: auto;
 		flex-shrink: 0;
-		position: relative;
+		/* position: relative; */
 		z-index: 2;
 		border-radius: 15px;
 		// transform: perspective(512px) translate3d(0, 0, 0);
 		// transition: all .4s cubic-bezier(.125, .625, .125, .875);
 		z-index: 1;
 
-		@media screen and (max-width: 576px), (max-height: 500px) {
-			margin-top: -70px;
-			margin-bottom: 25px;
-			width: 290px;
-			height: 230px;
-			margin-left: auto;
-			margin-right: auto;
+		@media screen and (max-width: 340px) {
+			width: 200px;
+			height: 200px;
 		}
 
 		&__item {
-			background-repeat: no-repeat;
-			background-position: center;
-			background-size: cover;
+			background-repeat: no-repeat !important;
+			background-position: center !important;
+			background-size: cover !important;
 			width: 100%;
 			height: 100%;
 			border-radius: 15px;
-			position: absolute;
+			/* position: absolute;
 			left: 0;
-			top: 0;
+			top: 0; */
 			background: #f0f0f0;
 			box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 			/* &:before {
@@ -725,5 +688,30 @@ export default {
 	transform: scale(0.55);
 	pointer-events: none;
 	opacity: 0;
+}
+.player-font {
+	color: #71829e;
+	width: 4rem;
+	height: 4rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2.5rem;
+	border-radius: 16px;
+	background: #f0f0f0;
+	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
+}
+.ion-md-play:before {
+	padding: 0 0.2rem 0 0.5rem;
+}
+.player-pause {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1.8rem;
+	font-size: 2rem;
+	border-radius: 12px;
+	background: #f0f0f0;
+	box-shadow: inset 5px 5px 10px #d8d8d8, inset -5px -5px 10px #ffffff;
 }
 </style>
