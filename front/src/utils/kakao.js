@@ -30,6 +30,8 @@ let GetMe = async authObj => {
 			};
 			// social_login(req_body);
 			console.log(req_body);
+			cookies.set('username', req_body.name);
+
 			// alert('로그인 했어용....')
 			axios
 				.get(
@@ -48,10 +50,9 @@ let GetMe = async authObj => {
 								console.log(res.data);
 								store.commit('SETUSERINFO', {
 									token: res.data.token,
-									username: res.data.user.username,
+									username: cookies.get('username'),
 								});
 								cookies.set('auth-token', res.data.token);
-								cookies.set('username', res.data.user.username);
 								// console.log(res.data)
 							})
 							.catch(() => {
@@ -70,10 +71,9 @@ let GetMe = async authObj => {
 								console.log(res.data);
 								store.commit('SETUSERINFO', {
 									token: res.data.token,
-									username: res.data.user.username,
+									username: cookies.get('username'),
 								});
 								cookies.set('auth-token', res.data.token);
-								cookies.set('username', res.data.user.username);
 								// console.log(res + 'DB 저장')
 							})
 							.catch(err => {

@@ -3,7 +3,6 @@
 		<div class="calendar-content">
 			<div class="calendar-header">
 				<button class="calendar-header__prev">
-					<!-- <i class="icon ion-ios-arrow-back"></i> -->
 					이전달
 				</button>
 				<div class="calendar-header__box">
@@ -12,7 +11,6 @@
 				</div>
 
 				<button class="calendar-header__next">
-					<!-- <i class="icon ion-ios-arrow-forward"></i> -->
 					다음달
 				</button>
 			</div>
@@ -26,7 +24,31 @@
 				<span class="calendar-weekday saturday">토</span>
 			</div>
 			<div class="calendar-days">
-				<span class="calendar-day"
+				<span :key="day.day" v-for="day in preMonth" class="calendar-day">
+					<img
+						class="calendar-day emoticon"
+						src="@/assets/images/pencil-c.svg"
+						alt=""
+					/>
+					<p class="calendar-day__title">{{ day.day }}</p>
+				</span>
+				<span :key="day.day" v-for="day in nowMonth" class="calendar-day">
+					<img
+						class="calendar-day emoticon"
+						src="@/assets/images/pencil-c.svg"
+						alt=""
+					/>
+					<p class="calendar-day__title">{{ day.day }}</p>
+				</span>
+				<span :key="day.day" v-for="day in nextMonth" class="calendar-day">
+					<img
+						class="calendar-day emoticon"
+						src="@/assets/images/pencil-c.svg"
+						alt=""
+					/>
+					<p class="calendar-day__title">{{ day.day }}</p>
+				</span>
+				<!-- <span class="calendar-day"
 					><img
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
@@ -311,14 +333,52 @@
 					<p class="calendar-day__title">
 						7
 					</p></span
-				>
+				> -->
 			</div>
 		</div>
 	</section>
 </template>
 
 <script>
-export default {};
+import { fetchCalendar } from '@/api/calendar';
+import { refreshToken } from '@/api/auth';
+export default {
+	data() {
+		return {
+			year: null,
+			month: null,
+			preMonth: null,
+			nowMonth: null,
+			nextMonth: null,
+			token: null,
+		};
+	},
+	methods: {
+		async fetchMonth({ year, month }) {
+			try {
+				const { data } = await fetchCalendar({ year, month });
+				console.log(data);
+				this.preMonth = data[this.month - 1];
+				this.nowMonth = data[this.month];
+				this.nextMonth = data[this.month + 1];
+			} catch (error) {
+				console.log(error.response);
+			}
+		},
+		async refreshToken() {
+			const { data } = await refreshToken(this.$store.state.token);
+			console.log(data);
+			this.$cookies.set('auth-token', data.token);
+		},
+	},
+	created() {
+		// this.refreshToken();
+		const day = new Date();
+		this.month = day.getMonth() + 1;
+		this.year = day.getFullYear();
+		this.fetchMonth({ year: this.year, month: this.month });
+	},
+};
 </script>
 
 <style lang="scss">
