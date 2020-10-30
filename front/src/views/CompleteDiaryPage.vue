@@ -3,6 +3,9 @@
 		<div class="save-diary">
 			<p class="save-diary-comment">당신의 오늘 하루는</p>
 			<p class="save-diary-comment">행복이군요 :)</p>
+			<div class="save-diary-emotion">
+				<img src="@/assets/images/emotion/happy.png" alt="감정상태" />
+			</div>
 			<button class="save-diary-nextBtn">
 				다음으로
 				<span class="save-diary-nextBtn__span"></span>
@@ -25,13 +28,15 @@ export default {};
 	height: 80vh;
 	padding: 18px;
 	.save-diary {
-		margin-top: 80px;
+		margin-top: 8vh;
 		text-align: center;
 		.save-diary-comment {
 			margin-bottom: 13px;
 		}
+		.save-diary-emotion {
+			margin: 5vh;
+		}
 		.save-diary-nextBtn {
-			margin: 30px;
 			border: none;
 			background: none;
 			position: relative;
