@@ -1,11 +1,7 @@
 <template>
 	<div id="app" :class="[NoneLogo ? 'app-none' : 'app-block']">
 		<header>
-			<img
-				:class="[NoneLogo ? 'hidden-logo' : 'display-logo']"
-				src="@/assets/images/logo3.png"
-				alt="오늘하루로고"
-			/>
+			<h1 :class="[NoneLogo ? 'hidden-logo' : 'display-logo']">오늘 하루</h1>
 		</header>
 		<main class="container">
 			<router-view> </router-view>
@@ -30,9 +26,6 @@ export default {
 <style lang="scss">
 @import './assets/css/reset.css';
 #app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 	width: 100%;
 	min-height: 100vh;
 	max-width: 768px;
@@ -44,7 +37,8 @@ export default {
 		justify-content: center;
 		.display-logo {
 			margin: 18px 0 25px;
-			width: 150px;
+			font-family: 'pentastic';
+			font-size: 40px;
 		}
 		.hidden-logo {
 			display: none;
