@@ -102,29 +102,6 @@ SWAGGER_SETTINGS = {
 }
 
 
-SITE_ID = 1
-
-# authentication settings
-REST_USE_JWT = True
-
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-    ),
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
-}
-
 JWT_AUTH = {
     # If the secret is wrong, it will raise a jwt.DecodeError telling you as such. You can still get at the payload by setting the JWT_VERIFY to False.
     'JWT_VERIFY': True,
@@ -135,6 +112,8 @@ JWT_AUTH = {
     # Default is datetime.timedelta(seconds=300)(5 minutes).
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
     'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
