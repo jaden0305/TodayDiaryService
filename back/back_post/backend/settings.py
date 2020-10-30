@@ -31,7 +31,7 @@ with open(os.path.join(os.path.dirname(BASE_DIR),'settings.json'), 'r') as f:
 SECRET_KEY = setting["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = setting["DEBUG"]
 
 ALLOWED_HOSTS = ['*']
 
@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "accounts",
     "post",
     "post_calendar",
+    "text",
 ]
 
 SITE_ID = 1

@@ -19,7 +19,7 @@ User = get_user_model()
 @swagger_auto_schema()
 @api_view(['POST'])
 def statistics(request):
-    # print(request.data)
+    print(request.data)
 
     user = int(request.data['user'])
     text = request.data['text']
