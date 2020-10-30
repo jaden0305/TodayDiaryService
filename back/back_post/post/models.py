@@ -10,7 +10,6 @@ def upload_location(instance, filename):
     now = datetime.datetime.now()
     return f"{now.year}/{now.month}/{now.day}/{uuid4()}.{ext}"
 
-
 class PostColor(models.Model):
     value = models.CharField(max_length=100)
 
@@ -54,6 +53,14 @@ class Tag(models.Model):
 class Sticker(models.Model):
     path = models.CharField(max_length=100)
     tags = models.ManyToManyField(Tag, related_name="stickers")
+    score = models.FloatField()
+    emotion = models.IntegerField()
+
+
+class RecommendMusic(models.Model):
+    music_name = models.TextField()
+    music_artist = models.TextField()
+    path = models.TextField()
 
 
 class Post(models.Model):
@@ -65,8 +72,8 @@ class Post(models.Model):
     pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE)
     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, blank=True, null=True)
     fontsize = models.IntegerField()
-    music_name = models.TextField(blank=True, null=True)
-    music_artist = models.TextField(blank=True, null=True)
+    upload_music = models.FileField(blank=True, null=True, upload_to=upload_location)
+    recommend_music = models.ForeignKey(RecommendMusic, on_delete=models.CASCADE, null=True)
     created = models.DateField()
     image = models.ImageField(blank=True, null=True, upload_to=upload_location)
 
