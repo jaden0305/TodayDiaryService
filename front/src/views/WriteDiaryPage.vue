@@ -147,7 +147,8 @@ export default {
 		},
 		async onSaveDiary() {
 			try {
-				await createDiary(this.diaryData);
+				const { data } = await createDiary(this.diaryData);
+				console.log(data);
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
@@ -162,6 +163,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	padding: 18px;
 	.diary-header {
 		width: 100%;
 		display: flex;
@@ -193,10 +195,11 @@ export default {
 		}
 		#diary-header__title {
 			width: 60%;
-			margin-left: 5px;
+			margin-left: 8px;
 			padding-bottom: 5px;
 			border: none;
 			border-bottom: 1px solid rgba(151, 151, 151, 0.5);
+			background: #f0f0f0;
 		}
 	}
 	.diary-image {
@@ -238,25 +241,30 @@ export default {
 			border: none;
 			resize: none;
 			background-attachment: local;
-			background-image: linear-gradient(to right, white 10px, transparent 10px),
-				linear-gradient(to left, white 10px, transparent 10px),
+			background-image: linear-gradient(
+					to right,
+					#f0f0f0 10px,
+					transparent 10px
+				),
+				linear-gradient(to left, #f0f0f0 10px, transparent 10px),
 				repeating-linear-gradient(
-					white,
-					white 30px,
+					#f0f0f0,
+					#f0f0f0 30px,
 					#ccc 30px,
 					#ccc 31px,
-					white 31px
+					#f0f0f0 31px
 				);
 		}
 	}
 	.diary-complete-btn {
-		width: 95%;
-		margin: 15px auto;
-		padding: 8px;
+		width: 75%;
+		margin: 25px auto 0;
+		padding: 12px;
 		border: none;
-		border-radius: 5px;
-		background: rgba(53, 53, 53, 0.8);
-		color: white;
+		color: rgba(53, 53, 53, 1);
+		border-radius: 20px;
+		background: #f0f0f0;
+		box-shadow: 5px 5px 9px #cccccc, -5px -5px 9px #ffffff;
 	}
 }
 </style>

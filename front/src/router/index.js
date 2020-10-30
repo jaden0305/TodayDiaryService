@@ -4,6 +4,11 @@ Vue.use(VueRouter);
 
 const routes = [
 	{
+		path: '',
+		name: 'main',
+		component: () => import('@/views/MainPage.vue'),
+	},
+	{
 		path: '/calendar',
 		name: 'calendar',
 		component: () => import('@/views/CalendarPage.vue'),
@@ -12,28 +17,27 @@ const routes = [
 		path: '/diary',
 		name: 'diary',
 		component: () => import('@/views/WriteDiaryPage.vue'),
-		children: [
-			{
-				path: 'stickerAll',
-				name: 'stickerAll',
-				component: () => import('@/views/modalChildren/StickerAll.vue'),
-			},
-			{
-				path: 'stickerAnimal',
-				name: 'stickerAnimal',
-				component: () => import('@/views/modalChildren/StickerAnimal.vue'),
-			},
-			{
-				path: 'stickerFigure',
-				name: 'stickerFigure',
-				component: () => import('@/views/modalChildren/StickerFigure.vue'),
-			},
-		],
+	},
+	{
+		path: '/diary/:diaryId',
+		name: 'fetchDiary',
+		props: route => ({ diaryId: Number(route.params.diaryId) }),
+		component: () => import('@/views/ReadDiaryPage.vue'),
+	},
+	{
+		path: '/saveDiary',
+		name: 'saveDiary',
+		component: () => import('@/views/CompleteDiaryPage.vue'),
 	},
 	{
 		path: '/report',
 		name: 'report',
-		component: () => import('@/views/ReportPage'),
+		component: () => import('@/views/ReportPage.vue'),
+	},
+	{
+		path: '/music',
+		name: 'music',
+		component: () => import('@/views/MusicPlayerPage.vue'),
 	},
 ];
 
