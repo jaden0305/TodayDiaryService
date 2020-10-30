@@ -25,7 +25,6 @@ class CreateDiary(APIView):
     TEXT_ANALYZER_REQUEST_PATH = '/text/'
 
     def analyze(self, user, text, date, post_id):
-        print(2)
         payload = {
             'user': user,
             'text': text,
@@ -33,10 +32,8 @@ class CreateDiary(APIView):
             'post_id': post_id,
         }
         url = f'http://192.168.0.102:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
-        print(url)
         response = requests.post(url, data=payload)
-        print(type(json.loads(response.text)
-))
+
         return json.loads(response.text)
 
 
@@ -51,19 +48,14 @@ class CreateDiary(APIView):
             # music = emotion 통한 추천
             p = serializer.save(user=request.user)
 
-            print(request.data)
             text = request.data['content']
             date = request.data['created']
-            # print(text, date)
+
             try:
-                print(request.user, text, date, p.id)
                 response = self.analyze(request.user.id, text, date, p.id)
-                print(response)
                 emotion = 0
             except:
-                print(222)
                 emotion = None
-
 
             stickers = json.loads(request.data.get('stickers','[]'))
             for sticker in stickers:
