@@ -217,7 +217,7 @@ export default {
 				cursor: pointer;
 			}
 			.diary-image__file {
-				width: 35%;
+				width: 25%;
 				margin: 50px;
 			}
 		}
