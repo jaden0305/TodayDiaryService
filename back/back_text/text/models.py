@@ -11,7 +11,7 @@ class WordCloudReport(models.Model):
     emotion = models.IntegerField()
     date = models.DateField()
     class Meta:
-        db_table = 'post_wordcloudreport'
+        db_table = 'text_wordcloudreport'
 
 
 class DailyReport(models.Model):
@@ -22,7 +22,7 @@ class DailyReport(models.Model):
     date = models.DateField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     class Meta:
-        db_table = 'post_dailyreport'
+        db_table = 'text_dailyreport'
 
 # class WeeklyReport(models.Model):
 #     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='text_reports')
