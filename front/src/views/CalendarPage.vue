@@ -2,15 +2,15 @@
 	<section class="calendar-wrap">
 		<div class="calendar-content">
 			<div class="calendar-header">
-				<button class="calendar-header__prev">
+				<button @click="movePrevMonth" class="calendar-header__prev">
 					이전달
 				</button>
 				<div class="calendar-header__box">
-					<span class="calendar-header__month">유 월</span>
+					<span class="calendar-header__month">{{ month | filterMonth }}</span>
 					<span class="calendar-header__span"></span>
 				</div>
 
-				<button class="calendar-header__next">
+				<button @click="moveNextMonth" class="calendar-header__next">
 					다음달
 				</button>
 			</div>
@@ -24,7 +24,11 @@
 				<span class="calendar-weekday saturday">토</span>
 			</div>
 			<div class="calendar-days">
-				<span :key="day.day" v-for="day in preMonth" class="calendar-day">
+				<span
+					:key="index"
+					v-for="(day, index) in preMonth"
+					class="calendar-day"
+				>
 					<img
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
@@ -32,7 +36,11 @@
 					/>
 					<p class="calendar-day__title">{{ day.day }}</p>
 				</span>
-				<span :key="day.day" v-for="day in nowMonth" class="calendar-day">
+				<span
+					:key="'A' + index"
+					v-for="(day, index) in nowMonth"
+					class="calendar-day"
+				>
 					<img
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
@@ -40,7 +48,11 @@
 					/>
 					<p class="calendar-day__title">{{ day.day }}</p>
 				</span>
-				<span :key="day.day" v-for="day in nextMonth" class="calendar-day">
+				<span
+					:key="'B' + index"
+					v-for="(day, index) in nextMonth"
+					class="calendar-day"
+				>
 					<img
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
@@ -341,15 +353,14 @@
 
 <script>
 import { fetchCalendar } from '@/api/calendar';
-import { refreshToken } from '@/api/auth';
 export default {
 	data() {
 		return {
 			year: null,
 			month: null,
-			preMonth: null,
-			nowMonth: null,
-			nextMonth: null,
+			preMonth: [],
+			nowMonth: [],
+			nextMonth: [],
 			token: null,
 		};
 	},
@@ -357,22 +368,63 @@ export default {
 		async fetchMonth({ year, month }) {
 			try {
 				const { data } = await fetchCalendar({ year, month });
-				console.log(data);
-				this.preMonth = data[this.month - 1];
-				this.nowMonth = data[this.month];
-				this.nextMonth = data[this.month + 1];
+				console.log(this.month, data);
+				this.preMonth = [];
+				this.nowMonth = [];
+				this.nextMonth = [];
+				let pre = this.month - 1;
+				if (pre === 0) {
+					pre = 12;
+				}
+				let nex = this.month + 1;
+				if (nex == 13) {
+					nex = 1;
+				}
+				data[pre].forEach(week => {
+					if (week) {
+						week.forEach(day => {
+							this.preMonth.push(day);
+						});
+					}
+				});
+				data[nex].forEach(week => {
+					if (week) {
+						week.forEach(day => {
+							this.nextMonth.push(day);
+						});
+					}
+				});
+				data[this.month].forEach(week => {
+					if (week) {
+						week.forEach(day => {
+							this.nowMonth.push(day);
+						});
+					}
+				});
 			} catch (error) {
-				console.log(error.response);
+				console.log(error);
 			}
 		},
-		async refreshToken() {
-			const { data } = await refreshToken(this.$store.state.token);
-			console.log(data);
-			this.$cookies.set('auth-token', data.token);
+		movePrevMonth() {
+			if (this.month > 1) {
+				this.month -= 1;
+			} else {
+				this.month = 12;
+				this.year -= 1;
+			}
+			this.fetchMonth({ year: this.year, month: this.month });
+		},
+		moveNextMonth() {
+			if (this.month < 12) {
+				this.month += 1;
+			} else {
+				this.month = 1;
+				this.year += 1;
+			}
+			this.fetchMonth({ year: this.year, month: this.month });
 		},
 	},
 	created() {
-		// this.refreshToken();
 		const day = new Date();
 		this.month = day.getMonth() + 1;
 		this.year = day.getFullYear();
