@@ -149,10 +149,6 @@ export default {
 		background: #f0f0f0;
 		box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 		padding: 1rem;
-
-		/* border-radius: 0.5rem; */
-		/* background: white; */
-		/* box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3); */
 		margin-bottom: 1rem;
 	}
 	.report-chart {
@@ -201,8 +197,10 @@ export default {
 		color: #343a40;
 		border-radius: 1rem;
 		padding: 0.75rem;
-		background: linear-gradient(145deg, #d8d8d8, #ffffff);
-		box-shadow: 5px 5px 10px #b4b4b4, -5px -5px 10px #ffffff;
+		/* background: linear-gradient(145deg, #d8d8d8, #ffffff);
+		box-shadow: 5px 5px 10px #b4b4b4, -5px -5px 10px #ffffff; */
+		background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
+		box-shadow: 5px 5px 10px #cccccc, -5px -5px 10px #ffffff;
 	}
 	.select:after {
 		content: '';
