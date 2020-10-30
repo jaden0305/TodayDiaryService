@@ -59,7 +59,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 	position: fixed;
-	top: 50%;
+	top: 53%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	color: #646464;
