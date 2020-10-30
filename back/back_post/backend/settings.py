@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "accounts",
     "post",
     "post_calendar",
+    "text",
 ]
 
 SITE_ID = 1
