@@ -4,6 +4,9 @@ import VueWordCloud from 'vuewordcloud';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
+import VueCookies from 'vue-cookies';
+Vue.use(VueCookies);
+Vue.$cookies.config('6h');
 
 Vue.config.productionTip = false;
 

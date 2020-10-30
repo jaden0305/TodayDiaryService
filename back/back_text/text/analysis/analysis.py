@@ -265,7 +265,9 @@ class TextAnalysis:
                 cnt += 1
                 n.append(word)
 
-        return score/cnt, feel
+        if cnt > 0:
+            return score/cnt, feel
+        return 0, feel
 
     def text_analysis(self):
         # 일일 감정점수
