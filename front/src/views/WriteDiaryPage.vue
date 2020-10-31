@@ -148,7 +148,7 @@ export default {
 		async onSaveDiary() {
 			try {
 				const { data } = await createDiary(this.diaryData);
-				console.log(data);
+				this.$router.push(`/diary/${data.id}`);
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
