@@ -4,6 +4,12 @@ from accounts.serializers import UserSerializer
 from .models import *
 
 
+class RecommandMusicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecommendMusic
+        fields = '__all__'
+
+        
 class PostColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostColor

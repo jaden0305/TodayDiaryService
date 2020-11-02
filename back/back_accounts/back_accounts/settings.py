@@ -31,11 +31,16 @@ with open(os.path.join(os.path.dirname(BASE_DIR),'settings.json'), 'r') as f:
 SECRET_KEY = setting["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = setting["DEBUG"]
 
 ALLOWED_HOSTS = ['*']
 
 # Application definition
+
+# 2621440 -> 2.5MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = str(2621440 * 4)
+
+STATIC_ROOT = '/staticfiles/'
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -99,29 +104,6 @@ SWAGGER_SETTINGS = {
 }
 
 
-SITE_ID = 1
-
-# authentication settings
-REST_USE_JWT = True
-
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-    ),
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
-}
-
 JWT_AUTH = {
     # If the secret is wrong, it will raise a jwt.DecodeError telling you as such. You can still get at the payload by setting the JWT_VERIFY to False.
     'JWT_VERIFY': True,
@@ -130,8 +112,9 @@ JWT_AUTH = {
     'JWT_VERIFY_EXPIRATION': True,
     # This is an instance of Python's datetime.timedelta. This will be added to datetime.utcnow() to set the expiration time.
     # Default is datetime.timedelta(seconds=300)(5 minutes).
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
