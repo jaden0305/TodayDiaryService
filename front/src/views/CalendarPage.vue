@@ -2,17 +2,15 @@
 	<section class="calendar-wrap">
 		<div class="calendar-content">
 			<div class="calendar-header">
-				<button class="calendar-header__prev">
-					<!-- <i class="icon ion-ios-arrow-back"></i> -->
+				<button @click="movePrevMonth" class="calendar-header__prev">
 					이전달
 				</button>
 				<div class="calendar-header__box">
-					<span class="calendar-header__month">유 월</span>
+					<span class="calendar-header__month">{{ month | filterMonth }}</span>
 					<span class="calendar-header__span"></span>
 				</div>
 
-				<button class="calendar-header__next">
-					<!-- <i class="icon ion-ios-arrow-forward"></i> -->
+				<button @click="moveNextMonth" class="calendar-header__next">
 					다음달
 				</button>
 			</div>
@@ -26,299 +24,127 @@
 				<span class="calendar-weekday saturday">토</span>
 			</div>
 			<div class="calendar-days">
-				<span class="calendar-day"
-					><img
+				<span
+					:key="index"
+					v-for="(day, index) in preMonth"
+					class="calendar-day"
+				>
+					<img
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
 					/>
-					<p class="calendar-day__title">27</p></span
+					<p class="calendar-day__title">{{ day.day }}</p>
+				</span>
+				<span
+					:key="'A' + index"
+					v-for="(day, index) in nowMonth"
+					class="calendar-day"
 				>
-				<span class="calendar-day"
-					><img
+					<img
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
 					/>
-					<p class="calendar-day__title">
-						28
-					</p></span
+					<p class="calendar-day__title">{{ day.day }}</p>
+				</span>
+				<span
+					:key="'B' + index"
+					v-for="(day, index) in nextMonth"
+					class="calendar-day"
 				>
-				<span class="calendar-day"
-					><img
+					<img
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
 					/>
-					<p class="calendar-day__title">
-						29
-					</p></span
-				>
-				<span class="calendar-day"
-					><img
-						class="calendar-day emoticon"
-						src="@/assets/images/pencil-c.svg"
-						alt=""
-					/>
-					<p class="calendar-day__title">
-						30
-					</p></span
-				>
-				<span class="calendar-day"
-					><img
-						class="calendar-day emoticon"
-						src="@/assets/images/pencil-c.svg"
-						alt=""
-					/>
-					<p class="calendar-day__title">
-						1
-					</p></span
-				>
-				<span class="calendar-day"
-					><img
-						class="calendar-day emoticon"
-						src="@/assets/images/happiness.svg"
-						alt=""
-					/>
-					<p class="calendar-day__title">
-						2
-					</p></span
-				>
-				<span class="calendar-day"
-					><img
-						class="calendar-day emoticon"
-						src="@/assets/images/cry.svg"
-						alt=""
-					/>
-					<p class="calendar-day__title">
-						3
-					</p></span
-				>
-				<span class="calendar-day"
-					><img
-						class="calendar-day emoticon"
-						src="@/assets/images/neutral.svg"
-						alt=""
-					/>
-					<p class="calendar-day__title">
-						4
-					</p></span
-				>
-				<span class="calendar-day"
-					><img
-						class="calendar-day emoticon"
-						src="@/assets/images/sad.svg"
-						alt=""
-					/>
-					<p class="calendar-day__title">
-						5
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						6
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						7
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						8
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						9
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						10
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						11
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						12
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						13
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						14
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						15
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						16
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						17
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						18
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						19
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						20
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						21
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						22
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						23
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						24
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						25
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						26
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						27
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						28
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						29
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						30
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						31
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						1
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						2
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						3
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						4
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						5
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						6
-					</p></span
-				>
-				<span class="calendar-day"
-					><i class="icon ion-logo-snapchat"></i>
-					<p class="calendar-day__title">
-						7
-					</p></span
-				>
+					<p class="calendar-day__title">{{ day.day }}</p>
+				</span>
 			</div>
 		</div>
 	</section>
 </template>
 
 <script>
-export default {};
+import { fetchCalendar } from '@/api/calendar';
+export default {
+	data() {
+		return {
+			year: null,
+			month: null,
+			preMonth: [],
+			nowMonth: [],
+			nextMonth: [],
+			token: null,
+		};
+	},
+	methods: {
+		async fetchMonth({ year, month }) {
+			try {
+				const { data } = await fetchCalendar({ year, month });
+				console.log(this.month, data);
+				this.preMonth = [];
+				this.nowMonth = [];
+				this.nextMonth = [];
+				let pre = this.month - 1;
+				if (pre === 0) {
+					pre = 12;
+				}
+				let nex = this.month + 1;
+				if (nex == 13) {
+					nex = 1;
+				}
+				data[pre].forEach(week => {
+					if (week) {
+						week.forEach(day => {
+							this.preMonth.push(day);
+						});
+					}
+				});
+				data[nex].forEach(week => {
+					if (week) {
+						week.forEach(day => {
+							this.nextMonth.push(day);
+						});
+					}
+				});
+				data[this.month].forEach(week => {
+					if (week) {
+						week.forEach(day => {
+							this.nowMonth.push(day);
+						});
+					}
+				});
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		movePrevMonth() {
+			if (this.month > 1) {
+				this.month -= 1;
+			} else {
+				this.month = 12;
+				this.year -= 1;
+			}
+			this.fetchMonth({ year: this.year, month: this.month });
+		},
+		moveNextMonth() {
+			if (this.month < 12) {
+				this.month += 1;
+			} else {
+				this.month = 1;
+				this.year += 1;
+			}
+			this.fetchMonth({ year: this.year, month: this.month });
+		},
+	},
+	created() {
+		const day = new Date();
+		this.month = day.getMonth() + 1;
+		this.year = day.getFullYear();
+		this.fetchMonth({ year: this.year, month: this.month });
+	},
+};
 </script>
 
 <style lang="scss">

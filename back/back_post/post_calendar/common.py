@@ -46,7 +46,7 @@ def date_to_dict(year, month):
             "week": result_week,
             "day": result_day})
         
-    before_month = list(reversed(before_month))
+    before_month[0] = list(reversed(before_month[0]))
     for w in before_month:
         total_day += len(w)
 

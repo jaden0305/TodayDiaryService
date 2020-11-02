@@ -1,8 +1,10 @@
 <template>
 	<section>
-		<div class="diary-wrap">
+		<div class="diary-wrap" v-if="diaryData">
 			<div class="diary-header">
-				<p class="diary-header__dataTitle">{{ diaryData.title }}</p>
+				<p class="diary-header__dataTitle">
+					{{ diaryData.title }}
+				</p>
 				<img
 					src="@/assets/images/menu.svg"
 					class="diary-header__menu"
@@ -11,34 +13,25 @@
 				/>
 				<ul class="diary-header__func">
 					<li>
-						<img
-							src="@/assets/images/pencil.svg"
-							alt="수정"
-							@click="openThemeModal"
-						/>
+						<img src="@/assets/images/pencil.svg" alt="수정" />
 					</li>
 					<li>
-						<img
-							src="@/assets/images/trash.svg"
-							alt="삭제"
-							@click="openMusicModal"
-						/>
+						<img src="@/assets/images/trash.svg" alt="삭제" />
 					</li>
 				</ul>
 			</div>
 			<div class="diary-image">
-				<img
-					class="diary-image__value"
-					src="@/assets/images/temp/1.jpg"
-					alt="일기사진"
-				/>
+				<img class="diary-image__value" :src="contentImg" alt="일기사진" />
 			</div>
 			<div class="diary-text">
-				<textarea class="read-diary-text__content" rows="6" readonly>
-dfss{diaryData.content}ddsfs{diaryData.content}
-				{diaryData.content}{diaryData.content}
-				</textarea
+				<textarea
+					class="read-diary-text__content"
+					id="diaryContent"
+					rows="6"
+					readonly
+					v-model="diaryData.content"
 				>
+				</textarea>
 			</div>
 		</div>
 	</section>
@@ -55,6 +48,18 @@ export default {
 	props: {
 		diaryId: Number,
 	},
+	computed: {
+		diaryDataImage() {
+			return `${this.diaryData.image}`.substr(1);
+		},
+		contentImg() {
+			if (this.diaryData.image) {
+				return `${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
+			} else {
+				return `@/assets/images/logo3.png`;
+			}
+		},
+	},
 	methods: {
 		onOpenMenu() {
 			const menu = document.querySelector('.diary-header__menu');
@@ -67,7 +72,6 @@ export default {
 			try {
 				const { data } = await fetchDiary(this.diaryId);
 				this.diaryData = data;
-				console.log(data);
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
