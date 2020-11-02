@@ -7,7 +7,7 @@ export function setInterceptors(instance) {
 		function(config) {
 			// Do something before request is sent
 			config.headers.Authorization = cookies.isKey('auth-token')
-				? `Token ${store.getters['getToken'] || cookies.get('auth-token')}`
+				? `Bearer ${store.getters['getToken'] || cookies.get('auth-token')}`
 				: null;
 			return config;
 		},
