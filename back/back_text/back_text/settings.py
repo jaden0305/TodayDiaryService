@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 # 2621440 -> 2.5MB
-FILE_UPLOAD_MAX_MEMORY_SIZE = str(2621440 * 4)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440 * 4
 
 STATIC_ROOT = '/staticfiles/'
 

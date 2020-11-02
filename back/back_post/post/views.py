@@ -31,7 +31,7 @@ class CreateDiary(APIView):
             'date': date,
             'post_id': post_id,
         }
-        url = f'http://192.168.0.102:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
+        url = f'http://127.0.0.1:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
         response = requests.post(url, data=payload)
 
         return json.loads(response.text)
@@ -53,9 +53,11 @@ class CreateDiary(APIView):
 
             try:
                 response = self.analyze(request.user.id, text, date, p.id)
+                print(response)
                 emotion = 0
             except:
                 emotion = None
+                print('error')
 
             stickers = json.loads(request.data.get('stickers','[]'))
             for sticker in stickers:
