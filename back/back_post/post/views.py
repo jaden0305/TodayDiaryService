@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from drf_yasg.utils import swagger_auto_schema
 
@@ -19,10 +19,11 @@ from .serializers import *
 class CreateDiary(APIView):
 
     parser_classes = (FormParser, MultiPartParser, )
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     TEXT_ANALYZER_PORT = 8002
     TEXT_ANALYZER_REQUEST_PATH = '/text/'
+    TEXT_ANALYZER_HOST = 'http://127.0.0.1'
 
     def analyze(self, user, text, date, post_id):
         payload = {
@@ -31,7 +32,7 @@ class CreateDiary(APIView):
             'date': date,
             'post_id': post_id,
         }
-        url = f'http://127.0.0.1:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
+        url = f'{self.TEXT_ANALYZER_HOST}:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
         response = requests.post(url, data=payload)
 
         return json.loads(response.text)
@@ -41,6 +42,7 @@ class CreateDiary(APIView):
     # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
+        print(request.data)
         serializer = CreatePostSerializer(data=request.data)
         response = None
         if serializer.is_valid(raise_exception=True):
@@ -51,13 +53,7 @@ class CreateDiary(APIView):
             text = request.data['content']
             date = request.data['created']
 
-            try:
-                response = self.analyze(request.user.id, text, date, p.id)
-                print(response)
-                emotion = 0
-            except:
-                emotion = None
-                print('error')
+            response = self.analyze(request.user.id, text, date, p.id)
 
             stickers = json.loads(request.data.get('stickers','[]'))
             for sticker in stickers:
