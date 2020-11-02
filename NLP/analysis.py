@@ -1,12 +1,20 @@
 # from wordcloud import WordCloud, STOPWORDS
 from eunjeon import Mecab
-# import matplotlib.pyplot as plt
+from matplotlib import rc
+import matplotlib
+import matplotlib.pyplot as plt
 import pandas as pd
 # 한글 폰트 패스로 지정
-# import matplotlib.font_manager as fm
-# import re
+import matplotlib.font_manager as fm
+import re
 # import collections
 class TextAnalysis:
+    # font_list = fm.findSystemFonts(fontpaths=None, fontext='ttf')
+    # print(font_list)
+    # font_path = r'C:\Users\JJS\AppData\Local\Microsoft\Windows\Fonts\NanumSquareRoundR.ttf'
+    # font_name = fm.FontProperties(fname=font_path).get_name()
+    # matplotlib.rc('font', family=font_name)
+
     mecab = Mecab()
     tag = ['VCP', 'VCN', 'NNG', 'IC', 'MAG', 'VA', 'VV', 'XR']
     stopwords=['의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하','다','있']
@@ -28,7 +36,10 @@ class TextAnalysis:
     def decompose(cls, ls):
         word_list = []
         for word in ls:
-            if word[1] in cls.tag and word[0] not in cls.stopwords:
+            if '+' in word[1]:
+                if word[1].split('+')[0] in cls.tag and word[0] not in cls.stopwords:
+                    word_list.append(word[0])
+            elif word[1] in cls.tag and word[0] not in cls.stopwords:
                 word_list.append(word[0])
         
         return set(word_list)
@@ -152,6 +163,21 @@ class TextAnalysis:
         for word in out:
             word_counts[word] = word_counts.get(word, 0) + 1
         
+        # print(word_counts)
+
+        # 단어 빈도수 그래프
+        # 한글 폰트 깨짐 현상 해결해야함.
+        sorted_keys = sorted(word_counts, key=word_counts.get, reverse=True)
+        sorted_values = sorted(word_counts.values(), reverse=True)
+
+        ln = len(sorted_keys)
+        if ln > 20:
+            ln = 20
+
+        plt.bar(range(ln), sorted_values[:ln])
+        plt.xticks(range(ln), sorted_keys[:ln])
+        plt.show()
+
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
         
         for i in range(len(sorted_word_counts)):
@@ -181,6 +207,7 @@ class TextAnalysis:
         return sorted_word_counts
     def day_score(self):
         text = self.mecab.pos(self.text)
+        print(text)
         cnt = 0
         score = 0
         p = []
@@ -243,6 +270,13 @@ class TextAnalysis:
         score, feel = self.day_score()
         print(score, feel)
         # 일일 감정분류
+        for key, value in feel.items():
+            if score > 0:
+                if key == 'horror' or key == 'angry' or key =='sad':
+                    feel[key] = 0
+            elif score < 0:
+                if key == 'happy' or key == 'delight':
+                    feel[key] = 0
         sorted_feel = sorted(feel.items(), key=lambda item:item[1], reverse=True)
         if len(sorted_feel) == 0:
             sorted_feel = [('boring', 0)]
@@ -254,26 +288,14 @@ class TextAnalysis:
         return {
             "score": score,
             "feel": sorted_feel,
-            "word_cound": word_count
+            "word_count": word_count
         }
 
 if __name__ == "__main__":
-    text = open('text.txt','r').read()
+    text = '''벌써 프로젝트 4주차 월요일이다.
+    날짜를 보면 깜짝 놀라곤한다.
+    이제 SSAFY 교육기간도 얼마 남지 않았음을 깨달았다.
+    마무리 잘하고 조급해하지말자.
+    '''
     a = TextAnalysis(text)
     a.text_analysis()
-
-
-# spwords = set(STOPWORDS)
-
-# wordcloud = WordCloud(max_font_size=200, font_path='/content/drive/My Drive/Colab Notebooks/malgun.ttf',
-#                      stopwords=spwords,
-#                      background_color='#FFFFFF',
-#                      width=1200,height=800).generate_from_frequencies(out4)
-
-
-# plt.figure(figsize = (8, 8), facecolor = None) 
-# plt.imshow(wordcloud) 
-# plt.axis("off") 
-# plt.tight_layout(pad = 0) 
-  
-# plt.show() 
