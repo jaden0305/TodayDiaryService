@@ -41,7 +41,10 @@ class TextAnalysis:
         word_list = []
 
         for word in ls:
-            if word[1] in cls.tag and word[0] not in cls.stopwords:
+            if '+' in word[1]:
+                if word[1].split('+')[0] in cls.tag and word[0] not in cls.stopwords:
+                    word_list.append(word[0])
+            elif word[1] in cls.tag and word[0] not in cls.stopwords:
                 word_list.append(word[0])
         
         return set(word_list)
@@ -256,6 +259,10 @@ class TextAnalysis:
                     feel['angry'] = feel.get('angry',0) + 1
                 elif word in self.get_sad():
                     feel['sad'] = feel.get('sad',0) + 1    
+            elif word in self.get_boring():
+                feel['boring'] = feel.get('boring', 0) + 1
+            elif word in self.get_surprise():
+                feel['surprise'] = feel.get('surprise', 0) + 1 
             elif word in self.get_pos():
                 score += 1
                 cnt += 1
