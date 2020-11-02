@@ -25,6 +25,12 @@ const routes = [
 		component: () => import('@/views/ReadDiaryPage.vue'),
 	},
 	{
+		path: '/diary/:diaryId/edit',
+		name: 'editDiary',
+		props: route => ({ diaryId: Number(route.params.diaryId) }),
+		component: () => import('@/views/EditDiaryPage.vue'),
+	},
+	{
 		path: '/saveDiary',
 		name: 'saveDiary',
 		component: () => import('@/views/CompleteDiaryPage.vue'),
