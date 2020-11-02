@@ -42,7 +42,6 @@ class CreateDiary(APIView):
     # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
-        print(request.data)
         serializer = CreatePostSerializer(data=request.data)
         response = None
         if serializer.is_valid(raise_exception=True):
@@ -62,11 +61,18 @@ class CreateDiary(APIView):
                 if sticker_serializer.is_valid(raise_exception=True):
                     sticker_serializer.save()
             post = get_object_or_404(Post, pk=p.id)
-            return Response(ReadPostSerializer(instance=post).data, status=status.HTTP_201_CREATED)
+            result = {
+                **ReadPostSerializer(instance=post).data
+            }
+            result['emotion'] = response['emotion']
+            return Response(result, status=status.HTTP_201_CREATED)
 
 
 class diary(APIView):
     
+    parser_classes = (FormParser, MultiPartParser, )
+    permission_classes = (IsAuthenticated, )
+
     def get_object(self, post_id):
         return get_object_or_404(Post, pk=post_id)
         
@@ -79,8 +85,18 @@ class diary(APIView):
     @swagger_auto_schema(request_body=UpdatePostSerializer)
     def put(self, request, post_id):
         mypost = self.get_object(post_id)
-        serializer = UpdatePostSerializer(instance=mypost,data=request.data)
+
+        data = {}
+        for key, value in request.data.items():
+            res = value
+            if key in ['postcolor', 'font', 'pattern', 'emotion']:
+                res = int(value)
+            data[key] = res
+
+        serializer = UpdatePostSerializer(instance=mypost,data=data)
+
         stickers = json.loads(request.data.get('stickers', '[]'))
+
         for sticker in stickers:
             sticker_id = sticker['id']
             post_sticker = PostSticker.objects.get(pk=sticker_id)
