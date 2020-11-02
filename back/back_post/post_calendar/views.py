@@ -49,6 +49,7 @@ class CalendarView(APIView):
 
             print('start', start_month, start_day)
             print('end', end_month, end_day)
+            
 
             return Response(calendar_info, status=status.HTTP_200_OK)
         message = {
