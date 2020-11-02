@@ -165,18 +165,18 @@ class TextAnalysis:
         
         # print(word_counts)
 
-        # 단어 빈도수 그래프
-        # 한글 폰트 깨짐 현상 해결해야함.
-        sorted_keys = sorted(word_counts, key=word_counts.get, reverse=True)
-        sorted_values = sorted(word_counts.values(), reverse=True)
+        # # 단어 빈도수 그래프
+        # # 한글 폰트 깨짐 현상 해결해야함.
+        # sorted_keys = sorted(word_counts, key=word_counts.get, reverse=True)
+        # sorted_values = sorted(word_counts.values(), reverse=True)
 
-        ln = len(sorted_keys)
-        if ln > 20:
-            ln = 20
+        # ln = len(sorted_keys)
+        # if ln > 20:
+        #     ln = 20
 
-        plt.bar(range(ln), sorted_values[:ln])
-        plt.xticks(range(ln), sorted_keys[:ln])
-        plt.show()
+        # plt.bar(range(ln), sorted_values[:ln])
+        # plt.xticks(range(ln), sorted_keys[:ln])
+        # plt.show()
 
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
         
@@ -231,6 +231,7 @@ class TextAnalysis:
             elif word in self.get_minus2():
                 score -= 2
                 cnt += 2
+                print('-2',word)
                 if word in self.get_horror():
                     feel['horror'] = feel.get('horror',0) + 1    
                 elif word in self.get_angry():
@@ -240,6 +241,7 @@ class TextAnalysis:
             elif word in self.get_minus3():
                 score -= 3
                 cnt += 3
+                print('-3',word)
                 if word in self.get_horror():
                     feel['horror'] = feel.get('horror',0) + 1    
                 elif word in self.get_angry():
@@ -292,10 +294,22 @@ class TextAnalysis:
         }
 
 if __name__ == "__main__":
-    text = '''벌써 프로젝트 4주차 월요일이다.
-    날짜를 보면 깜짝 놀라곤한다.
-    이제 SSAFY 교육기간도 얼마 남지 않았음을 깨달았다.
-    마무리 잘하고 조급해하지말자.
-    '''
+    text = '''약도 아침/자기전으로 잘 챙겨먹고
+
+옛날보다 더 몸이 건강해진것같다
+
+지금 이 몸무게에 들어갈수 없었던 바지도 잘들어가고
+
+너무 좋다 그리고 과하게 살이 쪘을땐 뭐든지 짜증이 났는데
+
+별다른 이벤트가 없다면 그냥 그러려니 잘 넘긴다
+
+나 정말 다행이야
+
+어제는 사고싶은 옷들이 있어서 인터넷으로 옷을 주문했다
+
+그리고 돈을 아끼려고 많이 노력중이다
+
+나 잘할수 있다고 믿을래!'''
     a = TextAnalysis(text)
     a.text_analysis()
