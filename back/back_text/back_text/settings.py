@@ -40,7 +40,7 @@ ALLOWED_HOSTS = ['*']
 # 2621440 -> 2.5MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440 * 4
 
-STATIC_ROOT = '/staticfiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 INSTALLED_APPS = [
     "django.contrib.admin",
