@@ -64,7 +64,7 @@ let GetMe = async authObj => {
 								email: req_body.email,
 								password1: req_body.email,
 								password2: req_body.email,
-								username: req_body.name,
+								// username: req_body.name,
 							})
 							.then(res => {
 								console.log('가입 + 로그인 성공');

@@ -2,7 +2,9 @@ import { diary } from './index';
 
 export function createDiary(diaryData) {
 	const formdata = new FormData();
-	formdata.append('image', diaryData.image);
+	if (diaryData.image) {
+		formdata.append('image', diaryData.image);
+	}
 	formdata.append('title', diaryData.title);
 	formdata.append('content', diaryData.content);
 	formdata.append('fontsize', diaryData.fontsize);

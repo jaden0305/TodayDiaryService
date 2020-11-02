@@ -50,6 +50,14 @@ class Sticker(models.Model):
         db_table = 'post_sticker'
 
 
+class RecommendMusic(models.Model):
+    music_name = models.TextField()
+    music_artist = models.TextField()
+    path = models.TextField()
+    class Meta:
+        db_table = 'post_recommendmusic'
+
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
@@ -57,10 +65,10 @@ class Post(models.Model):
     postcolor = models.ForeignKey(PostColor, on_delete=models.CASCADE)
     font = models.ForeignKey(PostFont, on_delete=models.CASCADE)
     pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE)
-    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
+    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, blank=True, null=True)
     fontsize = models.IntegerField()
-    music_name = models.TextField(blank=True, null=True)
-    music_artist = models.TextField(blank=True, null=True)
+    upload_music = models.FileField(blank=True, null=True, upload_to=upload_location)
+    recommend_music = models.ForeignKey(RecommendMusic, on_delete=models.CASCADE, null=True)
     created = models.DateField()
     image = models.ImageField(blank=True, null=True, upload_to=upload_location)
     class Meta:

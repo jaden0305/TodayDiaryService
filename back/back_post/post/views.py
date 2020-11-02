@@ -50,7 +50,7 @@ class CreateDiary(APIView):
 
             text = request.data['content']
             date = request.data['created']
-
+            print(p.id)
             try:
                 response = self.analyze(request.user.id, text, date, p.id)
                 print(response)

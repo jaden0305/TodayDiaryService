@@ -224,6 +224,7 @@ class TextAnalysis:
         p = []
         n = []
         txt = self.decompose(text)
+        print(txt)
         feel = {}
         # delight = self.get_delight()
         # print(delight)
