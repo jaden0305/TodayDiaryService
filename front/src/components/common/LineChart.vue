@@ -1,4 +1,5 @@
 <script>
+import bus from '@/utils/bus';
 import { Line } from 'vue-chartjs';
 export default {
 	name: 'LineChart',
@@ -66,6 +67,7 @@ export default {
 	}),
 	mounted() {
 		this.init();
+		bus.$on('lineUpdate', this.init);
 	},
 	methods: {
 		init() {
