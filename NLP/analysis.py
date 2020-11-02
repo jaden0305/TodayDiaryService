@@ -28,7 +28,10 @@ class TextAnalysis:
     def decompose(cls, ls):
         word_list = []
         for word in ls:
-            if word[1] in cls.tag and word[0] not in cls.stopwords:
+            if '+' in word[1]:
+                if word[1].split('+')[0] in cls.tag and word[0] not in cls.stopwords:
+                    word_list.append(word[0])
+            elif word[1] in cls.tag and word[0] not in cls.stopwords:
                 word_list.append(word[0])
         
         return set(word_list)
@@ -181,6 +184,7 @@ class TextAnalysis:
         return sorted_word_counts
     def day_score(self):
         text = self.mecab.pos(self.text)
+        print(text)
         cnt = 0
         score = 0
         p = []
@@ -243,6 +247,13 @@ class TextAnalysis:
         score, feel = self.day_score()
         print(score, feel)
         # 일일 감정분류
+        for key, value in feel.items():
+            if score > 0:
+                if key == 'horror' or key == 'angry' or key =='sad':
+                    feel[key] = 0
+            elif score < 0:
+                if key == 'happy' or key == 'delight':
+                    feel[key] = 0
         sorted_feel = sorted(feel.items(), key=lambda item:item[1], reverse=True)
         if len(sorted_feel) == 0:
             sorted_feel = [('boring', 0)]
@@ -258,7 +269,10 @@ class TextAnalysis:
         }
 
 if __name__ == "__main__":
-    text = open('text.txt','r').read()
+    text = '''오랜만에 새벽까지 달렸다.ㅎㅎ
+    새내기로 돌아간 것 같아 행복한 하루였다.
+    내일 제시간에 일어날 수 있을지 걱정이 많이 된다;;
+    '''
     a = TextAnalysis(text)
     a.text_analysis()
 
