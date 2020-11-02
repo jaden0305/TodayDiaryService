@@ -13,10 +13,18 @@
 				/>
 				<ul class="diary-header__func">
 					<li>
-						<img src="@/assets/images/pencil.svg" alt="수정" />
+						<img
+							src="@/assets/images/pencil.svg"
+							alt="수정"
+							@click="onEditDiary"
+						/>
 					</li>
 					<li>
-						<img src="@/assets/images/trash.svg" alt="삭제" />
+						<img
+							src="@/assets/images/trash.svg"
+							alt="삭제"
+							@click="onDeleteDiary"
+						/>
 					</li>
 				</ul>
 			</div>
@@ -38,7 +46,7 @@
 </template>
 
 <script>
-import { fetchDiary } from '@/api/diary';
+import { fetchDiary, deleteDiary } from '@/api/diary';
 export default {
 	data() {
 		return {
@@ -74,6 +82,17 @@ export default {
 				this.diaryData = data;
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
+				console.log(error.response);
+			}
+		},
+		onEditDiary() {
+			this.$router.push(`/diary/${this.diaryId}/edit`);
+		},
+		async onDeleteDiary() {
+			try {
+				await deleteDiary(this.diaryId);
+				this.$router.push({ name: 'calendar' });
+			} catch (error) {
 				console.log(error.response);
 			}
 		},
