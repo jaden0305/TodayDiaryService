@@ -23,14 +23,13 @@ def statistics(request):
     text = request.data['text']
     date = request.data['date']
     post_id = request.data['post_id']
-    print(request.data)
+
     post = get_object_or_404(Post, pk=post_id)
 
     ta = TextAnalysis(text)
 
     result = ta.text_analysis()
-    # print(result)
-    print(date)
+    
     for lis in result['word_count']:
         data = {
             'user': get_object_or_404(User, pk=user),
@@ -54,23 +53,21 @@ def statistics(request):
 
     score = round(result['score'],3)
 
-    if len(result['feel']) >= 2:
-        data = {
-            'user': user,
-            'score': score,
-            'emotions': str(result['feel']),
-            'date': date,
-            'post': post.id,
-        }
+    # if len(result['feel']) >= 2:
+    #     data = {
+    #         'user': user,
+    #         'score': score,
+    #         'emotions': str(result['feel']),
+    #         'date': date,
+    #         'post': post.id,
+    #     }
 
-        multiple_emotion_serializer = MultipleEmotionSerializer(data=data)
+    #     multiple_emotion_serializer = MultipleEmotionSerializer(data=data)
 
-        if multiple_emotion_serializer.is_valid(raise_exception=True):
-            multiple_emotion_serializer.save(user=get_object_or_404(User, pk=user) ,score=score, post=post)
-        return Response(multiple_emotion_serializer.data, status=status.HTTP_201_CREATED)
-    # print(1231241)
-
-    print(result['feel'][0][0])
+    #     if multiple_emotion_serializer.is_valid(raise_exception=True):
+    #         multiple_emotion_serializer.save(user=get_object_or_404(User, pk=user) ,score=score, post=post)
+    #     return Response(multiple_emotion_serializer.data, status=status.HTTP_201_CREATED)
+    result['feel'].sort(key=lambda x:x[1])
     emotion = get_object_or_404(Emotion, name=result['feel'][0][0])
 
     data = {
@@ -78,15 +75,19 @@ def statistics(request):
         'date': date,
         'emotions': str(result['feel']),
         'score': result['score'],
-        'emotion': emotion.id,
+        'emotion': emotion,
         'post': post.id,
     }
 
     daily_report_serializer = DailyReportSerializer(data=data)
+
     if daily_report_serializer.is_valid(raise_exception=True):
         daily_report_serializer.save(user=get_object_or_404(User, pk=user) ,score=score, post=post)
-
-    return Response(daily_report_serializer.data, status=status.HTTP_201_CREATED)
+    result = {
+        **daily_report_serializer.data
+    }
+    result['emotion'] = EmotionSerializer(instance=emotion).data
+    return Response(result, status=status.HTTP_201_CREATED)
 
 # @api_view(['PATCH'])
 # def select_emotion(request):

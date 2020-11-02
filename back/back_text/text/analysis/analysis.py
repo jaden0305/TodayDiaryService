@@ -282,6 +282,14 @@ class TextAnalysis:
         # print(score, feel)
 
         # 일일 감정분류
+        for key, value in feel.items():
+            if score > 0:
+                if key == 'horror' or key == 'angry' or key =='sad':
+                    feel[key] = 0
+            elif score < 0:
+                if key == 'happy' or key == 'delight':
+                    feel[key] = 0
+                    
         sorted_feel = sorted(feel.items(), key=lambda item:item[1], reverse=True)
         if len(sorted_feel) == 0:
             sorted_feel = [('boring', 0)]

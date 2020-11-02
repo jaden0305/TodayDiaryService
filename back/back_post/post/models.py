@@ -66,7 +66,7 @@ class RecommendMusic(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
     postcolor = models.ForeignKey(PostColor, on_delete=models.CASCADE)
     font = models.ForeignKey(PostFont, on_delete=models.CASCADE)
     pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE)
