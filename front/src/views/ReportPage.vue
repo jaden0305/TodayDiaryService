@@ -14,7 +14,7 @@
 			</div>
 		</div>
 		<div class="report-content">
-			<div class="report-selectbox">
+			<div class="report-selectbox display-none">
 				<button @click="movePrevMonth" class="report-select__prev">
 					이전달
 				</button>
@@ -64,6 +64,7 @@
 <script>
 import LineChart from '@/components/common/LineChart.vue';
 import cookies from 'vue-cookies';
+import { fetchWeekReport, fetchMonthReport } from '@/api/report';
 export default {
 	components: { LineChart },
 	data() {
@@ -97,10 +98,19 @@ export default {
 		this.year = day.getFullYear();
 		let weekDay = new Date();
 		this.weekday = weekDay;
-		this.endWeek = this.weekday.setDate(
-			this.weekday.getDate() + (6 - this.weekday.getDay() + this.weekcnt * 7),
+		// console.log(this.weekday);
+		this.endWeek = new Date(
+			this.weekday.setDate(
+				this.weekday.getDate() + (6 - this.weekday.getDay() + this.weekcnt * 7),
+			),
 		);
-		this.startWeek = this.weekday.setDate(this.weekday.getDate() - 6);
+		this.startWeek = new Date(this.weekday.setDate(this.weekday.getDate() - 6));
+		const startString = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+			1}-${this.startWeek.getDate()}`;
+		const endString = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+			1}-${this.endWeek.getDate()}`;
+		// this.fetchWeek(startString, endString);
+		console.log(this.startWeek, this.endWeek);
 	},
 	methods: {
 		movePrevMonth() {
@@ -120,20 +130,32 @@ export default {
 			}
 		},
 		movePrevWeek() {
-			if (this.month > 1) {
-				this.month -= 1;
-			} else {
-				this.month = 12;
-				this.year -= 1;
-			}
+			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() - 7));
+			this.startWeek = new Date(
+				this.startWeek.setDate(this.startWeek.getDate() - 7),
+			);
+			const startString = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+				1}-${this.startWeek.getDate()}`;
+			const endString = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+				1}-${this.endWeek.getDate()}`;
+			// this.fetchWeek(startString, endString);
+			console.log(startString, endString);
 		},
 		moveNextWeek() {
-			if (this.month < 12) {
-				this.month += 1;
-			} else {
-				this.month = 1;
-				this.year += 1;
-			}
+			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() + 7));
+			this.startWeek = new Date(
+				this.startWeek.setDate(this.startWeek.getDate() + 7),
+			);
+			const startString = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+				1}-${this.startWeek.getDate()}`;
+			const endString = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+				1}-${this.endWeek.getDate()}`;
+			// this.fetchWeek(startString, endString);
+			console.log(startString, endString);
+		},
+		async fetchWeek(startWeek, endWeek) {
+			const { data } = await fetchWeekReport(startWeek, endWeek);
+			console.log(data);
 		},
 		rotation: ([word]) => {
 			var chance = new Chance(word[0]);
