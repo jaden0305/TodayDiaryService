@@ -31,7 +31,9 @@
 					이전주
 				</button>
 				<div class="report-select">
-					<span class="report-select__month">{{ month | filterMonth }}</span>
+					<span class="report-select__month"
+						>{{ startString }}~{{ endString }}</span
+					>
 					<span class="report-select__span"></span>
 				</div>
 				<button @click="moveNextWeek" class="report-select__next">
@@ -73,6 +75,8 @@ export default {
 			endWeek: null,
 			month: null,
 			year: null,
+			startString: null,
+			endString: null,
 			weekcnt: 0,
 			words: [
 				['romance', 300],
@@ -105,12 +109,15 @@ export default {
 			),
 		);
 		this.startWeek = new Date(this.weekday.setDate(this.weekday.getDate() - 6));
-		const startString = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+		const start = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
 			1}-${this.startWeek.getDate()}`;
-		const endString = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+		const end = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
 			1}-${this.endWeek.getDate()}`;
+		this.startString = `${this.startWeek.getMonth() +
+			1}-${this.startWeek.getDate()}`;
+		this.endString = `${this.endWeek.getMonth() + 1}-${this.endWeek.getDate()}`;
 		// this.fetchWeek(startString, endString);
-		console.log(this.startWeek, this.endWeek);
+		console.log(this.startString, this.endString);
 	},
 	methods: {
 		movePrevMonth() {
@@ -134,24 +141,32 @@ export default {
 			this.startWeek = new Date(
 				this.startWeek.setDate(this.startWeek.getDate() - 7),
 			);
-			const startString = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+			const start = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
 				1}-${this.startWeek.getDate()}`;
-			const endString = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+			const end = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+				1}-${this.endWeek.getDate()}`;
+			this.startString = `${this.startWeek.getMonth() +
+				1}-${this.startWeek.getDate()}`;
+			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
 			// this.fetchWeek(startString, endString);
-			console.log(startString, endString);
+			console.log(this.startString, this.endString);
 		},
 		moveNextWeek() {
 			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() + 7));
 			this.startWeek = new Date(
 				this.startWeek.setDate(this.startWeek.getDate() + 7),
 			);
-			const startString = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+			const start = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
 				1}-${this.startWeek.getDate()}`;
-			const endString = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+			const end = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+				1}-${this.endWeek.getDate()}`;
+			this.startString = `${this.startWeek.getMonth() +
+				1}-${this.startWeek.getDate()}`;
+			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
 			// this.fetchWeek(startString, endString);
-			console.log(startString, endString);
+			console.log(this.startString, this.endString);
 		},
 		async fetchWeek(startWeek, endWeek) {
 			const { data } = await fetchWeekReport(startWeek, endWeek);
