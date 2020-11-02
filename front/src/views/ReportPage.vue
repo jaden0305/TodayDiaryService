@@ -65,6 +65,7 @@
 <script src="https://unpkg.com/chance@1.1.6/dist/chance.min.js"></script>
 <script>
 import LineChart from '@/components/common/LineChart.vue';
+import bus from '@/utils/bus';
 import cookies from 'vue-cookies';
 import { fetchWeekReport, fetchMonthReport } from '@/api/report';
 export default {
@@ -102,7 +103,6 @@ export default {
 		this.year = day.getFullYear();
 		let weekDay = new Date();
 		this.weekday = weekDay;
-		// console.log(this.weekday);
 		this.endWeek = new Date(
 			this.weekday.setDate(
 				this.weekday.getDate() + (6 - this.weekday.getDay() + this.weekcnt * 7),
@@ -116,8 +116,17 @@ export default {
 		this.startString = `${this.startWeek.getMonth() +
 			1}-${this.startWeek.getDate()}`;
 		this.endString = `${this.endWeek.getMonth() + 1}-${this.endWeek.getDate()}`;
-		// this.fetchWeek(startString, endString);
-		console.log(this.startString, this.endString);
+		console.log(start, end);
+		const startChart = new Date(this.startWeek);
+		startChart.setDate(startChart.getDate() - 1);
+		this.chartData.labels = [];
+		for (let i = 0; i < 7; i++) {
+			this.chartData.labels.push(
+				new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+			);
+		}
+		bus.$emit('lineUpdate');
+		this.fetchWeek(start, end);
 	},
 	methods: {
 		movePrevMonth() {
@@ -149,8 +158,17 @@ export default {
 				1}-${this.startWeek.getDate()}`;
 			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
-			// this.fetchWeek(startString, endString);
+			const startChart = new Date(this.startWeek);
+			startChart.setDate(startChart.getDate() - 1);
+			this.chartData.labels = [];
+			for (let i = 0; i < 7; i++) {
+				this.chartData.labels.push(
+					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+				);
+			}
+			this.fetchWeek(start, end);
 			console.log(this.startString, this.endString);
+			bus.$emit('lineUpdate');
 		},
 		moveNextWeek() {
 			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() + 7));
@@ -165,8 +183,23 @@ export default {
 				1}-${this.startWeek.getDate()}`;
 			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
-			// this.fetchWeek(startString, endString);
+			const startChart = new Date(this.startWeek);
+			startChart.setDate(startChart.getDate() - 1);
+			this.chartData.labels.splice(0, this.chartData.labels.length);
+			for (let i = 0; i < 7; i++) {
+				// this.$set(
+				// 	this.chartData.labels,
+				// 	i,
+				// 	new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+				// );
+				this.chartData.labels.push(
+					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+				);
+			}
+			console.log(this.chartData.labels);
+			this.fetchWeek(start, end);
 			console.log(this.startString, this.endString);
+			bus.$emit('lineUpdate');
 		},
 		async fetchWeek(startWeek, endWeek) {
 			const { data } = await fetchWeekReport(startWeek, endWeek);
