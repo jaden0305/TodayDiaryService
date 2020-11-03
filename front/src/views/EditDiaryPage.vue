@@ -216,10 +216,12 @@ export default {
 	.diary-image {
 		display: flex;
 		justify-content: center;
+		height: 25vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
 		.diary-image__value {
 			width: 100%;
+			object-fit: cover;
 		}
 		label {
 			display: flex;
@@ -228,7 +230,7 @@ export default {
 				cursor: pointer;
 			}
 			.diary-image__file {
-				width: 25%;
+				height: 10vh;
 				margin: 50px;
 			}
 		}
