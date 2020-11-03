@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from accounts.serializers import UserSerializer
+from text.serializers import DailyReportSerializer
 from .models import *
 
 
@@ -72,8 +73,7 @@ class ReadPostSerializer(serializers.ModelSerializer):
     postcolor = PostColorSerializer()
     font = PostFontSerializer()
     pattern = PatternSerializer()
-    emotion = EmotionSerializer(required=False)
-    user_emotion = EmotionSerializer(required=False)
+    report = DailyReportSerializer()
     stickers = PostStickerReadSerializer(many=True)
     class Meta:
         model = Post
