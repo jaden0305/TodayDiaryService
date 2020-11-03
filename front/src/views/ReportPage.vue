@@ -43,6 +43,8 @@
 			<div class="report-wordcloud">
 				<span class="report-title">감정 사전</span>
 				<vue-word-cloud
+					class="report-word"
+					@click.native="switchBarView"
 					style="height:35vh; border-radius: 8px;"
 					:words="words"
 					:color="
@@ -53,7 +55,18 @@
 					font-family="Quicksand"
 					:spacing="parseInt(0.5)"
 				/>
-				<bar-chart></bar-chart>
+				<bar-chart
+					class="report-bar display-none"
+					@click.native="switchWordView"
+					:data="[
+						['Easy', 3200],
+						['Wow', 2000],
+						['Play', 1492],
+						['Work', 1322],
+					]"
+					xtitle="빈도"
+					ytitle="단어"
+				></bar-chart>
 			</div>
 			<div class="report-chart">
 				<span class="report-title">감정 그래프</span>
@@ -66,12 +79,12 @@
 <script src="https://unpkg.com/chance@1.1.6/dist/chance.min.js"></script>
 <script>
 import LineChart from '@/components/common/LineChart.vue';
-import BarChart from '@/components/common/BarChart.vue';
+// import BarChart from '@/components/common/BarChart.vue';
 import bus from '@/utils/bus';
 import cookies from 'vue-cookies';
 import { fetchWeekReport, fetchMonthReport } from '@/api/report';
 export default {
-	components: { LineChart, BarChart },
+	components: { LineChart },
 	data() {
 		return {
 			startWeek: null,
@@ -131,6 +144,22 @@ export default {
 		this.fetchWeek(start, end);
 	},
 	methods: {
+		switchWordView() {
+			const words = document.querySelector('.report-word');
+			const barChart = document.querySelector('.report-bar');
+			if (words.classList.contains('display-none')) {
+				words.classList.remove('display-none');
+			}
+			barChart.classList.add('display-none');
+		},
+		switchBarView() {
+			const words = document.querySelector('.report-word');
+			const barChart = document.querySelector('.report-bar');
+			if (barChart.classList.contains('display-none')) {
+				barChart.classList.remove('display-none');
+			}
+			words.classList.add('display-none');
+		},
 		movePrevMonth() {
 			if (this.month > 1) {
 				this.month -= 1;
@@ -189,11 +218,6 @@ export default {
 			startChart.setDate(startChart.getDate() - 1);
 			this.chartData.labels.splice(0, this.chartData.labels.length);
 			for (let i = 0; i < 7; i++) {
-				// this.$set(
-				// 	this.chartData.labels,
-				// 	i,
-				// 	new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
-				// );
 				this.chartData.labels.push(
 					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
 				);
