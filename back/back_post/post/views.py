@@ -53,6 +53,7 @@ class CreateDiary(APIView):
             date = request.data['created']
 
             response = self.analyze(request.user.id, text, date, p.id)
+            
             serializer = CreatePostSerializer(instance=p, data=request.data)
             serializer.is_valid(raise_exception=True)
             p = serializer.save(report=DailyReport.objects.get(pk=response['id']))
