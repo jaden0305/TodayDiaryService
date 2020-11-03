@@ -71,19 +71,26 @@ def statistics(request):
     # print(result['feel'])
 
     emotion = get_object_or_404(Emotion, name=result['feel'][0][0])
-    # print(emotion)
+    print(emotion)
     data = {
         'user': user,
         'date': date,
-        'emotions': result['feel'],
+        'user_emotion': emotion.id,
         'score': result['score'],
         'emotion': emotion.id,
         'post': post.id,
     }
 
     daily_report_serializer = DailyReportSerializer(data=data)
-    if daily_report_serializer.is_valid(raise_exception=True):
-        daily_report_serializer.save(user=get_object_or_404(User, pk=user) ,score=score, post=post, emotion=emotion)
+    if daily_report_serializer.is_valid():
+        daily_report_serializer.save(
+            user=get_object_or_404(User, pk=user),
+            score=score,
+            post=post,
+            emotion=emotion,
+            user_emotion=emotion)
+    else:
+        print(daily_report_serializer.errors)
 
     result = {
         **daily_report_serializer.data
