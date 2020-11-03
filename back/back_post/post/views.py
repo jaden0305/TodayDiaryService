@@ -53,18 +53,20 @@ class CreateDiary(APIView):
             date = request.data['created']
 
             response = self.analyze(request.user.id, text, date, p.id)
+            serializer = CreatePostSerializer(instance=p, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            p = serializer.save(report=DailyReport.objects.get(pk=response['id']))
 
             stickers = json.loads(request.data.get('stickers','[]'))
             for sticker in stickers:
                 sticker['post'] = p.id
                 sticker_serializer = PostStickerSerializer(data=sticker)
-                if sticker_serializer.is_valid(raise_exception=True):
-                    sticker_serializer.save()
+                sticker_serializer.is_valid(raise_exception=True)
+                sticker_serializer.save()
             post = get_object_or_404(Post, pk=p.id)
             result = {
                 **ReadPostSerializer(instance=post).data
             }
-            result['emotion'] = response['emotion']
             return Response(result, status=status.HTTP_201_CREATED)
 
 
@@ -89,7 +91,7 @@ class diary(APIView):
         data = {}
         for key, value in request.data.items():
             res = value
-            if key in ['postcolor', 'font', 'pattern', 'emotion']:
+            if key in ['postcolor', 'font', 'pattern']:
                 res = int(value)
             data[key] = res
 

@@ -26,7 +26,8 @@ def date_to_dict(year, month):
         #     "day": result_day})
         this_month.append({
             "week": result_week,
-            "day": result_day})
+            "day": result_day,
+            "month": month})
 
         # if result_week == 6:
         #     week += 1
@@ -50,7 +51,8 @@ def date_to_dict(year, month):
         #     "day": result_day})
         before_month.append({
             "week": result_week,
-            "day": result_day})
+            "day": result_day,
+            "month": result.month})
         
     before_month = list(reversed(before_month))
     for w in before_month:
@@ -81,7 +83,8 @@ def date_to_dict(year, month):
         #     "day": result_day})
         after_month.append({
             "week": result_week,
-            "day": result_day})
+            "day": result_day,
+            "month": result.month})
         total_day += 1
     
     before = (start_date - relativedelta(months=1)).month
