@@ -14,6 +14,8 @@ from .serializers import *
 
 from drf_yasg.utils import swagger_auto_schema
 
+import pandas
+
 User = get_user_model()
 
 @swagger_auto_schema()
@@ -98,25 +100,48 @@ def statistics(request):
 def weekly(request):
     start = request.GET.get('start')
     end = request.GET.get('end')
-    daily_report = DailyReport.objects.filter(date__range=[start, end], user_id=request.user.id)
+
+    dt_index = pandas.date_range(start=start, end=end)
+
+    # type(dt_index) => DatetimeIndex
+    # DatetimeIndex => list(str)
+    dt_list = dt_index.strftime("%Y-%m-%d").tolist()
+
+    daily_report = DailyReport.objects.filter(date__range=[start, end], user_id=request.user.id).order_by('date')
     wordcloud = WordCloudReport.objects.filter(date__range=[start, end], user_id=request.user.id)
 
     daily_report_serializer = DailyReportSerializer(instance=daily_report, many=True)
     wordcloud_serializer = WordCloudReportSerializer(instance=wordcloud, many=True)
 
-    temp = {}
-    lis = []
+    # print(daily_report_serializer.data)
+    # print(wordcloud_serializer.data)
 
+    temp = {}
+    wc_list = []
+    graph_list = []
+    # wordcloud data
     for i in wordcloud_serializer.data:
         if i['word'] not in temp:
             temp[i['word']] = [i['count'], i['emotion']]
         else:
             temp[i['word']][0] += i['count']
-    
     for key, value in temp.items():
-        lis.append([key, value[0], value[1]])
+        wc_list.append([key, value[0], value[1]])
     
-    return Response({'score':daily_report_serializer.data, 'wordcloud': lis})
+    # score data
+    for date in dt_list:
+        for qdate in daily_report_serializer.data:
+            if date == qdate['date']:
+                # lis.append([])
+                graph_list.append(qdate)
+                break
+        else:
+            graph_list.append({})
+        # print(daily_report_serializer.data)
+    #     if idx in daily_report_serializer.data['date']:
+    #         list
+    
+    return Response({'score': graph_list, 'wordcloud': wc_list})
 
 @swagger_auto_schema(methods=['get'], query_serializer=MonthlyDateSerializer)
 @api_view(['GET'])
