@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from .analysis.analysis import TextAnalysis
-from .models import Post, Emotion
+from post.models import Post, Emotion
 # from .models import User
 from .serializers import *
 
@@ -40,18 +40,13 @@ def statistics(request):
             'count': lis[1],
             'emotion': lis[2],
         }
-        print(data)
+
         wordcloud_serializer = WordCloudReportSerializer(data=data)
-        print(wordcloud_serializer.initial_data)
+
         # if wordcloud_serializer.is_valid(raise_exception=True):
             # wordcloud_serializer.save()
-        if wordcloud_serializer.is_valid():
-            print(1)
+        if wordcloud_serializer.is_valid(raise_exception=True):
             wordcloud_serializer.save(date=date, user=get_object_or_404(User, pk=user))
-        else:
-            print(2)
-            print(wordcloud_serializer.errors)
-        print(3)
 
     score = round(result['score'],3)
 
@@ -87,9 +82,9 @@ def statistics(request):
     }
 
     daily_report_serializer = DailyReportSerializer(data=data)
-    # print(daily_report_serializer.initial_data)
     if daily_report_serializer.is_valid(raise_exception=True):
-        daily_report_serializer.save(user=get_object_or_404(User, pk=user) ,score=score, post=post, emotion=emotion, emotions=result['feel'])
+        daily_report_serializer.save(user=get_object_or_404(User, pk=user) ,score=score, post=post, emotion=emotion)
+
     result = {
         **daily_report_serializer.data
     }
