@@ -14,27 +14,30 @@ def date_to_dict(year, month):
     start_date = datetime.datetime(year, month, 1)
     total_day = 0
 
-    week = 0
+    # week = 0
     for count in range(day_count):
-        if len(this_month) <= week:
-            this_month.append(list())
+        # if len(this_month) <= week:
+        #     this_month.append(list())
         result = start_date + datetime.timedelta(days=count)
         result_day = result.day
         result_week = (result.weekday() + 1) % 7
-        this_month[week].append({
+        # this_month[week].append({
+        #     "week": result_week,
+        #     "day": result_day})
+        this_month.append({
             "week": result_week,
             "day": result_day})
 
-        if result_week == 6:
-            week += 1
+        # if result_week == 6:
+        #     week += 1
     for w in this_month:
         total_day += len(w)
 
-    week = 0
+    # week = 0
     flag = False
     for count in range(1, 14):
-        if len(before_month) <= week:
-            before_month.append(list())
+        # if len(before_month) <= week:
+        #     before_month.append(list())
         result = start_date - datetime.timedelta(days=count)
         result_day = result.day
         result_week = (result.weekday() + 1) % 7 
@@ -42,35 +45,41 @@ def date_to_dict(year, month):
             break
         else:
             flag = True
-        before_month[week].append({
+        # before_month[week].append({
+        #     "week": result_week,
+        #     "day": result_day})
+        before_month.append({
             "week": result_week,
             "day": result_day})
         
-    before_month[0] = list(reversed(before_month[0]))
+    before_month = list(reversed(before_month))
     for w in before_month:
         total_day += len(w)
 
-    week = 0
+    # week = 0
     flag = False
     end_date = datetime.datetime(year, month, day_count)
     for count in range(1, 14):
-        if len(after_month) <= week:
-            after_month.append(list())
+        # if len(after_month) <= week:
+        #     after_month.append(list())
         result = end_date + datetime.timedelta(days=count)
         result_day = result.day
         result_week = (result.weekday() + 1) % 7
         if result_week == 0:
             if flag and total_day // 7 >= 6:
                 break
-            else:
-                week += 1
-                if len(after_month[week-1]) == 0:
-                    week -= 1
+            # else:
+            #     week += 1
+            #     if len(after_month[week-1]) == 0:
+            #         week -= 1
         else:
             flag = True
-        if len(after_month) <= week:
-            after_month.append(list())
-        after_month[week].append({
+        # if len(after_month) <= week:
+        #     after_month.append(list())
+        # after_month[week].append({
+        #     "week": result_week,
+        #     "day": result_day})
+        after_month.append({
             "week": result_week,
             "day": result_day})
         total_day += 1
