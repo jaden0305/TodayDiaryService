@@ -121,7 +121,7 @@
 						v-if="
 							(toDay === day.day || toDay - 1 === day.day) &&
 								todayMonth === day.month &&
-								!day.post
+								!Boolean(day.post)
 						"
 						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 						class="calendar-day emoticon"
