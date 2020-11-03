@@ -228,7 +228,7 @@ export default {
 	.diary-image {
 		display: flex;
 		justify-content: center;
-		height: 25vh;
+		height: 28vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
 		.diary-image__value {
