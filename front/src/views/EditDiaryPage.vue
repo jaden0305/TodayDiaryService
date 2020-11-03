@@ -45,9 +45,9 @@
 				/>
 				<label for="diary-image__input" v-if="diaryImageFile">
 					<img
-						src="@/assets/images/photos.svg"
-						class="diary-image__file"
-						alt="이미지추가하기"
+						class="diary-image__value"
+						:src="contentImg"
+						alt="일기사진수정하기"
 					/>
 				</label>
 				<input
@@ -111,6 +111,18 @@ export default {
 		ToastMusic,
 		ToastSticker,
 		ToastTheme,
+	},
+	computed: {
+		diaryDataImage() {
+			return `${this.diaryData.image}`.substr(1);
+		},
+		contentImg() {
+			if (this.diaryData.image) {
+				return `${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
+			} else {
+				return `@/assets/images/logo3.png`;
+			}
+		},
 	},
 	methods: {
 		onChangeDiaryImage() {
