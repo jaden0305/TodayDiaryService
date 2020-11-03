@@ -205,20 +205,22 @@ export default {
 	.diary-image {
 		display: flex;
 		justify-content: center;
+		height: 28vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
 		.diary-image__value {
 			width: 100%;
+			object-fit: cover;
 		}
 		label {
 			display: flex;
 			justify-content: center;
+			align-items: center;
 			&:hover {
 				cursor: pointer;
 			}
 			.diary-image__file {
-				width: 25%;
-				margin: 50px;
+				height: 10vh;
 			}
 		}
 		#diary-image__input {
