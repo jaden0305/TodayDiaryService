@@ -2,46 +2,42 @@
 	<div class="report-wrap">
 		<div class="report-header">
 			<div class="report-btnbox">
-				<button
-					@click="
-						selectChart(0);
-						onDisplayNone();
-					"
-					class="report-btn"
-				>
+				<button @click="selectChart(0)" class="report-btn">
 					전체
 				</button>
-				<button
-					@click="
-						selectChart(1);
-						onDisplay();
-					"
-					class="report-btn select"
-				>
+				<button @click="selectChart(1)" class="report-btn select">
 					주별
 				</button>
-				<button
-					@click="
-						selectChart(2);
-						onDisplay();
-					"
-					class="report-btn"
-				>
+				<button @click="selectChart(2)" class="report-btn">
 					월별
 				</button>
 			</div>
 		</div>
 		<div class="report-content">
-			<div class="report-selectbox">
-				<button class="report-select__prev">
+			<div class="report-selectbox display-none">
+				<button @click="movePrevMonth" class="report-select__prev">
 					이전달
 				</button>
 				<div class="report-select">
-					<span class="report-select__month">시월</span>
+					<span class="report-select__month">{{ month | filterMonth }}</span>
 					<span class="report-select__span"></span>
 				</div>
-				<button class="report-select__next">
+				<button @click="moveNextMonth" class="report-select__next">
 					다음달
+				</button>
+			</div>
+			<div class="report-selectweekbox">
+				<button @click="movePrevWeek" class="report-select__prev">
+					이전주
+				</button>
+				<div class="report-select">
+					<span class="report-select__month"
+						>{{ startString }}~{{ endString }}</span
+					>
+					<span class="report-select__span"></span>
+				</div>
+				<button @click="moveNextWeek" class="report-select__next">
+					다음주
 				</button>
 			</div>
 			<div class="report-wordcloud">
@@ -69,11 +65,20 @@
 <script src="https://unpkg.com/chance@1.1.6/dist/chance.min.js"></script>
 <script>
 import LineChart from '@/components/common/LineChart.vue';
+import bus from '@/utils/bus';
 import cookies from 'vue-cookies';
+import { fetchWeekReport, fetchMonthReport } from '@/api/report';
 export default {
 	components: { LineChart },
 	data() {
 		return {
+			startWeek: null,
+			endWeek: null,
+			month: null,
+			year: null,
+			startString: null,
+			endString: null,
+			weekcnt: 0,
 			words: [
 				['romance', 300],
 				['magic', 200],
@@ -92,7 +97,114 @@ export default {
 			},
 		};
 	},
+	created() {
+		const day = new Date();
+		this.month = day.getMonth() + 1;
+		this.year = day.getFullYear();
+		let weekDay = new Date();
+		this.weekday = weekDay;
+		this.endWeek = new Date(
+			this.weekday.setDate(
+				this.weekday.getDate() + (6 - this.weekday.getDay() + this.weekcnt * 7),
+			),
+		);
+		this.startWeek = new Date(this.weekday.setDate(this.weekday.getDate() - 6));
+		const start = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+			1}-${this.startWeek.getDate()}`;
+		const end = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+			1}-${this.endWeek.getDate()}`;
+		this.startString = `${this.startWeek.getMonth() +
+			1}-${this.startWeek.getDate()}`;
+		this.endString = `${this.endWeek.getMonth() + 1}-${this.endWeek.getDate()}`;
+		console.log(start, end);
+		const startChart = new Date(this.startWeek);
+		startChart.setDate(startChart.getDate() - 1);
+		this.chartData.labels = [];
+		for (let i = 0; i < 7; i++) {
+			this.chartData.labels.push(
+				new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+			);
+		}
+		bus.$emit('lineUpdate');
+		this.fetchWeek(start, end);
+	},
 	methods: {
+		movePrevMonth() {
+			if (this.month > 1) {
+				this.month -= 1;
+			} else {
+				this.month = 12;
+				this.year -= 1;
+			}
+		},
+		moveNextMonth() {
+			if (this.month < 12) {
+				this.month += 1;
+			} else {
+				this.month = 1;
+				this.year += 1;
+			}
+		},
+		movePrevWeek() {
+			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() - 7));
+			this.startWeek = new Date(
+				this.startWeek.setDate(this.startWeek.getDate() - 7),
+			);
+			const start = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+				1}-${this.startWeek.getDate()}`;
+			const end = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+				1}-${this.endWeek.getDate()}`;
+			this.startString = `${this.startWeek.getMonth() +
+				1}-${this.startWeek.getDate()}`;
+			this.endString = `${this.endWeek.getMonth() +
+				1}-${this.endWeek.getDate()}`;
+			const startChart = new Date(this.startWeek);
+			startChart.setDate(startChart.getDate() - 1);
+			this.chartData.labels = [];
+			for (let i = 0; i < 7; i++) {
+				this.chartData.labels.push(
+					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+				);
+			}
+			this.fetchWeek(start, end);
+			console.log(this.startString, this.endString);
+			bus.$emit('lineUpdate');
+		},
+		moveNextWeek() {
+			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() + 7));
+			this.startWeek = new Date(
+				this.startWeek.setDate(this.startWeek.getDate() + 7),
+			);
+			const start = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+				1}-${this.startWeek.getDate()}`;
+			const end = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+				1}-${this.endWeek.getDate()}`;
+			this.startString = `${this.startWeek.getMonth() +
+				1}-${this.startWeek.getDate()}`;
+			this.endString = `${this.endWeek.getMonth() +
+				1}-${this.endWeek.getDate()}`;
+			const startChart = new Date(this.startWeek);
+			startChart.setDate(startChart.getDate() - 1);
+			this.chartData.labels.splice(0, this.chartData.labels.length);
+			for (let i = 0; i < 7; i++) {
+				// this.$set(
+				// 	this.chartData.labels,
+				// 	i,
+				// 	new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+				// );
+				this.chartData.labels.push(
+					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+				);
+			}
+			console.log(this.chartData.labels);
+			this.fetchWeek(start, end);
+			console.log(this.startString, this.endString);
+			bus.$emit('lineUpdate');
+		},
+		async fetchWeek(startWeek, endWeek) {
+			const { data } = await fetchWeekReport(startWeek, endWeek);
+			console.log(data);
+		},
 		rotation: ([word]) => {
 			var chance = new Chance(word[0]);
 			return chance.pickone([0, 1 / 8, 3 / 4, 7 / 8]);
@@ -102,17 +214,36 @@ export default {
 			const charts = document.querySelectorAll('.report-btn');
 			selected.classList.remove('select');
 			charts[num].classList.add('select');
-		},
-		onDisplay() {
 			const selectBox = document.querySelector('.report-selectbox');
-			if (selectBox.classList.contains('display-none')) {
-				selectBox.classList.remove('display-none');
-			}
-		},
-		onDisplayNone() {
-			const selectBox = document.querySelector('.report-selectbox');
-			if (!selectBox.classList.contains('display-none')) {
-				selectBox.classList.add('display-none');
+			const selectWeekBox = document.querySelector('.report-selectweekbox');
+
+			switch (num) {
+				case 0:
+					if (!selectBox.classList.contains('display-none')) {
+						selectBox.classList.add('display-none');
+					}
+					if (!selectWeekBox.classList.contains('display-none')) {
+						selectWeekBox.classList.add('display-none');
+					}
+					break;
+				case 1:
+					if (selectWeekBox.classList.contains('display-none')) {
+						selectWeekBox.classList.remove('display-none');
+					}
+					if (!selectBox.classList.contains('display-none')) {
+						selectBox.classList.add('display-none');
+					}
+					break;
+				case 2:
+					if (!selectWeekBox.classList.contains('display-none')) {
+						selectWeekBox.classList.add('display-none');
+					}
+					if (selectBox.classList.contains('display-none')) {
+						selectBox.classList.remove('display-none');
+					}
+					break;
+				default:
+					throw new Error('입력 값이 잘못되었습니다');
 			}
 		},
 	},
@@ -215,6 +346,65 @@ export default {
 	display: none !important;
 }
 .report-selectbox {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+	margin-bottom: 1.5rem;
+	color: #495057;
+	font-weight: 400;
+	.report-select {
+		display: inline-block;
+		position: relative;
+		.report-select__month {
+			font-size: 1.5rem;
+		}
+	}
+	.report-select__span {
+		position: absolute;
+		bottom: -6px;
+		left: 0;
+		width: 100%;
+		height: 12px;
+		background: linear-gradient(to right, #9200b9 8%, #6c23c0 75%, #5600c7);
+		opacity: 0.5;
+	}
+
+	.report-select__prev {
+		align-self: flex-end;
+		margin-right: 3.5rem;
+		margin-bottom: -10px;
+		font-weight: 600;
+		font-size: 0.8rem;
+		border: 0;
+		outline: 0;
+		color: #868e96;
+		background: none;
+		cursor: pointer;
+		@media (max-width: 300px) {
+			margin-right: 3rem;
+			font-size: 0.6rem;
+		}
+	}
+	.report-select__next {
+		align-self: flex-end;
+		margin-left: 3.5rem;
+		margin-bottom: -10px;
+		font-weight: 600;
+		font-size: 0.8rem;
+		border: 0;
+		outline: 0;
+		color: #868e96;
+		background: none;
+		cursor: pointer;
+		@media (max-width: 300px) {
+			margin-left: 3rem;
+			font-size: 0.6rem;
+		}
+	}
+}
+.report-selectweekbox {
 	width: 100%;
 	display: flex;
 	justify-content: space-around;
