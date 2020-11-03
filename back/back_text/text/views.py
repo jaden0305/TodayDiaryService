@@ -14,7 +14,7 @@ from .serializers import *
 
 from drf_yasg.utils import swagger_auto_schema
 
-import pandas
+import pandas, calendar
 
 User = get_user_model()
 
@@ -69,22 +69,27 @@ def statistics(request):
     #     if multiple_emotion_serializer.is_valid(raise_exception=True):
     #         multiple_emotion_serializer.save(user=get_object_or_404(User, pk=user) ,score=score, post=post)
     #     return Response(multiple_emotion_serializer.data, status=status.HTTP_201_CREATED)
+    # print(result)
+    # print(result['feel'])
     result['feel'].sort(key=lambda x:x[1])
-    emotion = get_object_or_404(Emotion, name=result['feel'][0][0])
+    # print(result['feel'][0][0])
+    # print(result['feel'])
 
+    emotion = get_object_or_404(Emotion, name=result['feel'][0][0])
+    # print(emotion)
     data = {
         'user': user,
         'date': date,
-        'emotions': str(result['feel']),
+        'emotions': result['feel'],
         'score': result['score'],
-        'emotion': emotion,
+        'emotion': emotion.id,
         'post': post.id,
     }
 
     daily_report_serializer = DailyReportSerializer(data=data)
-
+    # print(daily_report_serializer.initial_data)
     if daily_report_serializer.is_valid(raise_exception=True):
-        daily_report_serializer.save(user=get_object_or_404(User, pk=user) ,score=score, post=post)
+        daily_report_serializer.save(user=get_object_or_404(User, pk=user) ,score=score, post=post, emotion=emotion, emotions=result['feel'])
     result = {
         **daily_report_serializer.data
     }
@@ -155,18 +160,29 @@ def monthly(request):
     wordcloud_serializer = WordCloudReportSerializer(instance=wordcloud, many=True)
 
     temp = {}
-    lis = []
+    wc_list = []
+    graph_list = []
+    year, days = calendar.monthrange(int(year), int(month))
+    # print(days)
+    print(daily_report_serializer.data)
 
     for i in wordcloud_serializer.data:
         if i['word'] not in temp:
             temp[i['word']] = [i['count'], i['emotion']]
         else:
             temp[i['word']][0] += i['count']
-    
     for key, value in temp.items():
-        lis.append([key, value[0], value[1]])
+        wc_list.append([key, value[0], value[1]])
+    
+    for day in range(1, days + 1):
+        for qdate in daily_report_serializer.data:
+            if day == int(qdate['date'][-2:]):
+                graph_list.append(qdate)
+                break
+        else:
+            graph_list.append({})
 
-    return Response({'score':daily_report_serializer.data, 'wordcloud': lis})
+    return Response({'score':graph_list, 'wordcloud': wc_list})
 
 @swagger_auto_schema()
 @api_view(['GET'])
@@ -178,7 +194,7 @@ def total(request):
     wordcloud_serializer = WordCloudReportSerializer(instance=wordcloud, many=True)
 
     temp = {}
-    lis = []
+    wc_list = []
     for i in wordcloud_serializer.data:
         if i['word'] not in temp:
             temp[i['word']] = [i['count'], i['emotion']]
@@ -186,6 +202,6 @@ def total(request):
             temp[i['word']][0] += i['count']
     
     for key, value in temp.items():
-        lis.append([key, value[0], value[1]])
+        wc_list.append([key, value[0], value[1]])
 
-    return Response({'score':daily_report_serializer.data, 'wordcloud': lis})
+    return Response({'score':daily_report_serializer.data, 'wordcloud': wc_list})
