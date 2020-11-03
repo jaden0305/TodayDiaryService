@@ -142,10 +142,13 @@ export default {
 		display: flex;
 		justify-content: center;
 		margin: 10px 0;
+		height: 35vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
 		.diary-image__value {
 			width: 100%;
+			border-radius: 4px;
+			object-fit: cover;
 		}
 	}
 	.diary-text {
