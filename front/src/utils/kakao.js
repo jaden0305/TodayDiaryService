@@ -29,7 +29,7 @@ let GetMe = async authObj => {
 				profileIMG: kakao_account.profile.profile_image_url,
 			};
 			// social_login(req_body);
-			console.log(req_body);
+			// console.log(req_body);
 			cookies.set('username', req_body.name);
 
 			// alert('로그인 했어용....')
@@ -47,7 +47,7 @@ let GetMe = async authObj => {
 							})
 							.then(res => {
 								console.log('로그인 성공');
-								console.log(res.data);
+								// console.log(res.data);
 								store.commit('SETUSERINFO', {
 									token: res.data.token,
 									username: cookies.get('username'),
@@ -68,7 +68,7 @@ let GetMe = async authObj => {
 							})
 							.then(res => {
 								console.log('가입 + 로그인 성공');
-								console.log(res.data);
+								// console.log(res.data);
 								store.commit('SETUSERINFO', {
 									token: res.data.token,
 									username: cookies.get('username'),
