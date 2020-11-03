@@ -17,33 +17,9 @@ class WordCloudReport(models.Model):
 class DailyReport(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='text_reports')
     score = models.FloatField()
-    emotions = models.TextField()
     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, null=True)
+    user_emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, blank=True, null=True, related_name='daily_report')
     date = models.DateField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     class Meta:
         db_table = 'text_dailyreport'
-
-# class WeeklyReport(models.Model):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='text_reports')
-#     score = models.FloatField()
-#     emotions = models.TextField()
-#     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
-#     date = models.DateField()
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-
-# class MonthlyReport(models.Model):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='text_reports')
-#     score = models.FloatField()
-#     emotions = models.TextField()
-#     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
-#     date = models.DateField()
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-
-# class TotalReport(models.Model):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='text_reports')
-#     score = models.FloatField()
-#     emotions = models.TextField()
-#     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
-#     date = models.DateField()
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
