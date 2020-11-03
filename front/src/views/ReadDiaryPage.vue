@@ -142,7 +142,7 @@ export default {
 		display: flex;
 		justify-content: center;
 		margin: 10px 0;
-		height: 35vh;
+		height: 28vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
 		.diary-image__value {

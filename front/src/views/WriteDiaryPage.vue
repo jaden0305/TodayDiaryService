@@ -215,12 +215,12 @@ export default {
 		label {
 			display: flex;
 			justify-content: center;
-			align-items: center;
 			&:hover {
 				cursor: pointer;
 			}
 			.diary-image__file {
 				height: 10vh;
+				margin-top: 50px;
 			}
 		}
 		#diary-image__input {
