@@ -94,26 +94,14 @@ export default {
 				if (nex == 13) {
 					nex = 1;
 				}
-				data[pre].forEach(week => {
-					if (week) {
-						week.forEach(day => {
-							this.preMonth.push(day);
-						});
-					}
+				data[pre].forEach(day => {
+					this.preMonth.push(day);
 				});
-				data[nex].forEach(week => {
-					if (week) {
-						week.forEach(day => {
-							this.nextMonth.push(day);
-						});
-					}
+				data[nex].forEach(day => {
+					this.nextMonth.push(day);
 				});
-				data[this.month].forEach(week => {
-					if (week) {
-						week.forEach(day => {
-							this.nowMonth.push(day);
-						});
-					}
+				data[this.month].forEach(day => {
+					this.nowMonth.push(day);
 				});
 			} catch (error) {
 				console.log(error);

@@ -46,13 +46,14 @@
 					style="height:35vh; border-radius: 8px;"
 					:words="words"
 					:color="
-						([, weight]) =>
-							weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'
+						([, , emotion]) =>
+							emotion > 0 ? 'DeepPink' : emotion < 0 ? 'RoyalBlue' : 'black'
 					"
 					:rotation="rotation"
 					font-family="Quicksand"
 					:spacing="parseInt(0.5)"
 				/>
+				<bar-chart></bar-chart>
 			</div>
 			<div class="report-chart">
 				<span class="report-title">감정 그래프</span>
@@ -65,11 +66,12 @@
 <script src="https://unpkg.com/chance@1.1.6/dist/chance.min.js"></script>
 <script>
 import LineChart from '@/components/common/LineChart.vue';
+import BarChart from '@/components/common/BarChart.vue';
 import bus from '@/utils/bus';
 import cookies from 'vue-cookies';
 import { fetchWeekReport, fetchMonthReport } from '@/api/report';
 export default {
-	components: { LineChart },
+	components: { LineChart, BarChart },
 	data() {
 		return {
 			startWeek: null,
@@ -80,10 +82,10 @@ export default {
 			endString: null,
 			weekcnt: 0,
 			words: [
-				['romance', 300],
-				['magic', 200],
-				['fantasy', 100],
-				['adventure', 150],
+				['romance', 300, 1],
+				['magic', 200, 0],
+				['fantasy', 100, -1],
+				['adventure', 150, 1],
 			],
 			chartLoading: false,
 			chartData: {
