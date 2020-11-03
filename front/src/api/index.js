@@ -20,4 +20,6 @@ export const diary = createWithAuth(`${process.env.VUE_APP_API_URL}post`);
 export const calendar = createWithAuth(
 	`${process.env.VUE_APP_API_URL}calendar`,
 );
-export const report = createWithAuth(`${process.env.VUE_APP_API_URL}text`);
+export const report = createWithAuth(
+	`${process.env.VUE_APP_REPORT_API_URL}text`,
+);

@@ -10,12 +10,6 @@ class WordCloudReportSerializer(serializers.ModelSerializer):
         fields = ('word', 'count', 'emotion')
 
 
-class MultipleEmotionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DailyReport
-        fields = ('emotions', 'date')
-
-
 class DailyReportSerializer(serializers.ModelSerializer):
     emotion = EmotionSerializer(read_only=True)
     user_emotion = EmotionSerializer(required=False)

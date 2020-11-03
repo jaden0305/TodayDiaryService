@@ -4,6 +4,8 @@ import datetime
 from django.db import models
 from django.conf import settings
 
+from text.models import DailyReport
+
 
 def upload_location(instance, filename):
     name, ext = filename.split('.')
@@ -70,8 +72,7 @@ class Post(models.Model):
     postcolor = models.ForeignKey(PostColor, on_delete=models.CASCADE)
     font = models.ForeignKey(PostFont, on_delete=models.CASCADE)
     pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE)
-    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, blank=True, null=True)
-    user_emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, blank=True, null=True, related_name='posts')
+    report = models.ForeignKey('text.DailyReport', on_delete=models.CASCADE, blank=True, null=True, related_name='posts')
     fontsize = models.IntegerField()
     upload_music = models.FileField(blank=True, null=True, upload_to=upload_location)
     recommend_music = models.ForeignKey(RecommendMusic, on_delete=models.CASCADE, null=True)

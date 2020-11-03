@@ -64,7 +64,7 @@ class CreatePostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     class Meta:
         model = Post
-        exclude = ('id', 'user')
+        exclude = ('id', 'user', 'report', 'recommend_music', 'upload_music')
 
 
 class ReadPostSerializer(serializers.ModelSerializer):
@@ -72,14 +72,13 @@ class ReadPostSerializer(serializers.ModelSerializer):
     postcolor = PostColorSerializer()
     font = PostFontSerializer()
     pattern = PatternSerializer()
-    emotion = EmotionSerializer(required=False)
-    user_emotion = EmotionSerializer(required=False)
     stickers = PostStickerReadSerializer(many=True)
     class Meta:
         model = Post
         fields = '__all__'
+        depth = 1
 
 class UpdatePostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        exclude = ('id', 'user', 'created',)
+        exclude = ('id', 'user', 'created', 'report', 'recommend_music', 'upload_music')

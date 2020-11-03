@@ -30,6 +30,12 @@
 					class="calendar-day"
 				>
 					<img
+						v-if="
+							(toDay === day.day || toDay - 1 === day.day) &&
+								todayMonth === day.month &&
+								!day.post
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
@@ -42,6 +48,12 @@
 					class="calendar-day"
 				>
 					<img
+						v-if="
+							(toDay === day.day || toDay - 1 === day.day) &&
+								todayMonth === day.month &&
+								!day.post
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
@@ -54,6 +66,12 @@
 					class="calendar-day"
 				>
 					<img
+						v-if="
+							(toDay === day.day || toDay - 1 === day.day) &&
+								todayMonth === day.month &&
+								!day.post
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
@@ -76,9 +94,15 @@ export default {
 			nowMonth: [],
 			nextMonth: [],
 			token: null,
+			toDay: null,
+			todayMonth: null,
 		};
 	},
 	methods: {
+		writeDiary(dayString) {
+			console.log(dayString);
+			this.$router.push({ name: 'diary' });
+		},
 		async fetchMonth({ year, month }) {
 			try {
 				const { data } = await fetchCalendar({ year, month });
@@ -94,26 +118,14 @@ export default {
 				if (nex == 13) {
 					nex = 1;
 				}
-				data[pre].forEach(week => {
-					if (week) {
-						week.forEach(day => {
-							this.preMonth.push(day);
-						});
-					}
+				data[pre].forEach(day => {
+					this.preMonth.push(day);
 				});
-				data[nex].forEach(week => {
-					if (week) {
-						week.forEach(day => {
-							this.nextMonth.push(day);
-						});
-					}
+				data[nex].forEach(day => {
+					this.nextMonth.push(day);
 				});
-				data[this.month].forEach(week => {
-					if (week) {
-						week.forEach(day => {
-							this.nowMonth.push(day);
-						});
-					}
+				data[this.month].forEach(day => {
+					this.nowMonth.push(day);
 				});
 			} catch (error) {
 				console.log(error);
@@ -140,6 +152,8 @@ export default {
 	},
 	created() {
 		const day = new Date();
+		this.todayMonth = day.getMonth() + 1;
+		this.toDay = day.getDate();
 		this.month = day.getMonth() + 1;
 		this.year = day.getFullYear();
 		this.fetchMonth({ year: this.year, month: this.month });
@@ -260,7 +274,7 @@ export default {
 .calendar-days {
 	width: 100%;
 	display: flex;
-	justify-content: space-evenly;
+	// justify-content: space-evenly;
 	flex-wrap: wrap;
 	.calendar-day {
 		display: flex;
