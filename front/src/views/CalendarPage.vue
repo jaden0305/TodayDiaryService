@@ -30,6 +30,11 @@
 					class="calendar-day"
 				>
 					<img
+						v-if="
+							(toDay === day.day || toDay - 1 === day.day) &&
+								todayMonth === day.month &&
+								!day.post
+						"
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
@@ -76,9 +81,14 @@ export default {
 			nowMonth: [],
 			nextMonth: [],
 			token: null,
+			toDay: null,
+			todayMonth: null,
 		};
 	},
 	methods: {
+		// writeDiary() {
+		// 	this.$router.push('')
+		// },
 		async fetchMonth({ year, month }) {
 			try {
 				const { data } = await fetchCalendar({ year, month });
@@ -128,6 +138,8 @@ export default {
 	},
 	created() {
 		const day = new Date();
+		this.todayMonth = day.getMonth() + 1;
+		this.toDay = day.getDate();
 		this.month = day.getMonth() + 1;
 		this.year = day.getFullYear();
 		this.fetchMonth({ year: this.year, month: this.month });
@@ -248,7 +260,7 @@ export default {
 .calendar-days {
 	width: 100%;
 	display: flex;
-	justify-content: space-evenly;
+	// justify-content: space-evenly;
 	flex-wrap: wrap;
 	.calendar-day {
 		display: flex;
