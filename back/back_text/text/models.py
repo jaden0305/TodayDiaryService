@@ -1,8 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-from post.models import Post, Emotion
-
 
 class WordCloudReport(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -17,9 +15,9 @@ class WordCloudReport(models.Model):
 class DailyReport(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='text_reports')
     score = models.FloatField()
-    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, null=True)
-    user_emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, blank=True, null=True, related_name='daily_report')
+    emotion = models.ForeignKey('post.Emotion', on_delete=models.CASCADE, null=True)
+    user_emotion = models.ForeignKey('post.Emotion', on_delete=models.CASCADE, blank=True, null=True, related_name='daily_report')
     date = models.DateField()
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
     class Meta:
         db_table = 'text_dailyreport'
