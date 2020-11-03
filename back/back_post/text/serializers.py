@@ -9,20 +9,12 @@ class WordCloudReportSerializer(serializers.ModelSerializer):
         model = WordCloudReport
         fields = ('word', 'count', 'emotion')
 
-
-class MultipleEmotionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DailyReport
-        fields = ('emotions', 'date')
-
-
 class DailyReportSerializer(serializers.ModelSerializer):
     emotion = EmotionSerializer(read_only=True)
     user_emotion = EmotionSerializer(read_only=True)
     class Meta:
         model = DailyReport
         fields = ('score', 'emotion', 'date', 'user_emotion')
-        
 
 class WeeklyDateSerializer(serializers.Serializer):
     start = serializers.DateField()
