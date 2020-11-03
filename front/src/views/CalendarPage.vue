@@ -40,6 +40,76 @@
 						src="@/assets/images/pencil-c.svg"
 						alt=""
 					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 1 || day.post.emotion_id === 1)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/happy.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 2 || day.post.emotion_id === 2)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/sad.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 3 || day.post.emotion_id === 3)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/smile.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 4 || day.post.emotion_id === 4)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 5 || day.post.emotion_id === 5)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/angry.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 6 || day.post.emotion_id === 6)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/surprise.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 7 || day.post.emotion_id === 7)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/dislike.png"
+						alt=""
+					/>
 					<p class="calendar-day__title">{{ day.day }}</p>
 				</span>
 				<span
@@ -58,6 +128,76 @@
 						src="@/assets/images/pencil-c.svg"
 						alt=""
 					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 1 || day.post.emotion_id === 1)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/happy.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 2 || day.post.emotion_id === 2)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/sad.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 3 || day.post.emotion_id === 3)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/smile.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 4 || day.post.emotion_id === 4)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 5 || day.post.emotion_id === 5)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/angry.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 6 || day.post.emotion_id === 6)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/surprise.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 7 || day.post.emotion_id === 7)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/dislike.png"
+						alt=""
+					/>
 					<p class="calendar-day__title">{{ day.day }}</p>
 				</span>
 				<span
@@ -74,6 +214,76 @@
 						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 1 || day.post.emotion_id === 1)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/happy.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 2 || day.post.emotion_id === 2)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/sad.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 3 || day.post.emotion_id === 3)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/smile.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 4 || day.post.emotion_id === 4)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 5 || day.post.emotion_id === 5)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/angry.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 6 || day.post.emotion_id === 6)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/surprise.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion_id === 7 || day.post.emotion_id === 7)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/dislike.png"
 						alt=""
 					/>
 					<p class="calendar-day__title">{{ day.day }}</p>
@@ -102,6 +312,9 @@ export default {
 		writeDiary(dayString) {
 			console.log(dayString);
 			this.$router.push({ name: 'diary' });
+		},
+		readDiary(diary_pk) {
+			this.$router.push(`/fetchDiary/${diary_pk}`);
 		},
 		async fetchMonth({ year, month }) {
 			try {
