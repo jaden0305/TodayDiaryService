@@ -35,6 +35,7 @@
 								todayMonth === day.month &&
 								!day.post
 						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
@@ -47,6 +48,12 @@
 					class="calendar-day"
 				>
 					<img
+						v-if="
+							(toDay === day.day || toDay - 1 === day.day) &&
+								todayMonth === day.month &&
+								!day.post
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
@@ -59,6 +66,12 @@
 					class="calendar-day"
 				>
 					<img
+						v-if="
+							(toDay === day.day || toDay - 1 === day.day) &&
+								todayMonth === day.month &&
+								!day.post
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 						class="calendar-day emoticon"
 						src="@/assets/images/pencil-c.svg"
 						alt=""
@@ -86,9 +99,10 @@ export default {
 		};
 	},
 	methods: {
-		// writeDiary() {
-		// 	this.$router.push('')
-		// },
+		writeDiary(dayString) {
+			console.log(dayString);
+			this.$router.push({ name: 'diary' });
+		},
 		async fetchMonth({ year, month }) {
 			try {
 				const { data } = await fetchCalendar({ year, month });
