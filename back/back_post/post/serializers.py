@@ -68,11 +68,6 @@ class CreatePostSerializer(serializers.ModelSerializer):
 
 
 class ReadPostSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    postcolor = PostColorSerializer()
-    font = PostFontSerializer()
-    pattern = PatternSerializer()
-    stickers = PostStickerReadSerializer(many=True)
     class Meta:
         model = Post
         fields = '__all__'

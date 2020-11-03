@@ -2,6 +2,7 @@ import datetime
 from dateutil.relativedelta import relativedelta
 
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 
 from rest_framework import status
 from rest_framework import permissions
@@ -15,6 +16,8 @@ from .common import date_to_dict
 from .serializers import CalendarQuerySerializer
 from post.models import Post
 from post.serializers import ReadPostSerializer
+from text.serializers import DailyReportSerializer
+from text.models import DailyReport
 
 
 
@@ -78,12 +81,14 @@ class CalendarView(APIView):
                     .values()
             
             for post in posts:
+                report = DailyReportSerializer(instance=get_object_or_404(DailyReport, pk=post['report_id'])).data
                 created = post['created']
                 calendar_info[created.month][created.day]['post'] = {
-                    'emotion_id': post['emotion_id'],
-                    'user_emotion_id': post['user_emotion_id'],
+                    'emotion': report['emotion'],
+                    'user_emotion': report['user_emotion'],
                     'id': post['id']
                 }
+            
             return Response(calendar_info, status=status.HTTP_200_OK)
             
         message = {
