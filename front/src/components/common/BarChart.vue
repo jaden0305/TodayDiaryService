@@ -43,7 +43,10 @@ export default {
 					yAxes: [
 						{
 							ticks: {
+								display: true,
+								stepSize: 25,
 								beginAtZero: true,
+								suggestedMax: 100,
 							},
 							gridLines: {
 								display: true,
