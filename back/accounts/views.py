@@ -41,12 +41,11 @@ class UserDetailView(APIView):
 @api_view(['GET'])
 def check_email(request):
     email = request.GET.get('email', None)
-    if email is None:
-        msg = "잘못된 요청입니다."
-        return Response({
-            'msg': msg
-        }, status=status.HTTP_400_BAD_REQUEST)
+    exist = User.objects.filter(email=email).exists()
+    if exist:
+        state = status.HTTP_200_OK
     else:
-        return Response({
-            'exist': User.objects.filter(email=email).exists(),
-        }, status=status.HTTP_200_OK)
+        state = status.HTTP_204_NO_CONTENT
+    
+    return Response(status=state)
+        
