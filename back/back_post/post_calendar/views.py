@@ -83,7 +83,7 @@ class CalendarView(APIView):
             for post in posts:
                 report = DailyReportSerializer(instance=get_object_or_404(DailyReport, pk=post['report_id'])).data
                 created = post['created']
-                calendar_info[created.month][created.day]['post'] = {
+                calendar_info[created.month][created.day-1]['post'] = {
                     'emotion': report['emotion'],
                     'user_emotion': report['user_emotion'],
                     'id': post['id']
