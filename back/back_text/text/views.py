@@ -98,9 +98,22 @@ def statistics(request):
     result['emotion'] = EmotionSerializer(instance=emotion).data
     return Response(result, status=status.HTTP_201_CREATED)
 
-# @api_view(['PATCH'])
-# def select_emotion(request):
-#     pass
+@swagger_auto_schema(methods=['patch'], query_serializer=SelectEmotionSerializer)
+@api_view(['PATCH'])
+def select(request):
+    # print(request.GET)
+    post_id = request.GET.get('post_id')
+    emotion = request.GET.get('emotion')
+    report = get_object_or_404(DailyReport, post_id=post_id)
+    # report.user_emotion = get_object_or_404(Emotion, pk=emotion)
+    data = {
+        'user_emotion': emotion
+    }
+    serializer = UserSelectEmotionSerializer(instance=report, data=data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+        # print(serializer.data)
+    return Response(serializer.data)
 
 @swagger_auto_schema(methods=['get'], query_serializer=WeeklyDateSerializer)
 @api_view(['GET'])
