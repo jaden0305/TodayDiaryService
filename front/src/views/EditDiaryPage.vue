@@ -58,6 +58,9 @@
 					@change="onChangeDiaryImage"
 				/>
 			</div>
+			<!-- <p>1{{ diaryImageUrl }}</p>
+			<p>2{{ contentImg }}</p>
+			<p>{{ diaryData.image }}</p> -->
 			<div class="diary-text">
 				<textarea
 					name="diary-content"
