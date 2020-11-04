@@ -25,6 +25,7 @@ def date_to_dict(year, month):
         #     "week": result_week,
         #     "day": result_day})
         this_month.append({
+            "year": result.year,
             "week": result_week,
             "day": result_day,
             "month": month})
@@ -50,6 +51,7 @@ def date_to_dict(year, month):
         #     "week": result_week,
         #     "day": result_day})
         before_month.append({
+            "year": result.year,
             "week": result_week,
             "day": result_day,
             "month": result.month})
@@ -82,6 +84,7 @@ def date_to_dict(year, month):
         #     "week": result_week,
         #     "day": result_day})
         after_month.append({
+            "year": result.year,
             "week": result_week,
             "day": result_day,
             "month": result.month})

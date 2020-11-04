@@ -36,14 +36,17 @@ class CreateDiary(APIView):
         response = requests.post(url, data=payload)
 
         return json.loads(response.text)
-
-
-        
+     
     # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
+        print(request.data)
+        data = request.data
+        if data.get('image'):
+            del data['image']
         serializer = CreatePostSerializer(data=request.data)
         response = None
+
         if serializer.is_valid(raise_exception=True):
             # emotion = AI 분석
             # music = emotion 통한 추천
@@ -54,7 +57,7 @@ class CreateDiary(APIView):
 
             response = self.analyze(request.user.id, text, date, p.id)
             
-            serializer = CreatePostSerializer(instance=p, data=request.data)
+            serializer = CreatePostSerializer(instance=get_object_or_404(Post, pk=p.id), data=request.data)
             serializer.is_valid(raise_exception=True)
             p = serializer.save(report=DailyReport.objects.get(pk=response['id']))
 

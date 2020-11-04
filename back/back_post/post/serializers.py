@@ -70,7 +70,7 @@ class CreatePostSerializer(serializers.ModelSerializer):
 class ReadPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = '__all__'
+        exclude = ('user', )
         depth = 1
 
 class UpdatePostSerializer(serializers.ModelSerializer):
