@@ -43,9 +43,9 @@
 					</div>
 					<div class="progress__duration">{{ duration }}</div>
 				</div>
-				<div class="progress__bar" @click="clickProgress">
+				<!-- <div class="progress__bar" @click="clickProgress">
 					<div class="progress__current" :style="{ width: barWidth }"></div>
-				</div>
+				</div> -->
 				<div class="progress__time">{{ currentTime }}</div>
 			</div>
 			<div v-cloak></div>
@@ -94,13 +94,15 @@ export default {
 	},
 	methods: {
 		play() {
-			if (this.audio.paused) {
-				this.audio.play();
-				this.isTimerPlaying = true;
-			} else {
-				this.audio.pause();
-				this.isTimerPlaying = false;
-			}
+			// YMP.play();
+			// YMP.pause();
+			// if (this.audio.paused) {
+			// 	this.audio.play();
+			// 	this.isTimerPlaying = true;
+			// } else {
+			// 	this.audio.pause();
+			// 	this.isTimerPlaying = false;
+			// }
 		},
 		generateTime() {
 			let width = (100 / this.audio.duration) * this.audio.currentTime;
