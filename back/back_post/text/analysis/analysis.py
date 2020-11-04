@@ -32,16 +32,24 @@ class TextAnalysis:
     minus2 = []
     minus3 = []
 
-    def __init__(self, text):
-        self.text = text
+    def __init__(self, data):
+        self.content = data['content']
+        self.title = data['title']
+        self.marks = 0
+        for i in range(len(data['stickers'])):
+            self.marks += data['stickers'][i]['score']
+        
+        self.emotions = [data['stickers'][i]['emotion']['name'] for i in range(len(data['stickers']))]
 
     @classmethod
     def decompose(cls, ls):
 
         word_list = []
-
         for word in ls:
-            if word[1] in cls.tag and word[0] not in cls.stopwords:
+            if '+' in word[1]:
+                if word[1].split('+')[0] in cls.tag and word[0] not in cls.stopwords:
+                    word_list.append(word[0])
+            elif word[1] in cls.tag and word[0] not in cls.stopwords:
                 word_list.append(word[0])
         
         return set(word_list)
@@ -182,13 +190,11 @@ class TextAnalysis:
 
     def count_words(self):
         # 텍스트에서 명사만 추출하는 함수
-        out = self.mecab.nouns(self.text)
+        out = self.mecab.nouns(self.content)
+        out_title = self.mecab.nouns(self.title)
+        out += out_title
+        word_counts = Counter(out)
 
-        word_counts = {}
-
-        for word in out:
-            word_counts[word] = word_counts.get(word, 0) + 1
-        
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
         
         for i in range(len(sorted_word_counts)):
@@ -218,13 +224,15 @@ class TextAnalysis:
         return sorted_word_counts
 
     def day_score(self):
-        text = self.mecab.pos(self.text)
+        content = self.mecab.pos(self.content)
+        title = self.mecab.pos(self.title)
         cnt = 0
         score = 0
         p = []
         n = []
-        txt = self.decompose(text)
-        print(txt)
+        txt = self.decompose(content)
+        tit = self.decompose(title)
+        # print(txt)
         feel = {}
         # delight = self.get_delight()
         # print(delight)
@@ -265,6 +273,61 @@ class TextAnalysis:
                 score -= 1
                 cnt += 1
                 n.append(word)
+        
+        for word in tit:
+            if word in self.get_delight():
+                score += 3
+                cnt += 3
+                print('d',word)
+                feel['delight'] = feel.get('delight',0) + 2    
+            elif word in self.get_happy():
+                score += 4
+                cnt += 4
+                print('h',word)
+                feel['happy'] = feel.get('happy',0) + 2    
+            elif word in self.get_minus2():
+                score -= 3
+                cnt += 3
+                print('-2',word)
+                if word in self.get_horror():
+                    feel['horror'] = feel.get('horror',0) + 2    
+                elif word in self.get_angry():
+                    feel['angry'] = feel.get('angry',0) + 2    
+                elif word in self.get_sad():
+                    feel['sad'] = feel.get('sad',0) + 2    
+            elif word in self.get_minus3():
+                score -= 4
+                cnt += 4
+                print('-3',word)
+                if word in self.get_horror():
+                    feel['horror'] = feel.get('horror',0) + 2    
+                elif word in self.get_angry():
+                    feel['angry'] = feel.get('angry',0) + 2
+                elif word in self.get_sad():
+                    feel['sad'] = feel.get('sad',0) + 2
+            elif word in self.get_boring():
+                feel['boring'] = feel.get('boring', 0) + 2
+            elif word in self.get_surprise():
+                feel['surprise'] = feel.get('surprise', 0) + 2    
+            elif word in self.get_pos():
+                score += 2
+                cnt += 2
+                p.append(word)
+            elif word in self.get_neg():
+                score -= 2
+                cnt += 2
+                n.append(word)
+        
+        for emotion in self.emotions:
+            feel[emotion] = feel.get(emotion, 0) + 2    
+        print('p', p)
+        print('n', n)
+
+        score += self.marks
+        cnt += abs(self.marks)
+
+        if cnt == 0:
+            return cnt, feel
 
         return score/cnt, feel
 
@@ -291,9 +354,26 @@ class TextAnalysis:
         }
 
 if __name__ == "__main__":
-    text = '''
-    오늘 나는 워킹과 연기를 처음으로 배워 보았다.
-지금 까지 모델 일 하면서 나는 거의 배울거 없다고 생각 했지만,아직 많이 있다는 것을 깨달았다.
-'''
-    a = TextAnalysis(text)
+    data = {
+        'title' : '다행이다.',
+        'content' : '''약도 아침/자기전으로 잘 챙겨먹고
+
+        옛날보다 더 몸이 건강해진것같다
+
+        지금 이 몸무게에 들어갈수 없었던 바지도 잘들어가고
+
+        너무 좋다 그리고 과하게 살이 쪘을땐 뭐든지 짜증이 났는데
+
+        별다른 이벤트가 없다면 그냥 그러려니 잘 넘긴다
+
+        나 정말 다행이야
+
+        어제는 사고싶은 옷들이 있어서 인터넷으로 옷을 주문했다
+
+        그리고 돈을 아끼려고 많이 노력중이다
+
+        나 잘할수 있다고 믿을래!''',
+        'stickers' : [{'score': 3 , 'emotion': {'name': 'happy'}}, {'score': 2 , 'emotion': {'name':'delight'}}]
+    }
+    a = TextAnalysis(data)
     a.text_analysis()
