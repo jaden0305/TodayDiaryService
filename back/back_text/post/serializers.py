@@ -67,7 +67,7 @@ class ReadPostSerializer(serializers.ModelSerializer):
     postcolor = PostColorSerializer()
     font = PostFontSerializer()
     pattern = PatternSerializer()
-    emotion = EmotionSerializer()
+    report = 'text.DailyReportSerializer'
     stickers = PostStickerReadSerializer(many=True)
     class Meta:
         model = Post

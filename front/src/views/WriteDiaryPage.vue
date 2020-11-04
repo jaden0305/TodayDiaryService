@@ -104,7 +104,7 @@ export default {
 				font: 1,
 				pattern: 1,
 				emotion: 1,
-				created: '2020-10-27',
+				created: '2020-11-03',
 			},
 		};
 	},
@@ -148,7 +148,7 @@ export default {
 		async onSaveDiary() {
 			try {
 				const { data } = await createDiary(this.diaryData);
-				console.log(data);
+				this.$router.push(`/diary/${data.id}`);
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
@@ -205,10 +205,12 @@ export default {
 	.diary-image {
 		display: flex;
 		justify-content: center;
+		height: 28vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
 		.diary-image__value {
 			width: 100%;
+			object-fit: cover;
 		}
 		label {
 			display: flex;
@@ -217,8 +219,8 @@ export default {
 				cursor: pointer;
 			}
 			.diary-image__file {
-				width: 35%;
-				margin: 50px;
+				height: 10vh;
+				margin-top: 50px;
 			}
 		}
 		#diary-image__input {

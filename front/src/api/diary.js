@@ -2,7 +2,9 @@ import { diary } from './index';
 
 export function createDiary(diaryData) {
 	const formdata = new FormData();
-	formdata.append('image', diaryData.image);
+	if (diaryData.image) {
+		formdata.append('image', diaryData.image);
+	}
 	formdata.append('title', diaryData.title);
 	formdata.append('content', diaryData.content);
 	formdata.append('fontsize', diaryData.fontsize);
@@ -21,16 +23,18 @@ export function fetchDiary(diaryId) {
 }
 export function updateDiary(diaryData, diaryId) {
 	const formdata = new FormData();
-	formdata.append('image', diaryData.image);
+	if (diaryData.image) {
+		formdata.append('image', diaryData.image);
+	}
 	formdata.append('title', diaryData.title);
 	formdata.append('content', diaryData.content);
 	formdata.append('fontsize', diaryData.fontsize);
 	formdata.append('music_name', diaryData.music_name);
 	formdata.append('music_artist', diaryData.music_artist);
-	formdata.append('postcolor', diaryData.postcolor);
-	formdata.append('font', diaryData.font);
-	formdata.append('pattern', diaryData.pattern);
-	formdata.append('emotion', diaryData.emotion);
+	formdata.append('postcolor', diaryData.postcolor.id);
+	formdata.append('font', diaryData.font.id);
+	formdata.append('pattern', diaryData.pattern.id);
+	formdata.append('emotion', diaryData.emotion.id);
 
 	return diary.put(`/${diaryId}/`, formdata);
 }

@@ -38,9 +38,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 # 2621440 -> 2.5MB
-FILE_UPLOAD_MAX_MEMORY_SIZE = str(2621440 * 4)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440 * 4
 
-STATIC_ROOT = '/staticfiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -115,9 +115,9 @@ JWT_AUTH = {
     'JWT_VERIFY_EXPIRATION': True,
     # This is an instance of Python's datetime.timedelta. This will be added to datetime.utcnow() to set the expiration time.
     # Default is datetime.timedelta(seconds=300)(5 minutes).
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_ALLOW_REFRESH': True,
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
 
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
