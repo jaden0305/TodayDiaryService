@@ -27,11 +27,7 @@ class TextAnalysis:
     minus3 = []
     def __init__(self, data):
         self.content = data['content']
-        self.title = data['title']
-        self.marks = 0
-        for i in range(len(data['stickers'])):
-            self.marks += data['stickers'][i]['score']
-        
+        self.title = data['title']        
         self.emotions = [data['stickers'][i]['emotion']['name'] for i in range(len(data['stickers']))]
         
     @classmethod
@@ -318,12 +314,10 @@ class TextAnalysis:
                 n.append(word)
         
         for emotion in self.emotions:
-            feel[emotion] = feel.get(emotion, 0) + 2    
+            if emotion:
+                feel[emotion] = feel.get(emotion, 0) + 2    
         print('p', p)
         print('n', n)
-
-        score += self.marks
-        cnt += abs(self.marks)
 
         if cnt == 0:
             return cnt, feel
@@ -374,7 +368,7 @@ if __name__ == "__main__":
         그리고 돈을 아끼려고 많이 노력중이다
 
         나 잘할수 있다고 믿을래!''',
-        'stickers' : [{'score': 3 , 'emotion': {'name': 'happy'}}, {'score': 2 , 'emotion': {'name':'delight'}}]
+        'stickers' : [{'emotion': {'name': 'happy'}}, {'emotion': {'name':'delight'}}]
     }
     a = TextAnalysis(data)
     a.text_analysis()
