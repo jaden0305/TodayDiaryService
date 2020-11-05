@@ -58,12 +58,7 @@
 				<bar-chart
 					class="report-bar display-none"
 					@click.native="switchWordView"
-					:data="[
-						['Easy', 3200],
-						['Wow', 2000],
-						['Play', 1492],
-						['Work', 1322],
-					]"
+					:data="words"
 				></bar-chart>
 			</div>
 			<div class="report-chart">
@@ -104,7 +99,7 @@ export default {
 				chartData: [
 					{
 						label: `${cookies.get('username')}`,
-						data: ['61', '7', '17', '63', '28', '99', '-70'],
+						data: ['0', '0', '0', '0', '0', '0', '0'],
 					},
 				],
 			},
@@ -138,8 +133,8 @@ export default {
 				new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
 			);
 		}
-		bus.$emit('lineUpdate');
 		this.fetchWeek(start, end);
+		bus.$emit('lineUpdate');
 	},
 	methods: {
 		switchWordView() {
@@ -158,6 +153,25 @@ export default {
 			}
 			words.classList.add('display-none');
 		},
+		async fetchMonth(year, month) {
+			const { data } = await fetchMonthReport({ year, month });
+			if (data.wordcloud.length) {
+				this.words = data.wordcloud;
+			} else {
+				this.words = [['데이터가 없습니다', 1, 0]];
+			}
+			this.chartData.chartData[0].data = [];
+			this.chartData.labels = [];
+			data.score.forEach((day, i) => {
+				this.chartData.labels.push(i + 1);
+				if (day.score) {
+					this.chartData.chartData[0].data.push(day.score * 100);
+				} else {
+					this.chartData.chartData[0].data.push(0);
+				}
+			});
+			bus.$emit('lineUpdate');
+		},
 		movePrevMonth() {
 			if (this.month > 1) {
 				this.month -= 1;
@@ -165,6 +179,9 @@ export default {
 				this.month = 12;
 				this.year -= 1;
 			}
+			console.log(this.year, this.month);
+			this.fetchMonth(this.year, this.month);
+			bus.$emit('lineUpdate');
 		},
 		moveNextMonth() {
 			if (this.month < 12) {
@@ -173,6 +190,9 @@ export default {
 				this.month = 1;
 				this.year += 1;
 			}
+			console.log(this.year, this.month);
+			this.fetchMonth(this.year, this.month);
+			bus.$emit('lineUpdate');
 		},
 		movePrevWeek() {
 			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() - 7));
@@ -187,16 +207,7 @@ export default {
 				1}-${this.startWeek.getDate()}`;
 			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
-			const startChart = new Date(this.startWeek);
-			startChart.setDate(startChart.getDate() - 1);
-			this.chartData.labels = [];
-			for (let i = 0; i < 7; i++) {
-				this.chartData.labels.push(
-					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
-				);
-			}
 			this.fetchWeek(start, end);
-			console.log(this.startString, this.endString);
 			bus.$emit('lineUpdate');
 		},
 		moveNextWeek() {
@@ -212,22 +223,39 @@ export default {
 				1}-${this.startWeek.getDate()}`;
 			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
-			const startChart = new Date(this.startWeek);
-			startChart.setDate(startChart.getDate() - 1);
-			this.chartData.labels.splice(0, this.chartData.labels.length);
-			for (let i = 0; i < 7; i++) {
-				this.chartData.labels.push(
-					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
-				);
-			}
+			// const startChart = new Date(this.startWeek);
+			// startChart.setDate(startChart.getDate() - 1);
+			// this.chartData.labels.splice(0, this.chartData.labels.length);
+			// for (let i = 0; i < 7; i++) {
+			// 	this.chartData.labels.push(
+			// 		new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+			// 	);
+			// }
 			this.fetchWeek(start, end);
-			console.log(this.startString, this.endString);
 			bus.$emit('lineUpdate');
 		},
 		async fetchWeek(startWeek, endWeek) {
 			const { data } = await fetchWeekReport(startWeek, endWeek);
-			console.log(data);
-			this.words = data.wordcloud;
+			if (data.wordcloud.length) {
+				this.words = data.wordcloud;
+			} else {
+				this.words = [['데이터가 없습니다', 1, 0]];
+			}
+			const startChart = new Date(this.startWeek);
+			startChart.setDate(startChart.getDate() - 1);
+			this.chartData.labels = [];
+			this.chartData.chartData[0].data = [];
+			data.score.forEach(day => {
+				this.chartData.labels.push(
+					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+				);
+				if (day.score) {
+					this.chartData.chartData[0].data.push(day.score * 100);
+				} else {
+					this.chartData.chartData[0].data.push(0);
+				}
+			});
+			bus.$emit('lineUpdate');
 		},
 		rotation: ([word]) => {
 			var chance = new Chance(word[0]);
@@ -257,6 +285,12 @@ export default {
 					if (!selectBox.classList.contains('display-none')) {
 						selectBox.classList.add('display-none');
 					}
+					const start = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
+						1}-${this.startWeek.getDate()}`;
+					const end = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+						1}-${this.endWeek.getDate()}`;
+					this.fetchWeek(start, end);
+					bus.$emit('lineUpdate');
 					break;
 				case 2:
 					if (!selectWeekBox.classList.contains('display-none')) {
@@ -265,6 +299,12 @@ export default {
 					if (selectBox.classList.contains('display-none')) {
 						selectBox.classList.remove('display-none');
 					}
+					const DAY = new Date();
+					const YEAR = DAY.getFullYear();
+					const MONTH = DAY.getMonth() + 1;
+					// console.log(DAY, YEAR, MONTH)
+					this.fetchMonth(YEAR, MONTH);
+					bus.$emit('lineUpdate');
 					break;
 				default:
 					throw new Error('입력 값이 잘못되었습니다');
