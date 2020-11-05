@@ -15,17 +15,16 @@
 			v-if="
 				nowDay < new Date(`${year}-${lastTwo(day.month)}-${lastTwo(day.day)}`)
 			"
-			@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 			class="calendar-day emoticon display-none"
 			src="@/assets/images/emotion/boring.png"
 			alt=""
 		/>
 		<img
 			v-else-if="
-				(!day.post && !(toDay === day.day || toDay - 1 === day.day)) ||
+				(!day.post && !(toDay === day.day)) ||
+					!(toDay - 1 === day.day) ||
 					!(todayMonth === day.month)
 			"
-			@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 			class="emoticon"
 			src="@/assets/images/emotion/normal.png"
 			alt=""
