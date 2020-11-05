@@ -41,12 +41,7 @@
 						<div class="album-info__name">{{ currentTrack.artist }}</div>
 						<div class="album-info__track">{{ currentTrack.name }}</div>
 					</div>
-					<div class="progress__duration">{{ duration }}</div>
 				</div>
-				<div class="progress__bar" @click="clickProgress">
-					<div class="progress__current" :style="{ width: barWidth }"></div>
-				</div>
-				<div class="progress__time">{{ currentTime }}</div>
 			</div>
 			<div v-cloak></div>
 			<symbol id="icon-link" viewBox="0 0 32 32">
@@ -62,6 +57,12 @@
 				></path>
 			</symbol>
 		</div>
+		<video-wrapper
+			ref="player"
+			:player="'youtube'"
+			:videoId="currentTrack.videoId"
+			@ended="nextTrack"
+		/>
 	</div>
 </template>
 
@@ -77,12 +78,19 @@ export default {
 			isTimerPlaying: false,
 			tracks: [
 				{
-					name: '나랑 같이 걸을래',
+					name: '야작시',
 					artist: '적재',
 					cover:
-						'https://search.pstatic.net/common/?src=http%3A%2F%2Fpost.phinf.naver.net%2FMjAyMDEwMjNfMjkw%2FMDAxNjAzNDM2MzIwNDQ4.gWspMWOC5ia0rDVhd5ueMhdUfMwnEbXFDyG7OcqjqC8g.Pw0CPN0tsn_sdGfamKRD_Mza-cBPFJZTpwI7YaZ4cxAg.JPEG%2FIDNhUC-xLwt43BTznlapw3dDJFBA.jpg&type=sc960_832',
-					source:
-						'https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/1.mp3',
+						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+					videoId: 'jXylepYfpk0',
+					url: 'https://youtu.be/26YwXUcUf4I',
+					favorited: false,
+				},
+				{
+					name: '블루밍',
+					artist: '아이유',
+					cover: 'https://i.ytimg.com/vi/D1PvIWdJ8xo/maxresdefault.jpg',
+					videoId: 'D1PvIWdJ8xo',
 					url: 'https://youtu.be/26YwXUcUf4I',
 					favorited: false,
 				},
@@ -94,57 +102,20 @@ export default {
 	},
 	methods: {
 		play() {
-			if (this.audio.paused) {
-				this.audio.play();
-				this.isTimerPlaying = true;
-			} else {
-				this.audio.pause();
-				this.isTimerPlaying = false;
-			}
-		},
-		generateTime() {
-			let width = (100 / this.audio.duration) * this.audio.currentTime;
-			this.barWidth = width + '%';
-			this.circleLeft = width + '%';
-			let durmin = Math.floor(this.audio.duration / 60);
-			let dursec = Math.floor(this.audio.duration - durmin * 60);
-			let curmin = Math.floor(this.audio.currentTime / 60);
-			let cursec = Math.floor(this.audio.currentTime - curmin * 60);
-			if (durmin < 10) {
-				durmin = '0' + durmin;
-			}
-			if (dursec < 10) {
-				dursec = '0' + dursec;
-			}
-			if (curmin < 10) {
-				curmin = '0' + curmin;
-			}
-			if (cursec < 10) {
-				cursec = '0' + cursec;
-			}
-			this.duration = durmin + ':' + dursec;
-			this.currentTime = curmin + ':' + cursec;
-		},
-		updateBar(x) {
-			let progress = this.$refs.progress;
-			let maxduration = this.audio.duration;
-			let position = x - progress.offsetLeft;
-			let percentage = (100 * position) / progress.offsetWidth;
-			if (percentage > 100) {
-				percentage = 100;
-			}
-			if (percentage < 0) {
-				percentage = 0;
-			}
-			this.barWidth = percentage + '%';
-			this.circleLeft = percentage + '%';
-			this.audio.currentTime = (maxduration * percentage) / 100;
-			this.audio.play();
-		},
-		clickProgress(e) {
-			this.isTimerPlaying = true;
-			this.audio.pause();
-			this.updateBar(e.pageX);
+			this.$refs.player.player.getPlayerState().then(response => {
+				if (
+					response === -1 ||
+					response === 2 ||
+					response === 5 ||
+					response === 0
+				) {
+					this.$refs.player.player.playVideo();
+					this.isTimerPlaying = true;
+				} else {
+					this.$refs.player.player.pauseVideo();
+					this.isTimerPlaying = false;
+				}
+			});
 		},
 		prevTrack() {
 			this.transitionName = 'scale-in';
@@ -169,15 +140,14 @@ export default {
 			this.resetPlayer();
 		},
 		resetPlayer() {
-			this.barWidth = 0;
 			this.circleLeft = 0;
-			this.audio.currentTime = 0;
-			this.audio.src = this.currentTrack.source;
 			setTimeout(() => {
 				if (this.isTimerPlaying) {
-					this.audio.play();
+					// this.audio.play();
+					this.$refs.player.player.playVideo();
 				} else {
-					this.audio.pause();
+					// this.audio.pause();
+					this.$refs.player.player.pauseVideo();
 				}
 			}, 300);
 		},
@@ -188,20 +158,20 @@ export default {
 		},
 	},
 	created() {
-		let vm = this;
+		// let vm = this;
 		this.currentTrack = this.tracks[0];
-		this.audio = new Audio();
-		this.audio.src = this.currentTrack.source;
-		this.audio.ontimeupdate = function() {
-			vm.generateTime();
-		};
-		this.audio.onloadedmetadata = function() {
-			vm.generateTime();
-		};
-		this.audio.onended = function() {
-			vm.nextTrack();
-			this.isTimerPlaying = true;
-		};
+		// this.audio = new Audio();
+		// this.audio.src = this.currentTrack.source;
+		// this.audio.ontimeupdate = function() {
+		// 	vm.generateTime();
+		// };
+		// this.audio.onloadedmetadata = function() {
+		// 	vm.generateTime();
+		// };
+		// this.audio.onended = function() {
+		// 	vm.nextTrack();
+		// 	this.isTimerPlaying = true;
+		// };
 
 		// this is optional (for preload covers)
 		for (let index = 0; index < this.tracks.length; index++) {
@@ -295,37 +265,37 @@ export default {
 			height: 100%;
 			border-radius: 15px;
 			/* position: absolute;
-			left: 0;
-			top: 0; */
+            left: 0;
+            top: 0; */
 			background: #f0f0f0;
 			box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 			/* &:before {
-				content: '';
-				background: inherit;
-				width: 100%;
-				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-				display: block;
-				z-index: 1;
-				position: absolute;
-				top: 30px;
-				transform: scale(0.9);
-				filter: blur(10px);
-				opacity: 0.9;
-				border-radius: 15px;
-			}
+                content: '';
+                background: inherit;
+                width: 100%;
+                height: 100%;
+                box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+                display: block;
+                z-index: 1;
+                position: absolute;
+                top: 30px;
+                transform: scale(0.9);
+                filter: blur(10px);
+                opacity: 0.9;
+                border-radius: 15px;
+            }
 
-			&:after {
-				content: '';
-				background: inherit;
-				width: 100%;
-				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-				display: block;
-				z-index: 2;
-				position: absolute;
-				border-radius: 15px;
-			} */
+            &:after {
+                content: '';
+                background: inherit;
+                width: 100%;
+                height: 100%;
+                box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+                display: block;
+                z-index: 2;
+                position: absolute;
+                border-radius: 15px;
+            } */
 		}
 
 		&__img {
@@ -621,5 +591,10 @@ export default {
 	border-radius: 12px;
 	background: #f0f0f0;
 	box-shadow: inset 5px 5px 10px #d8d8d8, inset -5px -5px 10px #ffffff;
+}
+#embed-youtube-video-1 {
+	position: absolute;
+	top: -500vh;
+	left: -500vw;
 }
 </style>
