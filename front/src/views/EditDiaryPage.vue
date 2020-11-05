@@ -58,6 +58,9 @@
 					@change="onChangeDiaryImage"
 				/>
 			</div>
+			<!-- <p>1{{ diaryImageUrl }}</p>
+			<p>2{{ contentImg }}</p>
+			<p>{{ diaryData.image }}</p> -->
 			<div class="diary-text">
 				<textarea
 					name="diary-content"
@@ -222,7 +225,7 @@ export default {
 			padding-bottom: 5px;
 			border: none;
 			border-bottom: 1px solid rgba(151, 151, 151, 0.5);
-			background: #f0f0f0;
+			background: var(--default-color);
 		}
 	}
 	.diary-image {
@@ -268,16 +271,16 @@ export default {
 			background-attachment: local;
 			background-image: linear-gradient(
 					to right,
-					#f0f0f0 10px,
+					var(--default-color) 10px,
 					transparent 10px
 				),
-				linear-gradient(to left, #f0f0f0 10px, transparent 10px),
+				linear-gradient(to left, var(--default-color) 10px, transparent 10px),
 				repeating-linear-gradient(
-					#f0f0f0,
-					#f0f0f0 30px,
+					var(--default-color),
+					var(--default-color) 30px,
 					#ccc 30px,
 					#ccc 31px,
-					#f0f0f0 31px
+					var(--default-color) 31px
 				);
 		}
 	}
@@ -288,7 +291,7 @@ export default {
 		border: none;
 		color: rgba(53, 53, 53, 1);
 		border-radius: 20px;
-		background: #f0f0f0;
+		background: var(--default-color);
 		box-shadow: 5px 5px 9px #cccccc, -5px -5px 9px #ffffff;
 	}
 }

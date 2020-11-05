@@ -1,20 +1,15 @@
-# from wordcloud import WordCloud, STOPWORDS
+from collections import Counter
 from eunjeon import Mecab
 from matplotlib import rc
 import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 # 한글 폰트 패스로 지정
 import matplotlib.font_manager as fm
 import re
-# import collections
-class TextAnalysis:
-    # font_list = fm.findSystemFonts(fontpaths=None, fontext='ttf')
-    # print(font_list)
-    # font_path = r'C:\Users\JJS\AppData\Local\Microsoft\Windows\Fonts\NanumSquareRoundR.ttf'
-    # font_name = fm.FontProperties(fname=font_path).get_name()
-    # matplotlib.rc('font', family=font_name)
 
+class TextAnalysis:
     mecab = Mecab()
     tag = ['VCP', 'VCN', 'NNG', 'IC', 'MAG', 'VA', 'VV', 'XR']
     stopwords=['의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하','다','있']
@@ -30,8 +25,11 @@ class TextAnalysis:
     happy = []
     minus2 = []
     minus3 = []
-    def __init__(self, text):
-        self.text = text
+    def __init__(self, data):
+        self.content = data['content']
+        self.title = data['title']        
+        self.emotions = [data['stickers'][i]['emotion']['name'] for i in range(len(data['stickers']))]
+        
     @classmethod
     def decompose(cls, ls):
         word_list = []
@@ -60,6 +58,7 @@ class TextAnalysis:
         neg.pop()
         cls.neg = neg
         return neg
+    
     @classmethod
     def get_horror(cls):
         if cls.horror:
@@ -83,6 +82,7 @@ class TextAnalysis:
         delight.discard('재미있')
         cls.delight = delight
         return delight
+   
     @classmethod
     def get_surprise(cls):
         if cls.surprise:
@@ -92,6 +92,7 @@ class TextAnalysis:
         surprise.discard('금')
         cls.surprise = surprise
         return surprise
+    
     @classmethod
     def get_angry(cls):
         if cls.angry:
@@ -103,6 +104,7 @@ class TextAnalysis:
         
         cls.angry = angry
         return angry
+    
     @classmethod
     def get_sad(cls):
         if cls.sad:
@@ -115,6 +117,7 @@ class TextAnalysis:
         
         cls.sad = sad
         return sad
+    
     @classmethod
     def get_boring(cls):
         if cls.boring:
@@ -123,6 +126,7 @@ class TextAnalysis:
         boring = cls.decompose(cls.mecab.pos(' '.join(b.T.values[0])))
         cls.boring = boring
         return boring
+    
     @classmethod
     def get_happy(cls):
         if cls.happy:
@@ -133,6 +137,7 @@ class TextAnalysis:
         happy.discard('속')
         cls.happy = happy
         return happy
+   
     @classmethod
     def get_minus2(cls):
         if cls.minus2:
@@ -144,6 +149,7 @@ class TextAnalysis:
         
         cls.minus2 = minus2
         return minus2
+    
     @classmethod
     def get_minus3(cls):
         if cls.minus3:
@@ -156,27 +162,28 @@ class TextAnalysis:
         
         cls.minus3 = minus3
         return minus3
+    
     def count_words(self):
         # 텍스트에서 명사만 추출하는 함수
-        out = self.mecab.nouns(self.text)
-        word_counts = {}
-        for word in out:
-            word_counts[word] = word_counts.get(word, 0) + 1
-        
-        # print(word_counts)
+        out = self.mecab.nouns(self.content)
+        out_title = self.mecab.nouns(self.title)
+        out += out_title
+        word_counts = Counter(out)
+        print(word_counts)
 
-        # # 단어 빈도수 그래프
-        # # 한글 폰트 깨짐 현상 해결해야함.
-        # sorted_keys = sorted(word_counts, key=word_counts.get, reverse=True)
-        # sorted_values = sorted(word_counts.values(), reverse=True)
+        # 단어 빈도 수 시각화(가로 막대 그래프)
+        mode = word_counts.most_common(1)
+        ln = mode[0][1]
 
-        # ln = len(sorted_keys)
-        # if ln > 20:
-        #     ln = 20
+        plt.rcParams["font.family"] = 'NanumSquare_ac'
 
-        # plt.bar(range(ln), sorted_values[:ln])
-        # plt.xticks(range(ln), sorted_keys[:ln])
-        # plt.show()
+        data = pd.Series(word_counts)
+        word_freq = data.sort_index()
+        word_freq.sort_values().plot(figsize=(8,6), kind='barh', grid=True, title='단어별 빈도 수')
+        plt.xlabel('빈도 수')
+        plt.ylabel('단어')
+        plt.xticks(np.arange(0,ln, step=1))
+        plt.show()
 
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
         
@@ -205,18 +212,19 @@ class TextAnalysis:
                 sorted_word_counts[i].append(0)
         
         return sorted_word_counts
+    
     def day_score(self):
-        text = self.mecab.pos(self.text)
-        print(text)
+        content = self.mecab.pos(self.content)
+        title = self.mecab.pos(self.title)
+        # print(content)
         cnt = 0
         score = 0
         p = []
         n = []
-        txt = self.decompose(text)
-        print(txt)
+        txt = self.decompose(content)
+        tit = self.decompose(title)
+        # print(txt)
         feel = {}
-        # delight = self.get_delight()
-        # print(delight)
         for word in txt:
             if word in self.get_delight():
                 score += 2
@@ -260,13 +268,61 @@ class TextAnalysis:
                 score -= 1
                 cnt += 1
                 n.append(word)
-
+        
+        for word in tit:
+            if word in self.get_delight():
+                score += 3
+                cnt += 3
+                print('d',word)
+                feel['delight'] = feel.get('delight',0) + 2    
+            elif word in self.get_happy():
+                score += 4
+                cnt += 4
+                print('h',word)
+                feel['happy'] = feel.get('happy',0) + 2    
+            elif word in self.get_minus2():
+                score -= 3
+                cnt += 3
+                print('-2',word)
+                if word in self.get_horror():
+                    feel['horror'] = feel.get('horror',0) + 2    
+                elif word in self.get_angry():
+                    feel['angry'] = feel.get('angry',0) + 2    
+                elif word in self.get_sad():
+                    feel['sad'] = feel.get('sad',0) + 2    
+            elif word in self.get_minus3():
+                score -= 4
+                cnt += 4
+                print('-3',word)
+                if word in self.get_horror():
+                    feel['horror'] = feel.get('horror',0) + 2    
+                elif word in self.get_angry():
+                    feel['angry'] = feel.get('angry',0) + 2
+                elif word in self.get_sad():
+                    feel['sad'] = feel.get('sad',0) + 2
+            elif word in self.get_boring():
+                feel['boring'] = feel.get('boring', 0) + 2
+            elif word in self.get_surprise():
+                feel['surprise'] = feel.get('surprise', 0) + 2    
+            elif word in self.get_pos():
+                score += 2
+                cnt += 2
+                p.append(word)
+            elif word in self.get_neg():
+                score -= 2
+                cnt += 2
+                n.append(word)
+        
+        for emotion in self.emotions:
+            if emotion:
+                feel[emotion] = feel.get(emotion, 0) + 2    
         print('p', p)
         print('n', n)
 
         if cnt == 0:
             return cnt, feel
         return score/cnt, feel
+    
     def text_analysis(self):
         # 일일 감정점수
         score, feel = self.day_score()
@@ -283,8 +339,7 @@ class TextAnalysis:
         if len(sorted_feel) == 0:
             sorted_feel = [('boring', 0)]
         print(sorted_feel)
-        # 단어 갯수 (wordcloud용)\
-        # print('word count', self.count_words())
+
         word_count = self.count_words()
         print(word_count)
         return {
@@ -294,22 +349,26 @@ class TextAnalysis:
         }
 
 if __name__ == "__main__":
-    text = '''약도 아침/자기전으로 잘 챙겨먹고
+    data = {
+        'title' : '다행이다.',
+        'content' : '''약도 아침/자기전으로 잘 챙겨먹고
 
-옛날보다 더 몸이 건강해진것같다
+        옛날보다 더 몸이 건강해진것같다
 
-지금 이 몸무게에 들어갈수 없었던 바지도 잘들어가고
+        지금 이 몸무게에 들어갈수 없었던 바지도 잘들어가고
 
-너무 좋다 그리고 과하게 살이 쪘을땐 뭐든지 짜증이 났는데
+        너무 좋다 그리고 과하게 살이 쪘을땐 뭐든지 짜증이 났는데
 
-별다른 이벤트가 없다면 그냥 그러려니 잘 넘긴다
+        별다른 이벤트가 없다면 그냥 그러려니 잘 넘긴다
 
-나 정말 다행이야
+        나 정말 다행이야
 
-어제는 사고싶은 옷들이 있어서 인터넷으로 옷을 주문했다
+        어제는 사고싶은 옷들이 있어서 인터넷으로 옷을 주문했다
 
-그리고 돈을 아끼려고 많이 노력중이다
+        그리고 돈을 아끼려고 많이 노력중이다
 
-나 잘할수 있다고 믿을래!'''
-    a = TextAnalysis(text)
+        나 잘할수 있다고 믿을래!''',
+        'stickers' : [{'emotion': {'name': 'happy'}}, {'emotion': {'name':'delight'}}]
+    }
+    a = TextAnalysis(data)
     a.text_analysis()

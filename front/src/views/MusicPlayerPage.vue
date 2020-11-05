@@ -27,6 +27,16 @@
 							<use xlink:href="#icon-link"></use>
 						</svg>
 					</a>
+					<div class="player-controls__item" @click="prevTrack">
+						<svg class="icon">
+							<use xlink:href="#icon-prev"></use>
+						</svg>
+					</div>
+					<div class="player-controls__item" @click="nextTrack">
+						<svg class="icon">
+							<use xlink:href="#icon-next"></use>
+						</svg>
+					</div>
 					<div class="player-controls__item -xl js-play" @click="play">
 						<i class="player-font icon ion-md-play" v-if="!isTimerPlaying"></i>
 						<div class="player-font" v-else>
@@ -41,12 +51,7 @@
 						<div class="album-info__name">{{ currentTrack.artist }}</div>
 						<div class="album-info__track">{{ currentTrack.name }}</div>
 					</div>
-					<div class="progress__duration">{{ duration }}</div>
 				</div>
-				<div class="progress__bar" @click="clickProgress">
-					<div class="progress__current" :style="{ width: barWidth }"></div>
-				</div>
-				<div class="progress__time">{{ currentTime }}</div>
 			</div>
 			<div v-cloak></div>
 			<symbol id="icon-link" viewBox="0 0 32 32">
@@ -61,7 +66,52 @@
 					d="M15.040 21.888c0.16-0.16 0.288-0.288 0.448-0.448 0.384-0.384 0.8-0.8 1.184-1.184 0.608-0.608 1.184-1.184 1.792-1.792 0.704-0.704 1.44-1.44 2.176-2.176 0.8-0.8 1.568-1.568 2.368-2.368s1.6-1.6 2.4-2.4c0.736-0.736 1.504-1.504 2.24-2.24 0.64-0.64 1.248-1.248 1.888-1.888 0.448-0.448 0.896-0.896 1.344-1.344 0.224-0.224 0.448-0.416 0.64-0.64 0 0 0.032-0.032 0.032-0.032 0.32-0.32 0.48-0.768 0.48-1.184s-0.192-0.896-0.48-1.184c-0.32-0.288-0.736-0.512-1.184-0.48-0.512 0.032-0.928 0.16-1.248 0.48-0.16 0.16-0.288 0.288-0.448 0.448-0.384 0.384-0.8 0.8-1.184 1.184-0.608 0.608-1.184 1.184-1.792 1.792-0.704 0.704-1.44 1.44-2.176 2.176-0.8 0.8-1.568 1.568-2.368 2.368s-1.6 1.6-2.4 2.4c-0.736 0.736-1.504 1.504-2.24 2.24-0.64 0.64-1.248 1.248-1.888 1.888-0.448 0.448-0.896 0.896-1.344 1.344-0.224 0.224-0.448 0.416-0.64 0.64 0 0-0.032 0.032-0.032 0.032-0.32 0.32-0.48 0.768-0.48 1.184s0.192 0.896 0.48 1.184c0.32 0.288 0.736 0.512 1.184 0.48 0.48 0 0.928-0.16 1.248-0.48v0z"
 				></path>
 			</symbol>
+			<symbol id="icon-heart-o" viewBox="0 0 32 32">
+				<title>icon-heart-o</title>
+				<path
+					d="M22.88 1.952c-2.72 0-5.184 1.28-6.88 3.456-1.696-2.176-4.16-3.456-6.88-3.456-4.48 0-9.024 3.648-9.024 10.592 0 7.232 7.776 12.704 15.072 17.248 0.256 0.16 0.544 0.256 0.832 0.256s0.576-0.096 0.832-0.256c7.296-4.544 15.072-10.016 15.072-17.248 0-6.944-4.544-10.592-9.024-10.592zM16 26.56c-4.864-3.072-12.736-8.288-12.736-14.016 0-5.088 3.040-7.424 5.824-7.424 2.368 0 4.384 1.504 5.408 4.032 0.256 0.608 0.832 0.992 1.472 0.992s1.248-0.384 1.472-0.992c1.024-2.528 3.040-4.032 5.408-4.032 2.816 0 5.824 2.304 5.824 7.424 0.064 5.728-7.808 10.976-12.672 14.016z"
+				></path>
+				<path
+					d="M16 30.144c-0.32 0-0.64-0.096-0.896-0.256-7.296-4.576-15.104-10.048-15.104-17.344 0-7.008 4.576-10.688 9.12-10.688 2.656 0 5.152 1.216 6.88 3.392 1.728-2.144 4.224-3.392 6.88-3.392 4.544 0 9.12 3.68 9.12 10.688 0 7.296-7.808 12.768-15.104 17.344-0.256 0.16-0.576 0.256-0.896 0.256zM9.12 2.048c-4.448 0-8.928 3.616-8.928 10.496 0 7.168 7.744 12.64 15.008 17.152 0.48 0.288 1.12 0.288 1.568 0 7.264-4.544 15.008-9.984 15.008-17.152 0-6.88-4.48-10.496-8.928-10.496-2.656 0-5.088 1.216-6.816 3.392l-0.032 0.128-0.064-0.096c-1.696-2.176-4.192-3.424-6.816-3.424zM16 26.688l-0.064-0.032c-3.808-2.4-12.768-8.032-12.768-14.112 0-5.152 3.072-7.52 5.952-7.52 2.432 0 4.48 1.536 5.504 4.096 0.224 0.576 0.768 0.928 1.376 0.928s1.152-0.384 1.376-0.928c1.024-2.56 3.072-4.096 5.504-4.096 2.848 0 5.952 2.336 5.952 7.52 0 6.080-8.96 11.712-12.768 14.112l-0.064 0.032zM9.12 5.248c-2.752 0-5.728 2.304-5.728 7.328 0 5.952 8.8 11.488 12.608 13.92 3.808-2.4 12.608-7.968 12.608-13.92 0-5.024-2.976-7.328-5.728-7.328-2.336 0-4.32 1.472-5.312 3.968-0.256 0.64-0.864 1.056-1.568 1.056s-1.312-0.416-1.568-1.056c-0.992-2.496-2.976-3.968-5.312-3.968z"
+				></path>
+				<path
+					d="M6.816 20.704c0.384 0.288 0.512 0.704 0.48 1.12 0.224 0.256 0.384 0.608 0.384 0.96 0 0.032 0 0.032 0 0.064 0.16 0.128 0.32 0.256 0.48 0.384 0.128 0.064 0.256 0.16 0.384 0.256 0.096 0.064 0.192 0.16 0.256 0.224 0.8 0.576 1.632 1.12 2.496 1.664 0.416 0.128 0.8 0.256 1.056 0.32 1.984 0.576 4.064 0.8 6.112 0.928 2.688-1.92 5.312-3.904 8-5.792 0.896-1.088 1.92-2.080 2.912-3.104v-7.552c-0.096-0.128-0.192-0.288-0.32-0.416-0.768-1.024-1.184-2.176-1.6-3.296-0.768-0.416-1.536-0.8-2.336-1.12-0.128-0.064-0.256-0.096-0.384-0.16h-21.568v12.992c1.312 0.672 2.496 1.6 3.648 2.528z"
+				></path>
+			</symbol>
+			<symbol id="icon-heart" viewBox="0 0 32 32">
+				<title>icon-heart</title>
+				<path
+					d="M22.88 1.952c-2.72 0-5.184 1.28-6.88 3.456-1.696-2.176-4.16-3.456-6.88-3.456-4.48 0-9.024 3.648-9.024 10.592 0 7.232 7.776 12.704 15.072 17.248 0.256 0.16 0.544 0.256 0.832 0.256s0.576-0.096 0.832-0.256c7.296-4.544 15.072-10.016 15.072-17.248 0-6.944-4.544-10.592-9.024-10.592zM16 26.56c-4.864-3.072-12.736-8.288-12.736-14.016 0-5.088 3.040-7.424 5.824-7.424 2.368 0 4.384 1.504 5.408 4.032 0.256 0.608 0.832 0.992 1.472 0.992s1.248-0.384 1.472-0.992c1.024-2.528 3.040-4.032 5.408-4.032 2.816 0 5.824 2.304 5.824 7.424 0.064 5.728-7.808 10.976-12.672 14.016z"
+				></path>
+				<path
+					d="M16 30.144c-0.32 0-0.64-0.096-0.896-0.256-7.296-4.576-15.104-10.048-15.104-17.344 0-7.008 4.576-10.688 9.12-10.688 2.656 0 5.152 1.216 6.88 3.392 1.728-2.144 4.224-3.392 6.88-3.392 4.544 0 9.12 3.68 9.12 10.688 0 7.296-7.808 12.768-15.104 17.344-0.256 0.16-0.576 0.256-0.896 0.256zM9.12 2.048c-4.448 0-8.928 3.616-8.928 10.496 0 7.168 7.744 12.64 15.008 17.152 0.48 0.288 1.12 0.288 1.568 0 7.264-4.544 15.008-9.984 15.008-17.152 0-6.88-4.48-10.496-8.928-10.496-2.656 0-5.088 1.216-6.816 3.392l-0.032 0.128-0.064-0.096c-1.696-2.176-4.192-3.424-6.816-3.424zM16 26.688l-0.064-0.032c-3.808-2.4-12.768-8.032-12.768-14.112 0-5.152 3.072-7.52 5.952-7.52 2.432 0 4.48 1.536 5.504 4.096 0.224 0.576 0.768 0.928 1.376 0.928s1.152-0.384 1.376-0.928c1.024-2.56 3.072-4.096 5.504-4.096 2.848 0 5.952 2.336 5.952 7.52 0 6.080-8.96 11.712-12.768 14.112l-0.064 0.032zM9.12 5.248c-2.752 0-5.728 2.304-5.728 7.328 0 5.952 8.8 11.488 12.608 13.92 3.808-2.4 12.608-7.968 12.608-13.92 0-5.024-2.976-7.328-5.728-7.328-2.336 0-4.32 1.472-5.312 3.968-0.256 0.64-0.864 1.056-1.568 1.056s-1.312-0.416-1.568-1.056c-0.992-2.496-2.976-3.968-5.312-3.968z"
+				></path>
+			</symbol>
+			<symbol id="icon-next" viewBox="0 0 32 32">
+				<title>next</title>
+				<path
+					d="M2.304 18.304h14.688l-4.608 4.576c-0.864 0.864-0.864 2.336 0 3.232 0.864 0.864 2.336 0.864 3.232 0l8.448-8.48c0.864-0.864 0.864-2.336 0-3.232l-8.448-8.448c-0.448-0.448-1.056-0.672-1.632-0.672s-1.184 0.224-1.632 0.672c-0.864 0.864-0.864 2.336 0 3.232l4.64 4.576h-14.688c-1.248 0-2.304 0.992-2.304 2.272s1.024 2.272 2.304 2.272z"
+				></path>
+				<path
+					d="M29.696 26.752c1.248 0 2.304-1.024 2.304-2.304v-16.928c0-1.248-1.024-2.304-2.304-2.304s-2.304 1.024-2.304 2.304v16.928c0.064 1.28 1.056 2.304 2.304 2.304z"
+				></path>
+			</symbol>
+			<symbol id="icon-prev" viewBox="0 0 32 32">
+				<title>prev</title>
+				<path
+					d="M29.696 13.696h-14.688l4.576-4.576c0.864-0.864 0.864-2.336 0-3.232-0.864-0.864-2.336-0.864-3.232 0l-8.448 8.48c-0.864 0.864-0.864 2.336 0 3.232l8.448 8.448c0.448 0.448 1.056 0.672 1.632 0.672s1.184-0.224 1.632-0.672c0.864-0.864 0.864-2.336 0-3.232l-4.608-4.576h14.688c1.248 0 2.304-1.024 2.304-2.304s-1.024-2.24-2.304-2.24z"
+				></path>
+				<path
+					d="M2.304 5.248c-1.248 0-2.304 1.024-2.304 2.304v16.928c0 1.248 1.024 2.304 2.304 2.304s2.304-1.024 2.304-2.304v-16.928c-0.064-1.28-1.056-2.304-2.304-2.304z"
+				></path>
+			</symbol>
 		</div>
+		<video-wrapper
+			ref="player"
+			:player="'youtube'"
+			:videoId="currentTrack.videoId"
+			@ended="nextTrack"
+		/>
 	</div>
 </template>
 
@@ -77,12 +127,19 @@ export default {
 			isTimerPlaying: false,
 			tracks: [
 				{
-					name: '나랑 같이 걸을래',
+					name: '야작시',
 					artist: '적재',
 					cover:
-						'https://search.pstatic.net/common/?src=http%3A%2F%2Fpost.phinf.naver.net%2FMjAyMDEwMjNfMjkw%2FMDAxNjAzNDM2MzIwNDQ4.gWspMWOC5ia0rDVhd5ueMhdUfMwnEbXFDyG7OcqjqC8g.Pw0CPN0tsn_sdGfamKRD_Mza-cBPFJZTpwI7YaZ4cxAg.JPEG%2FIDNhUC-xLwt43BTznlapw3dDJFBA.jpg&type=sc960_832',
-					source:
-						'https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/1.mp3',
+						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+					videoId: 'jXylepYfpk0',
+					url: 'https://youtu.be/26YwXUcUf4I',
+					favorited: false,
+				},
+				{
+					name: '블루밍',
+					artist: '아이유',
+					cover: 'https://i.ytimg.com/vi/D1PvIWdJ8xo/maxresdefault.jpg',
+					videoId: 'D1PvIWdJ8xo',
 					url: 'https://youtu.be/26YwXUcUf4I',
 					favorited: false,
 				},
@@ -94,60 +151,23 @@ export default {
 	},
 	methods: {
 		play() {
-			if (this.audio.paused) {
-				this.audio.play();
-				this.isTimerPlaying = true;
-			} else {
-				this.audio.pause();
-				this.isTimerPlaying = false;
-			}
-		},
-		generateTime() {
-			let width = (100 / this.audio.duration) * this.audio.currentTime;
-			this.barWidth = width + '%';
-			this.circleLeft = width + '%';
-			let durmin = Math.floor(this.audio.duration / 60);
-			let dursec = Math.floor(this.audio.duration - durmin * 60);
-			let curmin = Math.floor(this.audio.currentTime / 60);
-			let cursec = Math.floor(this.audio.currentTime - curmin * 60);
-			if (durmin < 10) {
-				durmin = '0' + durmin;
-			}
-			if (dursec < 10) {
-				dursec = '0' + dursec;
-			}
-			if (curmin < 10) {
-				curmin = '0' + curmin;
-			}
-			if (cursec < 10) {
-				cursec = '0' + cursec;
-			}
-			this.duration = durmin + ':' + dursec;
-			this.currentTime = curmin + ':' + cursec;
-		},
-		updateBar(x) {
-			let progress = this.$refs.progress;
-			let maxduration = this.audio.duration;
-			let position = x - progress.offsetLeft;
-			let percentage = (100 * position) / progress.offsetWidth;
-			if (percentage > 100) {
-				percentage = 100;
-			}
-			if (percentage < 0) {
-				percentage = 0;
-			}
-			this.barWidth = percentage + '%';
-			this.circleLeft = percentage + '%';
-			this.audio.currentTime = (maxduration * percentage) / 100;
-			this.audio.play();
-		},
-		clickProgress(e) {
-			this.isTimerPlaying = true;
-			this.audio.pause();
-			this.updateBar(e.pageX);
+			this.$refs.player.player.getPlayerState().then(response => {
+				if (
+					response === -1 ||
+					response === 2 ||
+					response === 5 ||
+					response === 0
+				) {
+					this.$refs.player.player.playVideo();
+					this.isTimerPlaying = true;
+				} else {
+					this.$refs.player.player.pauseVideo();
+					this.isTimerPlaying = false;
+				}
+			});
 		},
 		prevTrack() {
-			this.transitionName = 'scale-in';
+			// this.transitionName = 'scale-in';
 			this.isShowCover = false;
 			if (this.currentTrackIndex > 0) {
 				this.currentTrackIndex--;
@@ -158,7 +178,7 @@ export default {
 			this.resetPlayer();
 		},
 		nextTrack() {
-			this.transitionName = 'scale-out';
+			// this.transitionName = 'scale-out';
 			this.isShowCover = false;
 			if (this.currentTrackIndex < this.tracks.length - 1) {
 				this.currentTrackIndex++;
@@ -169,15 +189,14 @@ export default {
 			this.resetPlayer();
 		},
 		resetPlayer() {
-			this.barWidth = 0;
 			this.circleLeft = 0;
-			this.audio.currentTime = 0;
-			this.audio.src = this.currentTrack.source;
 			setTimeout(() => {
 				if (this.isTimerPlaying) {
-					this.audio.play();
+					// this.audio.play();
+					this.$refs.player.player.playVideo();
 				} else {
-					this.audio.pause();
+					// this.audio.pause();
+					this.$refs.player.player.pauseVideo();
 				}
 			}, 300);
 		},
@@ -188,20 +207,20 @@ export default {
 		},
 	},
 	created() {
-		let vm = this;
+		// let vm = this;
 		this.currentTrack = this.tracks[0];
-		this.audio = new Audio();
-		this.audio.src = this.currentTrack.source;
-		this.audio.ontimeupdate = function() {
-			vm.generateTime();
-		};
-		this.audio.onloadedmetadata = function() {
-			vm.generateTime();
-		};
-		this.audio.onended = function() {
-			vm.nextTrack();
-			this.isTimerPlaying = true;
-		};
+		// this.audio = new Audio();
+		// this.audio.src = this.currentTrack.source;
+		// this.audio.ontimeupdate = function() {
+		// 	vm.generateTime();
+		// };
+		// this.audio.onloadedmetadata = function() {
+		// 	vm.generateTime();
+		// };
+		// this.audio.onended = function() {
+		// 	vm.nextTrack();
+		// 	this.isTimerPlaying = true;
+		// };
 
 		// this is optional (for preload covers)
 		for (let index = 0; index < this.tracks.length; index++) {
@@ -251,6 +270,7 @@ export default {
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	border-radius: 15px;
 	padding: 30px;
+	margin-bottom: 1rem;
 	@media screen and (max-width: 576px), (max-height: 500px) {
 		width: 95%;
 		padding: 20px;
@@ -263,9 +283,7 @@ export default {
 		align-items: flex-start;
 		position: relative;
 		z-index: 4;
-		@media screen and (max-width: 576px), (max-height: 500px) {
-			flex-wrap: wrap;
-		}
+		flex-wrap: wrap;
 	}
 
 	&-cover {
@@ -294,17 +312,18 @@ export default {
 			width: 100%;
 			height: 100%;
 			border-radius: 15px;
-			/* position: absolute;
-			left: 0;
-			top: 0; */
 			background: #f0f0f0;
 			box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
-			/* &:before {
+			// 수정부분
+			position: absolute;
+			left: 0;
+			top: -100px;
+			&:before {
 				content: '';
 				background: inherit;
 				width: 100%;
 				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+				/* box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5); */
 				display: block;
 				z-index: 1;
 				position: absolute;
@@ -320,12 +339,12 @@ export default {
 				background: inherit;
 				width: 100%;
 				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+				/* box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5); */
 				display: block;
 				z-index: 2;
 				position: absolute;
 				border-radius: 15px;
-			} */
+			}
 		}
 
 		&__img {
@@ -340,19 +359,12 @@ export default {
 	}
 
 	&-controls {
-		flex: 1;
-		padding-left: 20px;
 		display: flex;
-		flex-direction: column;
 		align-items: center;
-
-		@media screen and (max-width: 576px), (max-height: 500px) {
-			flex-direction: row;
-			padding-left: 0;
-			width: 100%;
-			flex: unset;
-		}
-
+		flex-direction: row;
+		padding-left: 0;
+		width: 100%;
+		flex: unset;
 		&__item {
 			display: inline-flex;
 			font-size: 30px;
@@ -429,8 +441,9 @@ export default {
 				width: auto;
 				height: auto;
 				display: inline-flex;
+				margin-left: auto;
+
 				@media screen and (max-width: 576px), (max-height: 500px) {
-					margin-left: auto;
 					font-size: 75px;
 					margin-right: 0;
 				}
@@ -561,7 +574,7 @@ export default {
 }
 
 //scale out
-
+/* 
 .scale-out-enter-active {
 	transition: all 0.35s ease-in-out;
 }
@@ -577,10 +590,10 @@ export default {
 	transform: scale(1.2);
 	pointer-events: none;
 	opacity: 0;
-}
+} */
 
 //scale in
-
+/* 
 .scale-in-enter-active {
 	transition: all 0.35s ease-in-out;
 }
@@ -596,7 +609,7 @@ export default {
 	transform: scale(0.55);
 	pointer-events: none;
 	opacity: 0;
-}
+} */
 .player-font {
 	color: #71829e;
 	width: 4rem;
@@ -621,5 +634,10 @@ export default {
 	border-radius: 12px;
 	background: #f0f0f0;
 	box-shadow: inset 5px 5px 10px #d8d8d8, inset -5px -5px 10px #ffffff;
+}
+#embed-youtube-video-1 {
+	position: absolute;
+	top: -500vh;
+	left: -500vw;
 }
 </style>
