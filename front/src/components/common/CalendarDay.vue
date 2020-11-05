@@ -21,7 +21,8 @@
 		/>
 		<img
 			v-else-if="
-				(!day.post && !(toDay === day.day || toDay - 1 === day.day)) ||
+				(!day.post && !(toDay === day.day)) ||
+					!(toDay - 1 === day.day) ||
 					!(todayMonth === day.month)
 			"
 			class="emoticon"
