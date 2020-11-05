@@ -25,7 +25,7 @@ class PostFont(models.Model):
     path = models.CharField(max_length=100)
     @classmethod
     def make(cls):
-        font_list = ['Gaegu', 'Nanum Gothic', 'Nanum Myeongjo', 'Nanum Pen Script', 'Poor Story']
+        font_list = ['Gaegu', 'Nanum Myeongjo', 'Nanum Pen Script', 'Poor Story', 'Nanum Gothic']
         for font in font_list:
             PostFont.objects.create(name=font, path='')
         

@@ -1,14 +1,11 @@
-from collections import Counter
+# from wordcloud import WordCloud, STOPWORDS
 from eunjeon import Mecab
-from matplotlib import rc
-import matplotlib
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
 # 한글 폰트 패스로 지정
-import matplotlib.font_manager as fm
-import re
-
+# import matplotlib.font_manager as fm
+# import re
+# import collections
 class TextAnalysis:
     mecab = Mecab()
     tag = ['VCP', 'VCN', 'NNG', 'IC', 'MAG', 'VA', 'VV', 'XR']
@@ -25,19 +22,13 @@ class TextAnalysis:
     happy = []
     minus2 = []
     minus3 = []
-    def __init__(self, data):
-        self.content = data['content']
-        self.title = data['title']        
-        self.emotions = [data['stickers'][i]['emotion']['name'] for i in range(len(data['stickers']))]
-        
+    def __init__(self, text):
+        self.text = text
     @classmethod
     def decompose(cls, ls):
         word_list = []
         for word in ls:
-            if '+' in word[1]:
-                if word[1].split('+')[0] in cls.tag and word[0] not in cls.stopwords:
-                    word_list.append(word[0])
-            elif word[1] in cls.tag and word[0] not in cls.stopwords:
+            if word[1] in cls.tag and word[0] not in cls.stopwords:
                 word_list.append(word[0])
         
         return set(word_list)
@@ -58,7 +49,6 @@ class TextAnalysis:
         neg.pop()
         cls.neg = neg
         return neg
-    
     @classmethod
     def get_horror(cls):
         if cls.horror:
@@ -80,9 +70,9 @@ class TextAnalysis:
         delight.discard('보')
         delight.discard('좋')
         delight.discard('재미있')
+        print(delight)
         cls.delight = delight
         return delight
-   
     @classmethod
     def get_surprise(cls):
         if cls.surprise:
@@ -92,7 +82,6 @@ class TextAnalysis:
         surprise.discard('금')
         cls.surprise = surprise
         return surprise
-    
     @classmethod
     def get_angry(cls):
         if cls.angry:
@@ -104,7 +93,6 @@ class TextAnalysis:
         
         cls.angry = angry
         return angry
-    
     @classmethod
     def get_sad(cls):
         if cls.sad:
@@ -117,7 +105,6 @@ class TextAnalysis:
         
         cls.sad = sad
         return sad
-    
     @classmethod
     def get_boring(cls):
         if cls.boring:
@@ -126,7 +113,6 @@ class TextAnalysis:
         boring = cls.decompose(cls.mecab.pos(' '.join(b.T.values[0])))
         cls.boring = boring
         return boring
-    
     @classmethod
     def get_happy(cls):
         if cls.happy:
@@ -137,7 +123,6 @@ class TextAnalysis:
         happy.discard('속')
         cls.happy = happy
         return happy
-   
     @classmethod
     def get_minus2(cls):
         if cls.minus2:
@@ -149,7 +134,6 @@ class TextAnalysis:
         
         cls.minus2 = minus2
         return minus2
-    
     @classmethod
     def get_minus3(cls):
         if cls.minus3:
@@ -162,29 +146,13 @@ class TextAnalysis:
         
         cls.minus3 = minus3
         return minus3
-    
     def count_words(self):
         # 텍스트에서 명사만 추출하는 함수
-        out = self.mecab.nouns(self.content)
-        out_title = self.mecab.nouns(self.title)
-        out += out_title
-        word_counts = Counter(out)
-        print(word_counts)
-
-        # 단어 빈도 수 시각화(가로 막대 그래프)
-        mode = word_counts.most_common(1)
-        ln = mode[0][1]
-
-        plt.rcParams["font.family"] = 'NanumSquare_ac'
-
-        data = pd.Series(word_counts)
-        word_freq = data.sort_index()
-        word_freq.sort_values().plot(figsize=(8,6), kind='barh', grid=True, title='단어별 빈도 수')
-        plt.xlabel('빈도 수')
-        plt.ylabel('단어')
-        plt.xticks(np.arange(0,ln, step=1))
-        plt.show()
-
+        out = self.mecab.nouns(self.text)
+        word_counts = {}
+        for word in out:
+            word_counts[word] = word_counts.get(word, 0) + 1
+        
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
         
         for i in range(len(sorted_word_counts)):
@@ -212,19 +180,16 @@ class TextAnalysis:
                 sorted_word_counts[i].append(0)
         
         return sorted_word_counts
-    
     def day_score(self):
-        content = self.mecab.pos(self.content)
-        title = self.mecab.pos(self.title)
-        # print(content)
+        text = self.mecab.pos(self.text)
         cnt = 0
         score = 0
         p = []
         n = []
-        txt = self.decompose(content)
-        tit = self.decompose(title)
-        # print(txt)
+        txt = self.decompose(text)
         feel = {}
+        # delight = self.get_delight()
+        # print(delight)
         for word in txt:
             if word in self.get_delight():
                 score += 2
@@ -239,7 +204,6 @@ class TextAnalysis:
             elif word in self.get_minus2():
                 score -= 2
                 cnt += 2
-                print('-2',word)
                 if word in self.get_horror():
                     feel['horror'] = feel.get('horror',0) + 1    
                 elif word in self.get_angry():
@@ -249,17 +213,12 @@ class TextAnalysis:
             elif word in self.get_minus3():
                 score -= 3
                 cnt += 3
-                print('-3',word)
                 if word in self.get_horror():
                     feel['horror'] = feel.get('horror',0) + 1    
                 elif word in self.get_angry():
                     feel['angry'] = feel.get('angry',0) + 1
                 elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 1
-            elif word in self.get_boring():
-                feel['boring'] = feel.get('boring', 0) + 1
-            elif word in self.get_surprise():
-                feel['surprise'] = feel.get('surprise', 0) + 1    
+                    feel['sad'] = feel.get('sad',0) + 1    
             elif word in self.get_pos():
                 score += 1
                 cnt += 1
@@ -268,107 +227,43 @@ class TextAnalysis:
                 score -= 1
                 cnt += 1
                 n.append(word)
-        
-        for word in tit:
-            if word in self.get_delight():
-                score += 3
-                cnt += 3
-                print('d',word)
-                feel['delight'] = feel.get('delight',0) + 2    
-            elif word in self.get_happy():
-                score += 4
-                cnt += 4
-                print('h',word)
-                feel['happy'] = feel.get('happy',0) + 2    
-            elif word in self.get_minus2():
-                score -= 3
-                cnt += 3
-                print('-2',word)
-                if word in self.get_horror():
-                    feel['horror'] = feel.get('horror',0) + 2    
-                elif word in self.get_angry():
-                    feel['angry'] = feel.get('angry',0) + 2    
-                elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 2    
-            elif word in self.get_minus3():
-                score -= 4
-                cnt += 4
-                print('-3',word)
-                if word in self.get_horror():
-                    feel['horror'] = feel.get('horror',0) + 2    
-                elif word in self.get_angry():
-                    feel['angry'] = feel.get('angry',0) + 2
-                elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 2
-            elif word in self.get_boring():
-                feel['boring'] = feel.get('boring', 0) + 2
-            elif word in self.get_surprise():
-                feel['surprise'] = feel.get('surprise', 0) + 2    
-            elif word in self.get_pos():
-                score += 2
-                cnt += 2
-                p.append(word)
-            elif word in self.get_neg():
-                score -= 2
-                cnt += 2
-                n.append(word)
-        
-        for emotion in self.emotions:
-            if emotion:
-                feel[emotion] = feel.get(emotion, 0) + 2    
-        print('p', p)
-        print('n', n)
-
-        if cnt == 0:
-            return cnt, feel
         return score/cnt, feel
-    
     def text_analysis(self):
         # 일일 감정점수
         score, feel = self.day_score()
         print(score, feel)
         # 일일 감정분류
-        for key, value in feel.items():
-            if score > 0:
-                if key == 'horror' or key == 'angry' or key =='sad':
-                    feel[key] = 0
-            elif score < 0:
-                if key == 'happy' or key == 'delight':
-                    feel[key] = 0
         sorted_feel = sorted(feel.items(), key=lambda item:item[1], reverse=True)
         if len(sorted_feel) == 0:
             sorted_feel = [('boring', 0)]
         print(sorted_feel)
-
+        # 단어 갯수 (wordcloud용)\
+        # print('word count', self.count_words())
         word_count = self.count_words()
         print(word_count)
         return {
             "score": score,
             "feel": sorted_feel,
-            "word_count": word_count
+            "word_cound": word_count
         }
 
 if __name__ == "__main__":
-    data = {
-        'title' : '다행이다.',
-        'content' : '''약도 아침/자기전으로 잘 챙겨먹고
-
-        옛날보다 더 몸이 건강해진것같다
-
-        지금 이 몸무게에 들어갈수 없었던 바지도 잘들어가고
-
-        너무 좋다 그리고 과하게 살이 쪘을땐 뭐든지 짜증이 났는데
-
-        별다른 이벤트가 없다면 그냥 그러려니 잘 넘긴다
-
-        나 정말 다행이야
-
-        어제는 사고싶은 옷들이 있어서 인터넷으로 옷을 주문했다
-
-        그리고 돈을 아끼려고 많이 노력중이다
-
-        나 잘할수 있다고 믿을래!''',
-        'stickers' : [{'emotion': {'name': 'happy'}}, {'emotion': {'name':'delight'}}]
-    }
-    a = TextAnalysis(data)
+    text = open('text.txt','r').read()
+    a = TextAnalysis(text)
     a.text_analysis()
+
+
+# spwords = set(STOPWORDS)
+
+# wordcloud = WordCloud(max_font_size=200, font_path='/content/drive/My Drive/Colab Notebooks/malgun.ttf',
+#                      stopwords=spwords,
+#                      background_color='#FFFFFF',
+#                      width=1200,height=800).generate_from_frequencies(out4)
+
+
+# plt.figure(figsize = (8, 8), facecolor = None) 
+# plt.imshow(wordcloud) 
+# plt.axis("off") 
+# plt.tight_layout(pad = 0) 
+  
+# plt.show() 

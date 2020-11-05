@@ -37,10 +37,10 @@ class UserDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@swagger_auto_schema(methods=['get'], query_serializer=CheckEmailSerializer)
-@api_view(['GET'])
+@swagger_auto_schema(methods=['post'], request_body=CheckEmailSerializer)
+@api_view(['POST'])
 def check_email(request):
-    email = request.GET.get('email', None)
+    email = request.data.get('email', None)
     exist = User.objects.filter(email=email).exists()
     if exist:
         state = status.HTTP_200_OK
