@@ -58,12 +58,7 @@
 				<bar-chart
 					class="report-bar display-none"
 					@click.native="switchWordView"
-					:data="[
-						['Easy', 3200],
-						['Wow', 2000],
-						['Play', 1492],
-						['Work', 1322],
-					]"
+					:data="words"
 				></bar-chart>
 			</div>
 			<div class="report-chart">
@@ -104,7 +99,7 @@ export default {
 				chartData: [
 					{
 						label: `${cookies.get('username')}`,
-						data: ['61', '7', '17', '63', '28', '99', '-70'],
+						data: ['0', '0', '0', '0', '0', '0', '0'],
 					},
 				],
 			},
@@ -138,8 +133,8 @@ export default {
 				new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
 			);
 		}
-		bus.$emit('lineUpdate');
 		this.fetchWeek(start, end);
+		bus.$emit('lineUpdate');
 	},
 	methods: {
 		switchWordView() {
@@ -196,7 +191,6 @@ export default {
 				);
 			}
 			this.fetchWeek(start, end);
-			console.log(this.startString, this.endString);
 			bus.$emit('lineUpdate');
 		},
 		moveNextWeek() {
@@ -221,13 +215,20 @@ export default {
 				);
 			}
 			this.fetchWeek(start, end);
-			console.log(this.startString, this.endString);
 			bus.$emit('lineUpdate');
 		},
 		async fetchWeek(startWeek, endWeek) {
 			const { data } = await fetchWeekReport(startWeek, endWeek);
-			console.log(data);
 			this.words = data.wordcloud;
+			this.chartData.chartData[0].data = [];
+			data.score.forEach(day => {
+				if (day.score) {
+					this.chartData.chartData[0].data.push(day.score * 100);
+				} else {
+					this.chartData.chartData[0].data.push(0);
+				}
+			});
+			bus.$emit('lineUpdate');
 		},
 		rotation: ([word]) => {
 			var chance = new Chance(word[0]);
