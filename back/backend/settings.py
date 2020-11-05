@@ -43,7 +43,7 @@ CORS_ORIGIN_WHITELIST = [
     'https://k3d104.p.ssafy.io:8000',
     'https://k3d104.p.ssafy.io:8001',
     'https://k3d104.p.ssafy.io:8002',
-    'localhost'
+    'http://127.0.0.1'
     ]
 
 CORS_ORIGIN_ALLOW_ALL = True
