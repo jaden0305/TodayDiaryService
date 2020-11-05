@@ -19,6 +19,7 @@
 					이전달
 				</button>
 				<div class="report-select">
+					<span class="report-select__year">{{ year }}</span>
 					<span class="report-select__month">{{ month | filterMonth }}</span>
 					<span class="report-select__span"></span>
 				</div>
@@ -31,6 +32,7 @@
 					이전주
 				</button>
 				<div class="report-select">
+					<span class="report-select__year">{{ year }}</span>
 					<span class="report-select__month"
 						>{{ startString }}~{{ endString }}</span
 					>
@@ -155,6 +157,8 @@ export default {
 		},
 		async fetchMonth(year, month) {
 			const { data } = await fetchMonthReport({ year, month });
+			this.year = year;
+			this.month = month;
 			if (data.wordcloud.length) {
 				this.words = data.wordcloud;
 			} else {
@@ -242,6 +246,7 @@ export default {
 				this.words = [['데이터가 없습니다', 1, 0]];
 			}
 			const startChart = new Date(this.startWeek);
+			this.year = startChart.getFullYear();
 			startChart.setDate(startChart.getDate() - 1);
 			this.chartData.labels = [];
 			this.chartData.chartData[0].data = [];
@@ -418,9 +423,16 @@ export default {
 	margin-bottom: 1.5rem;
 	color: #495057;
 	font-weight: 400;
+
 	.report-select {
-		display: inline-block;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		position: relative;
+		.report-select__year {
+			opacity: 0.8;
+			color: #495057;
+		}
 		.report-select__month {
 			font-size: 1.5rem;
 		}
@@ -478,8 +490,14 @@ export default {
 	color: #495057;
 	font-weight: 400;
 	.report-select {
-		display: inline-block;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		position: relative;
+		.report-select__year {
+			opacity: 0.8;
+			color: #495057;
+		}
 		.report-select__month {
 			font-size: 1.5rem;
 		}
