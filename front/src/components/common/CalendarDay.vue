@@ -1,18 +1,20 @@
 <template>
-	<span class="calendar-day">
+	<div class="calendar-day" :style="{ height: `${weekWidth}px` }">
 		<img
 			v-if="
-				!day.hasOwnProperty('post') &&
+				!day.post &&
 					(toDay === day.day || toDay - 1 === day.day) &&
 					todayMonth === day.month
 			"
 			@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 			class="emoticon"
-			src="@/assets/images/pencil.png"
+			src="@/assets/images/pencil-c.svg"
 			alt=""
 		/>
 		<img
-			v-if="nowDay < new Date(`${year}-${day.month}-${day.day}`)"
+			v-if="
+				nowDay < new Date(`${year}-${lastTwo(day.month)}-${lastTwo(day.day)}`)
+			"
 			@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 			class="calendar-day emoticon display-none"
 			src="@/assets/images/emotion/boring.png"
@@ -20,13 +22,12 @@
 		/>
 		<img
 			v-else-if="
-				(!day.hasOwnProperty('post') &&
-					!(toDay === day.day || toDay - 1 === day.day)) ||
+				(!day.post && !(toDay === day.day || toDay - 1 === day.day)) ||
 					!(todayMonth === day.month)
 			"
 			@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 			class="emoticon"
-			src="@/assets/images/emotion/normal.png"
+			src="@/assets/images/emotion/boring.png"
 			alt=""
 		/>
 		<img
@@ -100,7 +101,7 @@
 			alt=""
 		/>
 		<p class="calendar-day__title">{{ day.day }}</p>
-	</span>
+	</div>
 </template>
 
 <script>
@@ -111,6 +112,25 @@ export default {
 		toDay: Number,
 		todayMonth: Number,
 		nowDay: Date,
+		weekWidth: Number,
+	},
+	methods: {
+		writeDiary(dayString) {
+			console.log(dayString);
+			this.$router.push({ name: 'diary' });
+		},
+		readDiary(diary_pk) {
+			this.$router.push(`/diary/${diary_pk}`);
+		},
+		lastTwo(month) {
+			console.log(('0' + month).slice(-2));
+			return ('0' + month).slice(-2);
+		},
+	},
+	mounted() {
+		// const day = document.querySelectorAll('.calendar-day');
+		// day.style.height = `${this.weekWidth}px`;
+		// console.log(this.weekWidth, day.clientHeight);
 	},
 };
 </script>
