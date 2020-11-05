@@ -41,12 +41,7 @@
 						<div class="album-info__name">{{ currentTrack.artist }}</div>
 						<div class="album-info__track">{{ currentTrack.name }}</div>
 					</div>
-					<!-- <div class="progress__duration">{{ duration }}</div> -->
 				</div>
-				<!-- <div class="progress__bar" @click="clickProgress">
-                    <div class="progress__current" :style="{ width: barWidth }"></div>
-                </div> -->
-				<!-- <div class="progress__time">{{ currentTime }}</div> -->
 			</div>
 			<div v-cloak></div>
 			<symbol id="icon-link" viewBox="0 0 32 32">
@@ -65,7 +60,7 @@
 		<video-wrapper
 			ref="player"
 			:player="'youtube'"
-			:videoId="tracks[currentTrackIndex].videoId"
+			:videoId="currentTrack.videoId"
 			@ended="nextTrack"
 		/>
 	</div>
@@ -83,11 +78,19 @@ export default {
 			isTimerPlaying: false,
 			tracks: [
 				{
-					name: '나랑 같이 걸을래',
+					name: '야작시',
 					artist: '적재',
 					cover:
-						'https://search.pstatic.net/common/?src=http%3A%2F%2Fpost.phinf.naver.net%2FMjAyMDEwMjNfMjkw%2FMDAxNjAzNDM2MzIwNDQ4.gWspMWOC5ia0rDVhd5ueMhdUfMwnEbXFDyG7OcqjqC8g.Pw0CPN0tsn_sdGfamKRD_Mza-cBPFJZTpwI7YaZ4cxAg.JPEG%2FIDNhUC-xLwt43BTznlapw3dDJFBA.jpg&type=sc960_832',
+						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
 					videoId: 'jXylepYfpk0',
+					url: 'https://youtu.be/26YwXUcUf4I',
+					favorited: false,
+				},
+				{
+					name: '블루밍',
+					artist: '아이유',
+					cover: 'https://i.ytimg.com/vi/D1PvIWdJ8xo/maxresdefault.jpg',
+					videoId: 'D1PvIWdJ8xo',
 					url: 'https://youtu.be/26YwXUcUf4I',
 					favorited: false,
 				},
