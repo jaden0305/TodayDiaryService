@@ -227,6 +227,7 @@ class TextAnalysis:
         p = []
         n = []
         txt = self.decompose(text)
+        print(txt)
         feel = {}
         # delight = self.get_delight()
         # print(delight)
@@ -271,7 +272,7 @@ class TextAnalysis:
                 score -= 1
                 cnt += 1
                 n.append(word)
-
+        print(p, n)
         if cnt > 0:
             return score/cnt, feel
         return 0, feel
@@ -279,7 +280,7 @@ class TextAnalysis:
     def text_analysis(self):
         # 일일 감정점수
         score, feel = self.day_score()
-        # print(score, feel)
+        print(score, feel)
 
         # 일일 감정분류
         for key, value in feel.items():
@@ -293,12 +294,12 @@ class TextAnalysis:
         sorted_feel = sorted(feel.items(), key=lambda item:item[1], reverse=True)
         if len(sorted_feel) == 0:
             sorted_feel = [('boring', 0)]
-        # print(sorted_feel)
+        print(sorted_feel)
 
         # 단어 갯수 (wordcloud용)\
         # print('word count', self.count_words())
         word_count = self.count_words()
-        # print(word_count)
+        print(word_count)
 
         return {
             "score": score,
@@ -308,8 +309,10 @@ class TextAnalysis:
 
 if __name__ == "__main__":
     text = '''
-    오늘 나는 워킹과 연기를 처음으로 배워 보았다.
-지금 까지 모델 일 하면서 나는 거의 배울거 없다고 생각 했지만,아직 많이 있다는 것을 깨달았다.
+    정말 만나서 반갑다
+    우울했는데 기분전환이 확실히 됐어요
+    정말 좋아요
 '''
     a = TextAnalysis(text)
+    # print(a)
     a.text_analysis()
