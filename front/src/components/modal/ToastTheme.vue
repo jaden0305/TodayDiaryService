@@ -27,13 +27,35 @@
 					/>
 					<label class="toast-themes__label" for="toast-theme__font">
 						<div class="toast-themes__indicator"></div>
-						<span class="toast-themes__text">전체</span>
+						<span class="toast-themes__text">폰트</span>
 					</label>
 				</div>
 			</div>
 			<div class="toast-theme">
 				<div v-if="selectedTheme === 'bg'" class="toast-theme__bg">
-					테마
+					<ul>
+						<li>
+							<label for="toast-theme__color1" class="color1">Gaegu</label>
+							<input
+								type="radio"
+								name="themeColor"
+								id="toast-theme__color1"
+								value="Gaegu"
+								v-model="selectedFont"
+							/>
+						</li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
 				</div>
 				<div v-else class="toast-theme__fonts">
 					<p class="toast-theme__example">
