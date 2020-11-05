@@ -2,11 +2,17 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-html {
-	height: 100%;
+@font-face {
+    font-family: 'pentastic';
+    src: url('../fonts/Soul Pentastic Epilogue R.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
-body {
-	min-height: 100vh;
+
+html, body {
+	width: 100%;
+	min-height: 100%;
+	background: rgb(240, 240, 240);
 }
 
 
@@ -53,4 +59,9 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+* {
+	font-family: 'Poor Story';
+	box-sizing: border-box;
 }

@@ -4,6 +4,11 @@ Vue.use(VueRouter);
 
 const routes = [
 	{
+		path: '',
+		name: 'main',
+		component: () => import('@/views/MainPage.vue'),
+	},
+	{
 		path: '/calendar',
 		name: 'calendar',
 		component: () => import('@/views/CalendarPage.vue'),
@@ -14,9 +19,31 @@ const routes = [
 		component: () => import('@/views/WriteDiaryPage.vue'),
 	},
 	{
+		path: '/diary/:diaryId',
+		name: 'fetchDiary',
+		props: route => ({ diaryId: Number(route.params.diaryId) }),
+		component: () => import('@/views/ReadDiaryPage.vue'),
+	},
+	{
+		path: '/diary/:diaryId/edit',
+		name: 'editDiary',
+		props: route => ({ diaryId: Number(route.params.diaryId) }),
+		component: () => import('@/views/EditDiaryPage.vue'),
+	},
+	{
+		path: '/saveDiary',
+		name: 'saveDiary',
+		component: () => import('@/views/CompleteDiaryPage.vue'),
+	},
+	{
 		path: '/report',
 		name: 'report',
-		component: () => import('@/views/ReportPage'),
+		component: () => import('@/views/ReportPage.vue'),
+	},
+	{
+		path: '/music',
+		name: 'music',
+		component: () => import('@/views/MusicPlayerPage.vue'),
 	},
 ];
 

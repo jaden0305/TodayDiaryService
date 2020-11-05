@@ -5,8 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <script src="https://unpkg.com/chance@1.1.6/dist/chance.min.js"></script>
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>             
+      if(!Kakao.isInitialized()){
+        Kakao.init('f6d5d6eb7010ffab1ed46cfdcc20513a');
+      }
+    </script>
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Poor+Story&display=swap" rel="stylesheet">
   </head>
   <body>
     <noscript>
@@ -16,3 +24,4 @@
     <!-- built files will be auto injected -->
   </body>
 </html>
+

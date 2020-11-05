@@ -1,348 +1,522 @@
 <template>
 	<section class="calendar-wrap">
-		<div class="calendar-header">
-			<button class="calendar-header__prev">
-				<i class="icon ion-ios-arrow-back"></i>
-			</button>
-			<span class="calendar-header__month">10월</span>
-			<button class="calendar-header__next">
-				<i class="icon ion-ios-arrow-forward"></i>
-			</button>
-		</div>
-		<div class="calendar-weekdays">
-			<span class="calendar-weekday sunday">일</span>
-			<span class="calendar-weekday monday">월</span>
-			<span class="calendar-weekday tuesday">화</span>
-			<span class="calendar-weekday wednesday">수</span>
-			<span class="calendar-weekday thursday">목</span>
-			<span class="calendar-weekday friday">금</span>
-			<span class="calendar-weekday saturday">토</span>
-		</div>
-		<div class="calendar-days">
-			<span class="calendar-day"
-				><img
-					class="calendar-day emoticon"
-					src="@/assets/images/pencil-c.svg"
-					alt=""
-				/>
-				<p class="calendar-day__title">27</p></span
-			>
-			<span class="calendar-day"
-				><img
-					class="calendar-day emoticon"
-					src="@/assets/images/pencil-c.svg"
-					alt=""
-				/>
-				<p class="calendar-day__title">
-					28
-				</p></span
-			>
-			<span class="calendar-day"
-				><img
-					class="calendar-day emoticon"
-					src="@/assets/images/pencil-c.svg"
-					alt=""
-				/>
-				<p class="calendar-day__title">
-					29
-				</p></span
-			>
-			<span class="calendar-day"
-				><img
-					class="calendar-day emoticon"
-					src="@/assets/images/pencil-c.svg"
-					alt=""
-				/>
-				<p class="calendar-day__title">
-					30
-				</p></span
-			>
-			<span class="calendar-day"
-				><img
-					class="calendar-day emoticon"
-					src="@/assets/images/pencil-c.svg"
-					alt=""
-				/>
-				<p class="calendar-day__title">
-					1
-				</p></span
-			>
-			<span class="calendar-day"
-				><img
-					class="calendar-day emoticon"
-					src="@/assets/images/happiness.svg"
-					alt=""
-				/>
-				<p class="calendar-day__title">
-					2
-				</p></span
-			>
-			<span class="calendar-day"
-				><img
-					class="calendar-day emoticon"
-					src="@/assets/images/cry.svg"
-					alt=""
-				/>
-				<p class="calendar-day__title">
-					3
-				</p></span
-			>
-			<span class="calendar-day"
-				><img
-					class="calendar-day emoticon"
-					src="@/assets/images/neutral.svg"
-					alt=""
-				/>
-				<p class="calendar-day__title">
-					4
-				</p></span
-			>
-			<span class="calendar-day"
-				><img
-					class="calendar-day emoticon"
-					src="@/assets/images/sad.svg"
-					alt=""
-				/>
-				<p class="calendar-day__title">
-					5
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					6
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					7
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					8
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					9
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					10
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					11
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					12
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					13
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					14
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					15
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					16
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					17
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					18
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					19
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					20
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					21
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					22
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					23
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					24
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					25
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					26
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					27
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					28
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					29
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					30
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					31
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					1
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					2
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					3
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					4
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					5
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					6
-				</p></span
-			>
-			<span class="calendar-day"
-				><i class="icon ion-logo-snapchat"></i>
-				<p class="calendar-day__title">
-					7
-				</p></span
-			>
+		<div class="calendar-content">
+			<div class="calendar-header">
+				<button @click="movePrevMonth" class="calendar-header__prev">
+					이전달
+				</button>
+				<div class="calendar-header__box">
+					<span class="calendar-header__month">{{ month | filterMonth }}</span>
+					<span class="calendar-header__span"></span>
+				</div>
+
+				<button @click="moveNextMonth" class="calendar-header__next">
+					다음달
+				</button>
+			</div>
+			<div class="calendar-weekdays">
+				<span class="calendar-weekday sunday">일</span>
+				<span class="calendar-weekday monday">월</span>
+				<span class="calendar-weekday tuesday">화</span>
+				<span class="calendar-weekday wednesday">수</span>
+				<span class="calendar-weekday thursday">목</span>
+				<span class="calendar-weekday friday">금</span>
+				<span class="calendar-weekday saturday">토</span>
+			</div>
+			<div class="calendar-days">
+				<CalendarDay
+					:day="day"
+					:year="day.year"
+					:toDay="toDay"
+					:todayMonth="todayMonth"
+					:nowDay="nowDay"
+					:key="index"
+					v-for="(day, index) in preMonth"
+				></CalendarDay>
+				<CalendarDay
+					:day="day"
+					:year="day.year"
+					:toDay="toDay"
+					:todayMonth="todayMonth"
+					:nowDay="nowDay"
+					:key="'B' + index"
+					v-for="(day, index) in nowMonth"
+				></CalendarDay>
+				<CalendarDay
+					:day="day"
+					:year="day.year"
+					:toDay="toDay"
+					:todayMonth="todayMonth"
+					:nowDay="nowDay"
+					:key="'A' + index"
+					v-for="(day, index) in nextMonth"
+				></CalendarDay>
+				<!-- <span
+					:key="index"
+					v-for="(day, index) in preMonth"
+					class="calendar-day"
+				>
+					<img
+						v-if="
+							!day.hasOwnProperty('post') &&
+								(toDay === day.day || toDay - 1 === day.day) &&
+								todayMonth === day.month
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
+						class="calendar-day emoticon"
+						src="@/assets/images/pencil-c.svg"
+						alt=""
+					/>
+					<img
+						v-if="
+							(!day.hasOwnProperty('post') &&
+								!(toDay === day.day || toDay - 1 === day.day)) ||
+								!(todayMonth === day.month)
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-if="
+							day.post &&
+								(day.post.user_emotion.id === 1 || day.post.emotion.id === 1)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/happy.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 2 || day.post.emotion.id === 2)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/sad.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 3 || day.post.emotion.id === 3)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/smile.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 4 || day.post.emotion.id === 4)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 5 || day.post.emotion.id === 5)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/angry.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 6 || day.post.emotion.id === 6)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/surprise.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 7 || day.post.emotion.id === 7)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/dislike.png"
+						alt=""
+					/>
+					<p class="calendar-day__title">{{ day.day }}</p>
+				</span>
+				<span
+					:key="'A' + index"
+					v-for="(day, index) in nowMonth"
+					class="calendar-day"
+				>
+					<img
+						v-if="
+							!day.hasOwnProperty('post') &&
+								(toDay === day.day || toDay - 1 === day.day) &&
+								todayMonth === day.month
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
+						class="calendar-day emoticon pencil"
+						src="@/assets/images/pencil-c.svg"
+						alt=""
+					/>
+					<img
+						v-if="nowDay < new Date(`${year}-${day.month}-${day.day}`)"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
+						class="calendar-day emoticon display-none"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							(!day.hasOwnProperty('post') &&
+								!(toDay === day.day || toDay - 1 === day.day)) ||
+								!(todayMonth === day.month)
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-if="
+							day.post &&
+								(day.post.user_emotion.id === 1 || day.post.emotion.id === 1)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/happy.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 2 || day.post.emotion.id === 2)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/sad.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 3 || day.post.emotion.id === 3)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/smile.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 4 || day.post.emotion.id === 4)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 5 || day.post.emotion.id === 5)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/angry.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 6 || day.post.emotion.id === 6)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/surprise.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 7 || day.post.emotion.id === 7)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/dislike.png"
+						alt=""
+					/>
+					<p class="calendar-day__title">{{ day.day }}</p>
+				</span>
+				<span
+					:key="'B' + index"
+					v-for="(day, index) in nextMonth"
+					class="calendar-day"
+				>
+					<img
+						v-if="
+							!day.hasOwnProperty('post') &&
+								(toDay === day.day || toDay - 1 === day.day) &&
+								todayMonth === day.month
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
+						class="calendar-day emoticon"
+						src="@/assets/images/pencil-c.svg"
+						alt=""
+					/>
+					<img
+						v-if="
+							(!day.hasOwnProperty('post') &&
+								!(toDay === day.day || toDay - 1 === day.day)) ||
+								!(todayMonth === day.month)
+						"
+						@click="writeDiary(`${year}-${day.month}-${day.day}`)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 1 || day.post.emotion.id === 1)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/happy.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 2 || day.post.emotion.id === 2)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/sad.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 3 || day.post.emotion.id === 3)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/smile.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 4 || day.post.emotion.id === 4)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 5 || day.post.emotion.id === 5)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/angry.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 6 || day.post.emotion.id === 6)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/surprise.png"
+						alt=""
+					/>
+					<img
+						v-else-if="
+							day.post &&
+								(day.post.user_emotion.id === 7 || day.post.emotion.id === 7)
+						"
+						@click="readDiary(day.post.id)"
+						class="calendar-day emoticon"
+						src="@/assets/images/emotion/dislike.png"
+						alt=""
+					/>
+					<p class="calendar-day__title">{{ day.day }}</p>
+				</span> -->
+			</div>
 		</div>
 	</section>
 </template>
 
 <script>
-export default {};
+import CalendarDay from '@/components/common/CalendarDay.vue';
+import { fetchCalendar } from '@/api/calendar';
+export default {
+	components: {
+		CalendarDay,
+	},
+	data() {
+		return {
+			year: null,
+			month: null,
+			preMonth: [],
+			nowMonth: [],
+			nextMonth: [],
+			token: null,
+			toDay: null,
+			todayMonth: null,
+			nowDay: null,
+		};
+	},
+	methods: {
+		writeDiary(dayString) {
+			console.log(dayString);
+			this.$router.push({ name: 'diary' });
+		},
+		readDiary(diary_pk) {
+			this.$router.push(`/diary/${diary_pk}`);
+		},
+		async fetchMonth({ year, month }) {
+			try {
+				const { data } = await fetchCalendar({ year, month });
+				console.log(this.month, data);
+				this.preMonth = [];
+				this.nowMonth = [];
+				this.nextMonth = [];
+				let pre = this.month - 1;
+				if (pre === 0) {
+					pre = 12;
+				}
+				let nex = this.month + 1;
+				if (nex == 13) {
+					nex = 1;
+				}
+				data[pre].forEach(day => {
+					this.preMonth.push(day);
+				});
+				data[nex].forEach(day => {
+					this.nextMonth.push(day);
+				});
+				data[this.month].forEach(day => {
+					this.nowMonth.push(day);
+				});
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		movePrevMonth() {
+			if (this.month > 1) {
+				this.month -= 1;
+			} else {
+				this.month = 12;
+				this.year -= 1;
+			}
+			this.fetchMonth({ year: this.year, month: this.month });
+		},
+		moveNextMonth() {
+			if (this.month < 12) {
+				this.month += 1;
+			} else {
+				this.month = 1;
+				this.year += 1;
+			}
+			this.fetchMonth({ year: this.year, month: this.month });
+		},
+	},
+	created() {
+		const day = new Date();
+		this.nowDay = day;
+		this.todayMonth = day.getMonth() + 1;
+		this.toDay = day.getDate();
+		this.month = day.getMonth() + 1;
+		this.year = day.getFullYear();
+		this.fetchMonth({ year: this.year, month: this.month });
+	},
+};
 </script>
 
 <style lang="scss">
 .calendar-wrap {
-	width: 100%;
-	/* height: 70vh; */
+	max-width: 100%;
+	height: 100%;
+	padding: 1rem;
+	.calendar-content {
+		border-radius: 1rem;
+		background: #f0f0f0;
+		box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
+	}
 }
 .calendar-header {
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	text-align: center;
+	padding-top: 1rem;
 	margin-bottom: 0.5rem;
-
-	.calendar-header__month {
-		font-size: 2rem;
+	.calendar-header__box {
+		display: inline-block;
+		position: relative;
+		.calendar-header__month {
+			font-size: 1.5rem;
+			font-weight: 600;
+			color: #495057;
+			@media (max-width: 300px) {
+				font-size: 1.25rem;
+			}
+		}
+		.calendar-header__span {
+			position: absolute;
+			bottom: -6px;
+			left: 0;
+			width: 100%;
+			height: 12px;
+			background: linear-gradient(to right, #9200b9 8%, #6c23c0 75%, #5600c7);
+			opacity: 0.5;
+		}
 	}
 	.calendar-header__prev {
-		margin-right: 1.5rem;
-		font-size: 1rem;
+		align-self: flex-end;
+		margin-right: 3.5rem;
+		margin-bottom: -10px;
+		font-weight: 600;
+		font-size: 0.8rem;
 		border: 0;
 		outline: 0;
+		color: #adb5bd;
 		background: none;
 		cursor: pointer;
+		@media (max-width: 300px) {
+			margin-right: 3rem;
+			font-size: 0.6rem;
+		}
 	}
 	.calendar-header__next {
-		margin-left: 1.5rem;
-		font-size: 1rem;
+		align-self: flex-end;
+		margin-left: 3.5rem;
+		margin-bottom: -10px;
+		font-weight: 600;
+		font-size: 0.8rem;
 		border: 0;
 		outline: 0;
+		color: #adb5bd;
 		background: none;
 		cursor: pointer;
+		@media (max-width: 300px) {
+			margin-left: 3rem;
+			font-size: 0.6rem;
+		}
 	}
 }
 
@@ -350,26 +524,30 @@ export default {};
 	width: 100%;
 	display: flex;
 	justify-content: space-evenly;
-	color: #343a40;
+	color: #495057;
+	margin-top: 1.5rem;
 	margin-bottom: 0.5rem;
 	.calendar-weekday {
+		padding-top: 10px;
+		padding-bottom: 10px;
 		width: 100 / 7 * 1%;
 		text-align: center;
+		font-weight: 600;
 	}
-	.sunday,
-	.saturday {
-		color: #868e96;
-	}
+}
+.display-none {
+	display: none !important;
 }
 
 .calendar-days {
 	width: 100%;
 	display: flex;
-	justify-content: space-evenly;
+	// justify-content: space-evenly;
 	flex-wrap: wrap;
 	.calendar-day {
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
 		align-items: center;
 		width: 100 / 7 * 1%;
 		margin-bottom: 1.25rem;
@@ -387,23 +565,20 @@ export default {};
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			width: 70%;
+			width: 90%;
 			margin: 0;
+		}
+		.pencil {
+			width: 90%;
 		}
 		.today {
 			color: royalblue;
 		}
 		p {
 			margin: 0;
-			margin-top: 0.1rem;
-			font-size: 0.5rem;
+			margin-top: 0.15rem;
+			font-size: 0.7rem;
 			font-weight: 600;
-			color: #343a40;
-		}
-	}
-	.calendar-day:nth-child(7n + 1),
-	.calendar-day:nth-child(7n) {
-		.calendar-day__title {
 			color: #868e96;
 		}
 	}
