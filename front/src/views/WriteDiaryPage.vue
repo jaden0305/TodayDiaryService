@@ -164,7 +164,6 @@ export default {
 	flex-direction: column;
 	justify-content: center;
 	padding: 18px;
-	background: var(--default-color);
 	.diary-header {
 		width: 100%;
 		display: flex;
