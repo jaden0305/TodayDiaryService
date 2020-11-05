@@ -30,6 +30,7 @@
 					:toDay="toDay"
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
+					:todayYear="todayYear"
 					:key="index"
 					v-for="(day, index) in preMonth"
 				></CalendarDay>
@@ -39,6 +40,7 @@
 					:toDay="toDay"
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
+					:todayYear="todayYear"
 					:key="'B' + index"
 					v-for="(day, index) in nowMonth"
 				></CalendarDay>
@@ -48,6 +50,7 @@
 					:toDay="toDay"
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
+					:todayYear="todayYear"
 					:key="'A' + index"
 					v-for="(day, index) in nextMonth"
 				></CalendarDay>
@@ -440,6 +443,7 @@ export default {
 		this.nowDay = day;
 		this.todayMonth = day.getMonth() + 1;
 		this.toDay = day.getDate();
+		this.todayYear = day.getFullYear();
 		this.month = day.getMonth() + 1;
 		this.year = day.getFullYear();
 		this.fetchMonth({ year: this.year, month: this.month });
