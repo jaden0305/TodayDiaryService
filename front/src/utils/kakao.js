@@ -35,16 +35,19 @@ let GetMe = async authObj => {
 			// alert('로그인 했어용....')
 			axios
 				.get(
-					`${process.env.VUE_APP_AUTH_API_URL}accounts/check/email/?email=${req_body.email}`,
+					`${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_AUTH_API_URL}accounts/check/email/?email=${req_body.email}`,
 				)
 				.then(res => {
 					console.log(res);
 					if (res.status === 200) {
 						axios
-							.post(`${process.env.VUE_APP_AUTH_API_URL}accounts/login/`, {
-								email: req_body.email,
-								password: req_body.email,
-							})
+							.post(
+								`${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_AUTH_API_URL}accounts/login/`,
+								{
+									email: req_body.email,
+									password: req_body.email,
+								},
+							)
 							.then(res => {
 								console.log('로그인 성공');
 								// console.log(res.data);
@@ -60,12 +63,15 @@ let GetMe = async authObj => {
 							});
 					} else if (res.status === 204) {
 						axios
-							.post(`${process.env.VUE_APP_AUTH_API_URL}accounts/signup/`, {
-								email: req_body.email,
-								password1: req_body.email,
-								password2: req_body.email,
-								// username: req_body.name,
-							})
+							.post(
+								`${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_AUTH_API_URL}accounts/signup/`,
+								{
+									email: req_body.email,
+									password1: req_body.email,
+									password2: req_body.email,
+									// username: req_body.name,
+								},
+							)
 							.then(res => {
 								console.log('가입 + 로그인 성공');
 								// console.log(res.data);

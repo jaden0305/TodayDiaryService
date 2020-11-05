@@ -104,7 +104,7 @@ export default {
 				font: 1,
 				pattern: 1,
 				emotion: 1,
-				created: '2020-10-27',
+				created: '2020-11-03',
 			},
 		};
 	},
