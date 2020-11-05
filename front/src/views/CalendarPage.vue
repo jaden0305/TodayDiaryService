@@ -6,6 +6,7 @@
 					이전달
 				</button>
 				<div class="calendar-header__box">
+					<span class="calendar-header__year">{{ year }}</span>
 					<span class="calendar-header__month">{{ month | filterMonth }}</span>
 					<span class="calendar-header__span"></span>
 				</div>
@@ -470,8 +471,14 @@ export default {
 	padding-top: 1rem;
 	margin-bottom: 0.5rem;
 	.calendar-header__box {
-		display: inline-block;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		position: relative;
+		.calendar-header__year {
+			opacity: 0.8;
+			color: #495057;
+		}
 		.calendar-header__month {
 			font-size: 1.5rem;
 			font-weight: 600;
