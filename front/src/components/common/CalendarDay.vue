@@ -8,7 +8,7 @@
 			"
 			@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 			class="emoticon"
-			src="@/assets/images/pencil-c.svg"
+			src="@/assets/images/pencil.png"
 			alt=""
 		/>
 		<img
@@ -27,7 +27,7 @@
 			"
 			@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 			class="emoticon"
-			src="@/assets/images/emotion/boring.png"
+			src="@/assets/images/emotion/normal.png"
 			alt=""
 		/>
 		<img

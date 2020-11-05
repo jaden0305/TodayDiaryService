@@ -164,16 +164,16 @@ export default {
 			background-attachment: local;
 			background-image: linear-gradient(
 					to right,
-					#f0f0f0 10px,
+					var(--default-color) 10px,
 					transparent 10px
 				),
-				linear-gradient(to left, #f0f0f0 10px, transparent 10px),
+				linear-gradient(to left, var(--default-color) 10px, transparent 10px),
 				repeating-linear-gradient(
-					#f0f0f0,
-					#f0f0f0 30px,
+					var(--default-color),
+					var(--default-color) 30px,
 					#ccc 30px,
 					#ccc 31px,
-					#f0f0f0 31px
+					var(--default-color) 31px
 				);
 			&:focus {
 				outline: none;
