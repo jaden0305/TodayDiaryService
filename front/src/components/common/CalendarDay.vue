@@ -12,7 +12,7 @@
 			alt=""
 		/>
 		<img
-			v-if="
+			v-else-if="
 				nowDay < new Date(`${year}-${lastTwo(day.month)}-${lastTwo(day.day)}`)
 			"
 			class="calendar-day emoticon display-none"
@@ -21,18 +21,18 @@
 		/>
 		<img
 			v-else-if="
-				(!day.post && !(toDay === day.day)) ||
+				(!(toDay === day.day) ||
 					!(toDay - 1 === day.day) ||
-					!(todayMonth === day.month)
+					!(todayMonth === day.month)) &&
+					!day.post
 			"
 			class="emoticon"
 			src="@/assets/images/emotion/normal.png"
 			alt=""
 		/>
 		<img
-			v-if="
-				day.post &&
-					(day.post.user_emotion.id === 1 || day.post.emotion.id === 1)
+			v-else-if="
+				day.post && (day.post.user_emotion === 1 || day.post.emotion === 1)
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -41,8 +41,7 @@
 		/>
 		<img
 			v-else-if="
-				day.post &&
-					(day.post.user_emotion.id === 2 || day.post.emotion.id === 2)
+				day.post && (day.post.user_emotion === 2 || day.post.emotion === 2)
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -51,8 +50,7 @@
 		/>
 		<img
 			v-else-if="
-				day.post &&
-					(day.post.user_emotion.id === 3 || day.post.emotion.id === 3)
+				day.post && (day.post.user_emotion === 3 || day.post.emotion === 3)
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -61,8 +59,7 @@
 		/>
 		<img
 			v-else-if="
-				day.post &&
-					(day.post.user_emotion.id === 4 || day.post.emotion.id === 4)
+				day.post && (day.post.user_emotion === 4 || day.post.emotion === 4)
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -71,8 +68,7 @@
 		/>
 		<img
 			v-else-if="
-				day.post &&
-					(day.post.user_emotion.id === 5 || day.post.emotion.id === 5)
+				day.post && (day.post.user_emotion === 5 || day.post.emotion === 5)
 			"
 			@click="readDiary(day.post.id)"
 			class="calendar-day emoticon"
@@ -81,8 +77,7 @@
 		/>
 		<img
 			v-else-if="
-				day.post &&
-					(day.post.user_emotion.id === 6 || day.post.emotion.id === 6)
+				day.post && (day.post.user_emotion === 6 || day.post.emotion === 6)
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -91,8 +86,7 @@
 		/>
 		<img
 			v-else-if="
-				day.post &&
-					(day.post.user_emotion.id === 7 || day.post.emotion.id === 7)
+				day.post && (day.post.user_emotion === 7 || day.post.emotion === 7)
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -116,13 +110,13 @@ export default {
 	methods: {
 		writeDiary(dayString) {
 			console.log(dayString);
-			this.$router.push({ name: 'diary' });
+			this.$router.push({ name: 'diary', query: { day: dayString } });
 		},
 		readDiary(diary_pk) {
 			this.$router.push(`/diary/${diary_pk}`);
 		},
 		lastTwo(month) {
-			console.log(('0' + month).slice(-2));
+			// console.log(('0' + month).slice(-2));
 			return ('0' + month).slice(-2);
 		},
 	},
