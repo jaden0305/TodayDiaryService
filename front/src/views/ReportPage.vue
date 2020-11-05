@@ -126,7 +126,6 @@ export default {
 		this.startString = `${this.startWeek.getMonth() +
 			1}-${this.startWeek.getDate()}`;
 		this.endString = `${this.endWeek.getMonth() + 1}-${this.endWeek.getDate()}`;
-		console.log(start, end);
 		const startChart = new Date(this.startWeek);
 		startChart.setDate(startChart.getDate() - 1);
 		this.chartData.labels = [];
@@ -183,7 +182,6 @@ export default {
 				this.month = 12;
 				this.year -= 1;
 			}
-			console.log(this.year, this.month);
 			this.fetchMonth(this.year, this.month);
 			bus.$emit('lineUpdate');
 		},
@@ -194,7 +192,6 @@ export default {
 				this.month = 1;
 				this.year += 1;
 			}
-			console.log(this.year, this.month);
 			this.fetchMonth(this.year, this.month);
 			bus.$emit('lineUpdate');
 		},
@@ -290,9 +287,27 @@ export default {
 					if (!selectBox.classList.contains('display-none')) {
 						selectBox.classList.add('display-none');
 					}
+					const day = new Date();
+					this.month = day.getMonth() + 1;
+					this.year = day.getFullYear();
+					let weekDay = new Date();
+					this.weekday = weekDay;
+					this.endWeek = new Date(
+						this.weekday.setDate(
+							this.weekday.getDate() +
+								(6 - this.weekday.getDay() + this.weekcnt * 7),
+						),
+					);
+					this.startWeek = new Date(
+						this.weekday.setDate(this.weekday.getDate() - 6),
+					);
 					const start = `${this.startWeek.getFullYear()}-${this.startWeek.getMonth() +
 						1}-${this.startWeek.getDate()}`;
 					const end = `${this.endWeek.getFullYear()}-${this.endWeek.getMonth() +
+						1}-${this.endWeek.getDate()}`;
+					this.startString = `${this.startWeek.getMonth() +
+						1}-${this.startWeek.getDate()}`;
+					this.endString = `${this.endWeek.getMonth() +
 						1}-${this.endWeek.getDate()}`;
 					this.fetchWeek(start, end);
 					bus.$emit('lineUpdate');
