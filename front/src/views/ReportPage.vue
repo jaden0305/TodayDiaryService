@@ -52,7 +52,7 @@
 							emotion > 0 ? 'DeepPink' : emotion < 0 ? 'RoyalBlue' : 'black'
 					"
 					:rotation="rotation"
-					font-family="Quicksand"
+					font-family="Poor Story"
 					:spacing="parseInt(0.5)"
 				/>
 				<bar-chart
@@ -64,8 +64,6 @@
 						['Play', 1492],
 						['Work', 1322],
 					]"
-					xtitle="빈도"
-					ytitle="단어"
 				></bar-chart>
 			</div>
 			<div class="report-chart">
@@ -222,7 +220,6 @@ export default {
 					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
 				);
 			}
-			console.log(this.chartData.labels);
 			this.fetchWeek(start, end);
 			console.log(this.startString, this.endString);
 			bus.$emit('lineUpdate');
@@ -230,6 +227,7 @@ export default {
 		async fetchWeek(startWeek, endWeek) {
 			const { data } = await fetchWeekReport(startWeek, endWeek);
 			console.log(data);
+			this.words = data.wordcloud;
 		},
 		rotation: ([word]) => {
 			var chance = new Chance(word[0]);
