@@ -33,6 +33,7 @@ export default {
 
 <style lang="scss">
 @import './assets/css/reset.css';
+@import './assets/css/color.css';
 #app {
 	width: 100%;
 	min-height: 100vh;
