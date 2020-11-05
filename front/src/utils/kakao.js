@@ -34,8 +34,11 @@ let GetMe = async authObj => {
 
 			// alert('로그인 했어용....')
 			axios
-				.get(
-					`${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_AUTH_API_URL}accounts/check/email/?email=${req_body.email}`,
+				.post(
+					`${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_AUTH_API_URL}accounts/check/email/`,
+					{
+						email: `${req_body.email}`,
+					},
 				)
 				.then(res => {
 					console.log(res);

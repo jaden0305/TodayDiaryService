@@ -26,7 +26,7 @@
 			<div class="calendar-days">
 				<CalendarDay
 					:day="day"
-					:year="year"
+					:year="day.year"
 					:toDay="toDay"
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
@@ -35,7 +35,7 @@
 				></CalendarDay>
 				<CalendarDay
 					:day="day"
-					:year="year"
+					:year="day.year"
 					:toDay="toDay"
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
@@ -44,7 +44,7 @@
 				></CalendarDay>
 				<CalendarDay
 					:day="day"
-					:year="year"
+					:year="day.year"
 					:toDay="toDay"
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
