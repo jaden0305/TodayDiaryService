@@ -62,11 +62,6 @@
 					</p>
 					<ul>
 						<li v-for="font in fonts" :key="font.id">
-							<label
-								:for="`toast-theme__${font.name}`"
-								:style="`font-family:${font.name}`"
-								>{{ font.name }}</label
-							>
 							<input
 								type="radio"
 								name="font"
@@ -74,6 +69,11 @@
 								:value="font"
 								v-model="selectedFont"
 							/>
+							<label
+								:for="`toast-theme__${font.name}`"
+								:style="`font-family:${font.name}`"
+								>{{ font.name }}</label
+							>
 						</li>
 					</ul>
 				</div>
