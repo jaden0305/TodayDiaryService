@@ -66,8 +66,8 @@ export default {
 		},
 	}),
 	mounted() {
-		this.init();
 		bus.$on('lineUpdate', this.init);
+		this.init();
 	},
 	methods: {
 		init() {
