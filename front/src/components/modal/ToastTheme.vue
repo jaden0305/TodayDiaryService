@@ -40,7 +40,7 @@
 								class="preview-paper-wrap"
 							>
 								<img
-									:src="`${setUrl}${paper.path}`"
+									:src="`${setUrl}${paper.preview_path}`"
 									alt=""
 									class="preview-paper"
 								/>
@@ -161,8 +161,6 @@ export default {
 .toast-theme__ul {
 	display: flex;
 	flex-wrap: wrap;
-}
-.preview-paper-wrap {
 }
 .preview-paper {
 	width: 70px;

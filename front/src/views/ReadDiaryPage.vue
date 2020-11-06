@@ -96,7 +96,7 @@ export default {
 		onFetchPaper() {
 			const content = document.querySelector('#diaryContent');
 
-			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path})`;
+			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
 		},
 		onEditDiary() {
 			this.$router.push(`/diary/${this.diaryId}/edit`);

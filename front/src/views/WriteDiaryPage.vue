@@ -163,7 +163,24 @@ export default {
 
 			title.style.fontFamily = selectedFont.name;
 			content.style.fontFamily = selectedFont.name;
-			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${selectedPaper.path})`;
+			if (selectedPaper.path) {
+				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${selectedPaper.path}) center`;
+			} else {
+				content.style.backgroundAttachment = 'local';
+				content.style.background = `linear-gradient(
+					to right,
+					#f0f0f0 10px,
+					transparent 10px
+				),
+				linear-gradient(to left, #f0f0f0 10px, transparent 10px),
+				repeating-linear-gradient(
+					#f0f0f0,
+					#f0f0f0 30px,
+					#ccc 30px,
+					#ccc 31px,
+					#f0f0f0 31px
+				)`;
+			}
 
 			this.diaryData.font = selectedFont;
 			this.diaryData.pattern = selectedPaper;
@@ -281,7 +298,6 @@ export default {
 					#ccc 31px,
 					var(--default-color) 31px
 				);
-			// background: url('../assets/images/paper/2.png');
 			background-position: center;
 		}
 	}
