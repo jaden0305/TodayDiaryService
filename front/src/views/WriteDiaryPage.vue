@@ -40,7 +40,11 @@
 			</div>
 			<ToastMusic :open="openMusic" @close-music="openMusic = false" />
 			<ToastSticker :open="openSticker" @close-sticker="openSticker = false" />
-			<ToastTheme :open="openTheme" @close-theme="openTheme = false" />
+			<ToastTheme
+				:open="openTheme"
+				@submit-theme="setTheme"
+				@close-theme="openTheme = false"
+			/>
 			<div class="diary-image">
 				<img
 					class="diary-image__value"
@@ -100,10 +104,18 @@ export default {
 				fontsize: 14,
 				music_name: null,
 				music_artist: null,
-				postcolor: 1,
-				font: 1,
-				pattern: 1,
-				emotion: 1,
+				postcolor: {
+					id: 1,
+					value: '#646464',
+				},
+				font: {
+					id: 4,
+					name: 'Poor Story',
+				},
+				pattern: {
+					id: 1,
+					path: '/images/test.jpg',
+				},
 				created: '2020-11-03',
 			},
 		};
@@ -144,6 +156,16 @@ export default {
 			this.openSticker = false;
 			this.openTheme = true;
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
+		},
+		setTheme(selectedFont) {
+			const title = document.querySelector('#diary-header__title');
+			const content = document.querySelector('.diary-text__content');
+			title.style.fontFamily = selectedFont.name;
+			content.style.fontFamily = selectedFont.name;
+
+			this.diaryData.font = selectedFont;
+
+			this.openTheme = false;
 		},
 		async onSaveDiary() {
 			try {
