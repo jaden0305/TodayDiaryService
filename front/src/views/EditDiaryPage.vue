@@ -12,7 +12,7 @@
 				<ul class="diary-header__func">
 					<li>
 						<img
-							src="@/assets/images/pencil.svg"
+							src="@/assets/images/text.svg"
 							alt="편집"
 							@click="openThemeModal"
 						/>
@@ -35,7 +35,11 @@
 			</div>
 			<ToastMusic :open="openMusic" @close-music="openMusic = false" />
 			<ToastSticker :open="openSticker" @close-sticker="openSticker = false" />
-			<ToastTheme :open="openTheme" @close-theme="openTheme = false" />
+			<ToastTheme
+				:open="openTheme"
+				@submit-theme="setTheme"
+				@close-theme="openTheme = false"
+			/>
 			<div class="diary-image">
 				<img
 					class="diary-image__value"
@@ -99,10 +103,18 @@ export default {
 				fontsize: 14,
 				music_name: null,
 				music_artist: null,
-				postcolor: 1,
-				font: 1,
-				pattern: 1,
-				emotion: 1,
+				postcolor: {
+					id: 1,
+					value: '#646464',
+				},
+				font: {
+					id: 4,
+					name: 'Poor Story',
+				},
+				pattern: {
+					id: 1,
+					path: '/images/test.jpg',
+				},
 				created: '2020-10-27',
 			},
 		};
@@ -168,6 +180,24 @@ export default {
 				console.log(error.response);
 			}
 		},
+		onFetchFont() {
+			const title = document.querySelector('#diary-header__title');
+			const content = document.querySelector('.diary-text__content');
+
+			title.style.fontFamily = this.diaryData.font.name;
+			content.style.fontFamily = this.diaryData.font.name;
+		},
+		setTheme(selectedFont) {
+			const title = document.querySelector('#diary-header__title');
+			const content = document.querySelector('.diary-text__content');
+
+			title.style.fontFamily = selectedFont.name;
+			content.style.fontFamily = selectedFont.name;
+
+			this.diaryData.font = selectedFont;
+
+			this.openTheme = false;
+		},
 		async onSaveDiary() {
 			try {
 				const { data } = await updateDiary(this.diaryData, this.diaryId);
@@ -180,6 +210,9 @@ export default {
 	},
 	created() {
 		this.onfetchDiary();
+	},
+	updated() {
+		this.onFetchFont();
 	},
 };
 </script>

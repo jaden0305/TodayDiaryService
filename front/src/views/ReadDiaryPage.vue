@@ -51,10 +51,11 @@ export default {
 	data() {
 		return {
 			diaryData: null,
+			diaryId: this.propsDiaryId ? this.propsDiaryId : this.diaryData.id,
 		};
 	},
 	props: {
-		diaryId: Number,
+		propsDiaryId: Number,
 	},
 	computed: {
 		diaryDataImage() {
@@ -76,7 +77,7 @@ export default {
 			menus.style.right = '0px';
 			menus.style.transition = '.5s';
 		},
-		async onfetchDiary() {
+		async onFetchDiary() {
 			try {
 				const { data } = await fetchDiary(this.diaryId);
 				this.diaryData = data;
@@ -84,6 +85,13 @@ export default {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
 			}
+		},
+		onFetchFont() {
+			const title = document.querySelector('.diary-header__dataTitle');
+			const content = document.querySelector('#diaryContent');
+
+			title.style.fontFamily = this.diaryData.font.name;
+			content.style.fontFamily = this.diaryData.font.name;
 		},
 		onEditDiary() {
 			this.$router.push(`/diary/${this.diaryId}/edit`);
@@ -98,7 +106,10 @@ export default {
 		},
 	},
 	created() {
-		this.onfetchDiary();
+		this.onFetchDiary();
+	},
+	updated() {
+		this.onFetchFont();
 	},
 };
 </script>

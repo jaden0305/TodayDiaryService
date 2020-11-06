@@ -10,16 +10,18 @@ export function createDiary(diaryData) {
 	formdata.append('fontsize', diaryData.fontsize);
 	formdata.append('music_name', diaryData.music_name);
 	formdata.append('music_artist', diaryData.music_artist);
-	formdata.append('postcolor', diaryData.postcolor);
-	formdata.append('font', diaryData.font);
-	formdata.append('pattern', diaryData.pattern);
-	formdata.append('emotion', diaryData.emotion);
+	formdata.append('postcolor', diaryData.postcolor.id);
+	formdata.append('font', diaryData.font.id);
+	formdata.append('pattern', diaryData.pattern.id);
 	formdata.append('created', diaryData.created);
 
 	return diary.post('/', formdata);
 }
 export function fetchDiary(diaryId) {
 	return diary.get(`/${diaryId}/`);
+}
+export function fetchFonts() {
+	return diary.get(`/fonts/`);
 }
 export function updateDiary(diaryData, diaryId) {
 	const formdata = new FormData();
@@ -34,7 +36,7 @@ export function updateDiary(diaryData, diaryId) {
 	formdata.append('postcolor', diaryData.postcolor.id);
 	formdata.append('font', diaryData.font.id);
 	formdata.append('pattern', diaryData.pattern.id);
-	formdata.append('emotion', diaryData.emotion.id);
+	console.log(diaryData.postcolor);
 
 	return diary.put(`/${diaryId}/`, formdata);
 }
