@@ -14,7 +14,7 @@ def upload_location(instance, filename):
 
 
 class PostColor(models.Model):
-    value = models.CharField(max_length=100)
+    value = models.CharField(max_length=20)
 
 
 class PostFont(models.Model):
@@ -23,23 +23,24 @@ class PostFont(models.Model):
         
 
 class Pattern(models.Model):
-    path = models.CharField(max_length=100)
+    path = models.CharField(max_length=100, blank=True, null=True)
+    preview_path = models.CharField(max_length=100, blank=True, null=True)
 
 
 class Emotion(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=30)
     path = models.CharField(max_length=100)
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
 
 
 class Sticker(models.Model):
     path = models.CharField(max_length=100)
-    tags = models.ManyToManyField(Tag, related_name="stickers")
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name="stickers")
     score = models.FloatField()
-    emotion = models.IntegerField()
+    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='stickers')
 
 
 class RecommendMusic(models.Model):
@@ -66,7 +67,7 @@ class Post(models.Model):
 class PostSticker(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='stickers')
     sticker = models.ForeignKey(Sticker, on_delete=models.CASCADE)
-    width = models.IntegerField()
-    deg = models.IntegerField()
-    top = models.IntegerField()
-    left = models.IntegerField()
+    width = models.CharField(max_length=20)
+    deg = models.CharField(max_length=20)
+    top = models.CharField(max_length=20)
+    left = models.CharField(max_length=20)
