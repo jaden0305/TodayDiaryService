@@ -178,8 +178,8 @@ def make_test(request):
         Emotion.objects.create(name=name)
     
     # pattern
-    for pattern in ['media/paper/1.png', 'media/paper/2.png', 'media/paper/3.png', 'media/paper/4.png', 'media/paper/5.png']:
-        Pattern.objects.create(path=pattern)
+    for path, preview in [(None, 'media/paper/1_preview.png'),('media/paper/2.png', 'media/paper/2_preview.png'), ('media/paper/3.png', 'media/paper/3_preview.png'), ('media/paper/4.png', 'media/paper/4.png'), ('media/paper/5.png', 'media/paper/5.png'), ('media/paper/6.png', 'media/paper/6.png')]:
+        Pattern.objects.create(path=path, preview_path=preview)
 
     return Response({
         'message': 'success'
