@@ -33,12 +33,20 @@ SECRET_KEY = setting["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = setting["DEBUG"]
 
-ALLOWED_HOSTS = ['https://k3d104.p.ssafy.io']
-
-CORS_ALLOWED_ORIGINS = [
-        'https://k3d104.p.ssafy.io'
+ALLOWED_HOSTS = [
+        'localhost',
+        '127.0.0.1',
         ]
 
+CORS_ORIGIN_WHITELIST = [
+    'https://k3d104.p.ssafy.io',
+    'https://k3d104.p.ssafy.io:8000',
+    'https://k3d104.p.ssafy.io:8001',
+    'https://k3d104.p.ssafy.io:8002',
+    'http://127.0.0.1'
+    ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 # 2621440 -> 2.5MB

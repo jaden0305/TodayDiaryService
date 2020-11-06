@@ -12,40 +12,23 @@ def upload_location(instance, filename):
     now = datetime.datetime.now()
     return f"{now.year}/{now.month}/{now.day}/{uuid4()}.{ext}"
 
+
 class PostColor(models.Model):
     value = models.CharField(max_length=100)
-
-    @classmethod
-    def make(cls):
-        PostColor.objects.create(value='test')
 
 
 class PostFont(models.Model):
     name = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
-    @classmethod
-    def make(cls):
-        font_list = ['Gaegu', 'Nanum Gothic', 'Nanum Myeongjo', 'Nanum Pen Script', 'Poor Story']
-        for font in font_list:
-            PostFont.objects.create(name=font, path='')
         
 
 class Pattern(models.Model):
     path = models.CharField(max_length=100)
 
-    @classmethod
-    def make(cls):
-        Pattern.objects.create(path='test')
-
 
 class Emotion(models.Model):
     name = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
-
-    @classmethod
-    def make(cls):
-        for name in ['happy', 'sad', 'delight', 'boring', 'angry', 'surprise', 'horror']:
-            Emotion.objects.create(name=name)
 
 
 class Tag(models.Model):

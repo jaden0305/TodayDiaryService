@@ -37,7 +37,8 @@ class CreateDiary(APIView):
         response = requests.post(url, data=payload)
         print(response)
         return json.loads(response.text)
-     
+    
+
     # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
@@ -85,8 +86,13 @@ class diary(APIView):
         
     def get(self, request, post_id):
         mypost = self.get_object(post_id)
-        serializer = ReadPostSerializer(instance=mypost)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        if mypost.user.id == request.user.id:
+            serializer = ReadPostSerializer(instance=mypost)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        msg = {
+            'detail': '유효하지 않은 사용자입니다.'
+        }
+        return Response(msg, status=status.HTTP_403_FORBIDDEN)
 
     # [{"id":1,"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":22},{"id":2, "post":1,"sticker":1,"width":23,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=UpdatePostSerializer)
@@ -95,6 +101,7 @@ class diary(APIView):
 
         data = {}
         for key, value in request.data.items():
+            print(key, value)
             res = value
             if key in ['postcolor', 'font', 'pattern']:
                 res = int(value)
@@ -132,3 +139,50 @@ def get_fonts(request):
     fonts = PostFont.objects.all()
     serializer = PostFontSerializer(instance=fonts, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@swagger_auto_schema()
+@api_view(['GET'])
+def get_patterns(request):
+    patterns = Pattern.objects.all()
+    serializer = PatternSerializer(instance=patterns, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@swagger_auto_schema()
+@api_view(['GET'])
+def get_colors(request):
+    colors = PostColor.objects.all()
+    serializer = PostColorSerializer(instance=colors, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+@api_view(['POST'])
+def make_test(request):
+    if PostColor.objects.filter(id=1).exists():
+        return Response({
+            'message': '이미 존재합니다.'
+        }, status=status.HTTP_400_BAD_REQUEST)
+    # color
+    color_list = ['#fff5f5', '#fff0f6', '#f8f0fc', '#f3f0ff', '#edf2ff', '#e7f5ff', '#e6fcf5', '#ebfbee', '#fff9db', '#fff4e6']
+    for color in color_list:
+        PostColor.objects.create(value=color)
+    
+    # font
+    font_list = ['Gaegu', 'Nanum Myeongjo', 'Nanum Pen Script', 'Poor Story', 'Nanum Gothic']
+    for font in font_list:
+        PostFont.objects.create(name=font, path='')
+
+    # emotion
+    for name in ['happy', 'sad', 'delight', 'boring', 'angry', 'surprise', 'horror']:
+        Emotion.objects.create(name=name)
+    
+    # pattern
+    for pattern in ['media/paper/1.png', 'media/paper/2.png', 'media/paper/3.png', 'media/paper/4.png', 'media/paper/5.png']:
+        Pattern.objects.create(path=pattern)
+
+    return Response({
+        'message': 'success'
+    }, status=status.HTTP_201_CREATED)
+
+        

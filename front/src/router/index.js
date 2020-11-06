@@ -21,7 +21,7 @@ const routes = [
 	{
 		path: '/diary/:diaryId',
 		name: 'fetchDiary',
-		props: route => ({ diaryId: Number(route.params.diaryId) }),
+		props: route => ({ propsDiaryId: Number(route.params.diaryId) }),
 		component: () => import('@/views/ReadDiaryPage.vue'),
 	},
 	{
