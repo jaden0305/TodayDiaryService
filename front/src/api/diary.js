@@ -23,6 +23,9 @@ export function fetchDiary(diaryId) {
 export function fetchFonts() {
 	return diary.get(`/fonts/`);
 }
+export function fetchPapers() {
+	return diary.get(`/papers/`);
+}
 export function updateDiary(diaryData, diaryId) {
 	const formdata = new FormData();
 	if (diaryData.image) {

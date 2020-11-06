@@ -114,7 +114,7 @@ export default {
 				},
 				pattern: {
 					id: 1,
-					path: '/images/test.jpg',
+					path: 'media/paper/1.png',
 				},
 				created: '2020-11-03',
 			},
@@ -157,13 +157,16 @@ export default {
 			this.openTheme = true;
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
-		setTheme(selectedFont) {
+		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');
 			const content = document.querySelector('.diary-text__content');
+
 			title.style.fontFamily = selectedFont.name;
 			content.style.fontFamily = selectedFont.name;
+			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${selectedPaper.path})`;
 
 			this.diaryData.font = selectedFont;
+			this.diaryData.pattern = selectedPaper;
 
 			this.openTheme = false;
 		},
@@ -278,6 +281,8 @@ export default {
 					#ccc 31px,
 					var(--default-color) 31px
 				);
+			// background: url('../assets/images/paper/2.png');
+			background-position: center;
 		}
 	}
 	.diary-complete-btn {

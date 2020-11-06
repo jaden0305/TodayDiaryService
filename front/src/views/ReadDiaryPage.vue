@@ -93,6 +93,11 @@ export default {
 			title.style.fontFamily = this.diaryData.font.name;
 			content.style.fontFamily = this.diaryData.font.name;
 		},
+		onFetchPaper() {
+			const content = document.querySelector('#diaryContent');
+
+			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path})`;
+		},
 		onEditDiary() {
 			this.$router.push(`/diary/${this.diaryId}/edit`);
 		},
@@ -110,6 +115,7 @@ export default {
 	},
 	updated() {
 		this.onFetchFont();
+		this.onFetchPaper();
 	},
 };
 </script>

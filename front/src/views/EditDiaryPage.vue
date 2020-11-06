@@ -113,7 +113,7 @@ export default {
 				},
 				pattern: {
 					id: 1,
-					path: '/images/test.jpg',
+					path: 'media/paper/1.png',
 				},
 				created: '2020-10-27',
 			},
@@ -187,14 +187,21 @@ export default {
 			title.style.fontFamily = this.diaryData.font.name;
 			content.style.fontFamily = this.diaryData.font.name;
 		},
-		setTheme(selectedFont) {
+		onFetchPaper() {
+			const content = document.querySelector('.diary-text__content');
+
+			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path})`;
+		},
+		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');
 			const content = document.querySelector('.diary-text__content');
 
 			title.style.fontFamily = selectedFont.name;
 			content.style.fontFamily = selectedFont.name;
+			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${selectedPaper.path})`;
 
 			this.diaryData.font = selectedFont;
+			this.diaryData.pattern = selectedPaper;
 
 			this.openTheme = false;
 		},
@@ -213,6 +220,7 @@ export default {
 	},
 	updated() {
 		this.onFetchFont();
+		this.onFetchPaper();
 	},
 };
 </script>

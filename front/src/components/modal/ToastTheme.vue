@@ -33,15 +33,25 @@
 			</div>
 			<div class="toast-theme">
 				<div v-if="selectedTheme === 'bg'" class="toast-theme__bg">
-					<ul>
-						<li>
-							<label for="toast-theme__color1" class="color1">Gaegu</label>
+					<ul class="toast-theme__ul">
+						<li v-for="paper in papers" :key="paper.id">
+							<label
+								:for="`toast-theme__${paper.id}`"
+								class="preview-paper-wrap"
+							>
+								<img
+									:src="`${setUrl}${paper.path}`"
+									alt=""
+									class="preview-paper"
+								/>
+							</label>
 							<input
 								type="radio"
-								name="themeColor"
-								id="toast-theme__color1"
-								value="Gaegu"
-								v-model="selectedFont"
+								name="paper"
+								:id="`toast-theme__${paper.id}`"
+								:value="paper"
+								v-model="selectedPaper"
+								hidden
 							/>
 						</li>
 					</ul>
@@ -83,13 +93,15 @@
 </template>
 
 <script>
-import { fetchFonts } from '@/api/diary';
+import { fetchFonts, fetchPapers } from '@/api/diary';
 export default {
 	data() {
 		return {
 			selectedTheme: 'bg',
-			selectedFont: null,
 			fonts: [],
+			papers: [],
+			selectedFont: null,
+			selectedPaper: null,
 		};
 	},
 	props: {
@@ -99,17 +111,24 @@ export default {
 		toastAnimationClass() {
 			return this.open ? null : 'none';
 		},
+		setUrl() {
+			return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}`;
+		},
 	},
 	methods: {
 		closeTheme() {
 			this.$emit('close-theme');
 		},
 		submitTheme() {
-			this.$emit('submit-theme', this.selectedFont);
+			this.$emit('submit-theme', this.selectedFont, this.selectedPaper);
 		},
 		async onFetchFonts() {
 			const { data } = await fetchFonts();
 			this.fonts = data;
+		},
+		async onFetchPapers() {
+			const { data } = await fetchPapers();
+			this.papers = data;
 		},
 	},
 	watch: {
@@ -121,6 +140,7 @@ export default {
 	},
 	created() {
 		this.onFetchFonts();
+		this.onFetchPapers();
 	},
 };
 </script>
@@ -138,7 +158,20 @@ export default {
 	justify-content: center;
 	align-items: center;
 }
-.toast-themes__box {
+.toast-theme__ul {
+	display: flex;
+	flex-wrap: wrap;
+}
+.preview-paper-wrap {
+}
+.preview-paper {
+	width: 70px;
+	height: 100px;
+	margin: 10px;
+	object-fit: cover;
+	&:active {
+		border: 1px solid gray;
+	}
 }
 .toast-themes__input {
 	position: absolute;
