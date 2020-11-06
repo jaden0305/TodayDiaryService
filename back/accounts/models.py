@@ -6,4 +6,4 @@ from post.models import RecommendMusic
 
 
 class User(AbstractUser):
-    likes = models.ManyToManyField(RecommendMusic,related_name='like_user')
+    likes = models.ManyToManyField(RecommendMusic, related_name='like_user')
