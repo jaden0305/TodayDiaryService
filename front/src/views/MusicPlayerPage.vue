@@ -4,9 +4,16 @@
 			<p>오늘 하루를 음악으로 마무리 하는 건 어때요?</p>
 		</div>
 		<div class="player">
+			<div class="player__title">
+				플레이어<img
+					class="player-swap"
+					src="@/assets/images/list-bullets.svg"
+					@click="showSwap"
+				/>
+			</div>
 			<div class="player__top">
 				<div class="player-cover">
-					<transition-group :name="transitionName">
+					<section class="player-cover__content">
 						<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
 						<div
 							class="player-cover__item"
@@ -15,7 +22,7 @@
 							v-for="(track, $index) in tracks"
 							:key="$index"
 						></div>
-					</transition-group>
+					</section>
 				</div>
 				<div class="player-controls">
 					<a
@@ -45,14 +52,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="progress" ref="progress">
-				<div class="progress__top">
-					<div class="album-info" v-if="currentTrack">
-						<div class="album-info__name">{{ currentTrack.artist }}</div>
-						<div class="album-info__track">{{ currentTrack.name }}</div>
-					</div>
-				</div>
-			</div>
+			<div class="slide-out-top" id="player-back-container"></div>
 			<div v-cloak></div>
 			<symbol id="icon-link" viewBox="0 0 32 32">
 				<title>link</title>
@@ -107,6 +107,7 @@
 			</symbol>
 		</div>
 		<video-wrapper
+			class="player-video"
 			ref="player"
 			:player="'youtube'"
 			:videoId="currentTrack.videoId"
@@ -150,6 +151,18 @@ export default {
 		};
 	},
 	methods: {
+		showSwap() {
+			const Container = document.querySelector('#player-back-container');
+			Container.classList.remove('slide-out-top');
+			Container.classList.add('slide-in-top');
+			Container.style.display = 'block';
+		},
+		hideSwap() {
+			const Container = document.querySelector('#player-back-container');
+			Container.classList.remove('slide-in-top');
+			Container.classList.add('slide-out-top');
+			Container.style.display = 'none';
+		},
 		play() {
 			this.$refs.player.player.getPlayerState().then(response => {
 				if (
@@ -207,21 +220,7 @@ export default {
 		},
 	},
 	created() {
-		// let vm = this;
 		this.currentTrack = this.tracks[0];
-		// this.audio = new Audio();
-		// this.audio.src = this.currentTrack.source;
-		// this.audio.ontimeupdate = function() {
-		// 	vm.generateTime();
-		// };
-		// this.audio.onloadedmetadata = function() {
-		// 	vm.generateTime();
-		// };
-		// this.audio.onended = function() {
-		// 	vm.nextTrack();
-		// 	this.isTimerPlaying = true;
-		// };
-
 		// this is optional (for preload covers)
 		for (let index = 0; index < this.tracks.length; index++) {
 			const element = this.tracks[index];
@@ -236,6 +235,37 @@ export default {
 </script>
 
 <style lang="scss">
+.player-back-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: white;
+	z-index: 9999;
+	display: none;
+	border-radius: 8px;
+}
+.player-cover__content {
+	height: 100%;
+}
+.player__title {
+	text-align: center;
+	margin-bottom: 1rem;
+	font-weight: 600;
+	font-size: 24px;
+	color: #71829e;
+	position: relative;
+	.player-swap {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+	}
+}
 .icon {
 	display: inline-block;
 	width: 1em;
@@ -265,7 +295,8 @@ export default {
 .player {
 	background: #eef3f7;
 	width: 410px;
-	min-height: 480px;
+	/* min-height: 500px; */
+	height: 100%;
 	background: #f0f0f0;
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	border-radius: 15px;
@@ -274,7 +305,7 @@ export default {
 	@media screen and (max-width: 576px), (max-height: 500px) {
 		width: 95%;
 		padding: 20px;
-		min-height: initial;
+		/* min-height: initial; */
 		padding-bottom: 30px;
 		max-width: 400px;
 	}
@@ -288,8 +319,8 @@ export default {
 
 	&-cover {
 		margin-bottom: 25px;
-		width: 250px;
-		height: 250px;
+		width: 300px;
+		height: 300px;
 		margin-left: auto;
 		margin-right: auto;
 		flex-shrink: 0;
@@ -301,8 +332,8 @@ export default {
 		z-index: 1;
 
 		@media screen and (max-width: 340px) {
-			width: 200px;
-			height: 200px;
+			width: 210px;
+			height: 210px;
 		}
 
 		&__item {
@@ -315,15 +346,15 @@ export default {
 			background: #f0f0f0;
 			box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 			// 수정부분
-			position: absolute;
-			left: 0;
-			top: -100px;
-			&:before {
+			/* position: absolute; */
+			/* left: 0; */
+			/* top: -100px; */
+			/* &:before {
 				content: '';
 				background: inherit;
 				width: 100%;
 				height: 100%;
-				/* box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5); */
+				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
 				display: block;
 				z-index: 1;
 				position: absolute;
@@ -332,19 +363,19 @@ export default {
 				filter: blur(10px);
 				opacity: 0.9;
 				border-radius: 15px;
-			}
+			} */
 
-			&:after {
+			/* &:after {
 				content: '';
 				background: inherit;
 				width: 100%;
 				height: 100%;
-				/* box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5); */
+				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
 				display: block;
 				z-index: 2;
 				position: absolute;
 				border-radius: 15px;
-			}
+			} */
 		}
 
 		&__img {
@@ -362,7 +393,8 @@ export default {
 		display: flex;
 		align-items: center;
 		flex-direction: row;
-		padding-left: 0;
+		padding-left: 10px;
+		padding-right: 10px;
 		width: 100%;
 		flex: unset;
 		&__item {
@@ -466,49 +498,11 @@ export default {
 [v-cloak] > * {
 	display: none;
 }
-.progress {
-	width: 100%;
-	margin-top: -15px;
-	user-select: none;
-	&__top {
-		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-	}
-
-	&__duration {
-		color: #71829e;
-		font-weight: 700;
-		font-size: 20px;
-		opacity: 0.5;
-	}
-	&__time {
-		margin-top: 2px;
-		color: #71829e;
-		font-weight: 700;
-		font-size: 16px;
-		opacity: 0.7;
-	}
-}
-.progress__bar {
-	height: 6px;
-	width: 100%;
-	cursor: pointer;
-	background-color: #d0d8e6;
-	display: inline-block;
-	border-radius: 10px;
-}
-.progress__current {
-	height: inherit;
-	width: 0%;
-	background-color: #a3b3ce;
-	border-radius: 10px;
-}
 
 .album-info {
 	color: #71829e;
 	flex: 1;
-	padding-right: 60px;
+	padding-left: 10px;
 	user-select: none;
 
 	@media screen and (max-width: 576px), (max-height: 500px) {
@@ -530,10 +524,10 @@ export default {
 		font-size: 20px;
 		opacity: 0.7;
 		line-height: 1.3em;
-		min-height: 52px;
+		/* min-height: 52px; */
 		@media screen and (max-width: 576px), (max-height: 500px) {
 			font-size: 18px;
-			min-height: 50px;
+			/* min-height: 50px; */
 		}
 	}
 }
@@ -573,43 +567,6 @@ export default {
 	}
 }
 
-//scale out
-/* 
-.scale-out-enter-active {
-	transition: all 0.35s ease-in-out;
-}
-.scale-out-leave-active {
-	transition: all 0.35s ease-in-out;
-}
-.scale-out-enter {
-	transform: scale(0.55);
-	pointer-events: none;
-	opacity: 0;
-}
-.scale-out-leave-to {
-	transform: scale(1.2);
-	pointer-events: none;
-	opacity: 0;
-} */
-
-//scale in
-/* 
-.scale-in-enter-active {
-	transition: all 0.35s ease-in-out;
-}
-.scale-in-leave-active {
-	transition: all 0.35s ease-in-out;
-}
-.scale-in-enter {
-	transform: scale(1.2);
-	pointer-events: none;
-	opacity: 0;
-}
-.scale-in-leave-to {
-	transform: scale(0.55);
-	pointer-events: none;
-	opacity: 0;
-} */
 .player-font {
 	color: #71829e;
 	width: 4rem;
@@ -639,5 +596,62 @@ export default {
 	position: absolute;
 	top: -500vh;
 	left: -500vw;
+}
+.slide-in-top {
+	-webkit-animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+	animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@-webkit-keyframes slide-in-top {
+	0% {
+		-webkit-transform: translateY(-10px);
+		transform: translateY(-10px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@keyframes slide-in-top {
+	0% {
+		-webkit-transform: translateY(-10px);
+		transform: translateY(-10px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+.slide-out-top {
+	-webkit-animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+		both;
+	animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+@-webkit-keyframes slide-out-top {
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translateY(-10px);
+		transform: translateY(-10px);
+		opacity: 0;
+	}
+}
+@keyframes slide-out-top {
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translateY(-10px);
+		transform: translateY(-10px);
+		opacity: 0;
+	}
 }
 </style>
