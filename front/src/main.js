@@ -9,7 +9,8 @@ import { filterMonth, truncate } from '@/utils/filters';
 import Chartkick from 'chartkick';
 import VueChartkick from 'vue-chartkick';
 import VueVideoWrapper from 'vue-video-wrapper';
-
+import { VueHammer } from 'vue2-hammer';
+Vue.use(VueHammer);
 Vue.use(VueVideoWrapper);
 Vue.use(VueChartkick, { Chartkick });
 Vue.use(VueCookies);
