@@ -51,8 +51,93 @@
 						</div>
 					</div>
 				</div>
+				<div class="progress" ref="progress">
+					<div class="progress__top">
+						<div class="album-info" v-if="currentTrack">
+							<div class="album-info__name">{{ currentTrack.artist }}</div>
+							<div class="album-info__track">{{ currentTrack.name }}</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="slide-out-top" id="player-back-container"></div>
+			<div id="player-back-container">
+				<div class="back-wrap">
+					<div class="back-header">
+						재생목록<img
+							class="player-swap__back"
+							src="@/assets/images/x.svg"
+							@click="hideSwap"
+						/>
+					</div>
+					<div class="back-playlist">
+						<div
+							class="back-song"
+							:class="[
+								$index === currentTrackIndex
+									? 'back-song__select'
+									: 'back-song__none',
+								$index === tracks.length - 1 ? 'back-song__last' : '',
+							]"
+							@click="selectTrack($index)"
+							v-for="(track, $index) in tracks"
+							:key="'B' + $index"
+						>
+							<div
+								class="back-song__img"
+								:style="{ backgroundImage: `url(${track.cover})` }"
+							></div>
+							<div class="back-song__info">
+								<span class="back-song__name">{{ track.name }}</span>
+								<span class="back-song__artist">{{ track.artist }}</span>
+							</div>
+						</div>
+					</div>
+					<div class="back-playbar">
+						<div
+							class="back-playbar__img"
+							:style="{ backgroundImage: `url(${currentTrack.cover})` }"
+						></div>
+						<div class="back-playbar__content">
+							<div class="back-playbar__info">
+								<span class="back-playbar__name">{{
+									currentTrack.name | truncate
+								}}</span>
+								<span class="back-playbar__artist">{{
+									currentTrack.artist | truncate
+								}}</span>
+							</div>
+							<div class="back-playbar__bar">
+								<img
+									@click="prevTrack"
+									class="back-playbar__button"
+									src="@/assets/images/previous.svg"
+									alt="이전버튼"
+								/>
+								<img
+									v-if="isTimerPlaying"
+									@click="play"
+									class="back-playbar__button"
+									src="@/assets/images/pause.svg"
+									alt="정지"
+								/>
+								<img
+									v-else
+									@click="play"
+									class="back-playbar__button"
+									src="@/assets/images/play.svg"
+									alt="재생"
+								/>
+								<img
+									@click="nextTrack"
+									class="back-playbar__button"
+									src="@/assets/images/next.svg"
+									alt="다음버튼"
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div v-cloak></div>
 			<symbol id="icon-link" viewBox="0 0 32 32">
 				<title>link</title>
@@ -144,6 +229,60 @@ export default {
 					url: 'https://youtu.be/26YwXUcUf4I',
 					favorited: false,
 				},
+				{
+					name: '다른 사람을 사랑하고 있어',
+					artist: '수지',
+					cover:
+						'https://lh3.googleusercontent.com/proxy/VmPLIgf2H6ERjSNi-mtJHNXZ1csmrgEjUUmTRdT2PnouyxNaBOjAhs8lkoZyOm7aP2mXPS_Q5f21Fddh9LYGe-SA4mIyiFs6paOgFjbX2AzrdaubE6zvGyygXvQ-n9x9WKGTVQWy2QFqHcGIhJFZtyzZgngmcao-GBYBrpsf4oKTEsPSE6Nge-3DgvuPsrK4BTc8B0Kz31qTEyAXvoDwL8xXC3QIQMKafwp-4KyxBs0S_W2Lpy2Q6PgEPijUyzP3zNoT04YviIRFekIj7wQ_hB47KEOHP9NfTdqe-uSp1EezF1M8',
+					videoId: 'eQ3gXtX3U7I',
+					url: 'https://youtu.be/eQ3gXtX3U7I',
+					favorited: false,
+				},
+				{
+					name: '야작시',
+					artist: '적재',
+					cover:
+						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+					videoId: 'jXylepYfpk0',
+					url: 'https://youtu.be/26YwXUcUf4I',
+					favorited: false,
+				},
+				{
+					name: '야작시',
+					artist: '적재',
+					cover:
+						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+					videoId: 'jXylepYfpk0',
+					url: 'https://youtu.be/26YwXUcUf4I',
+					favorited: false,
+				},
+				{
+					name: '야작시',
+					artist: '적재',
+					cover:
+						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+					videoId: 'jXylepYfpk0',
+					url: 'https://youtu.be/26YwXUcUf4I',
+					favorited: false,
+				},
+				{
+					name: '야작시',
+					artist: '적재',
+					cover:
+						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+					videoId: 'jXylepYfpk0',
+					url: 'https://youtu.be/26YwXUcUf4I',
+					favorited: false,
+				},
+				{
+					name: '야작시',
+					artist: '적재',
+					cover:
+						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+					videoId: 'jXylepYfpk0',
+					url: 'https://youtu.be/26YwXUcUf4I',
+					favorited: false,
+				},
 			],
 			currentTrack: null,
 			currentTrackIndex: 0,
@@ -179,6 +318,11 @@ export default {
 				}
 			});
 		},
+		selectTrack(index) {
+			this.currentTrackIndex = index;
+			this.currentTrack = this.tracks[this.currentTrackIndex];
+			this.resetPlayer();
+		},
 		prevTrack() {
 			// this.transitionName = 'scale-in';
 			this.isShowCover = false;
@@ -188,7 +332,11 @@ export default {
 				this.currentTrackIndex = this.tracks.length - 1;
 			}
 			this.currentTrack = this.tracks[this.currentTrackIndex];
-			this.resetPlayer();
+			setTimeout(() => {
+				this.$refs.player.player.playVideo();
+				this.isTimerPlaying = true;
+			}, 300);
+			// this.resetPlayer();
 		},
 		nextTrack() {
 			// this.transitionName = 'scale-out';
@@ -199,7 +347,11 @@ export default {
 				this.currentTrackIndex = 0;
 			}
 			this.currentTrack = this.tracks[this.currentTrackIndex];
-			this.resetPlayer();
+			setTimeout(() => {
+				this.$refs.player.player.playVideo();
+				this.isTimerPlaying = true;
+			}, 300);
+			// this.resetPlayer();
 		},
 		resetPlayer() {
 			this.circleLeft = 0;
@@ -235,19 +387,146 @@ export default {
 </script>
 
 <style lang="scss">
-.player-back-container {
+#player-back-container {
 	position: absolute;
 	top: 0;
 	right: 0;
 	left: 0;
 	bottom: 0;
-	background-color: white;
-	z-index: 9999;
+	background: #f0f0f0;
+	z-index: 10;
 	display: none;
-	border-radius: 8px;
+	border-radius: 12px;
+}
+.back-wrap {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	.back-playlist {
+		width: 100%;
+		height: calc(100% - 70px);
+		overflow-y: scroll;
+		.back-song {
+			width: 100%;
+			height: 64px;
+			display: flex;
+			padding: 8px 0 8px;
+			border-bottom: 1px solid rgba(#71829e, 0.1);
+			.back-song__img {
+				width: 48px;
+				height: 48px;
+				background-repeat: no-repeat !important;
+				background-position: center !important;
+				background-size: cover !important;
+				border-radius: 3px;
+				margin-left: 1rem;
+			}
+			.back-song__info {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				margin-left: 1rem;
+				.back-song__name {
+					font-size: 1.1rem;
+					font-weight: 600;
+					margin-bottom: 4px;
+				}
+				.back-song__artist {
+					font-size: 0.8rem;
+					color: rgba(#71829e, 0.7);
+				}
+			}
+		}
+	}
+}
+.back-playbar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 80px;
+	background-color: rgb(240, 240, 240);
+	border-radius: 12px;
+	/* border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px; */
+	box-shadow: 6px 6px 5px #c7c7c7, -6px -6px 5px #ffffff;
+	padding: 10px 0 10px;
+	display: flex;
+	.back-playbar__img {
+		width: 60px;
+		height: 60px;
+		background-repeat: no-repeat !important;
+		background-position: center !important;
+		background-size: cover !important;
+		border-radius: 8px;
+		margin-left: 1.5rem;
+		@media (max-width: 320px) {
+			margin-left: 0.5rem;
+		}
+	}
+	.back-playbar__content {
+		flex: 1;
+		height: 100%;
+		margin-left: 1rem;
+		display: flex;
+		align-items: center;
+		@media (max-width: 320px) {
+			margin-left: 0.5rem;
+		}
+		.back-playbar__info {
+			flex: 1;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			.back-playbar__name {
+				font-size: 1.3rem;
+				color: #71829e;
+				@media (max-width: 320px) {
+					font-size: 1rem;
+				}
+			}
+			.back-playbar__artist {
+				color: rgba(#71829e, 0.7);
+				font-size: 1rem;
+				@media (max-width: 320px) {
+					font-size: 0.8rem;
+				}
+			}
+		}
+		.back-playbar__bar {
+			flex: 1;
+			margin-right: 0.5rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.back-playbar__button {
+			width: 2rem;
+			height: 2rem;
+			cursor: pointer;
+		}
+	}
+}
+.back-song__select {
+	background-color: #dbe4ff;
+}
+.back-song__last {
+	margin-bottom: 80px;
 }
 .player-cover__content {
 	height: 100%;
+}
+.back-header {
+	position: relative;
+	text-align: center;
+	padding: 20px;
+	border-bottom: 1px solid rgba(#71829e, 0.3);
+	font-weight: 600;
+	font-size: 24px;
 }
 .player__title {
 	text-align: center;
@@ -256,15 +535,22 @@ export default {
 	font-size: 24px;
 	color: #71829e;
 	position: relative;
-	.player-swap {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		right: 0;
-		width: 30px;
-		height: 30px;
-		cursor: pointer;
-	}
+}
+.player-swap {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
+.player-swap__back {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
 }
 .icon {
 	display: inline-block;
@@ -293,14 +579,16 @@ export default {
 }
 
 .player {
-	background: #eef3f7;
+	position: relative;
+	/* background: #eef3f7; */
 	width: 410px;
 	/* min-height: 500px; */
 	height: 100%;
 	background: #f0f0f0;
+	color: #71829e;
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
-	border-radius: 15px;
-	padding: 30px;
+	border-radius: 12px;
+	padding: 1.5rem;
 	margin-bottom: 1rem;
 	@media screen and (max-width: 576px), (max-height: 500px) {
 		width: 95%;
