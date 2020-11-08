@@ -24,6 +24,7 @@
     "vue-router": "^3.2.0",
     "vue-styled-components": "^1.5.1",
     "vue-video-wrapper": "^1.0.10",
+    "vue2-hammer": "^2.1.2",
     "vuewordcloud": "^18.7.12",
     "vuex": "^3.4.0"
   },

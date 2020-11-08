@@ -136,6 +136,15 @@ export default {
 		}
 		this.fetchWeek(start, end);
 		bus.$emit('lineUpdate');
+		const track = {
+			name: '야작시',
+			artist: '적재',
+			cover: 'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+			videoId: 'jXylepYfpk0',
+			url: 'https://youtu.be/26YwXUcUf4I',
+			favorited: false,
+		};
+		bus.$emit('show:musicplayer', track);
 	},
 	methods: {
 		switchWordView() {

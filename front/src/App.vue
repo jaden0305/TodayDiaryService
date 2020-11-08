@@ -6,10 +6,12 @@
 		<main class="container">
 			<router-view> </router-view>
 		</main>
+		<MusicBar></MusicBar>
 	</div>
 </template>
 
 <script>
+import MusicBar from '@/components/common/MusicBar.vue';
 export default {
 	computed: {
 		NoneLogo() {
@@ -28,6 +30,9 @@ export default {
 			);
 		},
 	},
+	components: {
+		MusicBar,
+	},
 };
 </script>
 
@@ -35,6 +40,7 @@ export default {
 @import './assets/css/reset.css';
 @import './assets/css/color.css';
 #app {
+	position: relative;
 	width: 100%;
 	min-height: 100vh;
 	max-width: 768px;
