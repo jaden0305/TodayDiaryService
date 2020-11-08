@@ -6,6 +6,7 @@
 					이전달
 				</button>
 				<div class="calendar-header__box">
+					<span class="calendar-header__year">{{ year }}</span>
 					<span class="calendar-header__month">{{ month | filterMonth }}</span>
 					<span class="calendar-header__span"></span>
 				</div>
@@ -30,6 +31,7 @@
 					:toDay="toDay"
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
+					:todayYear="todayYear"
 					:key="index"
 					v-for="(day, index) in preMonth"
 				></CalendarDay>
@@ -39,6 +41,7 @@
 					:toDay="toDay"
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
+					:todayYear="todayYear"
 					:key="'B' + index"
 					v-for="(day, index) in nowMonth"
 				></CalendarDay>
@@ -48,6 +51,7 @@
 					:toDay="toDay"
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
+					:todayYear="todayYear"
 					:key="'A' + index"
 					v-for="(day, index) in nextMonth"
 				></CalendarDay>
@@ -440,6 +444,7 @@ export default {
 		this.nowDay = day;
 		this.todayMonth = day.getMonth() + 1;
 		this.toDay = day.getDate();
+		this.todayYear = day.getFullYear();
 		this.month = day.getMonth() + 1;
 		this.year = day.getFullYear();
 		this.fetchMonth({ year: this.year, month: this.month });
@@ -466,8 +471,14 @@ export default {
 	padding-top: 1rem;
 	margin-bottom: 0.5rem;
 	.calendar-header__box {
-		display: inline-block;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		position: relative;
+		.calendar-header__year {
+			opacity: 0.8;
+			color: #495057;
+		}
 		.calendar-header__month {
 			font-size: 1.5rem;
 			font-weight: 600;
