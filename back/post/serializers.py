@@ -34,16 +34,24 @@ class EmotionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class StickerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sticker
+        fields = '__all__'
+        depth = 2
+
+
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = '__all__'
 
 
-class StickerSerializer(serializers.ModelSerializer):
+class TagStickerSerializer(serializers.ModelSerializer):
+    stickers = StickerSerializer(many=True)
     class Meta:
-        model = Sticker
-        fields = '__all__'
+        model = Tag
+        fields = ('id', 'name', 'stickers')
         depth = 2
 
 
@@ -62,12 +70,14 @@ class PostStickerReadSerializer(serializers.ModelSerializer):
 
 class CreatePostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
+    stickers = serializers.CharField(required=False, read_only=True)
     class Meta:
         model = Post
-        exclude = ('id', 'user', 'report', 'recommend_music', 'upload_music')
+        exclude = ('id', 'user', 'report', 'recommend_music', 'upload_music',)
 
 
 class ReadPostSerializer(serializers.ModelSerializer):
+    stickers = PostStickerReadSerializer(many=True)
     class Meta:
         model = Post
         exclude = ('user', )

@@ -1,5 +1,6 @@
 import json
 import requests
+import copy
 
 from django.shortcuts import render, get_object_or_404
 
@@ -42,28 +43,32 @@ class CreateDiary(APIView):
     # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
-        print(request.data)
-        data = request.data
+        stickers = json.loads(request.data.get('stickers', '[]'))
+        data = copy.copy(request.data)
         if data.get('image'):
             del data['image']
-        serializer = CreatePostSerializer(data=request.data)
-        response = None
+        if data.get('stickers'):
+            del data['stickers']
+        serializer = CreatePostSerializer(data=data)
+        print(1, stickers)
 
         if serializer.is_valid(raise_exception=True):
             # emotion = AI 분석
             # music = emotion 통한 추천
+            print(2)
             p = serializer.save(user=request.user)
-
+            print(3)
             text = request.data['content']
             date = request.data['created']
-
+            print(4)
             response = self.analyze(request.user.id, text, date, p.id)
-            
             serializer = CreatePostSerializer(instance=get_object_or_404(Post, pk=p.id), data=request.data)
             serializer.is_valid(raise_exception=True)
-            p = serializer.save(report=DailyReport.objects.get(pk=response['id']))
-
-            stickers = json.loads(request.data.get('stickers','[]'))
+            print(5, response)
+            report = get_object_or_404(DailyReport, pk=response['id'])
+            print(report)
+            print(type(stickers))
+            p = serializer.save(report=report)
             for sticker in stickers:
                 sticker['post'] = p.id
                 sticker_serializer = PostStickerSerializer(data=sticker)
@@ -101,7 +106,6 @@ class diary(APIView):
 
         data = {}
         for key, value in request.data.items():
-            print(key, value)
             res = value
             if key in ['postcolor', 'font', 'pattern']:
                 res = int(value)
@@ -157,6 +161,14 @@ def get_colors(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
     
 
+@swagger_auto_schema()
+@api_view(['GET'])
+def get_all_sticker(request):
+    tags = Tag.objects.all()
+    serializer = TagStickerSerializer(instance=tags, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 @api_view(['POST'])
 def make_test(request):
     if PostColor.objects.filter(id=1).exists():
@@ -169,16 +181,16 @@ def make_test(request):
         PostColor.objects.create(value=color)
     
     # font
-    font_list = ['Gaegu', 'Nanum Myeongjo', 'Nanum Pen Script', 'Poor Story', 'Nanum Gothic']
+    font_list = ['Poor Story', 'Nanum Myeongjo', 'Nanum Pen Script', 'Gaegu', 'Nanum Gothic']
     for font in font_list:
         PostFont.objects.create(name=font, path='')
 
     # emotion
-    for name in ['happy', 'sad', 'delight', 'boring', 'angry', 'surprise', 'horror']:
+    for name in ['happy', 'sad', 'delight', 'boring', 'angry', 'surprise', 'horror', 'no_emotion']:
         Emotion.objects.create(name=name)
     
     # pattern
-    for path, preview in [(None, 'media/paper/1_preview.png'),('media/paper/2.png', 'media/paper/2_preview.png'), ('media/paper/3.png', 'media/paper/3_preview.png'), ('media/paper/4.png', 'media/paper/4.png'), ('media/paper/5.png', 'media/paper/5.png'), ('media/paper/6.png', 'media/paper/6.png')]:
+    for path, preview in [('media/paper/1.png', 'media/paper/1_preview.png'),('media/paper/2.png', 'media/paper/2_preview.png'), ('media/paper/3.png', 'media/paper/3_preview.png'), ('media/paper/4.png', 'media/paper/4.png'), ('media/paper/5.png', 'media/paper/5.png'), ('media/paper/6.png', 'media/paper/6.png')]:
         Pattern.objects.create(path=path, preview_path=preview)
 
     return Response({

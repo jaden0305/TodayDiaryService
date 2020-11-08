@@ -39,8 +39,7 @@ class Tag(models.Model):
 class Sticker(models.Model):
     path = models.CharField(max_length=100)
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name="stickers")
-    score = models.FloatField()
-    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='stickers')
+    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='stickers', blank=True, null=True)
 
 
 class RecommendMusic(models.Model):
