@@ -27,82 +27,64 @@
 					/>
 					<label class="toast-themes__label" for="toast-theme__font">
 						<div class="toast-themes__indicator"></div>
-						<span class="toast-themes__text">전체</span>
+						<span class="toast-themes__text">폰트</span>
 					</label>
 				</div>
 			</div>
 			<div class="toast-theme">
 				<div v-if="selectedTheme === 'bg'" class="toast-theme__bg">
-					테마
+					<ul class="toast-theme__ul">
+						<li v-for="paper in papers" :key="paper.id">
+							<label
+								:for="`toast-theme__${paper.id}`"
+								class="preview-paper-wrap"
+							>
+								<img
+									:src="`${setUrl}${paper.preview_path}`"
+									alt=""
+									class="preview-paper"
+								/>
+							</label>
+							<input
+								type="radio"
+								name="paper"
+								:id="`toast-theme__${paper.id}`"
+								:value="paper"
+								v-model="selectedPaper"
+								hidden
+							/>
+						</li>
+					</ul>
 				</div>
 				<div v-else class="toast-theme__fonts">
 					<p class="toast-theme__example">
 						오늘 하루의 폰트를 골라주세요
 					</p>
 					<ul>
-						<li>
-							<label for="toast-theme__font1" class="example1">Gaegu</label>
+						<li v-for="font in fonts" :key="font.id">
 							<input
 								type="radio"
 								name="font"
-								id="toast-theme__font1"
-								value="Gaegu"
+								:id="`toast-theme__${font.name}`"
+								:value="font"
 								v-model="selectedFont"
 							/>
-						</li>
-						<li>
-							<label for="toast-theme__font2" class="example2"
-								>Nanum Gothic</label
+							<label
+								:for="`toast-theme__${font.name}`"
+								:style="`font-family:${font.name}`"
+								>{{ font.name }}</label
 							>
-							<input
-								type="radio"
-								name="font"
-								id="toast-theme__font2"
-								value="NanumGothic"
-								v-model="selectedFont"
-							/>
-						</li>
-						<li>
-							<label for="toast-theme__font3" class="example3"
-								>Nanum Myeongjo</label
-							>
-							<input
-								type="radio"
-								name="font"
-								id="toast-theme__font3"
-								value="NanumMyeongjo"
-								v-model="selectedFont"
-							/>
-						</li>
-						<li>
-							<label for="toast-theme__font4" class="example4"
-								>Nanum Pen Script</label
-							>
-							<input
-								type="radio"
-								name="font"
-								id="toast-theme__font4"
-								value="NanumPenScript"
-								v-model="selectedFont"
-							/>
-						</li>
-						<li>
-							<label for="toast-theme__font5" class="example5"
-								>Poor Story</label
-							>
-							<input
-								type="radio"
-								name="font"
-								id="toast-theme__font5"
-								value="PoorStory"
-								v-model="selectedFont"
-							/>
 						</li>
 					</ul>
 				</div>
 			</div>
+			<div class="toast-theme__complete">
+				<button @click.prevent="submitTheme">
+					적용
+				</button>
+			</div>
 			<div class="toast-close">
-				<button class="toast-close__btn" @click="closeTheme">
+				<button class="toast-close__btn" @click.prevent="closeTheme">
 					<img src="@/assets/images/delete.svg" alt="" />
 				</button>
 			</div>
@@ -111,11 +93,15 @@
 </template>
 
 <script>
+import { fetchFonts, fetchPapers } from '@/api/diary';
 export default {
 	data() {
 		return {
 			selectedTheme: 'bg',
+			fonts: [],
+			papers: [],
 			selectedFont: null,
+			selectedPaper: null,
 		};
 	},
 	props: {
@@ -125,27 +111,36 @@ export default {
 		toastAnimationClass() {
 			return this.open ? null : 'none';
 		},
+		setUrl() {
+			return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}`;
+		},
 	},
 	methods: {
 		closeTheme() {
 			this.$emit('close-theme');
 		},
+		submitTheme() {
+			this.$emit('submit-theme', this.selectedFont, this.selectedPaper);
+		},
+		async onFetchFonts() {
+			const { data } = await fetchFonts();
+			this.fonts = data;
+		},
+		async onFetchPapers() {
+			const { data } = await fetchPapers();
+			this.papers = data;
+		},
 	},
 	watch: {
 		selectedFont: function() {
 			const sentence = document.querySelector('.toast-theme__example');
-			if (this.selectedFont === 'Gaegu') {
-				sentence.style.fontFamily = 'Gaegu, cursive';
-			} else if (this.selectedFont === 'NanumMyeongjo') {
-				sentence.style.fontFamily = 'Nanum Myeongjo, serif';
-			} else if (this.selectedFont === 'NanumPenScript') {
-				sentence.style.fontFamily = 'Nanum Pen Script, cursive';
-			} else if (this.selectedFont === 'PoorStory') {
-				sentence.style.fontFamily = 'Poor Story, cursive';
-			} else {
-				sentence.style.fontFamily = 'Nanum Gothic, cursive';
-			}
+
+			sentence.style.fontFamily = this.selectedFont.name;
 		},
+	},
+	created() {
+		this.onFetchFonts();
+		this.onFetchPapers();
 	},
 };
 </script>
@@ -153,22 +148,9 @@ export default {
 <style lang="scss" scoped>
 .toast-theme__fonts {
 	.toast-theme__example {
+		margin: 40px 0 30px;
+		text-align: center;
 		font-family: 'Nanum Gothic', sans-serif;
-	}
-	.example1 {
-		font-family: 'Gaegu, cursive';
-	}
-	.example2 {
-		font-family: 'Nanum Gothic, cursive';
-	}
-	.example3 {
-		font-family: 'Nanum Myeongjo, serif';
-	}
-	.example4 {
-		font-family: 'Nanum Pen Script, cursive';
-	}
-	.example5 {
-		font-family: 'Poor Story, cursive';
 	}
 }
 .toast-themes {
@@ -176,7 +158,18 @@ export default {
 	justify-content: center;
 	align-items: center;
 }
-.toast-themes__box {
+.toast-theme__ul {
+	display: flex;
+	flex-wrap: wrap;
+}
+.preview-paper {
+	width: 70px;
+	height: 100px;
+	margin: 10px;
+	object-fit: cover;
+	&:active {
+		border: 1px solid gray;
+	}
 }
 .toast-themes__input {
 	position: absolute;
