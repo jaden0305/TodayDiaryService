@@ -41,7 +41,7 @@
 							>
 								<img
 									:src="`${setUrl}${paper.preview_path}`"
-									alt=""
+									alt="속지디자인"
 									class="preview-paper"
 								/>
 							</label>
@@ -51,9 +51,9 @@
 								:id="`toast-theme__${paper.id}`"
 								:value="paper"
 								v-model="selectedPaper"
-								hidden
 							/>
 						</li>
+						<!-- <li>hidden</li> -->
 					</ul>
 				</div>
 				<div v-else class="toast-theme__fonts">

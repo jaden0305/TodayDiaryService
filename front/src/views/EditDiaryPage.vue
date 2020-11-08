@@ -108,7 +108,7 @@ export default {
 					value: '#646464',
 				},
 				font: {
-					id: 4,
+					id: 1,
 					name: 'Poor Story',
 				},
 				pattern: {
