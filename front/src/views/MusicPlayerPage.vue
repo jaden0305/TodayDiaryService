@@ -25,6 +25,15 @@
 					</section>
 				</div>
 				<div class="player-controls">
+					<div
+						class="player-controls__item -favorite"
+						:class="{ active: currentTrack.favorited }"
+						@click="favorite"
+					>
+						<svg class="icon">
+							<use xlink:href="#icon-heart-o"></use>
+						</svg>
+					</div>
 					<a
 						:href="currentTrack.url"
 						target="_blank"
@@ -92,7 +101,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="back-playbar" v-hammer:swipe.up="swipeUp">
+					<div class="back-playbar">
 						<div
 							class="back-playbar__img"
 							:style="{ backgroundImage: `url(${currentTrack.cover})` }"
@@ -202,7 +211,6 @@
 </template>
 
 <script>
-import bus from '@/utils/bus';
 export default {
 	data() {
 		return {
@@ -246,17 +254,6 @@ export default {
 		};
 	},
 	methods: {
-		swipeUp() {
-			const track = {
-				name: '야작시',
-				artist: '적재',
-				cover: 'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
-				videoId: 'jXylepYfpk0',
-				url: 'https://youtu.be/26YwXUcUf4I',
-				favorited: false,
-			};
-			bus.$emit('show:musicplayer', track);
-		},
 		showSwap() {
 			const Container = document.querySelector('#player-back-container');
 			Container.classList.remove('slide-out-top');
