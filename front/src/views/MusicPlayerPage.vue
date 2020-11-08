@@ -321,7 +321,11 @@ export default {
 		selectTrack(index) {
 			this.currentTrackIndex = index;
 			this.currentTrack = this.tracks[this.currentTrackIndex];
-			this.resetPlayer();
+			// this.resetPlayer();
+			setTimeout(() => {
+				this.$refs.player.player.playVideo();
+				this.isTimerPlaying = true;
+			}, 300);
 		},
 		prevTrack() {
 			// this.transitionName = 'scale-in';
