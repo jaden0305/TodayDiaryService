@@ -98,8 +98,42 @@
 							:style="{ backgroundImage: `url(${currentTrack.cover})` }"
 						></div>
 						<div class="back-playbar__content">
-							<div class="back-playbar__info"></div>
-							<div class="back-playbar__bar"></div>
+							<div class="back-playbar__info">
+								<span class="back-playbar__name">{{
+									currentTrack.name | truncate
+								}}</span>
+								<span class="back-playbar__artist">{{
+									currentTrack.artist | truncate
+								}}</span>
+							</div>
+							<div class="back-playbar__bar">
+								<img
+									@click="prevTrack"
+									class="back-playbar__button"
+									src="@/assets/images/previous.svg"
+									alt="이전버튼"
+								/>
+								<img
+									v-if="isTimerPlaying"
+									@click="play"
+									class="back-playbar__button"
+									src="@/assets/images/pause.svg"
+									alt="정지"
+								/>
+								<img
+									v-else
+									@click="play"
+									class="back-playbar__button"
+									src="@/assets/images/play.svg"
+									alt="재생"
+								/>
+								<img
+									@click="nextTrack"
+									class="back-playbar__button"
+									src="@/assets/images/next.svg"
+									alt="다음버튼"
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -196,12 +230,12 @@ export default {
 					favorited: false,
 				},
 				{
-					name: '야작시',
-					artist: '적재',
+					name: '다른 사람을 사랑하고 있어',
+					artist: '수지',
 					cover:
-						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
-					videoId: 'jXylepYfpk0',
-					url: 'https://youtu.be/26YwXUcUf4I',
+						'https://lh3.googleusercontent.com/proxy/VmPLIgf2H6ERjSNi-mtJHNXZ1csmrgEjUUmTRdT2PnouyxNaBOjAhs8lkoZyOm7aP2mXPS_Q5f21Fddh9LYGe-SA4mIyiFs6paOgFjbX2AzrdaubE6zvGyygXvQ-n9x9WKGTVQWy2QFqHcGIhJFZtyzZgngmcao-GBYBrpsf4oKTEsPSE6Nge-3DgvuPsrK4BTc8B0Kz31qTEyAXvoDwL8xXC3QIQMKafwp-4KyxBs0S_W2Lpy2Q6PgEPijUyzP3zNoT04YviIRFekIj7wQ_hB47KEOHP9NfTdqe-uSp1EezF1M8',
+					videoId: 'eQ3gXtX3U7I',
+					url: 'https://youtu.be/eQ3gXtX3U7I',
 					favorited: false,
 				},
 				{
@@ -298,7 +332,11 @@ export default {
 				this.currentTrackIndex = this.tracks.length - 1;
 			}
 			this.currentTrack = this.tracks[this.currentTrackIndex];
-			this.resetPlayer();
+			setTimeout(() => {
+				this.$refs.player.player.playVideo();
+				this.isTimerPlaying = true;
+			}, 300);
+			// this.resetPlayer();
 		},
 		nextTrack() {
 			// this.transitionName = 'scale-out';
@@ -309,7 +347,11 @@ export default {
 				this.currentTrackIndex = 0;
 			}
 			this.currentTrack = this.tracks[this.currentTrackIndex];
-			this.resetPlayer();
+			setTimeout(() => {
+				this.$refs.player.player.playVideo();
+				this.isTimerPlaying = true;
+			}, 300);
+			// this.resetPlayer();
 		},
 		resetPlayer() {
 			this.circleLeft = 0;
@@ -383,8 +425,7 @@ export default {
 			.back-song__info {
 				display: flex;
 				flex-direction: column;
-				justify-content: center;
-				align-items: flex-start;
+				justify-content: space-around;
 				margin-left: 1rem;
 				.back-song__name {
 					font-size: 1.1rem;
@@ -393,6 +434,7 @@ export default {
 				}
 				.back-song__artist {
 					font-size: 0.8rem;
+					color: rgba(#71829e, 0.7);
 				}
 			}
 		}
@@ -405,8 +447,11 @@ export default {
 	right: 0;
 	height: 80px;
 	background-color: rgb(240, 240, 240);
+	border-radius: 12px;
+	/* border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
 	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
+	border-bottom-right-radius: 12px; */
 	box-shadow: 6px 6px 5px #c7c7c7, -6px -6px 5px #ffffff;
 	padding: 10px 0 10px;
 	display: flex;
@@ -417,7 +462,53 @@ export default {
 		background-position: center !important;
 		background-size: cover !important;
 		border-radius: 8px;
-		margin-left: 2rem;
+		margin-left: 1.5rem;
+		@media (max-width: 320px) {
+			margin-left: 0.5rem;
+		}
+	}
+	.back-playbar__content {
+		flex: 1;
+		height: 100%;
+		margin-left: 1rem;
+		display: flex;
+		align-items: center;
+		@media (max-width: 320px) {
+			margin-left: 0.5rem;
+		}
+		.back-playbar__info {
+			flex: 1;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			.back-playbar__name {
+				font-size: 1.3rem;
+				color: #71829e;
+				@media (max-width: 320px) {
+					font-size: 1rem;
+				}
+			}
+			.back-playbar__artist {
+				color: rgba(#71829e, 0.7);
+				font-size: 1rem;
+				@media (max-width: 320px) {
+					font-size: 0.8rem;
+				}
+			}
+		}
+		.back-playbar__bar {
+			flex: 1;
+			margin-right: 0.5rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.back-playbar__button {
+			width: 2rem;
+			height: 2rem;
+			cursor: pointer;
+		}
 	}
 }
 .back-song__select {
