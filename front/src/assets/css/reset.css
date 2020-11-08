@@ -74,3 +74,20 @@ table {
 	-ms-overflow-style: none;  /* IE and Edge */
 	scrollbar-width: none;  /* Firefox */
 }
+
+/* #embed-youtube-video-1 {
+	position: absolute !important;
+	top: -500vh !important;
+	left: -500vw !important;
+	width: 1px;
+	height: 1px;
+	visibility: hidden;
+} */
+iframe {
+	position: absolute !important;
+	top: -500vh !important;
+	left: -500vw !important;
+	width: 1px;
+	height: 1px;
+	visibility: hidden;
+}
