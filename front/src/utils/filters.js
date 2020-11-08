@@ -28,3 +28,10 @@ export function filterMonth(month) {
 			throw new Error('해당 월의 정보가 정확하지 않습니다.');
 	}
 }
+
+export function truncate(string) {
+	if (string.length > 7) {
+		return string.substr(0, 7) + '..';
+	}
+	return string;
+}
