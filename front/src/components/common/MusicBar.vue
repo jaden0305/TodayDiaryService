@@ -1,15 +1,18 @@
 <template>
 	<div class="toast" :class="toastAnimationClass">
 		<video-wrapper
-			v-if="track"
 			class="player-video"
 			ref="player"
 			:player="'youtube'"
-			:videoId="track.videoId"
+			:videoId="currentTrack.videoId"
 			@ended="nextTrack"
 		/>
-		<div class="player" v-if="track">
-			<div class="player__title">
+		<div class="player slide-out-bottom" v-if="currentTrack">
+			<div
+				class="player__title"
+				v-hammer:swipe.down="swipeDown"
+				v-hammer:tap="swipeDown"
+			>
 				플레이어<img
 					class="player-swap__back"
 					src="@/assets/images/x.svg"
@@ -22,23 +25,41 @@
 						<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
 						<div
 							class="player-cover__item"
-							:style="{ backgroundImage: `url(${track.cover})` }"
+							:style="{ backgroundImage: `url(${currentTrack.cover})` }"
 						></div>
 					</section>
 				</div>
 				<div class="player-controls">
-					<div class="progress" ref="progress">
-						<div class="progress__top">
-							<div class="album-info" v-if="track">
-								<div class="album-info__name">{{ track.artist }}</div>
-								<div class="album-info__track">{{ track.name }}</div>
-							</div>
-						</div>
+					<div
+						class="player-controls__item -favorite"
+						:class="{ active: currentTrack.favorited }"
+						@click="favorite"
+					>
+						<svg class="icon">
+							<use xlink:href="#icon-heart-o"></use>
+						</svg>
 					</div>
+					<a
+						:href="currentTrack.url"
+						target="_blank"
+						class="player-controls__item"
+					>
+						<svg class="icon">
+							<use xlink:href="#icon-link"></use>
+						</svg>
+					</a>
 					<div class="player-controls__item -xl js-play" @click="play">
 						<i class="player-font icon ion-md-play" v-if="!isTimerPlaying"></i>
 						<div class="player-font" v-else>
 							<i class="icon ion-md-pause player-pause"></i>
+						</div>
+					</div>
+				</div>
+				<div class="progress" ref="progress">
+					<div class="progress__top">
+						<div class="album-info" v-if="currentTrack">
+							<div class="album-info__name">{{ currentTrack.artist }}</div>
+							<div class="album-info__track">{{ currentTrack.name }}</div>
 						</div>
 					</div>
 				</div>
@@ -78,20 +99,26 @@
 				></path>
 			</symbol>
 		</div>
-		<div id="player-back-container" v-if="track">
+		<div
+			id="player-back-container"
+			class="player-back slide-in-top"
+			v-hammer:swipe.up="swipeUp"
+			v-hammer:tap="swipeUp"
+			v-if="currentTrack"
+		>
 			<div class="back-wrap">
 				<div class="back-playbar">
 					<div
 						class="back-playbar__img"
-						:style="{ backgroundImage: `url(${track.cover})` }"
+						:style="{ backgroundImage: `url(${currentTrack.cover})` }"
 					></div>
 					<div class="back-playbar__content">
 						<div class="back-playbar__info">
 							<span class="back-playbar__name">{{
-								track.name | truncate
+								currentTrack.name | truncate
 							}}</span>
 							<span class="back-playbar__artist">{{
-								track.artist | truncate
+								currentTrack.artist | truncate
 							}}</span>
 						</div>
 						<div class="back-playbar__bar">
@@ -122,42 +149,35 @@ import bus from '@/utils/bus';
 export default {
 	created() {
 		bus.$on('show:musicplayer', this.openMethod);
-		this.currentTrack = this.track;
-		const element = this.track;
-		let link = document.createElement('link');
-		link.rel = 'prefetch';
-		link.href = element.cover;
-		link.as = 'image';
-		document.head.appendChild(link);
+		this.currentTrack = this.tracks[0];
+		for (let index = 0; index < this.tracks.length; index++) {
+			const element = this.tracks[index];
+			let link = document.createElement('link');
+			link.rel = 'prefetch';
+			link.href = element.cover;
+			link.as = 'image';
+			document.head.appendChild(link);
+		}
 	},
-	mounted() {
-		// this.currentTrack = this.tracks[0];
-		// for (let index = 0; index < this.tracks.length; index++) {
-		// 	const element = this.tracks[index];
-		// 	let link = document.createElement('link');
-		// 	link.rel = 'prefetch';
-		// 	link.href = element.cover;
-		// 	link.as = 'image';
-		// 	document.head.appendChild(link);
-		// }
-	},
-	// updated() {
-	// 	this.currentTrack = this.track;
-	// },
+	mounted() {},
+
 	beforeDestroy() {
 		bus.$off('show:musicplayer', this.openMethod);
 	},
 	data() {
 		return {
 			open: false,
-			track: {
-				name: '야작시',
-				artist: '적재',
-				cover: 'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
-				videoId: 'jXylepYfpk0',
-				url: 'https://youtu.be/26YwXUcUf4I',
-				favorited: false,
-			},
+			tracks: [
+				{
+					name: '야작시',
+					artist: '적재',
+					cover:
+						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+					videoId: 'jXylepYfpk0',
+					url: 'https://youtu.be/26YwXUcUf4I',
+					favorited: false,
+				},
+			],
 
 			isTimerPlaying: false,
 			currentTrack: null,
@@ -170,12 +190,50 @@ export default {
 		},
 	},
 	methods: {
+		favorite() {
+			this.tracks[this.currentTrackIndex].favorited = !this.tracks[
+				this.currentTrackIndex
+			].favorited;
+			this.currentTrack = this.tracks[this.currentTrackIndex];
+		},
+		swipeUp() {
+			const BAR = document.querySelector('.player-back');
+			const PLAYER = document.querySelector('.player');
+			// if (BAR.classList.contains('opacity-on')) {
+			// 	BAR.classList.remove('opacity-on');
+			// 	BAR.classList.add('opacity-off');
+			// 	PLAYER.classList.remove('opacity-off');
+			// 	PLAYER.classList.add('opacity-on');
+			// }
+			PLAYER.classList.remove('slide-out-bottom');
+			PLAYER.classList.add('slide-in-bottom');
+			PLAYER.style.display = 'block';
+			BAR.classList.remove('slide-in-top');
+			BAR.classList.add('slide-out-top');
+			BAR.style.display = 'none';
+		},
+		swipeDown() {
+			const BAR = document.querySelector('.player-back');
+			const PLAYER = document.querySelector('.player');
+			// if (!BAR.classList.contains('opacity-on')) {
+			// 	BAR.classList.add('opacity-on');
+			// 	BAR.classList.remove('opacity-off');
+			// 	PLAYER.classList.add('opacity-off');
+			// 	PLAYER.classList.remove('opacity-on');
+			// }
+			BAR.classList.remove('slide-out-top');
+			BAR.classList.add('slide-in-top');
+			BAR.style.display = 'block';
+			PLAYER.classList.remove('slide-in-bottom');
+			PLAYER.classList.add('slide-out-bottom');
+			PLAYER.style.display = 'none';
+		},
 		closePlayer() {
 			this.open = false;
 		},
-		openMethod(track) {
+		openMethod(tracks) {
 			this.open = true;
-			this.track = track;
+			this.tracks = tracks;
 		},
 		play() {
 			this.$refs.player.player.getPlayerState().then(response => {
@@ -194,7 +252,12 @@ export default {
 			});
 		},
 		nextTrack() {
-			this.currentTrack = this.track;
+			if (this.currentTrackIndex < this.tracks.length - 1) {
+				this.currentTrackIndex++;
+			} else {
+				this.currentTrackIndex = 0;
+			}
+			this.currentTrack = this.tracks[this.currentTrackIndex];
 			setTimeout(() => {
 				this.$refs.player.player.playVideo();
 				this.isTimerPlaying = true;
@@ -209,10 +272,6 @@ export default {
 	z-index: 100;
 	position: fixed;
 	width: 100%;
-	height: 100%;
-	@media screen and (max-width: 320px) {
-		width: 300px;
-	}
 	bottom: 0;
 	left: 50%;
 	display: flex;
@@ -220,6 +279,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 	transform: translateX(-50%);
+	transition: all 1s ease-in-out 0.1s;
 }
 .toast.none {
 	display: none !important;
@@ -229,9 +289,9 @@ export default {
 	left: 0;
 	right: 0;
 	bottom: 0;
+	width: 100%;
 	background: #f0f0f0;
 	z-index: 10;
-	display: none;
 	border-radius: 12px;
 	height: 80px;
 }
@@ -256,7 +316,7 @@ export default {
 		border-radius: 8px;
 		margin-left: 1.5rem;
 		@media (max-width: 320px) {
-			margin-left: 0.5rem;
+			margin-left: 0.5rem !important;
 		}
 	}
 	.back-playbar__content {
@@ -266,7 +326,7 @@ export default {
 		display: flex;
 		align-items: center;
 		@media (max-width: 320px) {
-			margin-left: 0.5rem;
+			margin-left: 0.7rem;
 		}
 		.back-playbar__info {
 			flex: 1;
@@ -292,13 +352,17 @@ export default {
 		.back-playbar__bar {
 			flex: 1;
 			margin-right: 0.5rem;
+			height: 100%;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			@media (max-width: 320px) {
+				flex: 0.7;
+			}
 		}
 		.back-playbar__button {
-			width: 2rem;
-			height: 2rem;
+			height: 100%;
+			box-sizing: border-box;
 			cursor: pointer;
 		}
 	}
@@ -322,7 +386,7 @@ export default {
 }
 .player__title {
 	text-align: center;
-	margin-bottom: 1rem;
+	margin-bottom: 1.5rem;
 	font-weight: 600;
 	font-size: 24px;
 	color: #71829e;
@@ -352,16 +416,25 @@ export default {
 	stroke: currentColor;
 	fill: currentColor;
 }
+.opacity-on {
+	opacity: 1;
+	/* visibility: visible; */
+}
+.opacity-off {
+	opacity: 0;
+	/* visibility: hidden; */
+	/* display: none; */
+}
 
 .player {
 	position: relative;
+	display: none;
 	width: 410px;
 	background: #f0f0f0;
+	box-shadow: 5px 5px 10px #e2e2e2, -5px -5px 10px #fefefe;
 	color: #71829e;
-	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	border-radius: 12px;
 	padding: 1.5rem;
-	margin-bottom: 1rem;
 	@media screen and (max-width: 576px), (max-height: 500px) {
 		width: 100%;
 		padding: 20px;
@@ -508,7 +581,7 @@ export default {
 
 			&.-favorite {
 				&.active {
-					color: red;
+					color: red !important;
 				}
 			}
 		}
@@ -611,5 +684,120 @@ export default {
 	border-radius: 12px;
 	background: #f0f0f0;
 	box-shadow: inset 5px 5px 10px #d8d8d8, inset -5px -5px 10px #ffffff;
+}
+.slide-in-top {
+	-webkit-animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+	animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.slide-in-bottom {
+	-webkit-animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+		both;
+	animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@-webkit-keyframes slide-in-top {
+	0% {
+		-webkit-transform: translateY(-50px);
+		transform: translateY(-50px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@keyframes slide-in-top {
+	0% {
+		-webkit-transform: translateY(-50px);
+		transform: translateY(-50px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes slide-in-bottom {
+	0% {
+		-webkit-transform: translateY(80px);
+		transform: translateY(80px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@keyframes slide-in-bottom {
+	0% {
+		-webkit-transform: translateY(80px);
+		transform: translateY(80px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+.slide-out-top {
+	-webkit-animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+		both;
+	animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+@-webkit-keyframes slide-out-top {
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translateY(-20px);
+		transform: translateY(-20px);
+		opacity: 0;
+	}
+}
+@keyframes slide-out-top {
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translateY(-20px);
+		transform: translateY(-20px);
+		opacity: 0;
+	}
+}
+.slide-out-bottom {
+	-webkit-animation: slide-out-bottom 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+		both;
+	animation: slide-out-bottom 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+@-webkit-keyframes slide-out-bottom {
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translateY(20px);
+		transform: translateY(20px);
+		opacity: 0;
+	}
+}
+@keyframes slide-out-top {
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translateY(20px);
+		transform: translateY(20px);
+		opacity: 0;
+	}
 }
 </style>
