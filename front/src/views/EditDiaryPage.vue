@@ -108,7 +108,7 @@ export default {
 					value: '#646464',
 				},
 				font: {
-					id: 4,
+					id: 1,
 					name: 'Poor Story',
 				},
 				pattern: {
@@ -133,7 +133,7 @@ export default {
 		},
 		contentImg() {
 			if (this.diaryData.image) {
-				return `${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
+				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
 			} else {
 				return `@/assets/images/logo3.png`;
 			}

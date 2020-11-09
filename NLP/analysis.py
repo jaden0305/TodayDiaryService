@@ -63,7 +63,7 @@ class TextAnalysis:
     def get_horror(cls):
         if cls.horror:
             return cls.horror
-        h = pd.read_csv('공포.txt', encoding='UTF-8', names=['word'], sep='\n')
+        h = pd.read_csv('horror.txt', encoding='UTF-8', names=['word'], sep='\n')
         horror = cls.decompose(cls.mecab.pos(' '.join(h.T.values[0])))
         for word in cls.minus_discard_list:
             horror.discard(word)
@@ -75,7 +75,7 @@ class TextAnalysis:
     def get_delight(cls):
         if cls.delight:
             return cls.delight
-        d = pd.read_csv('기쁨.txt', encoding='UTF-8', names=['word'], sep='\n')
+        d = pd.read_csv('delight.txt', encoding='UTF-8', names=['word'], sep='\n')
         delight = cls.decompose(cls.mecab.pos(' '.join(d.T.values[0])))
         delight.discard('보')
         delight.discard('좋')
@@ -87,7 +87,7 @@ class TextAnalysis:
     def get_surprise(cls):
         if cls.surprise:
             return cls.surprise
-        s = pd.read_csv('놀람.txt', encoding='UTF-8', names=['word'], sep='\n')
+        s = pd.read_csv('surprise.txt', encoding='UTF-8', names=['word'], sep='\n')
         surprise = cls.decompose(cls.mecab.pos(' '.join(s.T.values[0])))
         surprise.discard('금')
         cls.surprise = surprise
@@ -97,7 +97,7 @@ class TextAnalysis:
     def get_angry(cls):
         if cls.angry:
             return cls.angry
-        a = pd.read_csv('분노.txt', encoding='UTF-8', names=['word'], sep='\n')
+        a = pd.read_csv('angry.txt', encoding='UTF-8', names=['word'], sep='\n')
         angry = cls.decompose(cls.mecab.pos(' '.join(a.T.values[0])))
         for word in cls.minus_discard_list:
             angry.discard(word)
@@ -109,7 +109,7 @@ class TextAnalysis:
     def get_sad(cls):
         if cls.sad:
             return cls.sad
-        s = pd.read_csv('슬픔.txt', encoding='UTF-8', names=['word'], sep='\n')
+        s = pd.read_csv('sad.txt', encoding='UTF-8', names=['word'], sep='\n')
         sad = cls.decompose(cls.mecab.pos(' '.join(s.T.values[0])))
         sad.add('싫')
         for word in cls.minus_discard_list:
@@ -122,7 +122,7 @@ class TextAnalysis:
     def get_boring(cls):
         if cls.boring:
             return cls.boring
-        b = pd.read_csv('지루함.txt', encoding='UTF-8', names=['word'], sep='\n')
+        b = pd.read_csv('boring.txt', encoding='UTF-8', names=['word'], sep='\n')
         boring = cls.decompose(cls.mecab.pos(' '.join(b.T.values[0])))
         cls.boring = boring
         return boring
@@ -131,7 +131,7 @@ class TextAnalysis:
     def get_happy(cls):
         if cls.happy:
             return cls.happy
-        h = pd.read_csv('행복.txt', encoding='UTF-8', names=['word'], sep='\n')
+        h = pd.read_csv('happy.txt', encoding='UTF-8', names=['word'], sep='\n')
         happy = cls.decompose(cls.mecab.pos(' '.join(h.T.values[0])))
         happy.discard('기분')
         happy.discard('속')
