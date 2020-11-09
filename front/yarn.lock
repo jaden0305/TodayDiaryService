@@ -1614,6 +1614,11 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
+amplitudejs@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/amplitudejs/-/amplitudejs-5.2.0.tgz#66c194f46c36ea05f0bce5ed6db0188cd199cf8b"
+  integrity sha512-1Bfl62RfOQElS+5mHyS/ubD8WmgFPzLNMVQmGjQv/mIHGG2KLehic7ayikNkua5Hw3fq0HDJlLVo6/bfdlqGOg==
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
@@ -4457,6 +4462,11 @@ gzip-size@^5.0.0:
   dependencies:
     duplexer "^0.1.1"
     pify "^4.0.1"
+
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
+  integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
 
 handle-thing@^2.0.0:
   version "2.0.1"
@@ -9018,6 +9028,14 @@ vue-video-wrapper@^1.0.10:
     core-js "^3.6.5"
     object-assign "^4.1.1"
     youtube-player "^5.5.2"
+
+vue2-hammer@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/vue2-hammer/-/vue2-hammer-2.1.2.tgz#879f60aedf6aeae9530517cc079c7a18a95dd35e"
+  integrity sha512-IgA7MhGsc1twUgMyxaOM2xc5YMF+aWJP0YC174dc51glbO99VltrV/uTBd/OUR5gk87MheJi97mhTcMm5kiQUQ==
+  dependencies:
+    babel-runtime "^6.26.0"
+    hammerjs "^2.0.8"
 
 vue@^2.6.11:
   version "2.6.12"
