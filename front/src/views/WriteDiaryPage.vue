@@ -168,9 +168,15 @@ export default {
 		setSticker(selctedStickerPath) {
 			const imageWrap = document.querySelector('.diary-image');
 			const imageElem = document.createElement('img');
-			imageElem.src = selctedStickerPath;
-			imageElem.classList.add('diary-image__sticker');
-			imageWrap.appendChild(imageElem);
+			const imageLength = imageWrap.getElementsByTagName('img').length;
+
+			if (imageLength < 4) {
+				imageElem.src = selctedStickerPath;
+				imageElem.classList.add('diary-image__sticker');
+				imageWrap.appendChild(imageElem);
+			} else {
+				console.log('스티커는 3개까지 넣을 수 있어요');
+			}
 
 			this.openSticker = false;
 		},
