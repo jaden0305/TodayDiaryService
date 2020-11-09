@@ -276,6 +276,7 @@ export default {
 		label {
 			display: flex;
 			justify-content: center;
+			width: 100%;
 			&:hover {
 				cursor: pointer;
 			}
