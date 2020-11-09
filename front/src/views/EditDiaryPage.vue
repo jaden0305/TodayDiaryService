@@ -190,7 +190,9 @@ export default {
 		onFetchPaper() {
 			const content = document.querySelector('.diary-text__content');
 
-			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
+			if (this.diaryData.pattern.path) {
+				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
+			}
 		},
 		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');
