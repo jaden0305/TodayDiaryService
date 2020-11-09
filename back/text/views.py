@@ -1,20 +1,20 @@
-from django.shortcuts import render, get_object_or_404
+import pandas
+import calendar
 
-# from django.conf.auth.models import User
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 
-from .analysis.analysis import TextAnalysis
-from post.models import Post, Emotion
-# from .models import User
-from .serializers import *
-
 from drf_yasg.utils import swagger_auto_schema
 
-import pandas, calendar
+from .analysis.analysis import TextAnalysis
+from post.models import Post, Emotion
+from .serializers import *
+
 
 User = get_user_model()
 
@@ -186,3 +186,12 @@ def total(request):
         wc_list.append([key, value[0], value[1]])
 
     return Response({'score':daily_report_serializer.data, 'wordcloud': wc_list})
+
+
+@swagger_auto_schema()
+@api_view(['GET'])
+def redistest(request):
+    cache.set('test', 1)
+    print(cache.get('test'))
+    cache.set('test2', 2)
+    print(cache.get('test2'))
