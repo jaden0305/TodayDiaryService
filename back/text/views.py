@@ -32,18 +32,19 @@ def statistics(request):
     result = ta.text_analysis()
 
     for lis in result['word_count']:
+        word, count, emotion = lis
         data = {
             'user': get_object_or_404(User, pk=user),
             'date': date,
-            'word': lis[0],
-            'count': lis[1],
-            'emotion': lis[2],
+            'word': word,
+            'count': count,
+            'emotion': emotion,
         }
 
         wordcloud_serializer = WordCloudReportSerializer(data=data)
 
-        if wordcloud_serializer.is_valid(raise_exception=True):
-            wordcloud_serializer.save(date=date, user=get_object_or_404(User, pk=user))
+        wordcloud_serializer.is_valid(raise_exception=True)
+        wordcloud_serializer.save(date=date, user=get_object_or_404(User, pk=user))
 
     score = round(result['score'],3)
 
@@ -61,15 +62,13 @@ def statistics(request):
     }
 
     daily_report_serializer = DailyReportSerializer(data=data)
-    if daily_report_serializer.is_valid():
-        daily_report_serializer.save(
-            user=get_object_or_404(User, pk=user),
-            score=score,
-            post=post,
-            emotion=emotion,
-            user_emotion=emotion)
-    else:
-        print(daily_report_serializer.errors)
+    daily_report_serializer.is_valid(raise_exception=True)
+    daily_report_serializer.save(
+        user=get_object_or_404(User, pk=user),
+        score=score,
+        post=post,
+        emotion=emotion,
+        user_emotion=emotion)
 
     result = {
         **daily_report_serializer.data

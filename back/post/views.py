@@ -18,20 +18,20 @@ from .serializers import *
 
 
 class DiaryMixin:
-
-    parser_classes = (FormParser, MultiPartParser, )
-    permission_classes = (IsAuthenticated, )
-
     def create_sticker(self, stickers, post_id):
         for sticker in stickers:
-            sticker['post'] = p.id
+            sticker['post'] = post_id
             sticker_serializer = PostStickerSerializer(data=sticker)
             sticker_serializer.is_valid(raise_exception=True)
             sticker_serializer.save()
         post = get_object_or_404(Post, pk=post_id)
         return post
 
+
 class CreateDiary(APIView, DiaryMixin):
+
+    parser_classes = (FormParser, MultiPartParser, )
+    permission_classes = (IsAuthenticated, )
 
     TEXT_ANALYZER_PORT = 8002
     TEXT_ANALYZER_REQUEST_PATH = '/text/'
@@ -51,7 +51,7 @@ class CreateDiary(APIView, DiaryMixin):
         response = requests.post(url, data=payload)
         return response
 
-    # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
+    # [{"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
         stickers = json.loads(request.data.get('stickers', '[]'))
@@ -82,6 +82,7 @@ class CreateDiary(APIView, DiaryMixin):
             serializer.is_valid(raise_exception=True)
 
             p = serializer.save(report=report)
+
         else:
             msg = {
                 'detail': '텍스트를 분석할 수 없습니다.'
@@ -89,7 +90,6 @@ class CreateDiary(APIView, DiaryMixin):
             return Response(msg, status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
 
         post = self.create_sticker(stickers, p.id)
-
         result = {
             **ReadPostSerializer(instance=post).data
         }
@@ -97,6 +97,9 @@ class CreateDiary(APIView, DiaryMixin):
 
 
 class diary(APIView, DiaryMixin):
+
+    parser_classes = (FormParser, MultiPartParser, )
+    permission_classes = (IsAuthenticated, )
 
     def get_object(self, post_id):
         return get_object_or_404(Post, pk=post_id)
@@ -117,19 +120,18 @@ class diary(APIView, DiaryMixin):
         mypost = self.get_object(post_id)
 
         serializer = UpdatePostSerializer(instance=mypost,data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # 기존 스티커 삭제
+        my_stickers = mypost.stickers.all()
+        for sticker in my_stickers:
+            sticker.delete()
 
         stickers = json.loads(request.data.get('stickers', '[]'))
+        self.create_sticker(stickers, mypost.id)
 
-        for sticker in stickers:
-            sticker_id = sticker['id']
-            post_sticker = PostSticker.objects.get(pk=sticker_id)
-            poststicker_serializer = PostStickerSerializer(instance=post_sticker, data=sticker)
-            if poststicker_serializer.is_valid(raise_exception=True):
-                poststicker_serializer.save()
-
-        if serializer.is_valid(raise_exception=True):
-            p = serializer.save()
-            return Response(ReadPostSerializer(instance=p).data, status=status.HTTP_200_OK)
+        p = serializer.save()
+        return Response(ReadPostSerializer(instance=p).data, status=status.HTTP_200_OK)
     
     def delete(self, request, post_id):
         mypost = self.get_object(post_id)
