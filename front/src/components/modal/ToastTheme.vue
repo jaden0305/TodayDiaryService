@@ -100,8 +100,14 @@ export default {
 			selectedTheme: 'bg',
 			fonts: [],
 			papers: [],
-			selectedFont: null,
-			selectedPaper: null,
+			selectedFont: {
+				id: 1,
+				name: 'Poor Story',
+			},
+			selectedPaper: {
+				id: 1,
+				path: 'media/paper/1.png',
+			},
 		};
 	},
 	props: {

@@ -163,6 +163,7 @@ export default {
 
 			title.style.fontFamily = selectedFont.name;
 			content.style.fontFamily = selectedFont.name;
+			console.log('read', selectedPaper.path);
 			if (selectedPaper.path) {
 				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${selectedPaper.path}) center`;
 			} else {
