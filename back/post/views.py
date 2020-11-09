@@ -17,10 +17,21 @@ from .models import *
 from .serializers import *
 
 
-class CreateDiary(APIView):
+class DiaryMixin:
 
     parser_classes = (FormParser, MultiPartParser, )
     permission_classes = (IsAuthenticated, )
+
+    def create_sticker(self, stickers, post_id):
+        for sticker in stickers:
+            sticker['post'] = p.id
+            sticker_serializer = PostStickerSerializer(data=sticker)
+            sticker_serializer.is_valid(raise_exception=True)
+            sticker_serializer.save()
+        post = get_object_or_404(Post, pk=post_id)
+        return post
+
+class CreateDiary(APIView, DiaryMixin):
 
     TEXT_ANALYZER_PORT = 8002
     TEXT_ANALYZER_REQUEST_PATH = '/text/'
@@ -38,9 +49,7 @@ class CreateDiary(APIView):
         url = f'{self.TEXT_ANALYZER_HOST}:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
 
         response = requests.post(url, data=payload)
-
         return response
-    
 
     # [{"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"post":1,"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
@@ -66,7 +75,7 @@ class CreateDiary(APIView):
         response = self.analyze(request.user.id, text, date, p.id)
         if response.status_code == 201:
             response = json.loads(response.text)
-            
+
             report = get_object_or_404(DailyReport, pk=response['id'])
 
             serializer = CreatePostSerializer(instance=get_object_or_404(Post, pk=p.id), data=request.data)
@@ -79,22 +88,15 @@ class CreateDiary(APIView):
             }
             return Response(msg, status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
 
-        for sticker in stickers:
-            sticker['post'] = p.id
-            sticker_serializer = PostStickerSerializer(data=sticker)
-            sticker_serializer.is_valid(raise_exception=True)
-            sticker_serializer.save()
-        post = get_object_or_404(Post, pk=p.id)
+        post = self.create_sticker(stickers, p.id)
+
         result = {
             **ReadPostSerializer(instance=post).data
         }
         return Response(result, status=status.HTTP_201_CREATED)
 
 
-class diary(APIView):
-    
-    parser_classes = (FormParser, MultiPartParser, )
-    permission_classes = (IsAuthenticated, )
+class diary(APIView, DiaryMixin):
 
     def get_object(self, post_id):
         return get_object_or_404(Post, pk=post_id)
@@ -114,14 +116,7 @@ class diary(APIView):
     def put(self, request, post_id):
         mypost = self.get_object(post_id)
 
-        data = {}
-        for key, value in request.data.items():
-            res = value
-            if key in ['postcolor', 'font', 'pattern']:
-                res = int(value)
-            data[key] = res
-
-        serializer = UpdatePostSerializer(instance=mypost,data=data)
+        serializer = UpdatePostSerializer(instance=mypost,data=request.data)
 
         stickers = json.loads(request.data.get('stickers', '[]'))
 
