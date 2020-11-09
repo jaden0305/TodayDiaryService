@@ -70,8 +70,6 @@ class PostStickerReadSerializer(serializers.ModelSerializer):
 
 class CreatePostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
-    stickers = serializers.CharField(required=False, read_only=True)
-    # recommend_music = RecommandMusicSerializer(required=False)
     class Meta:
         model = Post
         exclude = ('id', 'user', 'report', 'upload_music',)
