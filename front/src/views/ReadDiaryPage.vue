@@ -29,6 +29,7 @@
 				</ul>
 			</div>
 			<div class="diary-image">
+				<!-- <p>{{ diaryData }}</p> -->
 				<img class="diary-image__value" :src="contentImg" alt="일기사진" />
 			</div>
 			<div class="diary-text">
@@ -51,10 +52,11 @@ export default {
 	data() {
 		return {
 			diaryData: null,
+			diaryId: this.propsDiaryId ? this.propsDiaryId : this.diaryData.id,
 		};
 	},
 	props: {
-		diaryId: Number,
+		propsDiaryId: Number,
 	},
 	computed: {
 		diaryDataImage() {
@@ -62,7 +64,7 @@ export default {
 		},
 		contentImg() {
 			if (this.diaryData.image) {
-				return `${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
+				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
 			} else {
 				return `@/assets/images/logo3.png`;
 			}
@@ -76,13 +78,27 @@ export default {
 			menus.style.right = '0px';
 			menus.style.transition = '.5s';
 		},
-		async onfetchDiary() {
+		async onFetchDiary() {
 			try {
 				const { data } = await fetchDiary(this.diaryId);
 				this.diaryData = data;
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
+			}
+		},
+		onFetchFont() {
+			const title = document.querySelector('.diary-header__dataTitle');
+			const content = document.querySelector('#diaryContent');
+
+			title.style.fontFamily = this.diaryData.font.name;
+			content.style.fontFamily = this.diaryData.font.name;
+		},
+		onFetchPaper() {
+			const content = document.querySelector('#diaryContent');
+
+			if (this.diaryData.pattern.path) {
+				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
 			}
 		},
 		onEditDiary() {
@@ -98,7 +114,11 @@ export default {
 		},
 	},
 	created() {
-		this.onfetchDiary();
+		this.onFetchDiary();
+	},
+	updated() {
+		this.onFetchFont();
+		this.onFetchPaper();
 	},
 };
 </script>

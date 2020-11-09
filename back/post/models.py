@@ -12,57 +12,42 @@ def upload_location(instance, filename):
     now = datetime.datetime.now()
     return f"{now.year}/{now.month}/{now.day}/{uuid4()}.{ext}"
 
-class PostColor(models.Model):
-    value = models.CharField(max_length=100)
 
-    @classmethod
-    def make(cls):
-        PostColor.objects.create(value='test')
+class PostColor(models.Model):
+    value = models.CharField(max_length=20)
 
 
 class PostFont(models.Model):
     name = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
-    @classmethod
-    def make(cls):
-        font_list = ['Gaegu', 'Nanum Myeongjo', 'Nanum Pen Script', 'Poor Story', 'Nanum Gothic']
-        for font in font_list:
-            PostFont.objects.create(name=font, path='')
         
 
 class Pattern(models.Model):
-    path = models.CharField(max_length=100)
-
-    @classmethod
-    def make(cls):
-        Pattern.objects.create(path='test')
+    path = models.CharField(max_length=100, blank=True, null=True)
+    preview_path = models.CharField(max_length=100, blank=True, null=True)
 
 
 class Emotion(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=30)
     path = models.CharField(max_length=100)
-
-    @classmethod
-    def make(cls):
-        for name in ['happy', 'sad', 'delight', 'boring', 'angry', 'surprise', 'horror']:
-            Emotion.objects.create(name=name)
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
 
 
 class Sticker(models.Model):
     path = models.CharField(max_length=100)
-    tags = models.ManyToManyField(Tag, related_name="stickers")
-    score = models.FloatField()
-    emotion = models.IntegerField()
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name="stickers")
+    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='stickers', blank=True, null=True)
 
 
 class RecommendMusic(models.Model):
-    music_name = models.TextField()
-    music_artist = models.TextField()
-    path = models.TextField()
+    title = models.CharField(max_length=50)
+    artist = models.CharField(max_length=30)
+    video_id = models.CharField(max_length=20)
+    cover = models.TextField(blank=True, null=True)
+    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='musics')
 
 
 class Post(models.Model):
@@ -83,7 +68,7 @@ class Post(models.Model):
 class PostSticker(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='stickers')
     sticker = models.ForeignKey(Sticker, on_delete=models.CASCADE)
-    width = models.IntegerField()
-    deg = models.IntegerField()
-    top = models.IntegerField()
-    left = models.IntegerField()
+    width = models.CharField(max_length=20)
+    deg = models.CharField(max_length=20)
+    top = models.CharField(max_length=20)
+    left = models.CharField(max_length=20)

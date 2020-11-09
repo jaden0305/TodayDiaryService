@@ -3,6 +3,7 @@
 		<img
 			v-if="
 				!day.post &&
+					todayYear === day.year &&
 					(toDay === day.day || toDay - 1 === day.day) &&
 					todayMonth === day.month
 			"
@@ -104,6 +105,7 @@ export default {
 		year: Number,
 		toDay: Number,
 		todayMonth: Number,
+		todayYear: Number,
 		nowDay: Date,
 		weekWidth: Number,
 	},

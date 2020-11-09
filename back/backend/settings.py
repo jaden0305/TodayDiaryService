@@ -31,22 +31,13 @@ with open(os.path.join(BASE_DIR,'settings.json'), 'r') as f:
 SECRET_KEY = setting["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = setting["DEBUG"]
 
-ALLOWED_HOSTS = [
-        'localhost',
-        '127.0.0.1',
-        ]
-
-CORS_ORIGIN_WHITELIST = [
-    'https://k3d104.p.ssafy.io',
-    'https://k3d104.p.ssafy.io:8000',
-    'https://k3d104.p.ssafy.io:8001',
-    'https://k3d104.p.ssafy.io:8002',
-    'http://127.0.0.1'
-    ]
-
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+ALLOWED_HOSTS = ['*']
+
 # Application definition
 
 # 2621440 -> 2.5MB
@@ -110,10 +101,10 @@ REST_FRAMEWORK = {
 # drf yasg setting
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
-         'DRF Token': {
-               'type': 'apiKey',
-               'name': 'Authorization',
-               'in': 'header'
+        'DRF Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
         }
     }
 }
@@ -177,15 +168,18 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': setting['DATABASE_ENGINE'],
-        'NAME': setting['DATABASE_NAME'],
-        'USER': setting['DATABASE_USER'],
-        'PASSWORD': setting['DATABASE_PASSWORD'],
-        'DATABASE_HOST': setting['DATABASE_HOST'],
-        'DATABASE_PORT': setting['DATABASE_PORT'],
-        'OPTIONS': {
-            'charset': 'utf8mb4',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+
+CACHES = {  
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     }
 }
@@ -236,15 +230,31 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = "accounts.User"
 
 
-if DEBUG:
-    CORS_ORIGIN_ALLOW_ALL = True
-    CORS_ALLOW_ALL_ORIGINS = True
-    ALLOWED_HOSTS = ['*']
+if not DEBUG:
+    CORS_ORIGIN_WHITELIST = [
+    'https://k3d104.p.ssafy.io',
+    'https://k3d104.p.ssafy.io:8000',
+    'https://k3d104.p.ssafy.io:8001',
+    'https://k3d104.p.ssafy.io:8002',
+    'http://127.0.0.1'
+    ]
+
+    ALLOWED_HOSTS = [
+        'localhost',
+        '127.0.0.1',
+        ]
 
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    'default': {
+        'ENGINE': setting['DATABASE_ENGINE'],
+        'NAME': setting['DATABASE_NAME'],
+        'USER': setting['DATABASE_USER'],
+        'PASSWORD': setting['DATABASE_PASSWORD'],
+        'DATABASE_HOST': setting['DATABASE_HOST'],
+        'DATABASE_PORT': setting['DATABASE_PORT'],
+        'OPTIONS': {
+            'charset': 'utf8mb4',
         }
     }
+}
     
