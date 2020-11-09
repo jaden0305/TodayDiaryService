@@ -200,13 +200,12 @@
 				></path>
 			</symbol>
 		</div>
-		<video-wrapper
-			class="player-video"
+		<youtube
+			:player-vars="playerVars"
+			:video-id="currentTrack.videoId"
 			ref="player"
-			:player="'youtube'"
-			:videoId="currentTrack.videoId"
 			@ended="nextTrack"
-		/>
+		></youtube>
 	</div>
 </template>
 
@@ -248,6 +247,14 @@ export default {
 					favorited: false,
 				},
 			],
+			playerVars: {
+				autoplay: 0,
+				playsinline: 1,
+				controls: 0,
+				autohide: 1,
+				wmode: 'opaque',
+				origin: 'http://localhost:8080',
+			},
 			currentTrack: null,
 			currentTrackIndex: 0,
 			transitionName: null,
