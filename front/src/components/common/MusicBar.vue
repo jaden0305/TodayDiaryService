@@ -1,14 +1,17 @@
 <template>
-	<div class="wrapper">
-		<div class="player__comment">
-			<p>오늘 하루를 음악으로 마무리 하는 건 어때요?</p>
-		</div>
-		<div class="player">
-			<div class="player__title">
+	<div class="toast" :class="toastAnimationClass">
+		<youtube
+			:player-vars="playerVars"
+			:video-id="currentTrack.videoId"
+			ref="player"
+			@ended="nextTrack"
+		></youtube>
+		<div class="player slide-out-bottom" v-if="currentTrack">
+			<div class="player__title" v-hammer:swipe.down="swipeDown">
 				플레이어<img
-					class="player-swap"
-					src="@/assets/images/list-bullets.svg"
-					@click="showSwap"
+					class="player-swap__back"
+					src="@/assets/images/x.svg"
+					@click="closePlayer"
 				/>
 			</div>
 			<div class="player__top">
@@ -17,10 +20,7 @@
 						<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
 						<div
 							class="player-cover__item"
-							v-if="$index === currentTrackIndex"
-							:style="{ backgroundImage: `url(${track.cover})` }"
-							v-for="(track, $index) in tracks"
-							:key="$index"
+							:style="{ backgroundImage: `url(${currentTrack.cover})` }"
 						></div>
 					</section>
 				</div>
@@ -43,16 +43,6 @@
 							<use xlink:href="#icon-link"></use>
 						</svg>
 					</a>
-					<div class="player-controls__item" @click="prevTrack">
-						<svg class="icon">
-							<use xlink:href="#icon-prev"></use>
-						</svg>
-					</div>
-					<div class="player-controls__item" @click="nextTrack">
-						<svg class="icon">
-							<use xlink:href="#icon-next"></use>
-						</svg>
-					</div>
 					<div class="player-controls__item -xl js-play" @click="play">
 						<i class="player-font icon ion-md-play" v-if="!isTimerPlaying"></i>
 						<div class="player-font" v-else>
@@ -65,84 +55,6 @@
 						<div class="album-info" v-if="currentTrack">
 							<div class="album-info__name">{{ currentTrack.artist }}</div>
 							<div class="album-info__track">{{ currentTrack.name }}</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="player-back-container">
-				<div class="back-wrap">
-					<div class="back-header">
-						재생목록<img
-							class="player-swap__back"
-							src="@/assets/images/x.svg"
-							@click="hideSwap"
-						/>
-					</div>
-					<div class="back-playlist">
-						<div
-							class="back-song"
-							:class="[
-								$index === currentTrackIndex
-									? 'back-song__select'
-									: 'back-song__none',
-								$index === tracks.length - 1 ? 'back-song__last' : '',
-							]"
-							@click="selectTrack($index)"
-							v-for="(track, $index) in tracks"
-							:key="'B' + $index"
-						>
-							<div
-								class="back-song__img"
-								:style="{ backgroundImage: `url(${track.cover})` }"
-							></div>
-							<div class="back-song__info">
-								<span class="back-song__name">{{ track.name }}</span>
-								<span class="back-song__artist">{{ track.artist }}</span>
-							</div>
-						</div>
-					</div>
-					<div class="back-playbar">
-						<div
-							class="back-playbar__img"
-							:style="{ backgroundImage: `url(${currentTrack.cover})` }"
-						></div>
-						<div class="back-playbar__content">
-							<div class="back-playbar__info">
-								<span class="back-playbar__name">{{
-									currentTrack.name | truncate
-								}}</span>
-								<span class="back-playbar__artist">{{
-									currentTrack.artist | truncate
-								}}</span>
-							</div>
-							<div class="back-playbar__bar">
-								<img
-									@click="prevTrack"
-									class="back-playbar__button"
-									src="@/assets/images/previous.svg"
-									alt="이전버튼"
-								/>
-								<img
-									v-if="isTimerPlaying"
-									@click="play"
-									class="back-playbar__button"
-									src="@/assets/images/pause.svg"
-									alt="정지"
-								/>
-								<img
-									v-else
-									@click="play"
-									class="back-playbar__button"
-									src="@/assets/images/play.svg"
-									alt="재생"
-								/>
-								<img
-									@click="nextTrack"
-									class="back-playbar__button"
-									src="@/assets/images/next.svg"
-									alt="다음버튼"
-								/>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -181,44 +93,75 @@
 					d="M16 30.144c-0.32 0-0.64-0.096-0.896-0.256-7.296-4.576-15.104-10.048-15.104-17.344 0-7.008 4.576-10.688 9.12-10.688 2.656 0 5.152 1.216 6.88 3.392 1.728-2.144 4.224-3.392 6.88-3.392 4.544 0 9.12 3.68 9.12 10.688 0 7.296-7.808 12.768-15.104 17.344-0.256 0.16-0.576 0.256-0.896 0.256zM9.12 2.048c-4.448 0-8.928 3.616-8.928 10.496 0 7.168 7.744 12.64 15.008 17.152 0.48 0.288 1.12 0.288 1.568 0 7.264-4.544 15.008-9.984 15.008-17.152 0-6.88-4.48-10.496-8.928-10.496-2.656 0-5.088 1.216-6.816 3.392l-0.032 0.128-0.064-0.096c-1.696-2.176-4.192-3.424-6.816-3.424zM16 26.688l-0.064-0.032c-3.808-2.4-12.768-8.032-12.768-14.112 0-5.152 3.072-7.52 5.952-7.52 2.432 0 4.48 1.536 5.504 4.096 0.224 0.576 0.768 0.928 1.376 0.928s1.152-0.384 1.376-0.928c1.024-2.56 3.072-4.096 5.504-4.096 2.848 0 5.952 2.336 5.952 7.52 0 6.080-8.96 11.712-12.768 14.112l-0.064 0.032zM9.12 5.248c-2.752 0-5.728 2.304-5.728 7.328 0 5.952 8.8 11.488 12.608 13.92 3.808-2.4 12.608-7.968 12.608-13.92 0-5.024-2.976-7.328-5.728-7.328-2.336 0-4.32 1.472-5.312 3.968-0.256 0.64-0.864 1.056-1.568 1.056s-1.312-0.416-1.568-1.056c-0.992-2.496-2.976-3.968-5.312-3.968z"
 				></path>
 			</symbol>
-			<symbol id="icon-next" viewBox="0 0 32 32">
-				<title>next</title>
-				<path
-					d="M2.304 18.304h14.688l-4.608 4.576c-0.864 0.864-0.864 2.336 0 3.232 0.864 0.864 2.336 0.864 3.232 0l8.448-8.48c0.864-0.864 0.864-2.336 0-3.232l-8.448-8.448c-0.448-0.448-1.056-0.672-1.632-0.672s-1.184 0.224-1.632 0.672c-0.864 0.864-0.864 2.336 0 3.232l4.64 4.576h-14.688c-1.248 0-2.304 0.992-2.304 2.272s1.024 2.272 2.304 2.272z"
-				></path>
-				<path
-					d="M29.696 26.752c1.248 0 2.304-1.024 2.304-2.304v-16.928c0-1.248-1.024-2.304-2.304-2.304s-2.304 1.024-2.304 2.304v16.928c0.064 1.28 1.056 2.304 2.304 2.304z"
-				></path>
-			</symbol>
-			<symbol id="icon-prev" viewBox="0 0 32 32">
-				<title>prev</title>
-				<path
-					d="M29.696 13.696h-14.688l4.576-4.576c0.864-0.864 0.864-2.336 0-3.232-0.864-0.864-2.336-0.864-3.232 0l-8.448 8.48c-0.864 0.864-0.864 2.336 0 3.232l8.448 8.448c0.448 0.448 1.056 0.672 1.632 0.672s1.184-0.224 1.632-0.672c0.864-0.864 0.864-2.336 0-3.232l-4.608-4.576h14.688c1.248 0 2.304-1.024 2.304-2.304s-1.024-2.24-2.304-2.24z"
-				></path>
-				<path
-					d="M2.304 5.248c-1.248 0-2.304 1.024-2.304 2.304v16.928c0 1.248 1.024 2.304 2.304 2.304s2.304-1.024 2.304-2.304v-16.928c-0.064-1.28-1.056-2.304-2.304-2.304z"
-				></path>
-			</symbol>
 		</div>
-		<youtube
-			:player-vars="playerVars"
-			:video-id="currentTrack.videoId"
-			ref="player"
-			@ended="nextTrack"
-		></youtube>
+		<div
+			id="player-back-container"
+			class="player-back slide-in-top"
+			v-hammer:swipe.up="swipeUp"
+			v-if="currentTrack"
+		>
+			<div class="back-wrap">
+				<div class="back-playbar">
+					<div
+						v-hammer:tap="swipeUp"
+						class="back-playbar__img"
+						:style="{ backgroundImage: `url(${currentTrack.cover})` }"
+					></div>
+					<div class="back-playbar__content">
+						<div class="back-playbar__info" v-hammer:tap="swipeUp">
+							<span class="back-playbar__name">{{
+								currentTrack.name | truncate
+							}}</span>
+							<span class="back-playbar__artist">{{
+								currentTrack.artist | truncate
+							}}</span>
+						</div>
+						<div class="back-playbar__bar">
+							<img
+								v-if="isTimerPlaying"
+								@click="play"
+								class="back-playbar__button"
+								src="@/assets/images/pause.svg"
+								alt="정지"
+							/>
+							<img
+								v-else
+								@click="play"
+								class="back-playbar__button"
+								src="@/assets/images/play.svg"
+								alt="재생"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+import bus from '@/utils/bus';
 export default {
+	created() {
+		bus.$on('show:musicplayer', this.openMethod);
+		this.currentTrack = this.tracks[0];
+		for (let index = 0; index < this.tracks.length; index++) {
+			const element = this.tracks[index];
+			let link = document.createElement('link');
+			link.rel = 'prefetch';
+			link.href = element.cover;
+			link.as = 'image';
+			document.head.appendChild(link);
+		}
+	},
+	mounted() {},
+
+	beforeDestroy() {
+		bus.$off('show:musicplayer', this.openMethod);
+	},
 	data() {
 		return {
-			audio: null,
-			circleLeft: null,
-			barWidth: null,
-			duration: null,
-			currentTime: null,
-			isTimerPlaying: false,
+			open: false,
 			tracks: [
 				{
 					name: '야작시',
@@ -227,23 +170,6 @@ export default {
 						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
 					videoId: 'jXylepYfpk0',
 					url: 'https://youtu.be/26YwXUcUf4I',
-					favorited: false,
-				},
-				{
-					name: '블루밍',
-					artist: '아이유',
-					cover: 'https://i.ytimg.com/vi/D1PvIWdJ8xo/maxresdefault.jpg',
-					videoId: 'D1PvIWdJ8xo',
-					url: 'https://youtu.be/26YwXUcUf4I',
-					favorited: false,
-				},
-				{
-					name: '다른 사람을 사랑하고 있어',
-					artist: '수지',
-					cover:
-						'https://lh3.googleusercontent.com/proxy/VmPLIgf2H6ERjSNi-mtJHNXZ1csmrgEjUUmTRdT2PnouyxNaBOjAhs8lkoZyOm7aP2mXPS_Q5f21Fddh9LYGe-SA4mIyiFs6paOgFjbX2AzrdaubE6zvGyygXvQ-n9x9WKGTVQWy2QFqHcGIhJFZtyzZgngmcao-GBYBrpsf4oKTEsPSE6Nge-3DgvuPsrK4BTc8B0Kz31qTEyAXvoDwL8xXC3QIQMKafwp-4KyxBs0S_W2Lpy2Q6PgEPijUyzP3zNoT04YviIRFekIj7wQ_hB47KEOHP9NfTdqe-uSp1EezF1M8',
-					videoId: 'eQ3gXtX3U7I',
-					url: 'https://youtu.be/eQ3gXtX3U7I',
 					favorited: false,
 				},
 			],
@@ -255,23 +181,61 @@ export default {
 				wmode: 'opaque',
 				origin: 'http://localhost:8080',
 			},
+			isTimerPlaying: false,
 			currentTrack: null,
 			currentTrackIndex: 0,
-			transitionName: null,
 		};
 	},
-	methods: {
-		showSwap() {
-			const Container = document.querySelector('#player-back-container');
-			Container.classList.remove('slide-out-top');
-			Container.classList.add('slide-in-top');
-			Container.style.display = 'block';
+	computed: {
+		toastAnimationClass() {
+			return this.open ? null : 'none';
 		},
-		hideSwap() {
-			const Container = document.querySelector('#player-back-container');
-			Container.classList.remove('slide-in-top');
-			Container.classList.add('slide-out-top');
-			Container.style.display = 'none';
+	},
+	methods: {
+		favorite() {
+			this.tracks[this.currentTrackIndex].favorited = !this.tracks[
+				this.currentTrackIndex
+			].favorited;
+			this.currentTrack = this.tracks[this.currentTrackIndex];
+		},
+		swipeUp() {
+			const BAR = document.querySelector('.player-back');
+			const PLAYER = document.querySelector('.player');
+			// if (BAR.classList.contains('opacity-on')) {
+			// 	BAR.classList.remove('opacity-on');
+			// 	BAR.classList.add('opacity-off');
+			// 	PLAYER.classList.remove('opacity-off');
+			// 	PLAYER.classList.add('opacity-on');
+			// }
+			PLAYER.classList.remove('slide-out-bottom');
+			PLAYER.classList.add('slide-in-bottom');
+			PLAYER.style.display = 'block';
+			BAR.classList.remove('slide-in-top');
+			BAR.classList.add('slide-out-top');
+			BAR.style.display = 'none';
+		},
+		swipeDown() {
+			const BAR = document.querySelector('.player-back');
+			const PLAYER = document.querySelector('.player');
+			// if (!BAR.classList.contains('opacity-on')) {
+			// 	BAR.classList.add('opacity-on');
+			// 	BAR.classList.remove('opacity-off');
+			// 	PLAYER.classList.add('opacity-off');
+			// 	PLAYER.classList.remove('opacity-on');
+			// }
+			BAR.classList.remove('slide-out-top');
+			BAR.classList.add('slide-in-top');
+			BAR.style.display = 'block';
+			PLAYER.classList.remove('slide-in-bottom');
+			PLAYER.classList.add('slide-out-bottom');
+			PLAYER.style.display = 'none';
+		},
+		closePlayer() {
+			this.open = false;
+		},
+		openMethod(tracks) {
+			this.open = true;
+			this.tracks = tracks;
 		},
 		play() {
 			this.$refs.player.player.getPlayerState().then(response => {
@@ -289,33 +253,7 @@ export default {
 				}
 			});
 		},
-		selectTrack(index) {
-			this.currentTrackIndex = index;
-			this.currentTrack = this.tracks[this.currentTrackIndex];
-			// this.resetPlayer();
-			setTimeout(() => {
-				this.$refs.player.player.playVideo();
-				this.isTimerPlaying = true;
-			}, 300);
-		},
-		prevTrack() {
-			// this.transitionName = 'scale-in';
-			this.isShowCover = false;
-			if (this.currentTrackIndex > 0) {
-				this.currentTrackIndex--;
-			} else {
-				this.currentTrackIndex = this.tracks.length - 1;
-			}
-			this.currentTrack = this.tracks[this.currentTrackIndex];
-			setTimeout(() => {
-				this.$refs.player.player.playVideo();
-				this.isTimerPlaying = true;
-			}, 300);
-			// this.resetPlayer();
-		},
 		nextTrack() {
-			// this.transitionName = 'scale-out';
-			this.isShowCover = false;
 			if (this.currentTrackIndex < this.tracks.length - 1) {
 				this.currentTrackIndex++;
 			} else {
@@ -326,100 +264,44 @@ export default {
 				this.$refs.player.player.playVideo();
 				this.isTimerPlaying = true;
 			}, 300);
-			// this.resetPlayer();
 		},
-		resetPlayer() {
-			this.circleLeft = 0;
-			setTimeout(() => {
-				if (this.isTimerPlaying) {
-					// this.audio.play();
-					this.$refs.player.player.playVideo();
-				} else {
-					// this.audio.pause();
-					this.$refs.player.player.pauseVideo();
-				}
-			}, 300);
-		},
-		favorite() {
-			this.tracks[this.currentTrackIndex].favorited = !this.tracks[
-				this.currentTrackIndex
-			].favorited;
-		},
-	},
-	created() {
-		this.currentTrack = this.tracks[0];
-		// this is optional (for preload covers)
-		for (let index = 0; index < this.tracks.length; index++) {
-			const element = this.tracks[index];
-			let link = document.createElement('link');
-			link.rel = 'prefetch';
-			link.href = element.cover;
-			link.as = 'image';
-			document.head.appendChild(link);
-		}
 	},
 };
 </script>
 
-<style lang="scss">
-#player-back-container {
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
+<style lang="scss" scoped>
+.toast {
+	z-index: 100;
+	position: fixed;
+	width: 100%;
 	bottom: 0;
+	left: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transform: translateX(-50%);
+	transition: all 1s ease-in-out 0.1s;
+}
+.toast.none {
+	display: none !important;
+}
+#player-back-container {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
 	background: #f0f0f0;
 	z-index: 10;
-	display: none;
 	border-radius: 12px;
+	height: 80px;
 }
 .back-wrap {
-	position: relative;
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
-	.back-playlist {
-		width: 100%;
-		height: calc(100% - 70px);
-		overflow-y: scroll;
-		.back-song {
-			width: 100%;
-			height: 64px;
-			display: flex;
-			padding: 8px 0 8px;
-			border-bottom: 1px solid rgba(#71829e, 0.1);
-			.back-song__img {
-				width: 48px;
-				height: 48px;
-				background-repeat: no-repeat !important;
-				background-position: center !important;
-				background-size: cover !important;
-				border-radius: 3px;
-				margin-left: 1rem;
-			}
-			.back-song__info {
-				display: flex;
-				flex-direction: column;
-				justify-content: space-around;
-				margin-left: 1rem;
-				.back-song__name {
-					font-size: 1.1rem;
-					font-weight: 600;
-					margin-bottom: 4px;
-				}
-				.back-song__artist {
-					font-size: 0.8rem;
-					color: rgba(#71829e, 0.7);
-				}
-			}
-		}
-	}
 }
 .back-playbar {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
 	height: 80px;
 	background-color: rgb(240, 240, 240);
 	border-bottom-left-radius: 12px;
@@ -436,7 +318,7 @@ export default {
 		border-radius: 8px;
 		margin-left: 1.5rem;
 		@media (max-width: 320px) {
-			margin-left: 0.5rem;
+			margin-left: 0.5rem !important;
 		}
 	}
 	.back-playbar__content {
@@ -446,7 +328,7 @@ export default {
 		display: flex;
 		align-items: center;
 		@media (max-width: 320px) {
-			margin-left: 0.5rem;
+			margin-left: 0.7rem;
 		}
 		.back-playbar__info {
 			flex: 1;
@@ -472,13 +354,17 @@ export default {
 		.back-playbar__bar {
 			flex: 1;
 			margin-right: 0.5rem;
+			height: 100%;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			@media (max-width: 320px) {
+				flex: 0.7;
+			}
 		}
 		.back-playbar__button {
-			width: 2rem;
-			height: 2rem;
+			height: 100%;
+			box-sizing: border-box;
 			cursor: pointer;
 		}
 	}
@@ -502,7 +388,7 @@ export default {
 }
 .player__title {
 	text-align: center;
-	margin-bottom: 1rem;
+	margin-bottom: 1.5rem;
 	font-weight: 600;
 	font-size: 24px;
 	color: #71829e;
@@ -518,10 +404,10 @@ export default {
 }
 .player-swap__back {
 	position: absolute;
-	top: 20px;
-	right: 20px;
-	width: 30px;
-	height: 30px;
+	top: 0px;
+	right: 0px;
+	width: 25px;
+	height: 25px;
 	cursor: pointer;
 }
 .icon {
@@ -532,42 +418,30 @@ export default {
 	stroke: currentColor;
 	fill: currentColor;
 }
-
-.wrapper {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-	background-size: cover;
-	@media screen and (max-width: 700px), (max-height: 500px) {
-		flex-wrap: wrap;
-		flex-direction: column;
-	}
-	.player__comment {
-		margin: 50px 0 40px;
-	}
+.opacity-on {
+	opacity: 1;
+	/* visibility: visible; */
+}
+.opacity-off {
+	opacity: 0;
+	/* visibility: hidden; */
+	/* display: none; */
 }
 
 .player {
 	position: relative;
-	/* background: #eef3f7; */
+	display: none;
 	width: 410px;
-	/* min-height: 500px; */
-	height: 100%;
 	background: #f0f0f0;
+	box-shadow: 5px 5px 10px #e2e2e2, -5px -5px 10px #fefefe;
 	color: #71829e;
-	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	border-radius: 12px;
 	padding: 1.5rem;
-	margin-bottom: 1rem;
 	@media screen and (max-width: 576px), (max-height: 500px) {
-		width: 95%;
+		width: 100%;
 		padding: 20px;
-		/* min-height: initial; */
 		padding-bottom: 30px;
-		max-width: 400px;
+		max-width: 410px;
 	}
 	&__top {
 		display: flex;
@@ -584,12 +458,8 @@ export default {
 		margin-left: auto;
 		margin-right: auto;
 		flex-shrink: 0;
-		/* position: relative; */
 		z-index: 2;
 		border-radius: 15px;
-		// transform: perspective(512px) translate3d(0, 0, 0);
-		// transition: all .4s cubic-bezier(.125, .625, .125, .875);
-		z-index: 1;
 
 		@media screen and (max-width: 340px) {
 			width: 210px;
@@ -605,37 +475,6 @@ export default {
 			border-radius: 15px;
 			background: #f0f0f0;
 			box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
-			// 수정부분
-			/* position: absolute; */
-			/* left: 0; */
-			/* top: -100px; */
-			/* &:before {
-				content: '';
-				background: inherit;
-				width: 100%;
-				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-				display: block;
-				z-index: 1;
-				position: absolute;
-				top: 30px;
-				transform: scale(0.9);
-				filter: blur(10px);
-				opacity: 0.9;
-				border-radius: 15px;
-			} */
-
-			/* &:after {
-				content: '';
-				background: inherit;
-				width: 100%;
-				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-				display: block;
-				z-index: 2;
-				position: absolute;
-				border-radius: 15px;
-			} */
 		}
 
 		&__img {
@@ -726,8 +565,6 @@ export default {
 			&.-xl {
 				margin-bottom: 0;
 				font-size: 95px;
-				// filter: drop-shadow(0 2px 8px rgba(172, 184, 204, 0.3));
-				// filter: drop-shadow(0 9px 6px rgba(172, 184, 204, 0.35));
 				filter: drop-shadow(0 11px 6px rgba(172, 184, 204, 0.45));
 				color: #fff;
 				width: auto;
@@ -746,7 +583,7 @@ export default {
 
 			&.-favorite {
 				&.active {
-					color: red;
+					color: red !important;
 				}
 			}
 		}
@@ -784,10 +621,8 @@ export default {
 		font-size: 20px;
 		opacity: 0.7;
 		line-height: 1.3em;
-		/* min-height: 52px; */
 		@media screen and (max-width: 576px), (max-height: 500px) {
 			font-size: 18px;
-			/* min-height: 50px; */
 		}
 	}
 }
@@ -852,19 +687,19 @@ export default {
 	background: #f0f0f0;
 	box-shadow: inset 5px 5px 10px #d8d8d8, inset -5px -5px 10px #ffffff;
 }
-#embed-youtube-video-1 {
-	position: absolute;
-	top: -500vh;
-	left: -500vw;
-}
 .slide-in-top {
 	-webkit-animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 	animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+.slide-in-bottom {
+	-webkit-animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+		both;
+	animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
 @-webkit-keyframes slide-in-top {
 	0% {
-		-webkit-transform: translateY(-10px);
-		transform: translateY(-10px);
+		-webkit-transform: translateY(-50px);
+		transform: translateY(-50px);
 		opacity: 0;
 	}
 	100% {
@@ -875,8 +710,32 @@ export default {
 }
 @keyframes slide-in-top {
 	0% {
-		-webkit-transform: translateY(-10px);
-		transform: translateY(-10px);
+		-webkit-transform: translateY(-50px);
+		transform: translateY(-50px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes slide-in-bottom {
+	0% {
+		-webkit-transform: translateY(80px);
+		transform: translateY(80px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@keyframes slide-in-bottom {
+	0% {
+		-webkit-transform: translateY(80px);
+		transform: translateY(80px);
 		opacity: 0;
 	}
 	100% {
@@ -897,8 +756,8 @@ export default {
 		opacity: 1;
 	}
 	100% {
-		-webkit-transform: translateY(-10px);
-		transform: translateY(-10px);
+		-webkit-transform: translateY(-20px);
+		transform: translateY(-20px);
 		opacity: 0;
 	}
 }
@@ -909,8 +768,37 @@ export default {
 		opacity: 1;
 	}
 	100% {
-		-webkit-transform: translateY(-10px);
-		transform: translateY(-10px);
+		-webkit-transform: translateY(-20px);
+		transform: translateY(-20px);
+		opacity: 0;
+	}
+}
+.slide-out-bottom {
+	-webkit-animation: slide-out-bottom 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+		both;
+	animation: slide-out-bottom 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+@-webkit-keyframes slide-out-bottom {
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translateY(20px);
+		transform: translateY(20px);
+		opacity: 0;
+	}
+}
+@keyframes slide-out-top {
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translateY(20px);
+		transform: translateY(20px);
 		opacity: 0;
 	}
 }

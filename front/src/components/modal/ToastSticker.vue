@@ -3,20 +3,28 @@
 		<section class="toast-wrap">
 			<div class="toast-stickers">
 				<div class="toast-sticker__box">
-					<input
-						class="toast-sticker__input"
-						type="radio"
-						name="sticker"
-						id="toast-sticker__all"
-						value="all"
-						v-model="selectedSticker"
-					/>
-					<label class="toast-sticker__label" for="toast-sticker__all"
-						><div class="toast-sticker__indicator"></div>
-						<span class="toast-sticker__text">전체</span></label
-					>
+					<ul>
+						<li v-for="sticker in stickers" :key="sticker.id">
+							<input
+								class="toast-sticker__input"
+								type="radio"
+								name="sticker"
+								:id="`toast-sticker__${sticker.id}`"
+								:value="sticker"
+								v-model="selectedSticker"
+							/>
+							<label
+								class="toast-sticker__label"
+								:for="`toast-sticker__${sticker.id}`"
+								><div class="toast-sticker__indicator"></div>
+								<span class="toast-sticker__text">{{
+									sticker.name
+								}}</span></label
+							>
+						</li>
+					</ul>
 				</div>
-				<div class="toast-sticker__box">
+				<!-- <div class="toast-sticker__box">
 					<input
 						class="toast-sticker__input"
 						type="radio"
@@ -45,25 +53,47 @@
 							>도형</span
 						></label
 					>
-				</div>
+				</div> -->
 			</div>
 			<div class="toast-sticker">
 				<div class="toast-sticker__view">
-					<img
-						v-if="selectedSticker === 'all'"
-						src="@/assets/images/temp/1.jpg"
-						alt="all"
-					/>
-					<img
-						v-if="selectedSticker === 'animal'"
-						src="@/assets/images/temp/2.png"
-						alt="all"
-					/>
-					<img
-						v-if="selectedSticker === 'figure'"
-						src="@/assets/images/temp/3.jpg"
-						alt="all"
-					/>
+					<ul>
+						<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+						<li
+							v-if="sticker.name == selectedSticker.name"
+							v-for="sticker in stickers"
+							:key="sticker.id"
+						>
+							<ul class="toast-sticker-item__ul">
+								<li v-for="item in sticker.stickers" :key="item.id">
+									<label
+										:for="`toast-sticker__${item.id}`"
+										@click.prevent="submitSticker(item.path)"
+									>
+										<img
+											:src="`${setUrl}${item.path.replace('images', 'media')}`"
+											class="toast-sticker-item__image"
+											:alt="`${item.name}`"
+										/>
+									</label>
+									<input
+										type="radio"
+										name="sticker"
+										:id="`toast-sticker__${item.id}`"
+										:value="item.id"
+										hidden
+									/>
+									<!-- <img
+										:src="`${setUrl}${item.path.replace('images', 'media')}`"
+										@click.prevent="submitSticker"
+										class="toast-sticker-item__image"
+										:alt="`${item.name}`"
+										v-model="selectedItem"
+									/> -->
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<div class="toast-close">
@@ -76,10 +106,17 @@
 </template>
 
 <script>
+import { fetchStickers } from '@/api/diary';
 export default {
 	data() {
 		return {
-			selectedSticker: 'all',
+			stickers: [],
+			selectedSticker: {
+				id: 1,
+				name: '동물',
+				stickers: [],
+			},
+			selectedItem: null,
 		};
 	},
 	props: {
@@ -89,19 +126,43 @@ export default {
 		toastAnimationClass() {
 			return this.open ? null : 'none';
 		},
+		setUrl() {
+			return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}`;
+		},
 	},
 	methods: {
+		async onFetchStickers() {
+			const { data } = await fetchStickers();
+			this.stickers = data;
+			// this.stickers = data.slice(0, 3);
+			console.log(data);
+		},
 		closeSticker() {
 			this.$emit('close-sticker');
 		},
+		submitSticker(path) {
+			this.selectedItem = this.setUrl + path.replace('images', 'media');
+			this.$emit('submit-sticker', this.selectedItem);
+		},
+	},
+	created() {
+		this.onFetchStickers();
 	},
 };
 </script>
 
 <style lang="scss" scoped>
 .toast-sticker__view {
-	img {
-		width: 100px;
+	.toast-sticker-item__ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		margin-top: 20px;
+		.toast-sticker-item__image {
+			width: 70px;
+			max-height: 90px;
+			margin-top: 10px;
+		}
 	}
 }
 .toast-stickers {
@@ -110,6 +171,10 @@ export default {
 	align-items: center;
 }
 .toast-sticker__box {
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+	}
 }
 .toast-sticker__input {
 	position: absolute;

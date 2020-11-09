@@ -72,7 +72,7 @@ class CreatePostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     class Meta:
         model = Post
-        exclude = ('id', 'user', 'report', 'recommend_music', 'upload_music',)
+        exclude = ('id', 'user', 'report', 'upload_music',)
 
 
 class ReadPostSerializer(serializers.ModelSerializer):

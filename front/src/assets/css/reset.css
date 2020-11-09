@@ -65,3 +65,29 @@ table {
 	font-family: 'Poor Story';
 	box-sizing: border-box;
 }
+/* *::-webkit-scrollbar {
+	display: none;
+  } */
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+/* * {
+	-ms-overflow-style: none; 
+	scrollbar-width: none; 
+} */
+
+/* #embed-youtube-video-1 {
+	position: absolute !important;
+	top: -500vh !important;
+	left: -500vw !important;
+	width: 1px;
+	height: 1px;
+	visibility: hidden;
+} */
+iframe {
+	position: absolute !important;
+	top: -500vh !important;
+	left: -500vw !important;
+	width: 1px;
+	height: 1px;
+	visibility: hidden;
+}

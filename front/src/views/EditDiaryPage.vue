@@ -108,7 +108,7 @@ export default {
 					value: '#646464',
 				},
 				font: {
-					id: 4,
+					id: 1,
 					name: 'Poor Story',
 				},
 				pattern: {
@@ -133,7 +133,7 @@ export default {
 		},
 		contentImg() {
 			if (this.diaryData.image) {
-				return `${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
+				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
 			} else {
 				return `@/assets/images/logo3.png`;
 			}
@@ -190,7 +190,9 @@ export default {
 		onFetchPaper() {
 			const content = document.querySelector('.diary-text__content');
 
-			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
+			if (this.diaryData.pattern.path) {
+				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
+			}
 		},
 		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');

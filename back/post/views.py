@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
-
+from django.http import QueryDict
 from drf_yasg.utils import swagger_auto_schema
 
 from .models import *
@@ -76,9 +76,18 @@ class CreateDiary(APIView, DiaryMixin):
         if response.status_code == 201:
             response = json.loads(response.text)
 
+            emotion_id = response['emotion']['id']
+            recommend_music = RecommendMusic.objects.filter(emotion=emotion_id).order_by('?')[:1]
+
             report = get_object_or_404(DailyReport, pk=response['id'])
 
-            serializer = CreatePostSerializer(instance=get_object_or_404(Post, pk=p.id), data=request.data)
+            temp = request.data.dict()
+            temp['recommend_music'] = recommend_music[0].id
+
+            udpated_music = QueryDict('', mutable=True)
+            udpated_music.update(temp)
+
+            serializer = CreatePostSerializer(instance=get_object_or_404(Post, pk=p.id), data=udpated_music)
             serializer.is_valid(raise_exception=True)
 
             p = serializer.save(report=report)

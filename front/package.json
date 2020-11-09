@@ -14,7 +14,6 @@
     "chart.js": "^2.9.4",
     "chartkick": "^3.2.1",
     "core-js": "^3.6.5",
-    "mini-player": "^0.1.6",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
@@ -23,7 +22,8 @@
     "vue-kakao-login": "^1.0.5",
     "vue-router": "^3.2.0",
     "vue-styled-components": "^1.5.1",
-    "vue-video-wrapper": "^1.0.10",
+    "vue-youtube": "^1.4.0",
+    "vue2-hammer": "^2.1.2",
     "vuewordcloud": "^18.7.12",
     "vuex": "^3.4.0"
   },

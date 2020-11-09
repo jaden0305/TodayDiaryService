@@ -46,7 +46,7 @@ class RecommendMusic(models.Model):
     title = models.CharField(max_length=50)
     artist = models.CharField(max_length=30)
     video_id = models.CharField(max_length=20)
-    cover = models.TextField()
+    cover = models.TextField(blank=True, null=True)
     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='musics')
 
 

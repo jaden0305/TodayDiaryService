@@ -29,6 +29,7 @@
 				</ul>
 			</div>
 			<div class="diary-image">
+				<!-- <p>{{ diaryData }}</p> -->
 				<img class="diary-image__value" :src="contentImg" alt="일기사진" />
 			</div>
 			<div class="diary-text">
@@ -63,7 +64,7 @@ export default {
 		},
 		contentImg() {
 			if (this.diaryData.image) {
-				return `${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
+				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
 			} else {
 				return `@/assets/images/logo3.png`;
 			}
@@ -96,7 +97,9 @@ export default {
 		onFetchPaper() {
 			const content = document.querySelector('#diaryContent');
 
-			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
+			if (this.diaryData.pattern.path) {
+				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
+			}
 		},
 		onEditDiary() {
 			this.$router.push(`/diary/${this.diaryId}/edit`);
