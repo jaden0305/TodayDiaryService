@@ -26,6 +26,9 @@ export function fetchFonts() {
 export function fetchPapers() {
 	return diary.get(`/papers/`);
 }
+export function fetchStickers() {
+	return diary.get(`/sticker/all/`);
+}
 export function updateDiary(diaryData, diaryId) {
 	const formdata = new FormData();
 	if (diaryData.image) {
