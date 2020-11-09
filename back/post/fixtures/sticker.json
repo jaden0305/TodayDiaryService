@@ -1,0 +1,668 @@
+[
+  {
+    "id": 1,
+    "path": "images/emotion/animal/1.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 2,
+    "path": "images/emotion/animal/2.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 3,
+    "path": "images/emotion/animal/3.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 4,
+    "path": "images/emotion/animal/4.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 5,
+    "path": "images/emotion/animal/5.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 6,
+    "path": "images/emotion/animal/6.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 7,
+    "path": "images/emotion/animal/7.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 8,
+    "path": "images/emotion/animal/8.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 9,
+    "path": "images/emotion/animal/9.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 10,
+    "path": "images/emotion/animal/10.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 11,
+    "path": "images/emotion/animal/11.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 12,
+    "path": "images/emotion/animal/12.png",
+    "emotion_id": 8,
+    "tag_id": 1
+  },
+  {
+    "id": 13,
+    "path": "images/emotion/black/1.png",
+    "emotion_id": 8,
+    "tag_id": 2
+  },
+  {
+    "id": 14,
+    "path": "images/emotion/black/2.png",
+    "emotion_id": 8,
+    "tag_id": 2
+  },
+  {
+    "id": 15,
+    "path": "images/emotion/black/3.png",
+    "emotion_id": 8,
+    "tag_id": 2
+  },
+  {
+    "id": 16,
+    "path": "images/emotion/black/4.png",
+    "emotion_id": 8,
+    "tag_id": 2
+  },
+  {
+    "id": 17,
+    "path": "images/emotion/black/angry.png",
+    "emotion_id": 5,
+    "tag_id": 2
+  },
+  {
+    "id": 18,
+    "path": "images/emotion/black/angry2.png",
+    "emotion_id": 5,
+    "tag_id": 2
+  },
+  {
+    "id": 19,
+    "path": "images/emotion/black/boring.png",
+    "emotion_id": 4,
+    "tag_id": 2
+  },
+  {
+    "id": 20,
+    "path": "images/emotion/black/delight.png",
+    "emotion_id": 3,
+    "tag_id": 2
+  },
+  {
+    "id": 21,
+    "path": "images/emotion/black/happy.png",
+    "emotion_id": 1,
+    "tag_id": 2
+  },
+  {
+    "id": 22,
+    "path": "images/emotion/black/horror.png",
+    "emotion_id": 7,
+    "tag_id": 2
+  },
+  {
+    "id": 23,
+    "path": "images/emotion/black/sad.png",
+    "emotion_id": 2,
+    "tag_id": 2
+  },
+  {
+    "id": 24,
+    "path": "images/emotion/black/surprise.png",
+    "emotion_id": 6,
+    "tag_id": 2
+  },
+  {
+    "id": 25,
+    "path": "images/emotion/cat/1.png",
+    "emotion_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 26,
+    "path": "images/emotion/cat/2.png",
+    "emotion_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 27,
+    "path": "images/emotion/cat/3.png",
+    "emotion_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 28,
+    "path": "images/emotion/cat/4.png",
+    "emotion_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 29,
+    "path": "images/emotion/cat/5.png",
+    "emotion_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 30,
+    "path": "images/emotion/cat/6.png",
+    "emotion_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 31,
+    "path": "images/emotion/cat/7.png",
+    "emotion_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 32,
+    "path": "images/emotion/cat/8.png",
+    "emotion_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 33,
+    "path": "images/emotion/cat/9.png",
+    "emotion_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 34,
+    "path": "images/emotion/face/1.png",
+    "emotion_id": 8,
+    "tag_id": 4
+  },
+  {
+    "id": 35,
+    "path": "images/emotion/face/2.png",
+    "emotion_id": 8,
+    "tag_id": 4
+  },
+  {
+    "id": 36,
+    "path": "images/emotion/face/3.png",
+    "emotion_id": 8,
+    "tag_id": 4
+  },
+  {
+    "id": 37,
+    "path": "images/emotion/face/angry.png",
+    "emotion_id": 5,
+    "tag_id": 4
+  },
+  {
+    "id": 38,
+    "path": "images/emotion/face/boring.png",
+    "emotion_id": 4,
+    "tag_id": 4
+  },
+  {
+    "id": 39,
+    "path": "images/emotion/face/delight.png",
+    "emotion_id": 3,
+    "tag_id": 4
+  },
+  {
+    "id": 40,
+    "path": "images/emotion/face/happy.png",
+    "emotion_id": 1,
+    "tag_id": 4
+  },
+  {
+    "id": 41,
+    "path": "images/emotion/face/happy2.png",
+    "emotion_id": 1,
+    "tag_id": 4
+  },
+  {
+    "id": 42,
+    "path": "images/emotion/face/horror.png",
+    "emotion_id": 7,
+    "tag_id": 4
+  },
+  {
+    "id": 43,
+    "path": "images/emotion/face/sad.png",
+    "emotion_id": 2,
+    "tag_id": 4
+  },
+  {
+    "id": 44,
+    "path": "images/emotion/face/sad2.png",
+    "emotion_id": 2,
+    "tag_id": 4
+  },
+  {
+    "id": 45,
+    "path": "images/emotion/face/surprise.png",
+    "emotion_id": 6,
+    "tag_id": 4
+  },
+  {
+    "id": 46,
+    "path": "images/emotion/fruit/1.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 47,
+    "path": "images/emotion/fruit/2.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 48,
+    "path": "images/emotion/fruit/3.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 49,
+    "path": "images/emotion/fruit/4.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 50,
+    "path": "images/emotion/fruit/5.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 51,
+    "path": "images/emotion/fruit/6.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 52,
+    "path": "images/emotion/fruit/7.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 53,
+    "path": "images/emotion/fruit/8.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 54,
+    "path": "images/emotion/fruit/9.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 55,
+    "path": "images/emotion/fruit/10.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 56,
+    "path": "images/emotion/fruit/11.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 57,
+    "path": "images/emotion/fruit/12.png",
+    "emotion_id": 8,
+    "tag_id": 5
+  },
+  {
+    "id": 58,
+    "path": "images/emotion/moon/1.png",
+    "emotion_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 59,
+    "path": "images/emotion/moon/2.png",
+    "emotion_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 60,
+    "path": "images/emotion/moon/3.png",
+    "emotion_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 61,
+    "path": "images/emotion/moon/4.png",
+    "emotion_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 62,
+    "path": "images/emotion/moon/5.png",
+    "emotion_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 63,
+    "path": "images/emotion/moon/6.png",
+    "emotion_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 64,
+    "path": "images/emotion/moon/7.png",
+    "emotion_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 65,
+    "path": "images/emotion/moon/8.png",
+    "emotion_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 66,
+    "path": "images/emotion/moon/9.png",
+    "emotion_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 67,
+    "path": "images/emotion/sun/1.png",
+    "emotion_id": 8,
+    "tag_id": 7
+  },
+  {
+    "id": 68,
+    "path": "images/emotion/sun/2.png",
+    "emotion_id": 8,
+    "tag_id": 7
+  },
+  {
+    "id": 69,
+    "path": "images/emotion/sun/3.png",
+    "emotion_id": 8,
+    "tag_id": 7
+  },
+  {
+    "id": 70,
+    "path": "images/emotion/sun/4.png",
+    "emotion_id": 8,
+    "tag_id": 7
+  },
+  {
+    "id": 71,
+    "path": "images/emotion/sun/5.png",
+    "emotion_id": 8,
+    "tag_id": 7
+  },
+  {
+    "id": 72,
+    "path": "images/emotion/sun/6.png",
+    "emotion_id": 8,
+    "tag_id": 7
+  },
+  {
+    "id": 73,
+    "path": "images/emotion/sun/7.png",
+    "emotion_id": 8,
+    "tag_id": 7
+  },
+  {
+    "id": 74,
+    "path": "images/emotion/sun/8.png",
+    "emotion_id": 8,
+    "tag_id": 7
+  },
+  {
+    "id": 75,
+    "path": "images/emotion/sun/9.png",
+    "emotion_id": 8,
+    "tag_id": 7
+  },
+  {
+    "id": 76,
+    "path": "images/emotion/tablet/1.png",
+    "emotion_id": 8,
+    "tag_id": 8
+  },
+  {
+    "id": 77,
+    "path": "images/emotion/tablet/2.png",
+    "emotion_id": 8,
+    "tag_id": 8
+  },
+  {
+    "id": 78,
+    "path": "images/emotion/tablet/3.png",
+    "emotion_id": 8,
+    "tag_id": 8
+  },
+  {
+    "id": 79,
+    "path": "images/emotion/tablet/4.png",
+    "emotion_id": 8,
+    "tag_id": 8
+  },
+  {
+    "id": 80,
+    "path": "images/emotion/tablet/5.png",
+    "emotion_id": 8,
+    "tag_id": 8
+  },
+  {
+    "id": 81,
+    "path": "images/emotion/tablet/delight.png",
+    "emotion_id": 3,
+    "tag_id": 8
+  },
+  {
+    "id": 82,
+    "path": "images/emotion/tablet/happy.png",
+    "emotion_id": 1,
+    "tag_id": 8
+  },
+  {
+    "id": 83,
+    "path": "images/emotion/tablet/happy2.png",
+    "emotion_id": 1,
+    "tag_id": 8
+  },
+  {
+    "id": 84,
+    "path": "images/emotion/tablet/horror.png",
+    "emotion_id": 7,
+    "tag_id": 8
+  },
+  {
+    "id": 85,
+    "path": "images/emotion/tablet/sad.png",
+    "emotion_id": 2,
+    "tag_id": 8
+  },
+  {
+    "id": 86,
+    "path": "images/emotion/tablet/surprise.png",
+    "emotion_id": 6,
+    "tag_id": 8
+  },
+  {
+    "id": 87,
+    "path": "images/emotion/tablet/surprise2.png",
+    "emotion_id": 6,
+    "tag_id": 8
+  },
+  {
+    "id": 88,
+    "path": "images/emotion/weather/1.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 89,
+    "path": "images/emotion/weather/2.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 90,
+    "path": "images/emotion/weather/3.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 91,
+    "path": "images/emotion/weather/4.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 92,
+    "path": "images/emotion/weather/5.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 93,
+    "path": "images/emotion/weather/6.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 94,
+    "path": "images/emotion/weather/7.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 95,
+    "path": "images/emotion/weather/8.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 96,
+    "path": "images/emotion/weather/9.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 97,
+    "path": "images/emotion/weather/10.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 98,
+    "path": "images/emotion/weather/11.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 99,
+    "path": "images/emotion/weather/12.png",
+    "emotion_id": 8,
+    "tag_id": 9
+  },
+  {
+    "id": 100,
+    "path": "images/emotion/whiteman/1.png",
+    "emotion_id": 8,
+    "tag_id": 10
+  },
+  {
+    "id": 101,
+    "path": "images/emotion/whiteman/2.png",
+    "emotion_id": 8,
+    "tag_id": 10
+  },
+  {
+    "id": 102,
+    "path": "images/emotion/whiteman/3.png",
+    "emotion_id": 8,
+    "tag_id": 10
+  },
+  {
+    "id": 103,
+    "path": "images/emotion/whiteman/4.png",
+    "emotion_id": 8,
+    "tag_id": 10
+  },
+  {
+    "id": 104,
+    "path": "images/emotion/whiteman/5.png",
+    "emotion_id": 8,
+    "tag_id": 10
+  },
+  {
+    "id": 105,
+    "path": "images/emotion/whiteman/angry.png",
+    "emotion_id": 5,
+    "tag_id": 10
+  },
+  {
+    "id": 106,
+    "path": "images/emotion/whiteman/boring.png",
+    "emotion_id": 4,
+    "tag_id": 10
+  },
+  {
+    "id": 107,
+    "path": "images/emotion/whiteman/delight.png",
+    "emotion_id": 3,
+    "tag_id": 10
+  },
+  {
+    "id": 108,
+    "path": "images/emotion/whiteman/happy.png",
+    "emotion_id": 1,
+    "tag_id": 10
+  },
+  {
+    "id": 109,
+    "path": "images/emotion/whiteman/horror.png",
+    "emotion_id": 7,
+    "tag_id": 10
+  },
+  {
+    "id": 110,
+    "path": "images/emotion/whiteman/sad.png",
+    "emotion_id": 2,
+    "tag_id": 10
+  },
+  {
+    "id": 111,
+    "path": "images/emotion/whiteman/sad2.png",
+    "emotion_id": 2,
+    "tag_id": 10
+  }
+]
