@@ -150,9 +150,13 @@ export default {
 			bus.$emit('show:musicModal', '추천 음악입니다:)');
 		},
 		openStickerModal() {
-			this.openMusic = false;
-			this.openSticker = true;
-			this.openTheme = false;
+			if (this.diaryData.image) {
+				this.openMusic = false;
+				this.openSticker = true;
+				this.openTheme = false;
+			} else {
+				console.log('이미지를 추가해야 스티커를 사용할 수 있어요:(');
+			}
 			bus.$emit('show:stickerModal', '스티커입니다:)');
 		},
 		openThemeModal() {
@@ -165,6 +169,7 @@ export default {
 			const imageWrap = document.querySelector('.diary-image');
 			const imageElem = document.createElement('img');
 			imageElem.src = selctedStickerPath;
+			imageElem.classList.add('diary-image__sticker');
 			imageWrap.appendChild(imageElem);
 
 			this.openSticker = false;
@@ -263,6 +268,7 @@ export default {
 		height: 28vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
+		position: relative;
 		.diary-image__value {
 			width: 100%;
 			object-fit: cover;
@@ -285,6 +291,12 @@ export default {
 			padding: 0;
 			overflow: hidden;
 			border: 0;
+		}
+		.diary-image__sticker {
+			width: 50px;
+			position: absolute;
+			top: 0;
+			left: 0;
 		}
 	}
 	.diary-text {
