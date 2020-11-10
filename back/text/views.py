@@ -11,11 +11,11 @@ from django.core.cache import cache
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
-
+from django.http import JsonResponse
 from drf_yasg.utils import swagger_auto_schema
 
 from .analysis.analysis import TextAnalysis
-from post.models import Post, Emotion
+from post.models import Post, Emotion, RecommendMusic
 from .serializers import *
 
 
@@ -85,21 +85,19 @@ def statistics(request):
     result['user_emotion'] = result['emotion'] = EmotionSerializer(instance=emotion).data
     return Response(result, status=status.HTTP_201_CREATED)
 
-@swagger_auto_schema(methods=['patch'], query_serializer=SelectEmotionSerializer)
-@api_view(['PATCH'])
+@swagger_auto_schema(methods=['get'], query_serializer=SelectEmotionSerializer)
+@api_view(['GET'])
 def select(request):
-    post_id = request.GET.get('post_id')
     emotion = request.GET.get('emotion')
-    report = get_object_or_404(DailyReport, post_id=post_id)
-
+    emotion = get_object_or_404(Emotion, pk=emotion)
+    recommend_music = RecommendMusic.objects.filter(emotion=emotion.id).order_by('?')[:1]
+    
     data = {
-        'user_emotion': emotion
+        'emotion': emotion.id,
+        'recommend_music': recommend_music[0].id
     }
-    serializer = UserSelectEmotionSerializer(instance=report, data=data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save()
 
-    return Response(serializer.data)
+    return Response(data, status=status.HTTP_200_OK)
 
 @swagger_auto_schema(methods=['get'], query_serializer=WeeklyDateSerializer)
 @api_view(['GET'])
