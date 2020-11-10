@@ -35,3 +35,9 @@ class MonthlyDateSerializer(serializers.Serializer):
 class SelectEmotionSerializer(serializers.Serializer):
     post_id = serializers.IntegerField()
     emotion = serializers.IntegerField()
+
+
+class DiaryAnalysisSerializer(serializers.Serializer):
+    title = serializers.CharField()
+    content = serializers.CharField()
+    stickers = serializers.CharField()
