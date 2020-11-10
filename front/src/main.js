@@ -10,7 +10,9 @@ import Chartkick from 'chartkick';
 import VueChartkick from 'vue-chartkick';
 import { VueHammer } from 'vue2-hammer';
 import VueYoutube from 'vue-youtube';
+import VueKonva from 'vue-konva';
 
+Vue.use(VueKonva);
 Vue.use(VueYoutube);
 Vue.use(VueHammer);
 Vue.use(VueChartkick, { Chartkick });
