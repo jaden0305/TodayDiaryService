@@ -1,6 +1,7 @@
 import pandas
 import calendar
 import datetime
+import json
 
 from redis import Redis
 
@@ -25,6 +26,21 @@ redis_host = Redis('127.0.0.1', socket_connect_timeout=1)
 
 def redis_check():
     return redis_host.ping()
+
+@swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
+@api_view(['POST'])
+def analyze(request):
+    title = request.data.get('title')
+    text = request.data.get('content')
+    stickers = json.loads(request.data.get('stickers', '[]'))
+    data = {
+        'title': title,
+        'text': text,
+        'stickers': stickers
+    }
+    ta = TextAnalysis(data)
+    result = ta.text_analysis()
+    return Response(result, status=status.HTTP_200_OK)
 
 @swagger_auto_schema()
 @api_view(['POST'])
