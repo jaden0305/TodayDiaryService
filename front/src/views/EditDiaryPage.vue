@@ -12,7 +12,7 @@
 				<ul class="diary-header__func">
 					<li>
 						<img
-							src="@/assets/images/pencil.svg"
+							src="@/assets/images/text.svg"
 							alt="편집"
 							@click="openThemeModal"
 						/>
@@ -35,7 +35,11 @@
 			</div>
 			<ToastMusic :open="openMusic" @close-music="openMusic = false" />
 			<ToastSticker :open="openSticker" @close-sticker="openSticker = false" />
-			<ToastTheme :open="openTheme" @close-theme="openTheme = false" />
+			<ToastTheme
+				:open="openTheme"
+				@submit-theme="setTheme"
+				@close-theme="openTheme = false"
+			/>
 			<div class="diary-image">
 				<img
 					class="diary-image__value"
@@ -99,10 +103,18 @@ export default {
 				fontsize: 14,
 				music_name: null,
 				music_artist: null,
-				postcolor: 1,
-				font: 1,
-				pattern: 1,
-				emotion: 1,
+				postcolor: {
+					id: 1,
+					value: '#646464',
+				},
+				font: {
+					id: 1,
+					name: 'Poor Story',
+				},
+				pattern: {
+					id: 1,
+					path: 'media/paper/1.png',
+				},
 				created: '2020-10-27',
 			},
 		};
@@ -121,7 +133,7 @@ export default {
 		},
 		contentImg() {
 			if (this.diaryData.image) {
-				return `${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
+				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
 			} else {
 				return `@/assets/images/logo3.png`;
 			}
@@ -168,6 +180,33 @@ export default {
 				console.log(error.response);
 			}
 		},
+		onFetchFont() {
+			const title = document.querySelector('#diary-header__title');
+			const content = document.querySelector('.diary-text__content');
+
+			title.style.fontFamily = this.diaryData.font.name;
+			content.style.fontFamily = this.diaryData.font.name;
+		},
+		onFetchPaper() {
+			const content = document.querySelector('.diary-text__content');
+
+			if (this.diaryData.pattern.path) {
+				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
+			}
+		},
+		setTheme(selectedFont, selectedPaper) {
+			const title = document.querySelector('#diary-header__title');
+			const content = document.querySelector('.diary-text__content');
+
+			title.style.fontFamily = selectedFont.name;
+			content.style.fontFamily = selectedFont.name;
+			content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${selectedPaper.path}) center`;
+
+			this.diaryData.font = selectedFont;
+			this.diaryData.pattern = selectedPaper;
+
+			this.openTheme = false;
+		},
 		async onSaveDiary() {
 			try {
 				const { data } = await updateDiary(this.diaryData, this.diaryId);
@@ -180,6 +219,10 @@ export default {
 	},
 	created() {
 		this.onfetchDiary();
+	},
+	updated() {
+		this.onFetchFont();
+		this.onFetchPaper();
 	},
 };
 </script>
@@ -225,7 +268,7 @@ export default {
 			padding-bottom: 5px;
 			border: none;
 			border-bottom: 1px solid rgba(151, 151, 151, 0.5);
-			background: #f0f0f0;
+			background: var(--default-color);
 		}
 	}
 	.diary-image {
@@ -271,16 +314,16 @@ export default {
 			background-attachment: local;
 			background-image: linear-gradient(
 					to right,
-					#f0f0f0 10px,
+					var(--default-color) 10px,
 					transparent 10px
 				),
-				linear-gradient(to left, #f0f0f0 10px, transparent 10px),
+				linear-gradient(to left, var(--default-color) 10px, transparent 10px),
 				repeating-linear-gradient(
-					#f0f0f0,
-					#f0f0f0 30px,
+					var(--default-color),
+					var(--default-color) 30px,
 					#ccc 30px,
 					#ccc 31px,
-					#f0f0f0 31px
+					var(--default-color) 31px
 				);
 		}
 	}
@@ -291,7 +334,7 @@ export default {
 		border: none;
 		color: rgba(53, 53, 53, 1);
 		border-radius: 20px;
-		background: #f0f0f0;
+		background: var(--default-color);
 		box-shadow: 5px 5px 9px #cccccc, -5px -5px 9px #ffffff;
 	}
 }
