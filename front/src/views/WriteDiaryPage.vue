@@ -56,6 +56,33 @@
 					:src="diaryImageUrl"
 					alt="일기사진"
 				/>
+				<v-stage
+					v-if="diaryImageUrl"
+					class="diary-image__stickerBg"
+					ref="stage"
+					:config="stageSize"
+					@mousedown="handleStageMouseDown"
+					@touchstart="handleStageMouseDown"
+				>
+					<v-layer ref="layer">
+						<v-image
+							:config="{
+								image: image,
+								rotation: imageObject.rotation,
+								x: imageObject.x,
+								y: imageObject.y,
+								width: imageObject.width,
+								height: imageObject.height,
+								scaleX: imageObject.scaleX,
+								scaleY: imageObject.scaleY,
+								name: 'img',
+								draggable: true,
+							}"
+							@transformend="handleTransformEnd"
+						/>
+						<v-transformer ref="transformer" />
+					</v-layer>
+				</v-stage>
 				<label for="diary-image__input" v-if="diaryImageFile">
 					<img
 						src="@/assets/images/photos.svg"
@@ -92,6 +119,12 @@ import ToastMusic from '@/components/modal/ToastMusic.vue';
 import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
 import { createDiary } from '@/api/diary';
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+// const width = document.querySelector('.diary-image').clientWidth;
+// const height = document.querySelector('.diary-image').clientHeight;
+
 export default {
 	data() {
 		return {
@@ -122,6 +155,24 @@ export default {
 				},
 				created: '2020-11-03',
 			},
+			stageSize: {
+				width: width,
+				height: height,
+			},
+			image: null,
+			imageObject: {
+				image: this.image,
+				rotation: 0,
+				x: 50,
+				y: 50,
+				width: 100,
+				height: 100,
+				scaleX: 1,
+				scaleY: 1,
+				name: 'img',
+				draggable: true,
+			},
+			selectedShapeName: '',
 		};
 	},
 	components: {
@@ -150,9 +201,13 @@ export default {
 			bus.$emit('show:musicModal', '추천 음악입니다:)');
 		},
 		openStickerModal() {
-			this.openMusic = false;
-			this.openSticker = true;
-			this.openTheme = false;
+			if (this.diaryData.image) {
+				this.openMusic = false;
+				this.openSticker = true;
+				this.openTheme = false;
+			} else {
+				console.log('이미지를 추가해야 스티커를 사용할 수 있어요:(');
+			}
 			bus.$emit('show:stickerModal', '스티커입니다:)');
 		},
 		openThemeModal() {
@@ -164,8 +219,19 @@ export default {
 		setSticker(selctedStickerPath) {
 			const imageWrap = document.querySelector('.diary-image');
 			const imageElem = document.createElement('img');
-			imageElem.src = selctedStickerPath;
-			imageWrap.appendChild(imageElem);
+			const imageLength = imageWrap.getElementsByTagName('img').length;
+
+			if (imageLength < 4) {
+				imageElem.src = selctedStickerPath;
+				imageElem.classList.add('diary-image__sticker');
+				// imageWrap.appendChild(imageElem);
+				imageElem.onload = () => {
+					// set image only when it is loaded
+					this.image = imageElem;
+				};
+			} else {
+				console.log('스티커는 3개까지 넣을 수 있어요');
+			}
 
 			this.openSticker = false;
 		},
@@ -208,6 +274,66 @@ export default {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
 			}
+		},
+		handleTransformEnd(e) {
+			// shape is transformed, let us save new attrs back to the node
+			// find element in our state
+
+			const imgElem = this.imageObject;
+			console.log('rotation', e.target.rotation());
+			console.log('x', e.target.x());
+
+			// update the state
+			imgElem.x = e.target.x();
+			imgElem.y = e.target.y();
+			imgElem.rotation = e.target.rotation();
+		},
+		handleStageMouseDown(e) {
+			// clicked on stage - clear selection
+			if (e.target === e.target.getStage()) {
+				this.selectedShapeName = '';
+				this.updateTransformer();
+				return;
+			}
+
+			// clicked on transformer - do nothing
+			const clickedOnTransformer =
+				e.target.getParent().className === 'Transformer';
+			if (clickedOnTransformer) {
+				return;
+			}
+
+			// find clicked rect by its name
+			const name = e.target.name();
+
+			const imgElem = this.image;
+			if (imgElem) {
+				this.selectedShapeName = name;
+			} else {
+				this.selectedShapeName = '';
+			}
+			this.updateTransformer();
+		},
+		updateTransformer() {
+			// here we need to manually attach or detach Transformer node
+			const transformerNode = this.$refs.transformer.getNode();
+			const stage = transformerNode.getStage();
+			const { selectedShapeName } = this;
+
+			const selectedNode = stage.findOne('.' + selectedShapeName);
+			// do nothing if selected node is already attached
+			if (selectedNode === transformerNode.node()) {
+				return;
+			}
+
+			if (selectedNode) {
+				// attach to another node
+				transformerNode.nodes([selectedNode]);
+			} else {
+				// remove transformer
+				transformerNode.nodes([]);
+			}
+			transformerNode.getLayer().batchDraw();
 		},
 	},
 };
@@ -263,6 +389,22 @@ export default {
 		height: 28vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
+		position: relative;
+		.konvajs-content {
+			width: 300px !important;
+			height: 200px !important;
+		}
+		canvas {
+			width: 300px !important;
+			height: 200px !important;
+		}
+		.diary-image__stickerBg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
 		.diary-image__value {
 			width: 100%;
 			object-fit: cover;
@@ -270,6 +412,7 @@ export default {
 		label {
 			display: flex;
 			justify-content: center;
+			width: 100%;
 			&:hover {
 				cursor: pointer;
 			}
@@ -285,6 +428,12 @@ export default {
 			padding: 0;
 			overflow: hidden;
 			border: 0;
+		}
+		.diary-image__sticker {
+			width: 50px;
+			position: absolute;
+			top: 0;
+			left: 0;
 		}
 	}
 	.diary-text {
