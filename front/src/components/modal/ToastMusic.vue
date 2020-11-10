@@ -6,6 +6,8 @@
 					class="toast-search__input"
 					placeholder="음악을 검색하세요"
 					type="text"
+					v-model="searchMusic"
+					@keypress.enter="searchYoutube"
 				/>
 				<button class="toast-search__btn">
 					<img src="@/assets/images/search.svg" alt="" />
@@ -13,14 +15,21 @@
 			</div>
 			<div class="toast-musics">
 				<ol>
-					<li class="toast-musics__item">DON'T TOUCH ME</li>
-					<li class="toast-musics__item">취기를 빌려</li>
+					<li
+						:key="i"
+						v-for="(music, i) in musicList"
+						@click="musicSelect(music)"
+						class="toast-musics__item"
+					>
+						{{ music.snippet.title | musicTruncate }}
+					</li>
+					<!-- <li class="toast-musics__item">취기를 빌려</li>
 					<li class="toast-musics__item">오래된 노래</li>
 					<li class="toast-musics__item">힘든 건 사랑이 아니다</li>
 					<li class="toast-musics__item">DON'T TOUCH ME</li>
 					<li class="toast-musics__item">힘든 건 사랑이 아니다</li>
 					<li class="toast-musics__item">취기를 빌려</li>
-					<li class="toast-musics__item">오래된 노래</li>
+					<li class="toast-musics__item">오래된 노래</li> -->
 				</ol>
 			</div>
 			<div class="toast-close">
@@ -34,9 +43,23 @@
 </template>
 
 <script>
+import { youtubeSearch } from '@/api/youtube';
 export default {
 	props: {
 		open: Boolean,
+	},
+	data() {
+		return {
+			searchMusic: '',
+			musicList: [],
+			selectMusic: {
+				name: null,
+				artist: null,
+				cover: null,
+				videoId: null,
+				emotion: 8,
+			},
+		};
 	},
 	computed: {
 		toastAnimationClass() {
@@ -45,6 +68,21 @@ export default {
 	},
 	methods: {
 		closeMusic() {
+			this.$emit('close-music');
+		},
+		async searchYoutube() {
+			const { data } = await youtubeSearch(this.searchMusic);
+			console.log(data);
+			this.musicList = data.items;
+		},
+		musicSelect(music) {
+			this.selectMusic.name = music.snippet.title;
+			this.selectMusic.artist = null;
+			this.selectMusic.cover = music.snippet.thumbnails.high.url;
+			this.selectMusic.videoId = music.id.videoId;
+			this.selectMusic.emotion = 8;
+			// this.searchMusic.favorited = false;
+			this.$emit('selectMusic', this.selectMusic);
 			this.$emit('close-music');
 		},
 	},
