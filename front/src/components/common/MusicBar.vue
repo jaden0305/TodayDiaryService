@@ -304,8 +304,8 @@ export default {
 .back-playbar {
 	height: 80px;
 	background-color: rgb(240, 240, 240);
-	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
+	// border-bottom-left-radius: 12px;
+	// border-bottom-right-radius: 12px;
 	box-shadow: 6px 6px 5px #c7c7c7, -6px -6px 5px #ffffff;
 	padding: 10px 0 10px;
 	display: flex;

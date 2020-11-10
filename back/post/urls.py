@@ -11,7 +11,7 @@ urlpatterns = [
     path('<int:post_id>/', views.diary.as_view(), name='diary'),
     path('', views.CreateDiary.as_view(), name='create_diary'), 
     
-    path('sticker/all', views.get_all_sticker),
+    path('sticker/all/', views.get_all_sticker),
 
     path('maketest/', views.make_test),
 ]

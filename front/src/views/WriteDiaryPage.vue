@@ -38,8 +38,16 @@
 					</li>
 				</ul>
 			</div>
-			<ToastMusic :open="openMusic" @close-music="openMusic = false" />
-			<ToastSticker :open="openSticker" @close-sticker="openSticker = false" />
+			<ToastMusic
+				:open="openMusic"
+				@close-music="openMusic = false"
+				@selectMusic="selectMusic"
+			/>
+			<ToastSticker
+				:open="openSticker"
+				@submit-sticker="setSticker"
+				@close-sticker="openSticker = false"
+			/>
 			<ToastTheme
 				:open="openTheme"
 				@submit-theme="setTheme"
@@ -102,8 +110,7 @@ export default {
 				title: null,
 				content: null,
 				fontsize: 14,
-				music_name: null,
-				music_artist: null,
+				music: null,
 				postcolor: {
 					id: 1,
 					value: '#646464',
@@ -157,12 +164,21 @@ export default {
 			this.openTheme = true;
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
+		setSticker(selctedStickerPath) {
+			const imageWrap = document.querySelector('.diary-image');
+			const imageElem = document.createElement('img');
+			imageElem.src = selctedStickerPath;
+			imageWrap.appendChild(imageElem);
+
+			this.openSticker = false;
+		},
 		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');
 			const content = document.querySelector('.diary-text__content');
 
 			title.style.fontFamily = selectedFont.name;
 			content.style.fontFamily = selectedFont.name;
+			console.log('read', selectedPaper.path);
 			if (selectedPaper.path) {
 				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${selectedPaper.path}) center`;
 			} else {
@@ -184,11 +200,15 @@ export default {
 
 			this.diaryData.font = selectedFont;
 			this.diaryData.pattern = selectedPaper;
-
 			this.openTheme = false;
+		},
+		selectMusic(music) {
+			console.log(music);
+			this.diaryData.music = music;
 		},
 		async onSaveDiary() {
 			try {
+				this.diaryData.created = this.$route.query.day;
 				const { data } = await createDiary(this.diaryData);
 				this.$router.push(`/diary/${data.id}`);
 			} catch (error) {

@@ -57,8 +57,6 @@ class CalendarView(APIView):
 
         start = datetime.date(start_year, start_month, start_day)
         end = datetime.date(end_year, end_month, end_day)
-        print('start', start_year, start_month, start_day)
-        print('end', end_year, end_month, end_day)
 
         return start, end
 
