@@ -24,6 +24,7 @@ class UserSelectEmotionSerializer(serializers.ModelSerializer):
 class WeeklyDateSerializer(serializers.Serializer):
     start = serializers.DateField()
     end = serializers.DateField()
+    today = serializers.DateField()
 
 
 class MonthlyDateSerializer(serializers.Serializer):

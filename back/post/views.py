@@ -39,8 +39,9 @@ class CreateDiary(APIView, DiaryMixin):
 
     POST_EXCLUDES = ('image', 'stickers')
 
-    def analyze(self, user, text, date, post_id):
+    def analyze(self, user, title, text, date, post_id):
         payload = {
+            'title': title,
             'user': user,
             'text': text,
             'date': date,
@@ -54,6 +55,12 @@ class CreateDiary(APIView, DiaryMixin):
     # [{"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
+        date = request.data['created']
+        if Post.objects.filter(created=date, user=request.user).exists():
+            msg = {
+                'detail': '해당 날짜에 쓴 글이 존재합니다.'
+            }
+            return Response(msg, status=status.HTTP_400_BAD_REQUEST)
         stickers = json.loads(request.data.get('stickers', '[]'))
 
         data = copy.copy(request.data)
@@ -70,9 +77,9 @@ class CreateDiary(APIView, DiaryMixin):
         p = serializer.save(user=request.user)
 
         text = request.data['content']
-        date = request.data['created']
+        title = request.data['title']
 
-        response = self.analyze(request.user.id, text, date, p.id)
+        response = self.analyze(request.user.id, title, text, date, p.id)
         if response.status_code == 201:
             response = json.loads(response.text)
 
@@ -82,6 +89,7 @@ class CreateDiary(APIView, DiaryMixin):
             report = get_object_or_404(DailyReport, pk=response['id'])
 
             temp = request.data.dict()
+    
             temp['recommend_music'] = recommend_music[0].id
 
             udpated_music = QueryDict('', mutable=True)

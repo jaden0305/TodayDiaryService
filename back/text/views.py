@@ -1,5 +1,8 @@
 import pandas
 import calendar
+import datetime
+
+from redis import Redis
 
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
@@ -18,16 +21,22 @@ from .serializers import *
 
 User = get_user_model()
 
+redis_host = Redis('127.0.0.1', socket_connect_timeout=1)
+
+def redis_check():
+    return redis_host.ping()
+
 @swagger_auto_schema()
 @api_view(['POST'])
 def statistics(request):
+    print(request.data)
     user = int(request.data['user'])
     text = request.data['text']
     date = request.data['date']
     post_id = request.data['post_id']
     post = get_object_or_404(Post, pk=post_id)
 
-    ta = TextAnalysis(text)
+    ta = TextAnalysis(request.data)
 
     result = ta.text_analysis()
 
@@ -97,6 +106,26 @@ def select(request):
 def weekly(request):
     start = request.GET.get('start')
     end = request.GET.get('end')
+    today = request.GET.get('today')
+
+    start_year, start_month, start_day = map(int, start.split('-'))
+    today_year, today_month, today_day = map(int, today.split('-'))
+    
+    today_date = datetime.date(today_year, today_month, today_day)
+    start_date = datetime.date(start_year, start_month, start_day)
+    date_delta = today_date - start_date
+    is_before_week = date_delta > datetime.timedelta(days=6)
+    cache_key = f'w-u{request.user.id}-s{start_year}{start_month}{start_day}'
+    
+    # redis_check() 연결 되는지 확인
+    # is_before_week 요청 결과가 이번주 전 인가??
+    if redis_check() and is_before_week:
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            print('cache gotten')
+            return Response(cached_data, status=status.HTTP_200_OK)
+        
+    cache.delete(cache_key)
 
     dt_index = pandas.date_range(start=start, end=end)
 
@@ -120,7 +149,7 @@ def weekly(request):
     for key, value in temp.items():
         wc_list.append([key, value[0], value[1]])
     
-    # score data
+    # score data`
     for date in dt_list:
         for qdate in daily_report_serializer.data:
             if date == qdate['date']:
@@ -128,6 +157,10 @@ def weekly(request):
                 break
         else:
             graph_list.append({})
+        
+    result = {'score': graph_list, 'wordcloud': wc_list}
+    cache.set(cache_key, result, 3600)
+    print('cache_set')
     
     return Response({'score': graph_list, 'wordcloud': wc_list})
 
@@ -191,7 +224,9 @@ def total(request):
 @swagger_auto_schema()
 @api_view(['GET'])
 def redistest(request):
-    cache.set('test', 1)
-    print(cache.get('test'))
+    print(redis_host.ping())
+    print(cache.get('asdfasdf'))
+    cache.set('test', {'test': 1})
+    print(cache.get('test'), type(cache.get('test')))
     cache.set('test2', 2)
     print(cache.get('test2'))
