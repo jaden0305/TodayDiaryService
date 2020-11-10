@@ -29,11 +29,14 @@ class TextAnalysis:
     # def __init__(self, text):
     #     self.text = text
     def __init__(self, data):
-        self.content = data['content']
-        self.title = data['title']        
-        self.emotions = [
-            sticker['emotion']['name'] for sticker in data['stickers']
-        ]
+        print(data)
+        self.content = data['text']
+        self.title = data['title']
+        self.emotions = []
+        if data.get('stickers'):
+            self.emotions = [
+                sticker['emotion']['name'] for sticker in data['stickers']
+            ]
 
     @classmethod
     def decompose(cls, ls):
