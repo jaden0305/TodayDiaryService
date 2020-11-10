@@ -24,6 +24,7 @@ class UserSelectEmotionSerializer(serializers.ModelSerializer):
 class WeeklyDateSerializer(serializers.Serializer):
     start = serializers.DateField()
     end = serializers.DateField()
+    today = serializers.DateField()
 
 
 class MonthlyDateSerializer(serializers.Serializer):
@@ -32,5 +33,5 @@ class MonthlyDateSerializer(serializers.Serializer):
 
 
 class SelectEmotionSerializer(serializers.Serializer):
-    post_id = serializers.IntegerField()
+    # post_id = serializers.IntegerField()
     emotion = serializers.IntegerField()

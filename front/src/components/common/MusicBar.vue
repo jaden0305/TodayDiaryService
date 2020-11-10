@@ -1,18 +1,13 @@
 <template>
 	<div class="toast" :class="toastAnimationClass">
-		<video-wrapper
-			class="player-video"
+		<youtube
+			:player-vars="playerVars"
+			:video-id="currentTrack.videoId"
 			ref="player"
-			:player="'youtube'"
-			:videoId="currentTrack.videoId"
 			@ended="nextTrack"
-		/>
+		></youtube>
 		<div class="player slide-out-bottom" v-if="currentTrack">
-			<div
-				class="player__title"
-				v-hammer:swipe.down="swipeDown"
-				v-hammer:tap="swipeDown"
-			>
+			<div class="player__title" v-hammer:swipe.down="swipeDown">
 				플레이어<img
 					class="player-swap__back"
 					src="@/assets/images/x.svg"
@@ -103,17 +98,17 @@
 			id="player-back-container"
 			class="player-back slide-in-top"
 			v-hammer:swipe.up="swipeUp"
-			v-hammer:tap="swipeUp"
 			v-if="currentTrack"
 		>
 			<div class="back-wrap">
 				<div class="back-playbar">
 					<div
+						v-hammer:tap="swipeUp"
 						class="back-playbar__img"
 						:style="{ backgroundImage: `url(${currentTrack.cover})` }"
 					></div>
 					<div class="back-playbar__content">
-						<div class="back-playbar__info">
+						<div class="back-playbar__info" v-hammer:tap="swipeUp">
 							<span class="back-playbar__name">{{
 								currentTrack.name | truncate
 							}}</span>
@@ -178,7 +173,14 @@ export default {
 					favorited: false,
 				},
 			],
-
+			playerVars: {
+				autoplay: 0,
+				playsinline: 1,
+				controls: 0,
+				autohide: 1,
+				wmode: 'opaque',
+				origin: 'http://localhost:8080',
+			},
 			isTimerPlaying: false,
 			currentTrack: null,
 			currentTrackIndex: 0,

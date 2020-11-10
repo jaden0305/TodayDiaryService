@@ -8,10 +8,13 @@ import VueCookies from 'vue-cookies';
 import { filterMonth, truncate } from '@/utils/filters';
 import Chartkick from 'chartkick';
 import VueChartkick from 'vue-chartkick';
-import VueVideoWrapper from 'vue-video-wrapper';
 import { VueHammer } from 'vue2-hammer';
+import VueYoutube from 'vue-youtube';
+import VueKonva from 'vue-konva';
+
+Vue.use(VueKonva);
+Vue.use(VueYoutube);
 Vue.use(VueHammer);
-Vue.use(VueVideoWrapper);
 Vue.use(VueChartkick, { Chartkick });
 Vue.use(VueCookies);
 Vue.$cookies.config('6h');
