@@ -2,13 +2,10 @@
 	<div class="report-wrap">
 		<div class="report-header">
 			<div class="report-btnbox">
-				<button @click="selectChart(0)" class="report-btn">
-					전체
-				</button>
-				<button @click="selectChart(1)" class="report-btn select">
+				<button @click="selectChart(0)" class="report-btn select">
 					주별
 				</button>
-				<button @click="selectChart(2)" class="report-btn">
+				<button @click="selectChart(1)" class="report-btn">
 					월별
 				</button>
 			</div>
@@ -90,10 +87,10 @@ export default {
 			endString: null,
 			weekcnt: 0,
 			words: [
-				['romance', 300, 1],
-				['magic', 200, 0],
-				['fantasy', 100, -1],
-				['adventure', 150, 1],
+				// ['romance', 300, 1],
+				// ['magic', 200, 0],
+				// ['fantasy', 100, -1],
+				// ['adventure', 150, 1],
 			],
 			chartLoading: false,
 			chartData: {
@@ -284,14 +281,6 @@ export default {
 
 			switch (num) {
 				case 0:
-					if (!selectBox.classList.contains('display-none')) {
-						selectBox.classList.add('display-none');
-					}
-					if (!selectWeekBox.classList.contains('display-none')) {
-						selectWeekBox.classList.add('display-none');
-					}
-					break;
-				case 1:
 					if (selectWeekBox.classList.contains('display-none')) {
 						selectWeekBox.classList.remove('display-none');
 					}
@@ -323,7 +312,7 @@ export default {
 					this.fetchWeek(start, end);
 					bus.$emit('lineUpdate');
 					break;
-				case 2:
+				case 1:
 					if (!selectWeekBox.classList.contains('display-none')) {
 						selectWeekBox.classList.add('display-none');
 					}

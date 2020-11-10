@@ -38,7 +38,11 @@
 					</li>
 				</ul>
 			</div>
-			<ToastMusic :open="openMusic" @close-music="openMusic = false" />
+			<ToastMusic
+				:open="openMusic"
+				@close-music="openMusic = false"
+				@selectMusic="selectMusic"
+			/>
 			<ToastSticker
 				:open="openSticker"
 				@submit-sticker="setSticker"
@@ -106,8 +110,7 @@ export default {
 				title: null,
 				content: null,
 				fontsize: 14,
-				music_name: null,
-				music_artist: null,
+				music: null,
 				postcolor: {
 					id: 1,
 					value: '#646464',
@@ -197,11 +200,15 @@ export default {
 
 			this.diaryData.font = selectedFont;
 			this.diaryData.pattern = selectedPaper;
-
 			this.openTheme = false;
+		},
+		selectMusic(music) {
+			console.log(music);
+			this.diaryData.music = music;
 		},
 		async onSaveDiary() {
 			try {
+				this.diaryData.created = this.$route.query.day;
 				const { data } = await createDiary(this.diaryData);
 				this.$router.push(`/diary/${data.id}`);
 			} catch (error) {
