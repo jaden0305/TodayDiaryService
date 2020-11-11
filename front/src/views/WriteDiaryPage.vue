@@ -38,7 +38,11 @@
 					</li>
 				</ul>
 			</div>
-			<ToastMusic :open="openMusic" @close-music="openMusic = false" />
+			<ToastMusic
+				:open="openMusic"
+				@close-music="openMusic = false"
+				@selectMusic="selectMusic"
+			/>
 			<ToastSticker
 				:open="openSticker"
 				@submit-sticker="setSticker"
@@ -108,9 +112,10 @@
 					v-model="diaryData.content"
 				></textarea>
 			</div>
-			<button class="diary-complete-btn" @click="onSaveDiary">
-				오늘 하루 기록할게요
+			<button class="diary-complete-btn" @click="openSaveModal">
+				오늘 감정 알아볼래요
 			</button>
+			<ToastSave :open="openSave" @close-theme="openSave = false" />
 		</div>
 	</section>
 </template>
@@ -120,7 +125,7 @@ import bus from '@/utils/bus';
 import ToastMusic from '@/components/modal/ToastMusic.vue';
 import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
-import { createDiary } from '@/api/diary';
+import ToastSave from '@/components/modal/ToastSave.vue';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -136,13 +141,13 @@ export default {
 			openMusic: false,
 			openSticker: false,
 			openTheme: false,
+			openSave: false,
 			diaryData: {
 				image: null,
 				title: null,
 				content: null,
 				fontsize: 14,
-				music_name: null,
-				music_artist: null,
+				music: null,
 				postcolor: {
 					id: 1,
 					value: '#646464',
@@ -209,6 +214,7 @@ export default {
 		ToastMusic,
 		ToastSticker,
 		ToastTheme,
+		ToastSave,
 	},
 	methods: {
 		onChangeDiaryImage() {
@@ -245,6 +251,9 @@ export default {
 			this.openSticker = false;
 			this.openTheme = true;
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
+		},
+		openSaveModal() {
+			this.openSave = true;
 		},
 		setSticker(selctedStickerPath) {
 			const imageWrap = document.querySelector('.diary-image');
@@ -299,17 +308,21 @@ export default {
 
 			this.diaryData.font = selectedFont;
 			this.diaryData.pattern = selectedPaper;
-
 			this.openTheme = false;
 		},
 		async onSaveDiary() {
 			try {
-				const { data } = await createDiary(this.diaryData);
-				this.$router.push(`/diary/${data.id}`);
+				this.diaryData.created = this.$route.query.day;
+				// 감정이랑 곡정보 요청 받아서 저장 => diaryData
+				// diaryData를 props로 넘겨줌
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
 			}
+		},
+		selectMusic(music) {
+			console.log(music);
+			this.diaryData.music = music;
 		},
 		handleTransformEnd(e) {
 			// shape is transformed, let us save new attrs back to the node

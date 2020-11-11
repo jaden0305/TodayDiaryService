@@ -169,21 +169,21 @@ class TextAnalysis:
         out_title = self.mecab.nouns(self.title)
         out += out_title
         word_counts = Counter(out)
-        print(word_counts)
+        # print(word_counts)
 
-        # 단어 빈도 수 시각화(가로 막대 그래프)
-        mode = word_counts.most_common(1)
-        ln = mode[0][1]
+        # # 단어 빈도 수 시각화(가로 막대 그래프)
+        # mode = word_counts.most_common(1)
+        # ln = mode[0][1]
 
-        plt.rcParams["font.family"] = 'NanumSquare_ac'
+        # plt.rcParams["font.family"] = 'NanumSquare_ac'
 
-        data = pd.Series(word_counts)
-        word_freq = data.sort_index()
-        word_freq.sort_values().plot(figsize=(8,6), kind='barh', grid=True, title='단어별 빈도 수')
-        plt.xlabel('빈도 수')
-        plt.ylabel('단어')
-        plt.xticks(np.arange(0,ln, step=1))
-        plt.show()
+        # data = pd.Series(word_counts)
+        # word_freq = data.sort_index()
+        # word_freq.sort_values().plot(figsize=(8,6), kind='barh', grid=True, title='단어별 빈도 수')
+        # plt.xlabel('빈도 수')
+        # plt.ylabel('단어')
+        # plt.xticks(np.arange(0,ln, step=1))
+        # plt.show()
 
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
         
@@ -229,17 +229,17 @@ class TextAnalysis:
             if word in self.get_delight():
                 score += 2
                 cnt += 2
-                print('d',word)
+                # print('d',word)
                 feel['delight'] = feel.get('delight',0) + 1    
             elif word in self.get_happy():
                 score += 3
                 cnt += 3
-                print('h',word)
+                # print('h',word)
                 feel['happy'] = feel.get('happy',0) + 1    
             elif word in self.get_minus2():
                 score -= 2
                 cnt += 2
-                print('-2',word)
+                # print('-2',word)
                 if word in self.get_horror():
                     feel['horror'] = feel.get('horror',0) + 1    
                 elif word in self.get_angry():
@@ -249,7 +249,7 @@ class TextAnalysis:
             elif word in self.get_minus3():
                 score -= 3
                 cnt += 3
-                print('-3',word)
+                # print('-3',word)
                 if word in self.get_horror():
                     feel['horror'] = feel.get('horror',0) + 1    
                 elif word in self.get_angry():
@@ -273,17 +273,17 @@ class TextAnalysis:
             if word in self.get_delight():
                 score += 3
                 cnt += 3
-                print('d',word)
+                # print('d',word)
                 feel['delight'] = feel.get('delight',0) + 2    
             elif word in self.get_happy():
                 score += 4
                 cnt += 4
-                print('h',word)
+                # print('h',word)
                 feel['happy'] = feel.get('happy',0) + 2    
             elif word in self.get_minus2():
                 score -= 3
                 cnt += 3
-                print('-2',word)
+                # print('-2',word)
                 if word in self.get_horror():
                     feel['horror'] = feel.get('horror',0) + 2    
                 elif word in self.get_angry():
@@ -293,7 +293,7 @@ class TextAnalysis:
             elif word in self.get_minus3():
                 score -= 4
                 cnt += 4
-                print('-3',word)
+                # print('-3',word)
                 if word in self.get_horror():
                     feel['horror'] = feel.get('horror',0) + 2    
                 elif word in self.get_angry():
@@ -316,8 +316,8 @@ class TextAnalysis:
         for emotion in self.emotions:
             if emotion:
                 feel[emotion] = feel.get(emotion, 0) + 2    
-        print('p', p)
-        print('n', n)
+        # print('p', p)
+        # print('n', n)
 
         if cnt == 0:
             return cnt, feel
@@ -326,7 +326,7 @@ class TextAnalysis:
     def text_analysis(self):
         # 일일 감정점수
         score, feel = self.day_score()
-        print(score, feel)
+        # print(score, feel)
         # 일일 감정분류
         for key, value in feel.items():
             if score > 0:
@@ -338,10 +338,10 @@ class TextAnalysis:
         sorted_feel = sorted(feel.items(), key=lambda item:item[1], reverse=True)
         if len(sorted_feel) == 0:
             sorted_feel = [('boring', 0)]
-        print(sorted_feel)
+        # print(sorted_feel)
 
         word_count = self.count_words()
-        print(word_count)
+        # print(word_count)
         return {
             "score": score,
             "feel": sorted_feel,
