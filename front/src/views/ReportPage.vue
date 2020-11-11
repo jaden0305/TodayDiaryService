@@ -71,7 +71,6 @@
 <script src="https://unpkg.com/chance@1.1.6/dist/chance.min.js"></script>
 <script>
 import LineChart from '@/components/common/LineChart.vue';
-// import BarChart from '@/components/common/BarChart.vue';
 import bus from '@/utils/bus';
 import cookies from 'vue-cookies';
 import { fetchWeekReport, fetchMonthReport } from '@/api/report';
