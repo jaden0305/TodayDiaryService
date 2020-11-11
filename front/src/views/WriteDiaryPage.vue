@@ -127,11 +127,7 @@ import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
 import ToastSave from '@/components/modal/ToastSave.vue';
 
-const width = window.innerWidth;
-const height = window.innerHeight;
 let num = 1;
-// const width = document.querySelector('.diary-image').clientWidth;
-// const height = document.querySelector('.diary-image').clientHeight;
 
 export default {
 	data() {
@@ -165,8 +161,8 @@ export default {
 				created: '2020-11-03',
 			},
 			stageSize: {
-				width: width,
-				height: height,
+				width: 0,
+				height: 0,
 			},
 			image: [],
 			imageObjects: [],
@@ -291,6 +287,12 @@ export default {
 			this.diaryData.music = music;
 			this.diaryData.search = true;
 		},
+		resizeStage() {
+			const stageWrap = document.querySelector('.diary-image');
+
+			this.stageSize.width = stageWrap.clientWidth;
+			this.stageSize.height = stageWrap.clientHeight;
+		},
 		handleTransformEnd(e) {
 			// shape is transformed, let us save new attrs back to the node
 			// find element in our state
@@ -361,6 +363,9 @@ export default {
 			}
 			transformerNode.getLayer().batchDraw();
 		},
+	},
+	mounted() {
+		this.resizeStage();
 	},
 };
 </script>
