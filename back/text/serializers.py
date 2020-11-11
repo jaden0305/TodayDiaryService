@@ -40,3 +40,4 @@ class DiaryAnalysisSerializer(serializers.Serializer):
     title = serializers.CharField()
     content = serializers.CharField()
     stickers = serializers.CharField()
+    search = serializers.BooleanField()

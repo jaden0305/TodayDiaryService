@@ -18,6 +18,7 @@ from drf_yasg.utils import swagger_auto_schema
 from .analysis.analysis import TextAnalysis
 from post.models import Post, Emotion, RecommendMusic
 from .serializers import *
+from post.serializers import RecommandMusicSerializer
 
 
 User = get_user_model()
@@ -30,6 +31,8 @@ def redis_check():
 @swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
 @api_view(['POST'])
 def analyze(request):
+    print(1)
+    need_music = request.data.get('search')
     title = request.data.get('title')
     text = request.data.get('content')
     stickers = json.loads(request.data.get('stickers', '[]'))
@@ -40,17 +43,19 @@ def analyze(request):
     }
     ta = TextAnalysis(data)
     result = ta.text_analysis()
+    emotion = get_object_or_404(Emotion, name=result['feel'][0][0])
+    if need_music:
+        music = emotion.musics.order_by('?')[0]
+        result['music'] = RecommandMusicSerializer(instance=music).data
+    else:
+        music = None
+        result['music'] = music
     return Response(result, status=status.HTTP_200_OK)
 
-@swagger_auto_schema()
-@api_view(['POST'])
 def statistics(request):
-    print(request.data)
     user = int(request.data['user'])
     text = request.data['text']
     date = request.data['date']
-    post_id = request.data['post_id']
-    post = get_object_or_404(Post, pk=post_id)
 
     ta = TextAnalysis(request.data)
 
