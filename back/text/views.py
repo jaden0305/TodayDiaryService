@@ -8,6 +8,7 @@ from redis import Redis
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -31,8 +32,7 @@ def redis_check():
 @swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
 @api_view(['POST'])
 def analyze(request):
-    print(1)
-    need_music = request.data.get('search')
+    need_music = not request.data.get('search')
     title = request.data.get('title')
     text = request.data.get('content')
     stickers = json.loads(request.data.get('stickers', '[]'))
@@ -52,10 +52,12 @@ def analyze(request):
         result['music'] = music
     return Response(result, status=status.HTTP_200_OK)
 
+@api_view(['POST'])
 def statistics(request):
     user = int(request.data['user'])
     text = request.data['text']
     date = request.data['date']
+    post_id = request.data['post']
 
     ta = TextAnalysis(request.data)
 
@@ -85,10 +87,9 @@ def statistics(request):
     data = {
         'user': user,
         'date': date,
-        'user_emotion': emotion.id,
         'score': result['score'],
         'emotion': emotion.id,
-        'post': post.id,
+        'post': post_id,
     }
 
     daily_report_serializer = DailyReportSerializer(data=data)
@@ -96,14 +97,13 @@ def statistics(request):
     daily_report_serializer.save(
         user=get_object_or_404(User, pk=user),
         score=score,
-        post=post,
-        emotion=emotion,
-        user_emotion=emotion)
+        post=get_object_or_404(Post, pk=post_id),
+        emotion=emotion)
 
     result = {
         **daily_report_serializer.data
     }
-    result['user_emotion'] = result['emotion'] = EmotionSerializer(instance=emotion).data
+    result['emotion'] = EmotionSerializer(instance=emotion).data
     return Response(result, status=status.HTTP_201_CREATED)
 
 @swagger_auto_schema(methods=['get'], query_serializer=SelectEmotionSerializer)
