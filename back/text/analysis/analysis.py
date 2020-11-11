@@ -191,6 +191,9 @@ class TextAnalysis:
         out = self.mecab.nouns(self.content)
         out_title = self.mecab.nouns(self.title)
         out += out_title
+        for ch in out:
+            if ch in self.stopwords:
+                out.remove(ch)
         word_counts = Counter(out)
         
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
