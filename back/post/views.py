@@ -57,6 +57,7 @@ class CreateDiary(APIView, DiaryMixin):
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
         date = request.data['created']
+        stickers = json.loads(request.data.get('stickers', '[]'))
         if Post.objects.filter(created=date, user=request.user).exists():
             msg = {
                 'detail': '해당 날짜에 쓴 글이 존재합니다.'
@@ -68,6 +69,12 @@ class CreateDiary(APIView, DiaryMixin):
         image = request.data.get('image')
         search_music = request.data.get('search_music')
         recommend_music = request.data.get('recommend_music')
+        if not (search_music or recommend_music):
+            msg = {
+                'detail': '음악 정보가 존재하지 않습니다.'
+            }
+            return Response(msg, status=status.HTTP_400_BAD_REQUEST)
+            
         if image:
             del data['image']
             exclude_data['image'] = image
@@ -81,8 +88,9 @@ class CreateDiary(APIView, DiaryMixin):
         serializer = CreatePostSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         post = serializer.save(user=request.user)
+
+        self.create_sticker(stickers, post.id)
         response = self.analyze(request.user, data, post.id)
-        pprint(json.loads(response.text))
         response = json.loads(response.text)
 
         data['image'] = image
