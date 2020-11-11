@@ -1,79 +1,104 @@
 <template>
-	<section class="save-diary-wrap">
-		<div class="save-diary">
-			<p class="save-diary-comment">당신의 오늘 하루는</p>
-			<p class="save-diary-comment">행복이군요 :)</p>
-			<div class="save-diary-emotion">
-				<img src="@/assets/images/emotion/happy.png" alt="감정상태" />
+	<section class="toast" :class="toastAnimationClass">
+		<section class="toast-wrap">
+			<div class="save-diary">
+				<p class="save-diary-comment">당신의 오늘 하루는</p>
+				<p class="save-diary-comment">행복이군요 :)</p>
+				<p class="save-diary-comment">
+					"동방신기-행복"으로 마무리하는 건 어때요?
+				</p>
+				<div class="save-diary-emotion">
+					<img src="@/assets/images/emotion/happy.png" alt="감정상태" />
+				</div>
 			</div>
-			<button class="save-diary-nextBtn">
-				다음으로
-				<span class="save-diary-nextBtn__span"></span>
+			<button class="save-diary-change save-diary-btn" @click="onSaveDiary">
+				오늘 하루 기록할게요
 			</button>
-		</div>
-		<button class="save-diary-change" @click="onOpenEmotion">
-			아니에요:(
-		</button>
+			<button class="save-diary-change" @click="onOpenEmotion">
+				오늘 감정 더 살펴볼래요
+			</button>
 
-		<div id="mainMenu" class="mainMenuOverlay floating2">
-			<!-- <div class="navire floating3"></div> -->
-			<div class="itemMenuBox bills">
-				<img
-					src="@/assets/images/emotion/sad.png"
-					class="itemMenu "
-					alt="감정상태"
-				/>
+			<div id="mainMenu" class="mainMenuOverlay floating2">
+				<!-- <div class="navire floating3"></div> -->
+				<div class="itemMenuBox bills">
+					<img
+						src="@/assets/images/emotion/sad.png"
+						class="itemMenu "
+						alt="감정상태"
+					/>
+				</div>
+				<div class="itemMenuBox tarsheed">
+					<img
+						src="@/assets/images/emotion/smile.png"
+						class="itemMenu "
+						alt="감정상태"
+					/>
+				</div>
+				<div class="itemMenuBox employees">
+					<img
+						src="@/assets/images/emotion/boring.png"
+						class="itemMenu "
+						alt="감정상태"
+					/>
+				</div>
+				<div class="itemMenuBox location">
+					<img
+						src="@/assets/images/emotion/surprise.png"
+						class="itemMenu "
+						alt="감정상태"
+					/>
+				</div>
+				<div class="itemMenuBox eservices">
+					<img
+						src="@/assets/images/emotion/angry.png"
+						class="itemMenu "
+						alt="감정상태"
+					/>
+				</div>
+				<div class="itemMenuBox contact">
+					<img
+						src="@/assets/images/emotion/dislike.png"
+						class="itemMenu "
+						alt="감정상태"
+					/>
+				</div>
+				<a
+					href="javascript:void(0)"
+					class="toggleMenu floating"
+					@click="onCloseEmotion"
+					><img
+						src="@/assets/images/close2.svg"
+						class="emotion-close-btn"
+						alt="닫기버튼"
+				/></a>
 			</div>
-			<div class="itemMenuBox tarsheed">
-				<img
-					src="@/assets/images/emotion/smile.png"
-					class="itemMenu "
-					alt="감정상태"
-				/>
+			<div class="toast-close">
+				<button class="toast-close__btn" @click.prevent="closeTheme">
+					<img src="@/assets/images/delete.svg" alt="" />
+				</button>
 			</div>
-			<div class="itemMenuBox employees">
-				<img
-					src="@/assets/images/emotion/boring.png"
-					class="itemMenu "
-					alt="감정상태"
-				/>
-			</div>
-			<div class="itemMenuBox location">
-				<img
-					src="@/assets/images/emotion/surprise.png"
-					class="itemMenu "
-					alt="감정상태"
-				/>
-			</div>
-			<div class="itemMenuBox eservices">
-				<img
-					src="@/assets/images/emotion/angry.png"
-					class="itemMenu "
-					alt="감정상태"
-				/>
-			</div>
-			<div class="itemMenuBox contact">
-				<img
-					src="@/assets/images/emotion/dislike.png"
-					class="itemMenu "
-					alt="감정상태"
-				/>
-			</div>
-			<a
-				href="javascript:void(0)"
-				class="toggleMenu floating"
-				@click="onCloseEmotion"
-				><img
-					src="@/assets/images/close2.svg"
-					class="emotion-close-btn"
-					alt="닫기버튼"
-			/></a>
-		</div>
+		</section>
 	</section>
 </template>
 
 <script>
+import { createDiary } from '@/api/diary';
+
 export default {
+	data() {
+		return {};
+	},
+	props: {
+		open: Boolean,
+	},
+	computed: {
+		toastAnimationClass() {
+			return this.open ? null : 'none';
+		},
+		setUrl() {
+			return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}`;
+		},
+	},
 	methods: {
 		onOpenEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
@@ -83,45 +108,51 @@ export default {
 			const mainMenu = document.querySelector('#mainMenu');
 			mainMenu.classList.remove('open');
 		},
+		closeTheme() {
+			this.$emit('close-theme');
+		},
+		async onSaveDiary() {
+			try {
+				const { data } = await createDiary(this.diaryData);
+				this.$router.push(`/diary/${data.id}`);
+			} catch (error) {
+				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
+				console.log(error.response);
+			}
+		},
 	},
 };
 </script>
 
-<style lang="scss">
-.save-diary-wrap {
+<style lang="scss" scoped>
+.toast-save {
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	justify-content: space-between;
-	height: 80vh;
-	padding: 18px;
-	.save-diary {
-		margin-top: 8vh;
-		text-align: center;
-		.save-diary-comment {
-			margin-bottom: 13px;
-		}
-		.save-diary-emotion {
-			margin: 5vh;
-		}
-		.save-diary-nextBtn {
-			border: none;
-			background: none;
-			position: relative;
-			cursor: pointer;
-			.save-diary-nextBtn__span {
-				position: absolute;
-				bottom: -4px;
-				left: 0;
-				width: 100%;
-				height: 12px;
-				background: linear-gradient(to right, #9200b9 8%, #6c23c0 75%, #5600c7);
-				opacity: 0.5;
-			}
-		}
+}
+.save-diary {
+	margin-top: 8vh;
+	text-align: center;
+	.save-diary-comment {
+		margin-bottom: 13px;
+	}
+	.save-diary-emotion {
+		margin: 5vh;
 	}
 }
-
+.save-diary-change {
+	display: block;
+	margin: 20px auto;
+	width: 200px;
+	height: 40px;
+	border: none;
+	border-radius: 50px;
+	background: #f0f0f0;
+	box-shadow: inset 4px 4px 4px #e4e3e3, inset -4px -4px 4px #f7f7f7;
+}
+.save-diary-btn {
+	box-shadow: 7px 7px 15px #cccccc, -7px -7px 15px #ffffff;
+}
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200);
 // .navire {
 // 	background: url(https://res.cloudinary.com/dioieuprs/image/upload/v1471359656/navire_n02z6s.png)
