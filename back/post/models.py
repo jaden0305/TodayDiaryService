@@ -43,7 +43,7 @@ class Sticker(models.Model):
 
 
 class RecommendMusic(models.Model):
-    title = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     artist = models.CharField(max_length=30, blank=True, null=True)
     video_id = models.CharField(max_length=20)
     cover = models.TextField(blank=True, null=True)
@@ -64,7 +64,7 @@ class Post(models.Model):
 
 
 class SearchMusic(models.Model):
-    title = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     artist = models.CharField(max_length=30, blank=True, null=True)
     video_id = models.CharField(max_length=20)
     cover = models.TextField(blank=True, null=True)
@@ -76,6 +76,6 @@ class PostSticker(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='stickers')
     sticker = models.ForeignKey(Sticker, on_delete=models.CASCADE)
     width = models.CharField(max_length=20)
-    deg = models.CharField(max_length=20)
-    top = models.CharField(max_length=20)
-    left = models.CharField(max_length=20)
+    rotation = models.CharField(max_length=20)
+    y = models.CharField(max_length=20)
+    x = models.CharField(max_length=20)

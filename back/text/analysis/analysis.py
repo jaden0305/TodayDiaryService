@@ -34,6 +34,7 @@ class TextAnalysis:
         self.title = data['title']
         self.emotions = []
         if data.get('stickers'):
+            print(data['stickers'])
             self.emotions = [
                 sticker['emotion']['name'] for sticker in data['stickers']
             ]
@@ -316,7 +317,7 @@ class TextAnalysis:
 if __name__ == "__main__":
     data = {
         'title' : '다행이다.',
-        'content' : '''약도 아침/자기전으로 잘 챙겨먹고
+        'text' : '''약도 아침/자기전으로 잘 챙겨먹고
 
         옛날보다 더 몸이 건강해진것같다
 
@@ -337,4 +338,4 @@ if __name__ == "__main__":
     }
     a = TextAnalysis(data)
     # print(a)
-    a.text_analysis()
+    print(a.text_analysis())

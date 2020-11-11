@@ -74,7 +74,7 @@ class CreateDiary(APIView, DiaryMixin):
                 'detail': '음악 정보가 존재하지 않습니다.'
             }
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
-            
+
         if image:
             del data['image']
             exclude_data['image'] = image
@@ -128,35 +128,20 @@ class diary(APIView, DiaryMixin):
             'detail': '유효하지 않은 사용자입니다.'
         }
         return Response(msg, status=status.HTTP_403_FORBIDDEN)
-
-    # [{"id":1,"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":22},{"id":2, "post":1,"sticker":1,"width":23,"deg":0,"top":0,"left":0}]
-    @swagger_auto_schema(request_body=UpdatePostSerializer)
-    def put(self, request, post_id):
-        mypost = self.get_object(post_id)
-
-        serializer = UpdatePostSerializer(instance=mypost,data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        # 기존 스티커 삭제
-        my_stickers = mypost.stickers.all()
-        for sticker in my_stickers:
-            sticker.delete()
-
-        stickers = json.loads(request.data.get('stickers', '[]'))
-        self.create_sticker(stickers, mypost.id)
-
-        p = serializer.save()
-        return Response(ReadPostSerializer(instance=p).data, status=status.HTTP_200_OK)
     
     def delete(self, request, post_id):
         mypost = self.get_object(post_id)
-        mypost.delete()
-        
+        if request.user.id == mypost.user.id:
+            mypost.delete()
+            
+            msg = {
+                'detail': '오늘 하루가 사라졌습니다.'
+            }
+            return Response(msg, status=status.HTTP_200_OK)
         msg = {
-            "detail": "오늘 하루가 사라졌습니다."
+            'detail': '권한이 없습니다.'
         }
-
-        return Response(msg, status=status.HTTP_200_OK)
+        return Response(msg, status=status.HTTP_403_FORBIDDEN)
 
 
 @swagger_auto_schema()
