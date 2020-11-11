@@ -449,10 +449,6 @@ export default {
 			width: 300px !important;
 			height: 200px !important;
 		}
-		// canvas {
-		// 	width: 300px !important;
-		// 	height: 200px !important;
-		// }
 		.diary-image__stickerBg {
 			position: absolute;
 			top: 0;
