@@ -44,7 +44,7 @@ class Sticker(models.Model):
 
 class RecommendMusic(models.Model):
     title = models.CharField(max_length=50)
-    artist = models.CharField(max_length=30)
+    artist = models.CharField(max_length=30, blank=True, null=True)
     video_id = models.CharField(max_length=20)
     cover = models.TextField(blank=True, null=True)
     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='musics')
@@ -53,14 +53,12 @@ class RecommendMusic(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
+    search_music = models.ForeignKey(RecommendMusic, on_delete=models.CASCADE, null=True, related_name='serch_music')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
-    postcolor = models.ForeignKey(PostColor, on_delete=models.CASCADE)
     font = models.ForeignKey(PostFont, on_delete=models.CASCADE)
     pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE)
     report = models.ForeignKey('text.DailyReport', on_delete=models.CASCADE, blank=True, null=True, related_name='posts')
-    fontsize = models.IntegerField()
-    upload_music = models.FileField(blank=True, null=True, upload_to=upload_location)
-    recommend_music = models.ForeignKey(RecommendMusic, on_delete=models.CASCADE, null=True)
+    recommend_music = models.ForeignKey(RecommendMusic, on_delete=models.CASCADE, null=True, related_name='recommend_music')
     created = models.DateField()
     image = models.ImageField(blank=True, null=True, upload_to=upload_location)
 

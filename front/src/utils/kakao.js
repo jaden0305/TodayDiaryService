@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '@/store/index';
 import cookies from 'vue-cookies';
+import router from '../router';
 
 let onSuccess = data => {
 	GetMe(data);
@@ -59,6 +60,7 @@ let GetMe = async authObj => {
 									username: cookies.get('username'),
 								});
 								cookies.set('auth-token', res.data.token);
+								router.push('/calendar');
 								// console.log(res.data)
 							})
 							.catch(() => {
@@ -83,6 +85,7 @@ let GetMe = async authObj => {
 									username: cookies.get('username'),
 								});
 								cookies.set('auth-token', res.data.token);
+								router.push('/calendar');
 								// console.log(res + 'DB 저장')
 							})
 							.catch(err => {

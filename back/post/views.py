@@ -39,12 +39,12 @@ class CreateDiary(APIView, DiaryMixin):
 
     POST_EXCLUDES = ('image', 'stickers')
 
-    def analyze(self, user, text, date, post_id):
+    def analyze(self, user, data):
         payload = {
-            'user': user,
-            'text': text,
-            'date': date,
-            'post_id': post_id,
+            'title': data.get('title'),
+            'user': user.id,
+            'text': data.get('content'),
+            'date': data.get('created'),
         }
         url = f'{self.TEXT_ANALYZER_HOST}:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
 
@@ -54,55 +54,71 @@ class CreateDiary(APIView, DiaryMixin):
     # [{"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
-        stickers = json.loads(request.data.get('stickers', '[]'))
+        data = request.data
+        image = request.data.get('image')
+        if request.data.get('image'):
+            del data['image']
+        serializer = CreatePostSerializer(data=request.data)
+        serializer.is_valid()
+        
+        response = self.analyze(request.user, data)
+        print(response.text)
+        # date = request.data['created']
+        # if Post.objects.filter(created=date, user=request.user).exists():
+        #     msg = {
+        #         'detail': '해당 날짜에 쓴 글이 존재합니다.'
+        #     }
+        #     return Response(msg, status=status.HTTP_400_BAD_REQUEST)
+        # stickers = json.loads(request.data.get('stickers', '[]'))
 
-        data = copy.copy(request.data)
+        # data = copy.copy(request.data)
 
-        for exclude_key in self.POST_EXCLUDES:
-            if data.get(exclude_key):
-                del data[exclude_key]
+        # for exclude_key in self.POST_EXCLUDES:
+        #     if data.get(exclude_key):
+        #         del data[exclude_key]
 
-        serializer = CreatePostSerializer(data=data)
+        # serializer = CreatePostSerializer(data=data)
 
-        serializer.is_valid(raise_exception=True)
-        # emotion = AI 분석
-        # music = emotion 통한 추천
-        p = serializer.save(user=request.user)
+        # serializer.is_valid(raise_exception=True)
+        # # emotion = AI 분석
+        # # music = emotion 통한 추천
+        # p = serializer.save(user=request.user)
 
-        text = request.data['content']
-        date = request.data['created']
+        # text = request.data['content']
+        # title = request.data['title']
 
-        response = self.analyze(request.user.id, text, date, p.id)
-        if response.status_code == 201:
-            response = json.loads(response.text)
+        # response = self.analyze(request.user.id, title, text, date, p.id)
+        # if response.status_code == 201:
+        #     response = json.loads(response.text)
 
-            emotion_id = response['emotion']['id']
-            recommend_music = RecommendMusic.objects.filter(emotion=emotion_id).order_by('?')[:1]
+        #     emotion_id = response['emotion']['id']
+        #     recommend_music = RecommendMusic.objects.filter(emotion=emotion_id).order_by('?')[:1]
 
-            report = get_object_or_404(DailyReport, pk=response['id'])
+        #     report = get_object_or_404(DailyReport, pk=response['id'])
 
-            temp = request.data.dict()
-            temp['recommend_music'] = recommend_music[0].id
+        #     temp = request.data.dict()
+    
+        #     temp['recommend_music'] = recommend_music[0].id
 
-            udpated_music = QueryDict('', mutable=True)
-            udpated_music.update(temp)
+        #     udpated_music = QueryDict('', mutable=True)
+        #     udpated_music.update(temp)
 
-            serializer = CreatePostSerializer(instance=get_object_or_404(Post, pk=p.id), data=udpated_music)
-            serializer.is_valid(raise_exception=True)
+        #     serializer = CreatePostSerializer(instance=get_object_or_404(Post, pk=p.id), data=udpated_music)
+        #     serializer.is_valid(raise_exception=True)
 
-            p = serializer.save(report=report)
+        #     p = serializer.save(report=report)
 
-        else:
-            msg = {
-                'detail': '텍스트를 분석할 수 없습니다.'
-            }
-            return Response(msg, status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
+        # else:
+        #     msg = {
+        #         'detail': '텍스트를 분석할 수 없습니다.'
+        #     }
+        #     return Response(msg, status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
 
-        post = self.create_sticker(stickers, p.id)
-        result = {
-            **ReadPostSerializer(instance=post).data
-        }
-        return Response(result, status=status.HTTP_201_CREATED)
+        # post = self.create_sticker(stickers, p.id)
+        # result = {
+        #     **ReadPostSerializer(instance=post).data
+        # }
+        # return Response(result, status=status.HTTP_201_CREATED)
 
 
 class diary(APIView, DiaryMixin):
@@ -184,9 +200,18 @@ def get_all_sticker(request):
     serializer = TagStickerSerializer(instance=tags, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+@swagger_auto_schema()
+@api_view(['GET'])
+def written(request):
+    post = Post.objects.filter(user=request.user).exists()
+    if post:
+        return Response(True, status=status.HTTP_200_OK)
+    else:
+        return Response(False, status=status.HTTP_200_OK)    
 
 @api_view(['POST'])
 def make_test(request):
+    
     if PostColor.objects.filter(id=1).exists():
         return Response({
             'message': '이미 존재합니다.'
@@ -208,6 +233,9 @@ def make_test(request):
     # pattern
     for path, preview in [(None, 'media/paper/1_preview.png'),('media/paper/2.png', 'media/paper/2_preview.png'), ('media/paper/3.png', 'media/paper/3_preview.png'), ('media/paper/4.png', 'media/paper/4.png'), ('media/paper/5.png', 'media/paper/5.png'), ('media/paper/6.png', 'media/paper/6.png')]:
         Pattern.objects.create(path=path, preview_path=preview)
+    
+    for i in range(1, 8):
+        RecommendMusic.objects.create(title='test', artist='test', video_id='test', cover='test', emotion_id=i)
 
     return Response({
         'message': 'success'
