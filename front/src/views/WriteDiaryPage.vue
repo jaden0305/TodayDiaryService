@@ -70,10 +70,10 @@
 				>
 					<v-layer ref="layer">
 						<v-image
-							v-for="imageObject in imageObjects"
+							v-for="(imageObject, i) in imageObjects"
 							:key="imageObject.id"
 							:config="{
-								image: image1,
+								image: image[i],
 								rotation: imageObject.rotation,
 								x: imageObject.x,
 								y: imageObject.y,
@@ -127,10 +127,7 @@ import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
 import ToastSave from '@/components/modal/ToastSave.vue';
 
-const width = window.innerWidth;
-const height = window.innerHeight;
-// const width = document.querySelector('.diary-image').clientWidth;
-// const height = document.querySelector('.diary-image').clientHeight;
+let num = 1;
 
 export default {
 	data() {
@@ -148,6 +145,7 @@ export default {
 				content: null,
 				fontsize: 14,
 				music: null,
+				search: false,
 				postcolor: {
 					id: 1,
 					value: '#646464',
@@ -163,50 +161,11 @@ export default {
 				created: '2020-11-03',
 			},
 			stageSize: {
-				width: width,
-				height: height,
+				width: 0,
+				height: 0,
 			},
-			image1: null,
-			image2: null,
-			image3: null,
-			imageObjects: [
-				{
-					image: this.image1,
-					rotation: 0,
-					x: 50,
-					y: 50,
-					width: 100,
-					height: 100,
-					scaleX: 1,
-					scaleY: 1,
-					name: 'img',
-					draggable: true,
-				},
-				{
-					image: this.image2,
-					rotation: 0,
-					x: 150,
-					y: 150,
-					width: 100,
-					height: 100,
-					scaleX: 1,
-					scaleY: 1,
-					name: 'img2',
-					draggable: true,
-				},
-				{
-					image: this.image3,
-					rotation: 0,
-					x: 200,
-					y: 200,
-					width: 100,
-					height: 100,
-					scaleX: 1,
-					scaleY: 1,
-					name: 'img3',
-					draggable: true,
-				},
-			],
+			image: [],
+			imageObjects: [],
 			selectedShapeName: '',
 		};
 	},
@@ -256,23 +215,26 @@ export default {
 			this.openSave = true;
 		},
 		setSticker(selctedStickerPath) {
-			const imageWrap = document.querySelector('.diary-image');
 			const imageElem = document.createElement('img');
-			const imageLength = imageWrap.getElementsByTagName('img').length;
 
-			if (imageLength < 4) {
+			if (this.image.length < 3) {
 				imageElem.src = selctedStickerPath;
 				imageElem.classList.add('diary-image__sticker');
-				// imageWrap.appendChild(imageElem);
 				imageElem.onload = () => {
 					// set image only when it is loaded
-					if (!(this.image1 && this.image2 && this.image3)) {
-						this.image1 = imageElem;
-					} else if (this.image1 && !(this.image2 && this.image3)) {
-						this.image2 = imageElem;
-					} else {
-						this.image3 = imageElem;
-					}
+					this.image.push(imageElem);
+					this.imageObjects.push({
+						image: null,
+						rotation: 0,
+						x: 50,
+						y: 50,
+						width: 100,
+						height: 100,
+						scaleX: 1,
+						scaleY: 1,
+						name: 'img' + num++,
+						draggable: true,
+					});
 				};
 			} else {
 				console.log('스티커는 3개까지 넣을 수 있어요');
@@ -286,7 +248,7 @@ export default {
 
 			title.style.fontFamily = selectedFont.name;
 			content.style.fontFamily = selectedFont.name;
-			console.log('read', selectedPaper.path);
+
 			if (selectedPaper.path) {
 				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${selectedPaper.path}) center`;
 			} else {
@@ -323,6 +285,13 @@ export default {
 		selectMusic(music) {
 			console.log(music);
 			this.diaryData.music = music;
+			this.diaryData.search = true;
+		},
+		resizeStage() {
+			const stageWrap = document.querySelector('.diary-image');
+
+			this.stageSize.width = stageWrap.clientWidth;
+			this.stageSize.height = stageWrap.clientHeight;
 		},
 		handleTransformEnd(e) {
 			// shape is transformed, let us save new attrs back to the node
@@ -357,12 +326,13 @@ export default {
 			// find clicked rect by its name
 			const name = e.target.name();
 			let imgElem;
-			if (!(this.image1 && this.image2 && this.image3)) {
-				imgElem = this.image1;
-			} else if (this.image1 && !(this.image2 && this.image3)) {
-				imgElem = this.image2;
+
+			if (name === 'img1') {
+				imgElem = this.image[0];
+			} else if (name === 'img2') {
+				imgElem = this.image[1];
 			} else {
-				imgElem = this.image3;
+				imgElem = this.image[2];
 			}
 
 			if (imgElem) {
@@ -393,6 +363,9 @@ export default {
 			}
 			transformerNode.getLayer().batchDraw();
 		},
+	},
+	mounted() {
+		this.resizeStage();
 	},
 };
 </script>
@@ -452,10 +425,10 @@ export default {
 			width: 300px !important;
 			height: 200px !important;
 		}
-		canvas {
-			width: 300px !important;
-			height: 200px !important;
-		}
+		// canvas {
+		// 	width: 300px !important;
+		// 	height: 200px !important;
+		// }
 		.diary-image__stickerBg {
 			position: absolute;
 			top: 0;

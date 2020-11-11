@@ -37,19 +37,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- <div class="toast-musics">
-				<ol>
-					<li
-						:key="i"
-						v-for="(music, i) in musicList"
-						@click="musicSelect(music)"
-						class="toast-musics__item"
-					>
-						{{ music.snippet.title | musicTruncate }}
-					</li>
-				</ol>
-			</div> -->
 		</section>
 		<div class="toast-close">
 			<button class="toast-close__btn" @click="closeMusic">
@@ -60,6 +47,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import { youtubeSearch } from '@/api/youtube';
 export default {
 	props: {
@@ -91,6 +79,10 @@ export default {
 			const { data } = await youtubeSearch(this.searchMusic);
 			console.log(data);
 			this.musicList = data.items;
+			this.musicList = this.musicList.map(music => {
+				music.snippet.title = _.unescape(music.snippet.title, 'text/html');
+				return music;
+			});
 		},
 		musicSelect(music) {
 			this.selectMusic.name = music.snippet.title;

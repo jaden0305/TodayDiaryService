@@ -24,11 +24,11 @@ const routes = [
 		component: () => import('@/views/MainPage.vue'),
 		beforeEnter: requireAuth,
 	},
-	{
-		path: '/test2',
-		name: 'test2',
-		component: () => import('@/views/Test2.vue'),
-	},
+	// {
+	// 	path: '/test2',
+	// 	name: 'test2',
+	// 	component: () => import('@/views/Test2.vue'),
+	// },
 	{
 		path: '/calendar',
 		name: 'calendar',
