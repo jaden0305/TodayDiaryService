@@ -310,21 +310,20 @@ export default {
 			this.diaryData.pattern = selectedPaper;
 			this.openTheme = false;
 		},
-<<<<<<< front/src/views/WriteDiaryPage.vue
-		// async onSaveDiary() {
-		// 	try {
-		// 		const { data } = await createDiary(this.diaryData);
-		// 		this.$router.push(`/diary/${data.id}`);
-		// 	} catch (error) {
-		// 		// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
-		// 		console.log(error.response);
-		// 	}
-		// },
+		async onSaveDiary() {
+			try {
+				this.diaryData.created = this.$route.query.day;
+				// 감정이랑 곡정보 요청 받아서 저장 => diaryData
+				// diaryData를 props로 넘겨줌
+			} catch (error) {
+				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
+				console.log(error.response);
+			}
+		},
 		selectMusic(music) {
 			console.log(music);
 			this.diaryData.music = music;
 		},
->>>>>>> front/src/views/WriteDiaryPage.vue
 		handleTransformEnd(e) {
 			// shape is transformed, let us save new attrs back to the node
 			// find element in our state
