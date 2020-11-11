@@ -31,6 +31,7 @@ def redis_check():
 @swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
 @api_view(['POST'])
 def analyze(request):
+    print(1)
     need_music = request.data.get('search')
     title = request.data.get('title')
     text = request.data.get('content')

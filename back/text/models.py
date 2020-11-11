@@ -15,6 +15,7 @@ class DailyReport(models.Model):
     score = models.FloatField()
     emotion = models.ForeignKey('post.Emotion', on_delete=models.CASCADE, null=True)
     date = models.DateField()
+    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
 
 """
 happy 2 sad 2  -> score에 양수인지 음수인지보고 
