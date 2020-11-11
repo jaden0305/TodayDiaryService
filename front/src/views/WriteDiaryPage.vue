@@ -112,10 +112,15 @@
 					v-model="diaryData.content"
 				></textarea>
 			</div>
-			<button class="diary-complete-btn" @click="openSaveModal">
+			<button class="diary-complete-btn" @click="fetchAnalysis">
 				오늘 감정 알아볼래요
 			</button>
-			<ToastSave :open="openSave" @close-theme="openSave = false" />
+			<ToastSave
+				:open="openSave"
+				:diaryData="diaryData"
+				:diaryAnalysisResult="diaryAnalysisResult"
+				@close-theme="openSave = false"
+			/>
 		</div>
 	</section>
 </template>
@@ -126,6 +131,7 @@ import ToastMusic from '@/components/modal/ToastMusic.vue';
 import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
 import ToastSave from '@/components/modal/ToastSave.vue';
+import { createDiaryanalysis } from '@/api/analysis';
 
 let num = 1;
 
@@ -145,6 +151,7 @@ export default {
 				content: null,
 				fontsize: 14,
 				music: null,
+				stickers: [],
 				search: false,
 				postcolor: {
 					id: 1,
@@ -160,6 +167,13 @@ export default {
 				},
 				created: '2020-11-03',
 			},
+			diaryAnalysisData: {
+				title: null,
+				content: null,
+				stickers: [],
+				search: false,
+			},
+			diaryAnalysisResult: null,
 			stageSize: {
 				width: 0,
 				height: 0,
@@ -211,10 +225,18 @@ export default {
 			this.openTheme = true;
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
-		openSaveModal() {
+		async fetchAnalysis() {
+			this.diaryData.stickers = this.imageObjects;
+			this.diaryAnalysisData.stickers = this.imageObjects;
+			this.diaryAnalysisData.title = this.diaryData.title;
+			this.diaryAnalysisData.content = this.diaryData.content;
+			this.diaryAnalysisData.search = this.diaryData.search;
+			const { data } = await createDiaryanalysis(this.diaryAnalysisData);
+			console.log(data);
+			this.diaryAnalysisResult = data;
 			this.openSave = true;
 		},
-		setSticker(selctedStickerPath) {
+		setSticker(selctedStickerPath, id, emotion) {
 			const imageElem = document.createElement('img');
 
 			if (this.image.length < 3) {
@@ -224,6 +246,8 @@ export default {
 					// set image only when it is loaded
 					this.image.push(imageElem);
 					this.imageObjects.push({
+						sticker: id,
+						emotion: emotion,
 						image: null,
 						rotation: 0,
 						x: 50,

@@ -3,9 +3,11 @@
 		<section class="toast-wrap">
 			<div class="save-diary">
 				<p class="save-diary-comment">당신의 오늘 하루는</p>
-				<p class="save-diary-comment">행복이군요 :)</p>
 				<p class="save-diary-comment">
-					"동방신기-행복"으로 마무리하는 건 어때요?
+					{{ this.diaryAnalysisResult.feel[0][0] }}이군요 :)
+				</p>
+				<p class="save-diary-comment">
+					{{ this.diaryAnalysisResult.music.name }}으로 마무리하는 건 어때요?
 				</p>
 				<div class="save-diary-emotion">
 					<img src="@/assets/images/emotion/happy.png" alt="감정상태" />
@@ -90,6 +92,8 @@ export default {
 	},
 	props: {
 		open: Boolean,
+		diaryData: Object,
+		diaryAnalysisResult: Object,
 	},
 	computed: {
 		toastAnimationClass() {
