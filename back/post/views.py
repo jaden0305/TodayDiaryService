@@ -233,9 +233,6 @@ def make_test(request):
     # pattern
     for path, preview in [(None, 'media/paper/1_preview.png'),('media/paper/2.png', 'media/paper/2_preview.png'), ('media/paper/3.png', 'media/paper/3_preview.png'), ('media/paper/4.png', 'media/paper/4.png'), ('media/paper/5.png', 'media/paper/5.png'), ('media/paper/6.png', 'media/paper/6.png')]:
         Pattern.objects.create(path=path, preview_path=preview)
-    
-    for i in range(1, 8):
-        RecommendMusic.objects.create(title='test', artist='test', video_id='test', cover='test', emotion_id=i)
 
     return Response({
         'message': 'success'
