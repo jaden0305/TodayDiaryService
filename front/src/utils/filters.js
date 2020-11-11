@@ -36,8 +36,8 @@ export function truncate(string) {
 	return string;
 }
 export function musicTruncate(string) {
-	if (string.length > 25) {
-		return string.substr(0, 25) + '..';
+	if (string.length > 16) {
+		return string.substr(0, 16) + '..';
 	}
 	return string;
 }
