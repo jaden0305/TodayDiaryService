@@ -38,7 +38,11 @@
 					</li>
 				</ul>
 			</div>
-			<ToastMusic :open="openMusic" @close-music="openMusic = false" />
+			<ToastMusic
+				:open="openMusic"
+				@close-music="openMusic = false"
+				@selectMusic="selectMusic"
+			/>
 			<ToastSticker
 				:open="openSticker"
 				@submit-sticker="setSticker"
@@ -66,8 +70,10 @@
 				>
 					<v-layer ref="layer">
 						<v-image
+							v-for="imageObject in imageObjects"
+							:key="imageObject.id"
 							:config="{
-								image: image,
+								image: image1,
 								rotation: imageObject.rotation,
 								x: imageObject.x,
 								y: imageObject.y,
@@ -75,7 +81,7 @@
 								height: imageObject.height,
 								scaleX: imageObject.scaleX,
 								scaleY: imageObject.scaleY,
-								name: 'img',
+								name: imageObject.name,
 								draggable: true,
 							}"
 							@transformend="handleTransformEnd"
@@ -141,8 +147,7 @@ export default {
 				title: null,
 				content: null,
 				fontsize: 14,
-				music_name: null,
-				music_artist: null,
+				music: null,
 				postcolor: {
 					id: 1,
 					value: '#646464',
@@ -161,19 +166,47 @@ export default {
 				width: width,
 				height: height,
 			},
-			image: null,
-			imageObject: {
-				image: this.image,
-				rotation: 0,
-				x: 50,
-				y: 50,
-				width: 100,
-				height: 100,
-				scaleX: 1,
-				scaleY: 1,
-				name: 'img',
-				draggable: true,
-			},
+			image1: null,
+			image2: null,
+			image3: null,
+			imageObjects: [
+				{
+					image: this.image1,
+					rotation: 0,
+					x: 50,
+					y: 50,
+					width: 100,
+					height: 100,
+					scaleX: 1,
+					scaleY: 1,
+					name: 'img',
+					draggable: true,
+				},
+				{
+					image: this.image2,
+					rotation: 0,
+					x: 150,
+					y: 150,
+					width: 100,
+					height: 100,
+					scaleX: 1,
+					scaleY: 1,
+					name: 'img2',
+					draggable: true,
+				},
+				{
+					image: this.image3,
+					rotation: 0,
+					x: 200,
+					y: 200,
+					width: 100,
+					height: 100,
+					scaleX: 1,
+					scaleY: 1,
+					name: 'img3',
+					draggable: true,
+				},
+			],
 			selectedShapeName: '',
 		};
 	},
@@ -233,7 +266,13 @@ export default {
 				// imageWrap.appendChild(imageElem);
 				imageElem.onload = () => {
 					// set image only when it is loaded
-					this.image = imageElem;
+					if (!(this.image1 && this.image2 && this.image3)) {
+						this.image1 = imageElem;
+					} else if (this.image1 && !(this.image2 && this.image3)) {
+						this.image2 = imageElem;
+					} else {
+						this.image3 = imageElem;
+					}
 				};
 			} else {
 				console.log('스티커는 3개까지 넣을 수 있어요');
@@ -269,9 +308,9 @@ export default {
 
 			this.diaryData.font = selectedFont;
 			this.diaryData.pattern = selectedPaper;
-
 			this.openTheme = false;
 		},
+<<<<<<< front/src/views/WriteDiaryPage.vue
 		// async onSaveDiary() {
 		// 	try {
 		// 		const { data } = await createDiary(this.diaryData);
@@ -281,11 +320,18 @@ export default {
 		// 		console.log(error.response);
 		// 	}
 		// },
+		selectMusic(music) {
+			console.log(music);
+			this.diaryData.music = music;
+		},
+>>>>>>> front/src/views/WriteDiaryPage.vue
 		handleTransformEnd(e) {
 			// shape is transformed, let us save new attrs back to the node
 			// find element in our state
 
-			const imgElem = this.imageObject;
+			const imgElem = this.imageObjects.find(
+				r => r.name === this.selectedShapeName,
+			);
 			console.log('rotation', e.target.rotation());
 			console.log('x', e.target.x());
 
@@ -311,8 +357,15 @@ export default {
 
 			// find clicked rect by its name
 			const name = e.target.name();
+			let imgElem;
+			if (!(this.image1 && this.image2 && this.image3)) {
+				imgElem = this.image1;
+			} else if (this.image1 && !(this.image2 && this.image3)) {
+				imgElem = this.image2;
+			} else {
+				imgElem = this.image3;
+			}
 
-			const imgElem = this.image;
 			if (imgElem) {
 				this.selectedShapeName = name;
 			} else {
