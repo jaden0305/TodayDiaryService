@@ -35,7 +35,7 @@ def analyze(request):
     need_music = not request.data.get('search')
     title = request.data.get('title')
     text = request.data.get('content')
-    stickers = json.loads(request.data.get('stickers', '[]'))
+    stickers = request.data.get('stickers', [])
     data = {
         'title': title,
         'text': text,
@@ -43,7 +43,19 @@ def analyze(request):
     }
     ta = TextAnalysis(data)
     result = ta.text_analysis()
-    emotion = get_object_or_404(Emotion, name=result['feel'][0][0])
+    feels = result['feel']
+    for idx, feel in enumerate(feels):
+        if feel[0] == 'no_emotion':
+            break
+    feels.pop(idx)
+    feels.sort(key=lambda x: -x[1])
+    print(feels)
+    if feels:
+        emotion_id = feels[0][0]
+    else:
+        result['feel'] = [(4, 0)]
+        emotion_id = 4
+    emotion = get_object_or_404(Emotion, pk=emotion_id)
     if need_music:
         music = emotion.musics.order_by('?')[0]
         result['music'] = RecommandMusicSerializer(instance=music).data
@@ -82,7 +94,7 @@ def statistics(request):
 
     result['feel'].sort(key=lambda x:x[1])
 
-    emotion = get_object_or_404(Emotion, name=result['feel'][0][0])
+    emotion = get_object_or_404(Emotion, pk=result['feel'][0][0])
 
     data = {
         'user': user,
