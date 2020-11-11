@@ -14,13 +14,6 @@
 				<ul class="diary-header__func">
 					<li>
 						<img
-							src="@/assets/images/pencil.svg"
-							alt="수정"
-							@click="onEditDiary"
-						/>
-					</li>
-					<li>
-						<img
 							src="@/assets/images/trash.svg"
 							alt="삭제"
 							@click="onDeleteDiary"
@@ -29,7 +22,6 @@
 				</ul>
 			</div>
 			<div class="diary-image">
-				<!-- <p>{{ diaryData }}</p> -->
 				<img class="diary-image__value" :src="contentImg" alt="일기사진" />
 			</div>
 			<div class="diary-text">
@@ -100,9 +92,6 @@ export default {
 			if (this.diaryData.pattern.path) {
 				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
 			}
-		},
-		onEditDiary() {
-			this.$router.push(`/diary/${this.diaryId}/edit`);
 		},
 		async onDeleteDiary() {
 			try {
