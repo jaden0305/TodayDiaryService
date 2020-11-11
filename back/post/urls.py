@@ -10,6 +10,8 @@ urlpatterns = [
 
     path('<int:post_id>/', views.diary.as_view(), name='diary'),
     path('', views.CreateDiary.as_view(), name='create_diary'), 
+
+    path('written/', views.written),
     
     path('sticker/all/', views.get_all_sticker),
 

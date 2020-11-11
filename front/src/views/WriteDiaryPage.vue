@@ -60,6 +60,35 @@
 					:src="diaryImageUrl"
 					alt="일기사진"
 				/>
+				<v-stage
+					v-if="diaryImageUrl"
+					class="diary-image__stickerBg"
+					ref="stage"
+					:config="stageSize"
+					@mousedown="handleStageMouseDown"
+					@touchstart="handleStageMouseDown"
+				>
+					<v-layer ref="layer">
+						<v-image
+							v-for="imageObject in imageObjects"
+							:key="imageObject.id"
+							:config="{
+								image: image1,
+								rotation: imageObject.rotation,
+								x: imageObject.x,
+								y: imageObject.y,
+								width: imageObject.width,
+								height: imageObject.height,
+								scaleX: imageObject.scaleX,
+								scaleY: imageObject.scaleY,
+								name: imageObject.name,
+								draggable: true,
+							}"
+							@transformend="handleTransformEnd"
+						/>
+						<v-transformer ref="transformer" />
+					</v-layer>
+				</v-stage>
 				<label for="diary-image__input" v-if="diaryImageFile">
 					<img
 						src="@/assets/images/photos.svg"
@@ -83,9 +112,10 @@
 					v-model="diaryData.content"
 				></textarea>
 			</div>
-			<button class="diary-complete-btn" @click="onSaveDiary">
-				오늘 하루 기록할게요
+			<button class="diary-complete-btn" @click="openSaveModal">
+				오늘 감정 알아볼래요
 			</button>
+			<ToastSave :open="openSave" @close-theme="openSave = false" />
 		</div>
 	</section>
 </template>
@@ -95,7 +125,13 @@ import bus from '@/utils/bus';
 import ToastMusic from '@/components/modal/ToastMusic.vue';
 import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
-import { createDiary } from '@/api/diary';
+import ToastSave from '@/components/modal/ToastSave.vue';
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+// const width = document.querySelector('.diary-image').clientWidth;
+// const height = document.querySelector('.diary-image').clientHeight;
+
 export default {
 	data() {
 		return {
@@ -105,6 +141,7 @@ export default {
 			openMusic: false,
 			openSticker: false,
 			openTheme: false,
+			openSave: false,
 			diaryData: {
 				image: null,
 				title: null,
@@ -125,12 +162,59 @@ export default {
 				},
 				created: '2020-11-03',
 			},
+			stageSize: {
+				width: width,
+				height: height,
+			},
+			image1: null,
+			image2: null,
+			image3: null,
+			imageObjects: [
+				{
+					image: this.image1,
+					rotation: 0,
+					x: 50,
+					y: 50,
+					width: 100,
+					height: 100,
+					scaleX: 1,
+					scaleY: 1,
+					name: 'img',
+					draggable: true,
+				},
+				{
+					image: this.image2,
+					rotation: 0,
+					x: 150,
+					y: 150,
+					width: 100,
+					height: 100,
+					scaleX: 1,
+					scaleY: 1,
+					name: 'img2',
+					draggable: true,
+				},
+				{
+					image: this.image3,
+					rotation: 0,
+					x: 200,
+					y: 200,
+					width: 100,
+					height: 100,
+					scaleX: 1,
+					scaleY: 1,
+					name: 'img3',
+					draggable: true,
+				},
+			],
+			selectedShapeName: '',
 		};
 	},
 	components: {
 		ToastMusic,
 		ToastSticker,
 		ToastTheme,
+		ToastSave,
 	},
 	methods: {
 		onChangeDiaryImage() {
@@ -153,9 +237,13 @@ export default {
 			bus.$emit('show:musicModal', '추천 음악입니다:)');
 		},
 		openStickerModal() {
-			this.openMusic = false;
-			this.openSticker = true;
-			this.openTheme = false;
+			if (this.diaryData.image) {
+				this.openMusic = false;
+				this.openSticker = true;
+				this.openTheme = false;
+			} else {
+				console.log('이미지를 추가해야 스티커를 사용할 수 있어요:(');
+			}
 			bus.$emit('show:stickerModal', '스티커입니다:)');
 		},
 		openThemeModal() {
@@ -164,11 +252,31 @@ export default {
 			this.openTheme = true;
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
+		openSaveModal() {
+			this.openSave = true;
+		},
 		setSticker(selctedStickerPath) {
 			const imageWrap = document.querySelector('.diary-image');
 			const imageElem = document.createElement('img');
-			imageElem.src = selctedStickerPath;
-			imageWrap.appendChild(imageElem);
+			const imageLength = imageWrap.getElementsByTagName('img').length;
+
+			if (imageLength < 4) {
+				imageElem.src = selctedStickerPath;
+				imageElem.classList.add('diary-image__sticker');
+				// imageWrap.appendChild(imageElem);
+				imageElem.onload = () => {
+					// set image only when it is loaded
+					if (!(this.image1 && this.image2 && this.image3)) {
+						this.image1 = imageElem;
+					} else if (this.image1 && !(this.image2 && this.image3)) {
+						this.image2 = imageElem;
+					} else {
+						this.image3 = imageElem;
+					}
+				};
+			} else {
+				console.log('스티커는 3개까지 넣을 수 있어요');
+			}
 
 			this.openSticker = false;
 		},
@@ -202,19 +310,88 @@ export default {
 			this.diaryData.pattern = selectedPaper;
 			this.openTheme = false;
 		},
-		selectMusic(music) {
-			console.log(music);
-			this.diaryData.music = music;
-		},
 		async onSaveDiary() {
 			try {
 				this.diaryData.created = this.$route.query.day;
-				const { data } = await createDiary(this.diaryData);
-				this.$router.push(`/diary/${data.id}`);
+				// 감정이랑 곡정보 요청 받아서 저장 => diaryData
+				// diaryData를 props로 넘겨줌
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
 			}
+		},
+		selectMusic(music) {
+			console.log(music);
+			this.diaryData.music = music;
+		},
+		handleTransformEnd(e) {
+			// shape is transformed, let us save new attrs back to the node
+			// find element in our state
+
+			const imgElem = this.imageObjects.find(
+				r => r.name === this.selectedShapeName,
+			);
+			console.log('rotation', e.target.rotation());
+			console.log('x', e.target.x());
+
+			// update the state
+			imgElem.x = e.target.x();
+			imgElem.y = e.target.y();
+			imgElem.rotation = e.target.rotation();
+		},
+		handleStageMouseDown(e) {
+			// clicked on stage - clear selection
+			if (e.target === e.target.getStage()) {
+				this.selectedShapeName = '';
+				this.updateTransformer();
+				return;
+			}
+
+			// clicked on transformer - do nothing
+			const clickedOnTransformer =
+				e.target.getParent().className === 'Transformer';
+			if (clickedOnTransformer) {
+				return;
+			}
+
+			// find clicked rect by its name
+			const name = e.target.name();
+			let imgElem;
+			if (!(this.image1 && this.image2 && this.image3)) {
+				imgElem = this.image1;
+			} else if (this.image1 && !(this.image2 && this.image3)) {
+				imgElem = this.image2;
+			} else {
+				imgElem = this.image3;
+			}
+
+			if (imgElem) {
+				this.selectedShapeName = name;
+			} else {
+				this.selectedShapeName = '';
+			}
+			this.updateTransformer();
+		},
+		updateTransformer() {
+			// here we need to manually attach or detach Transformer node
+			const transformerNode = this.$refs.transformer.getNode();
+			const stage = transformerNode.getStage();
+			const { selectedShapeName } = this;
+
+			const selectedNode = stage.findOne('.' + selectedShapeName);
+			// do nothing if selected node is already attached
+			if (selectedNode === transformerNode.node()) {
+				return;
+			}
+
+			if (selectedNode) {
+				// attach to another node
+				transformerNode.nodes([selectedNode]);
+			} else {
+				// remove transformer
+				transformerNode.nodes([]);
+			}
+			transformerNode.getLayer().batchDraw();
 		},
 	},
 };
@@ -270,6 +447,22 @@ export default {
 		height: 28vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
+		position: relative;
+		.konvajs-content {
+			width: 300px !important;
+			height: 200px !important;
+		}
+		canvas {
+			width: 300px !important;
+			height: 200px !important;
+		}
+		.diary-image__stickerBg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
 		.diary-image__value {
 			width: 100%;
 			object-fit: cover;
@@ -277,6 +470,7 @@ export default {
 		label {
 			display: flex;
 			justify-content: center;
+			width: 100%;
 			&:hover {
 				cursor: pointer;
 			}
@@ -292,6 +486,12 @@ export default {
 			padding: 0;
 			overflow: hidden;
 			border: 0;
+		}
+		.diary-image__sticker {
+			width: 50px;
+			position: absolute;
+			top: 0;
+			left: 0;
 		}
 	}
 	.diary-text {
