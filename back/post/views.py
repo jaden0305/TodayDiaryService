@@ -192,6 +192,14 @@ def get_all_sticker(request):
     serializer = TagStickerSerializer(instance=tags, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+@swagger_auto_schema()
+@api_view(['GET'])
+def written(request):
+    post = Post.objects.filter(user=request.user).exists()
+    if post:
+        return Response(True, status=status.HTTP_200_OK)
+    else:
+        return Response(False, status=status.HTTP_200_OK)    
 
 @api_view(['POST'])
 def make_test(request):
