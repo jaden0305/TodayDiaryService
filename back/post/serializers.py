@@ -72,17 +72,17 @@ class CreatePostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     class Meta:
         model = Post
-        exclude = ('id', 'user', 'report', 'upload_music',)
+        exclude = ('id', 'user', 'report',)
 
 
 class ReadPostSerializer(serializers.ModelSerializer):
     stickers = PostStickerReadSerializer(many=True)
     class Meta:
         model = Post
-        exclude = ('user', )
+        exclude = ('user', 'created')
         depth = 1
 
 class UpdatePostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        exclude = ('id', 'user', 'created', 'report', 'recommend_music', 'upload_music')
+        exclude = ('id', 'user', 'created', 'report', 'recommend_music',)
