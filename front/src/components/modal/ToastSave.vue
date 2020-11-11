@@ -1,5 +1,9 @@
 <template>
-	<section class="toast" :class="toastAnimationClass">
+	<section
+		class="toast"
+		:class="toastAnimationClass"
+		v-if="this.diaryAnalysisResult"
+	>
 		<section class="toast-wrap">
 			<div class="save-diary">
 				<p class="save-diary-comment">당신의 오늘 하루는</p>
