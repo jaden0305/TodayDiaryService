@@ -9,11 +9,12 @@
 		></youtube>
 		<div class="player slide-out-bottom" v-if="currentTrack">
 			<div class="player__title" v-hammer:swipe.down="swipeDown">
-				플레이어<img
+				플레이어
+				<!-- <img
 					class="player-swap__back"
 					src="@/assets/images/x.svg"
 					@click="closePlayer"
-				/>
+				/> -->
 			</div>
 			<div class="player__top">
 				<div class="player-cover">
@@ -146,14 +147,6 @@ import bus from '@/utils/bus';
 export default {
 	created() {
 		bus.$on('show:musicplayer', this.openMethod);
-		// for (let index = 0; index < this.tracks.length; index++) {
-		// 	const element = this.tracks[index];
-		// 	let link = document.createElement('link');
-		// 	link.rel = 'prefetch';
-		// 	link.href = element.cover;
-		// 	link.as = 'image';
-		// 	document.head.appendChild(link);
-		// }
 	},
 
 	beforeDestroy() {
@@ -162,17 +155,18 @@ export default {
 	data() {
 		return {
 			open: false,
-			tracks: [
-				{
-					name: '야작시',
-					artist: '적재',
-					cover:
-						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
-					videoId: 'jXylepYfpk0',
-					url: 'https://youtu.be/26YwXUcUf4I',
-					favorited: false,
-				},
-			],
+			// tracks: [
+			// 	{
+			// 		name: '야작시',
+			// 		artist: '적재',
+			// 		cover:
+			// 			'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+			// 		videoId: 'jXylepYfpk0',
+			// 		url: 'https://youtu.be/26YwXUcUf4I',
+			// 		favorited: false,
+			// 	},
+			// ],
+			tracks: null,
 			playerVars: {
 				autoplay: 0,
 				playsinline: 1,
@@ -206,12 +200,6 @@ export default {
 		swipeUp() {
 			const BAR = document.querySelector('.player-back');
 			const PLAYER = document.querySelector('.player');
-			// if (BAR.classList.contains('opacity-on')) {
-			// 	BAR.classList.remove('opacity-on');
-			// 	BAR.classList.add('opacity-off');
-			// 	PLAYER.classList.remove('opacity-off');
-			// 	PLAYER.classList.add('opacity-on');
-			// }
 			PLAYER.classList.remove('slide-out-bottom');
 			PLAYER.classList.add('slide-in-bottom');
 			PLAYER.style.display = 'block';
@@ -222,12 +210,6 @@ export default {
 		swipeDown() {
 			const BAR = document.querySelector('.player-back');
 			const PLAYER = document.querySelector('.player');
-			// if (!BAR.classList.contains('opacity-on')) {
-			// 	BAR.classList.add('opacity-on');
-			// 	BAR.classList.remove('opacity-off');
-			// 	PLAYER.classList.add('opacity-off');
-			// 	PLAYER.classList.remove('opacity-on');
-			// }
 			BAR.classList.remove('slide-out-top');
 			BAR.classList.add('slide-in-top');
 			BAR.style.display = 'block';

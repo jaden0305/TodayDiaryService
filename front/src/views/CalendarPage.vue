@@ -160,7 +160,6 @@ export default {
 				day.getDate(),
 			)}`,
 		);
-		console.log(this.nowDay);
 		this.todayMonth = day.getMonth() + 1;
 		this.toDay = day.getDate();
 		this.todayYear = day.getFullYear();

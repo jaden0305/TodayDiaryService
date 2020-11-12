@@ -134,14 +134,6 @@ export default {
 			emotion.style.width = this.weekWidth;
 			emotion.style.height = this.weekWidth;
 		});
-		console.log(
-			this.nowDay,
-			new Date(
-				`${this.year}-${this.lastTwo(this.day.month)}-${this.lastTwo(
-					this.day.day,
-				)}`,
-			),
-		);
 	},
 };
 </script>
