@@ -34,12 +34,14 @@
 
 			<div id="mainMenu" class="mainMenuOverlay floating2">
 				<!-- <div class="navire floating3"></div> -->
+
 				<div
 					v-for="(value, idx) in emotionList(this.diaryData.user_emotion)"
 					:key="idx"
 					class="itemMenuBox"
 					:class="emotionDesign[idx]"
 				>
+					<span class="item-label" :class="emotionDesign[idx]">행복</span>
 					<img
 						:src="require(`@/assets/images/emotion/${idx + 1}.png`)"
 						class="itemMenu "
@@ -73,6 +75,15 @@ import { reselectEmotion } from '@/api/analysis';
 export default {
 	data() {
 		return {
+			emotionDict: {
+				1: '행복',
+				2: '슬픔',
+				3: '기쁨',
+				4: '무료함',
+				5: '화남',
+				6: '놀람',
+				7: '공포',
+			},
 			emotion: ['행복', '슬픔', '기쁨', '무료함', '화남', '놀람', '공포'],
 			emotionDesign: [
 				'bills',
@@ -283,36 +294,71 @@ export default {
 	-webkit-transform: rotate(270deg);
 	-ms-transform: rotate(270deg);
 	transform: rotate(270deg);
+	.item-label.bills {
+		-webkit-transform: rotate(-270deg);
+		-ms-transform: rotate(-270deg);
+		transform: rotate(-270deg);
+	}
 }
-
 .mainMenuOverlay .itemMenuBox.tarsheed {
 	-webkit-transform: rotate(330deg);
 	-ms-transform: rotate(330deg);
 	transform: rotate(330deg);
+	.item-label.tarsheed {
+		-webkit-transform: rotate(-330deg);
+		-ms-transform: rotate(-330deg);
+		transform: rotate(-330deg);
+	}
 }
 
 .mainMenuOverlay .itemMenuBox.employees {
 	-webkit-transform: rotate(30deg);
 	-ms-transform: rotate(30deg);
 	transform: rotate(30deg);
+	.item-label.employees {
+		-webkit-transform: rotate(-30deg);
+		-ms-transform: rotate(-30deg);
+		transform: rotate(-30deg);
+	}
 }
 
 .mainMenuOverlay .itemMenuBox.location {
 	-webkit-transform: rotate(90deg);
 	-ms-transform: rotate(90deg);
 	transform: rotate(90deg);
+	.item-label.location {
+		-webkit-transform: rotate(-90deg);
+		-ms-transform: rotate(-90deg);
+		transform: rotate(-90deg);
+	}
 }
 
 .mainMenuOverlay .itemMenuBox.eservices {
 	-webkit-transform: rotate(150deg);
 	-ms-transform: rotate(150deg);
 	transform: rotate(150deg);
+	.item-label.eservices {
+		-webkit-transform: rotate(-150deg);
+		-ms-transform: rotate(-150deg);
+		transform: rotate(-150deg);
+	}
 }
 
 .mainMenuOverlay .itemMenuBox.contact {
 	-webkit-transform: rotate(210deg);
 	-ms-transform: rotate(210deg);
 	transform: rotate(210deg);
+	.item-label.contact {
+		-webkit-transform: rotate(-210deg);
+		-ms-transform: rotate(-210deg);
+		transform: rotate(-210deg);
+	}
+}
+
+.mainMenuOverlay .item-label {
+	position: absolute;
+	top: -90px;
+	// left: -45px;
 }
 
 .mainMenuOverlay .itemMenuBox .itemMenu {
@@ -341,7 +387,7 @@ export default {
 }
 
 .mainMenuOverlay .itemMenuBox.tarsheed .itemMenu {
-	/* background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/tarsheed.png); 
+	/* background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/tarsheed.png);
     background-size: 38px auto;*/
 	-webkit-transform: rotate(30deg);
 	-ms-transform: rotate(30deg);
