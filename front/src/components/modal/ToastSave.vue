@@ -11,7 +11,7 @@
 					{{ this.diaryData.recommend_music.name }}으로 마무리하는 건 어때요?
 				</p>
 				<div class="save-diary-emotion">
-					<img src="@/assets/images/emotion/happy.png" alt="감정상태" />
+					<img src="@/assets/images/emotion/1.png" alt="감정상태" />
 				</div>
 			</div>
 			<button class="save-diary-change save-diary-btn" @click="onSaveDiary">
@@ -23,14 +23,20 @@
 
 			<div id="mainMenu" class="mainMenuOverlay floating2">
 				<!-- <div class="navire floating3"></div> -->
-				<div class="itemMenuBox bills">
+				<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+				<div
+					v-for="(i, idx) in emotion"
+					:key="idx"
+					v-if="idx != diaryData.user_emotion"
+					class="itemMenuBox bills"
+				>
 					<img
-						src="@/assets/images/emotion/sad.png"
+						:src="`@/assets/images/emotion/${idx}.png`"
 						class="itemMenu "
 						alt="감정상태"
 					/>
 				</div>
-				<div class="itemMenuBox tarsheed">
+				<!-- <div class="itemMenuBox tarsheed">
 					<img
 						src="@/assets/images/emotion/smile.png"
 						class="itemMenu "
@@ -45,11 +51,7 @@
 					/>
 				</div>
 				<div class="itemMenuBox location">
-					<img
-						src="@/assets/images/emotion/surprise.png"
-						class="itemMenu "
-						alt="감정상태"
-					/>
+					
 				</div>
 				<div class="itemMenuBox eservices">
 					<img
@@ -64,7 +66,7 @@
 						class="itemMenu "
 						alt="감정상태"
 					/>
-				</div>
+				</div> -->
 				<a
 					href="javascript:void(0)"
 					class="toggleMenu floating"
@@ -89,7 +91,25 @@ import { createDiary } from '@/api/diary';
 
 export default {
 	data() {
-		return {};
+		return {
+			emotion: {
+				1: '행복',
+				2: '슬픔',
+				3: '기쁨',
+				4: '무료함',
+				5: '화남',
+				6: '놀람',
+				7: '공포',
+			},
+			emotionDesign: [
+				'bills',
+				'tarsheed',
+				'employees',
+				'location',
+				'eservices',
+				'contact',
+			],
+		};
 	},
 	props: {
 		open: Boolean,
@@ -107,6 +127,20 @@ export default {
 		onOpenEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
 			mainMenu.classList.add('open');
+
+			// for (let key in this.emotion) {
+			// 	if (key != this.diaryData.user_emotion) {
+			// 		const itemMenuBox = document.createElement('div');
+			// 		const emotionImage = document.createElement('img');
+			// 		itemMenuBox.classList.add('itemMenuBox');
+			// 		itemMenuBox.classList.add(this.emotionDesign[key - 1]);
+			// 		emotionImage.src = `@/assets/images/emotion/${key}.png`;
+			// 		emotionImage.alt = '감정이모티콘';
+			// 		emotionImage.classList.add('itemMenu');
+			// 		itemMenuBox.appendChild(emotionImage);
+			// 		mainMenu.appendChild(itemMenuBox);
+			// 	}
+			// }
 		},
 		onCloseEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
@@ -131,7 +165,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .toast-save {
 	display: flex;
 	justify-content: center;
