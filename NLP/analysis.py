@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from collections import Counter
 from eunjeon import Mecab
 from matplotlib import rc
@@ -235,12 +236,12 @@ class TextAnalysis:
             if word in self.get_delight():
                 score += 2
                 cnt += 2
-                # print('d',word)
+                print('d',word)
                 feel[self.emotion_idx['delight']] = feel.get(self.emotion_idx['delight'],0) + 1    
             elif word in self.get_happy():
                 score += 3
                 cnt += 3
-                # print('h',word)
+                print('h',word)
                 feel[self.emotion_idx['happy']] = feel.get(self.emotion_idx['happy'],0) + 1    
             elif word in self.get_minus2():
                 score -= 2
@@ -321,10 +322,22 @@ class TextAnalysis:
         
         for emotion in self.emotions:
             if emotion:
-                feel[self.emotion_idx[emotion]] = feel.get(self.emotion_idx[emotion], 0) + 2    
+                feel[self.emotion_idx[emotion]] = feel.get(self.emotion_idx[emotion], 0) + 2
+                if self.emotion_idx[emotion] in [1,3]:
+                    score += 6
+                    cnt += 6
+                elif self.emotion_idx[emotion] in [2,5,7]:
+                    score -= 6
+                    cnt -= 6  
         # print('p', p)
         # print('n', n)
 
+        # print('minus2', self.get_minus2())
+        # print('minus3', self.get_minus3())
+        # print('delight', self.get_delight())
+        # print('happy', self.get_happy())
+        # print('boring', self.get_boring())
+        # print('surprise', self.get_surprise())
         if cnt == 0:
             return cnt, feel
         return score/cnt, feel
@@ -332,7 +345,7 @@ class TextAnalysis:
     def text_analysis(self):
         # 일일 감정점수
         score, feel = self.day_score()
-        # print(score, feel)
+        print(score, feel)
         # 일일 감정분류
         for key, value in feel.items():
             if score > 0:
@@ -346,7 +359,6 @@ class TextAnalysis:
             sorted_feel = [(4, 0)]
         
         # print(sorted_feel)
-        print('horror',self.get_horror())
         word_count = self.count_words()
         # print(word_count)
         return {
@@ -357,9 +369,15 @@ class TextAnalysis:
 
 if __name__ == "__main__":
     data = {
-        'title' : '면접 합격',
+        'title' : '날씨가 너무 우중충하다',
         'content' : '''
-        무서웠다
+        비가 내리면 차라리 빗소리라도 듣기 좋지
+        비가 내리다 만 날씨는 거리만 어둡고 유쾌하지가 않다
+        막연한 믿음이 내 잘못인 건 아는데
+        그런 희미한 희망의 끈이라도 잡아야 내가 살 것 같았다
+        종교같은 건 바보짓잇고 한평생 믿어본 적이 없지만
+        어쩌면 내가 이미 종교를 가진 사람들과 같은 상태였는지도 모르지
+        앞으로 어떻게 살아야 하는지 잘 모르겟다
         ''',
 
         'stickers' : []
