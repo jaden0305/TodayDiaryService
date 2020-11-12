@@ -31,7 +31,7 @@
 					class="itemMenuBox bills"
 				>
 					<img
-						:src="`@/assets/images/emotion/${idx}.png`"
+						:src="require(`@/assets/images/emotion/${idx}.png`)"
 						class="itemMenu "
 						alt="감정상태"
 					/>
@@ -124,6 +124,9 @@ export default {
 		},
 	},
 	methods: {
+		// srcEmotion(num) {
+		// 	return `@/assets/images/emotion/${num}.png`;
+		// },
 		onOpenEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
 			mainMenu.classList.add('open');
