@@ -15,7 +15,7 @@
 		/>
 		<div
 			v-else-if="
-				nowDay < new Date(`${year}-${lastTwo(day.month)}-${lastTwo(day.day)}`)
+				+nowDay < +new Date(`${year}-${lastTwo(day.month)}-${lastTwo(day.day)}`)
 			"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
