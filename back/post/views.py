@@ -1,6 +1,7 @@
 import json
 import requests
 import copy
+from pprint import pprint
 
 from django.shortcuts import render, get_object_or_404
 
@@ -39,13 +40,13 @@ class CreateDiary(APIView, DiaryMixin):
 
     POST_EXCLUDES = ('image', 'stickers')
 
-    def analyze(self, user, title, text, date, post_id):
+    def analyze(self, user, data, post_id):
         payload = {
-            'title': title,
-            'user': user,
-            'text': text,
-            'date': date,
-            'post_id': post_id,
+            'title': data.get('title'),
+            'user': user.id,
+            'text': data.get('content'),
+            'date': data.get('created'),
+            'post': post_id,
         }
         url = f'{self.TEXT_ANALYZER_HOST}:{self.TEXT_ANALYZER_PORT}{self.TEXT_ANALYZER_REQUEST_PATH}'
 
@@ -55,62 +56,79 @@ class CreateDiary(APIView, DiaryMixin):
     # [{"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
+        print(request.data)
         date = request.data['created']
+        stickers = json.loads(request.data.get('stickers', '[]'))
         if Post.objects.filter(created=date, user=request.user).exists():
             msg = {
                 'detail': '해당 날짜에 쓴 글이 존재합니다.'
             }
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
-        stickers = json.loads(request.data.get('stickers', '[]'))
 
-        data = copy.copy(request.data)
+        data = request.data.dict()
+        exclude_data = {}
+        image = request.data.get('image')
+        if request.data.get('search_music'):
+            search_music = json.loads(request.data.get('search_music'))
+            if search_music == {}:
+                search_music = None
+                data['search_music'] = None
+            else:
+                data['search_music'] = search_music
+        else:
+            search_music = None
 
-        for exclude_key in self.POST_EXCLUDES:
-            if data.get(exclude_key):
-                del data[exclude_key]
+        recommend_music = request.data.get('recommend_music')
+        if not (search_music or recommend_music):
+            msg = {
+                'detail': '음악 정보가 존재하지 않습니다.'
+            }
+            return Response(msg, status=status.HTTP_400_BAD_REQUEST)
+
+        if image:
+            del data['image']
+            exclude_data['image'] = image
+        if search_music:
+            del data['search_music']
+            exclude_data['search_music'] = search_music
+        if recommend_music:
+            del data['recommend_music']
+            exclude_data['recommend_music'] = recommend_music
 
         serializer = CreatePostSerializer(data=data)
-
         serializer.is_valid(raise_exception=True)
-        # emotion = AI 분석
-        # music = emotion 통한 추천
-        p = serializer.save(user=request.user)
+        post = serializer.save(user=request.user)
 
-        text = request.data['content']
-        title = request.data['title']
+        self.create_sticker(stickers, post.id)
+            
+        response = self.analyze(request.user, data, post.id)
+        response = json.loads(response.text)
 
-        response = self.analyze(request.user.id, title, text, date, p.id)
-        if response.status_code == 201:
-            response = json.loads(response.text)
-
-            emotion_id = response['emotion']['id']
-            recommend_music = RecommendMusic.objects.filter(emotion=emotion_id).order_by('?')[:1]
-
-            report = get_object_or_404(DailyReport, pk=response['id'])
-
-            temp = request.data.dict()
-    
-            temp['recommend_music'] = recommend_music[0].id
-
-            udpated_music = QueryDict('', mutable=True)
-            udpated_music.update(temp)
-
-            serializer = CreatePostSerializer(instance=get_object_or_404(Post, pk=p.id), data=udpated_music)
-            serializer.is_valid(raise_exception=True)
-
-            p = serializer.save(report=report)
-
+        data['image'] = image
+        data['report_id'] = response['id']
+        print(post.id)
+        if search_music:
+            search_music_data = search_music
+            print(search_music_data)
+            print(type(search_music_data))
+            search_music_data['post'] = post.id
+            search_music_data['user'] = request.user.id
+            # search_music_data['emotion'] = 8
+            search_music_serializer = SearchMusicSerializer(data=search_music_data)
+            search_music_serializer.is_valid(raise_exception=True)
+            search_music = search_music_serializer.save()
         else:
-            msg = {
-                'detail': '텍스트를 분석할 수 없습니다.'
-            }
-            return Response(msg, status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
+            recommend_music = get_object_or_404(RecommendMusic, pk=int(recommend_music))
 
-        post = self.create_sticker(stickers, p.id)
-        result = {
-            **ReadPostSerializer(instance=post).data
+        serializer = CreatePostSerializer(instance=post, data=data)
+        serializer.is_valid(raise_exception=True)
+        report = get_object_or_404(DailyReport, pk=response['id'])
+        post = serializer.save(report=report, search_music=search_music, recommend_music=recommend_music)
+        msg = {
+            'id': post.id,
+            'detail': '작성이 완료되었습니다.'
         }
-        return Response(result, status=status.HTTP_201_CREATED)
+        return Response(msg, status=status.HTTP_201_CREATED)
 
 
 class diary(APIView, DiaryMixin):
@@ -130,35 +148,20 @@ class diary(APIView, DiaryMixin):
             'detail': '유효하지 않은 사용자입니다.'
         }
         return Response(msg, status=status.HTTP_403_FORBIDDEN)
-
-    # [{"id":1,"post":1,"sticker":1,"width":0,"deg":0,"top":0,"left":22},{"id":2, "post":1,"sticker":1,"width":23,"deg":0,"top":0,"left":0}]
-    @swagger_auto_schema(request_body=UpdatePostSerializer)
-    def put(self, request, post_id):
-        mypost = self.get_object(post_id)
-
-        serializer = UpdatePostSerializer(instance=mypost,data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        # 기존 스티커 삭제
-        my_stickers = mypost.stickers.all()
-        for sticker in my_stickers:
-            sticker.delete()
-
-        stickers = json.loads(request.data.get('stickers', '[]'))
-        self.create_sticker(stickers, mypost.id)
-
-        p = serializer.save()
-        return Response(ReadPostSerializer(instance=p).data, status=status.HTTP_200_OK)
     
     def delete(self, request, post_id):
         mypost = self.get_object(post_id)
-        mypost.delete()
-        
+        if request.user.id == mypost.user.id:
+            mypost.delete()
+            
+            msg = {
+                'detail': '오늘 하루가 사라졌습니다.'
+            }
+            return Response(msg, status=status.HTTP_200_OK)
         msg = {
-            "detail": "오늘 하루가 사라졌습니다."
+            'detail': '권한이 없습니다.'
         }
-
-        return Response(msg, status=status.HTTP_200_OK)
+        return Response(msg, status=status.HTTP_403_FORBIDDEN)
 
 
 @swagger_auto_schema()
@@ -203,6 +206,7 @@ def written(request):
 
 @api_view(['POST'])
 def make_test(request):
+    
     if PostColor.objects.filter(id=1).exists():
         return Response({
             'message': '이미 존재합니다.'

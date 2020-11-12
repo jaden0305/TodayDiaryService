@@ -11,8 +11,11 @@ import re
 
 class TextAnalysis:
     mecab = Mecab()
+    emotion_idx = {
+        'happy': 1, 'sad': 2, 'delight': 3, 'boring': 4, 'angry': 5, 'surprise': 6, 'horror': 7
+    }
     tag = ['VCP', 'VCN', 'NNG', 'IC', 'MAG', 'VA', 'VV', 'XR']
-    stopwords=['의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하','다','있']
+    stopwords=['것','곳','의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하','다','있']
     minus_discard_list = ['웃음', '남부럽', '탄복', '가슴', '기분', '개', '자식', '기집', '터지', '되', '오르', '만족', '속', '유쾌', '의심', '끼치', '치', '안정', '느끼']
     pos = []
     neg = []
@@ -168,6 +171,9 @@ class TextAnalysis:
         out = self.mecab.nouns(self.content)
         out_title = self.mecab.nouns(self.title)
         out += out_title
+        for ch in out:
+            if ch in self.stopwords:
+                out.remove(ch)
         word_counts = Counter(out)
         # print(word_counts)
 
@@ -188,7 +194,7 @@ class TextAnalysis:
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
         
         for i in range(len(sorted_word_counts)):
-            keyword = sorted_word_counts[i][0]
+            keyword = sorted_word_counts[i][0]                
             if keyword in self.get_pos():
                 sorted_word_counts[i] = list(sorted_word_counts[i])
                 sorted_word_counts[i].append(1)
@@ -223,43 +229,43 @@ class TextAnalysis:
         n = []
         txt = self.decompose(content)
         tit = self.decompose(title)
-        # print(txt)
+        print(txt)
         feel = {}
         for word in txt:
             if word in self.get_delight():
                 score += 2
                 cnt += 2
                 # print('d',word)
-                feel['delight'] = feel.get('delight',0) + 1    
+                feel[self.emotion_idx['delight']] = feel.get(self.emotion_idx['delight'],0) + 1    
             elif word in self.get_happy():
                 score += 3
                 cnt += 3
                 # print('h',word)
-                feel['happy'] = feel.get('happy',0) + 1    
+                feel[self.emotion_idx['happy']] = feel.get(self.emotion_idx['happy'],0) + 1    
             elif word in self.get_minus2():
                 score -= 2
                 cnt += 2
-                # print('-2',word)
+                print('-2',word)
                 if word in self.get_horror():
-                    feel['horror'] = feel.get('horror',0) + 1    
+                    feel[self.emotion_idx['horror']] = feel.get(self.emotion_idx['horror'],0) + 1    
                 elif word in self.get_angry():
-                    feel['angry'] = feel.get('angry',0) + 1    
+                    feel[self.emotion_idx['angry']] = feel.get(self.emotion_idx['angry'],0) + 1    
                 elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 1    
+                    feel[self.emotion_idx['sad']] = feel.get(self.emotion_idx['sad'],0) + 1    
             elif word in self.get_minus3():
                 score -= 3
                 cnt += 3
-                # print('-3',word)
+                print('-3',word)
                 if word in self.get_horror():
-                    feel['horror'] = feel.get('horror',0) + 1    
+                    feel[self.emotion_idx['horror']] = feel.get(self.emotion_idx['horror'],0) + 1    
                 elif word in self.get_angry():
-                    feel['angry'] = feel.get('angry',0) + 1
+                    feel[self.emotion_idx['angry']] = feel.get(self.emotion_idx['angry'],0) + 1    
                 elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 1
+                    feel[self.emotion_idx['sad']] = feel.get(self.emotion_idx['sad'],0) + 1    
             elif word in self.get_boring():
-                feel['boring'] = feel.get('boring', 0) + 1
+                feel[self.emotion_idx['boring']] = feel.get(self.emotion_idx['boring'],0) + 1    
             elif word in self.get_surprise():
-                feel['surprise'] = feel.get('surprise', 0) + 1    
+                feel[self.emotion_idx['surprise']] = feel.get(self.emotion_idx['surprise'],0) + 1    
             elif word in self.get_pos():
                 score += 1
                 cnt += 1
@@ -274,36 +280,36 @@ class TextAnalysis:
                 score += 3
                 cnt += 3
                 # print('d',word)
-                feel['delight'] = feel.get('delight',0) + 2    
+                feel[self.emotion_idx['delight']] = feel.get(self.emotion_idx['delight'],0) + 2    
             elif word in self.get_happy():
                 score += 4
                 cnt += 4
                 # print('h',word)
-                feel['happy'] = feel.get('happy',0) + 2    
+                feel[self.emotion_idx['happy']] = feel.get(self.emotion_idx['happy'],0) + 2
             elif word in self.get_minus2():
                 score -= 3
                 cnt += 3
                 # print('-2',word)
                 if word in self.get_horror():
-                    feel['horror'] = feel.get('horror',0) + 2    
+                    feel[self.emotion_idx['horror']] = feel.get(self.emotion_idx['horror'],0) + 2
                 elif word in self.get_angry():
-                    feel['angry'] = feel.get('angry',0) + 2    
+                    feel[self.emotion_idx['angry']] = feel.get(self.emotion_idx['angry'],0) + 2
                 elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 2    
+                    feel[self.emotion_idx['sad']] = feel.get(self.emotion_idx['sad'],0) + 2
             elif word in self.get_minus3():
                 score -= 4
                 cnt += 4
                 # print('-3',word)
                 if word in self.get_horror():
-                    feel['horror'] = feel.get('horror',0) + 2    
+                    feel[self.emotion_idx['horror']] = feel.get(self.emotion_idx['horror'],0) + 2
                 elif word in self.get_angry():
-                    feel['angry'] = feel.get('angry',0) + 2
+                    feel[self.emotion_idx['angry']] = feel.get(self.emotion_idx['angry'],0) + 2
                 elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 2
+                    feel[self.emotion_idx['sad']] = feel.get(self.emotion_idx['sad'],0) + 2
             elif word in self.get_boring():
-                feel['boring'] = feel.get('boring', 0) + 2
+                feel[self.emotion_idx['boring']] = feel.get(self.emotion_idx['boring'],0) + 2
             elif word in self.get_surprise():
-                feel['surprise'] = feel.get('surprise', 0) + 2    
+                feel[self.emotion_idx['surprise']] = feel.get(self.emotion_idx['surprise'],0) + 2
             elif word in self.get_pos():
                 score += 2
                 cnt += 2
@@ -315,7 +321,7 @@ class TextAnalysis:
         
         for emotion in self.emotions:
             if emotion:
-                feel[emotion] = feel.get(emotion, 0) + 2    
+                feel[self.emotion_idx[emotion]] = feel.get(self.emotion_idx[emotion], 0) + 2    
         # print('p', p)
         # print('n', n)
 
@@ -330,16 +336,17 @@ class TextAnalysis:
         # 일일 감정분류
         for key, value in feel.items():
             if score > 0:
-                if key == 'horror' or key == 'angry' or key =='sad':
+                if key == self.emotion_idx['horror'] or key == self.emotion_idx['angry'] or key == self.emotion_idx['sad']:
                     feel[key] = 0
             elif score < 0:
-                if key == 'happy' or key == 'delight':
+                if key == self.emotion_idx['happy'] or key == self.emotion_idx['delight']:
                     feel[key] = 0
         sorted_feel = sorted(feel.items(), key=lambda item:item[1], reverse=True)
         if len(sorted_feel) == 0:
-            sorted_feel = [('boring', 0)]
+            sorted_feel = [(4, 0)]
+        
         # print(sorted_feel)
-
+        print('horror',self.get_horror())
         word_count = self.count_words()
         # print(word_count)
         return {
@@ -350,25 +357,12 @@ class TextAnalysis:
 
 if __name__ == "__main__":
     data = {
-        'title' : '다행이다.',
-        'content' : '''약도 아침/자기전으로 잘 챙겨먹고
+        'title' : '면접 합격',
+        'content' : '''
+        무서웠다
+        ''',
 
-        옛날보다 더 몸이 건강해진것같다
-
-        지금 이 몸무게에 들어갈수 없었던 바지도 잘들어가고
-
-        너무 좋다 그리고 과하게 살이 쪘을땐 뭐든지 짜증이 났는데
-
-        별다른 이벤트가 없다면 그냥 그러려니 잘 넘긴다
-
-        나 정말 다행이야
-
-        어제는 사고싶은 옷들이 있어서 인터넷으로 옷을 주문했다
-
-        그리고 돈을 아끼려고 많이 노력중이다
-
-        나 잘할수 있다고 믿을래!''',
-        'stickers' : [{'emotion': {'name': 'happy'}}, {'emotion': {'name':'delight'}}]
+        'stickers' : []
     }
     a = TextAnalysis(data)
-    a.text_analysis()
+    print(a.text_analysis())

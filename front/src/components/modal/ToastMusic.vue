@@ -12,7 +12,11 @@
 							@keypress.enter="searchYoutube"
 						/>
 						<button class="toast-search__btn">
-							<img src="@/assets/images/search.svg" alt="" />
+							<img
+								@click="searchYoutube"
+								src="@/assets/images/search.svg"
+								alt=""
+							/>
 						</button>
 					</div>
 					<div class="back-playlist">

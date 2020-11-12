@@ -13,13 +13,13 @@ class WordCloudReportSerializer(serializers.ModelSerializer):
 class DailyReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyReport
-        fields = ('id', 'score', 'emotion', 'date', 'user_emotion')
+        fields = ('id', 'score', 'emotion', 'date',)
         # depth = 1
 
-class UserSelectEmotionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DailyReport
-        fields = ('user_emotion',)
+# class UserSelectEmotionSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = DailyReport
+#         fields = ('user_emotion',)
 
 class WeeklyDateSerializer(serializers.Serializer):
     start = serializers.DateField()
@@ -40,3 +40,4 @@ class DiaryAnalysisSerializer(serializers.Serializer):
     title = serializers.CharField()
     content = serializers.CharField()
     stickers = serializers.CharField()
+    search = serializers.BooleanField()

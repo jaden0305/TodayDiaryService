@@ -11,12 +11,16 @@
 		<main class="container">
 			<router-view> </router-view>
 		</main>
+		<ToastComplete></ToastComplete>
+		<ToastError></ToastError>
 		<MusicBar v-if="$route.name === 'fetchDiary'"></MusicBar>
 		<NavBar v-if="navOn"></NavBar>
 	</div>
 </template>
 
 <script>
+import ToastError from '@/components/common/ToastError.vue';
+import ToastComplete from '@/components/common/ToastComplete.vue';
 import MusicBar from '@/components/common/MusicBar.vue';
 import NavBar from '@/components/common/NavBar.vue';
 export default {
@@ -48,6 +52,8 @@ export default {
 	components: {
 		MusicBar,
 		NavBar,
+		ToastComplete,
+		ToastError,
 	},
 };
 </script>

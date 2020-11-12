@@ -70,10 +70,10 @@
 				>
 					<v-layer ref="layer">
 						<v-image
-							v-for="imageObject in imageObjects"
+							v-for="(imageObject, i) in imageObjects"
 							:key="imageObject.id"
 							:config="{
-								image: image1,
+								image: image[i],
 								rotation: imageObject.rotation,
 								x: imageObject.x,
 								y: imageObject.y,
@@ -112,10 +112,15 @@
 					v-model="diaryData.content"
 				></textarea>
 			</div>
-			<button class="diary-complete-btn" @click="openSaveModal">
+			<button class="diary-complete-btn" @click="fetchAnalysis">
 				오늘 감정 알아볼래요
 			</button>
-			<ToastSave :open="openSave" @close-theme="openSave = false" />
+			<ToastSave
+				:open="openSave"
+				:diaryData="diaryData"
+				:diaryAnalysisResult="diaryAnalysisResult"
+				@close-theme="openSave = false"
+			/>
 		</div>
 	</section>
 </template>
@@ -126,11 +131,9 @@ import ToastMusic from '@/components/modal/ToastMusic.vue';
 import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
 import ToastSave from '@/components/modal/ToastSave.vue';
+import { createDiaryanalysis } from '@/api/analysis';
 
-const width = window.innerWidth;
-const height = window.innerHeight;
-// const width = document.querySelector('.diary-image').clientWidth;
-// const height = document.querySelector('.diary-image').clientHeight;
+let num = 1;
 
 export default {
 	data() {
@@ -148,6 +151,8 @@ export default {
 				content: null,
 				fontsize: 14,
 				music: null,
+				stickers: [],
+				search: false,
 				postcolor: {
 					id: 1,
 					value: '#646464',
@@ -162,51 +167,19 @@ export default {
 				},
 				created: '2020-11-03',
 			},
-			stageSize: {
-				width: width,
-				height: height,
+			diaryAnalysisData: {
+				title: null,
+				content: null,
+				stickers: [],
+				search: false,
 			},
-			image1: null,
-			image2: null,
-			image3: null,
-			imageObjects: [
-				{
-					image: this.image1,
-					rotation: 0,
-					x: 50,
-					y: 50,
-					width: 100,
-					height: 100,
-					scaleX: 1,
-					scaleY: 1,
-					name: 'img',
-					draggable: true,
-				},
-				{
-					image: this.image2,
-					rotation: 0,
-					x: 150,
-					y: 150,
-					width: 100,
-					height: 100,
-					scaleX: 1,
-					scaleY: 1,
-					name: 'img2',
-					draggable: true,
-				},
-				{
-					image: this.image3,
-					rotation: 0,
-					x: 200,
-					y: 200,
-					width: 100,
-					height: 100,
-					scaleX: 1,
-					scaleY: 1,
-					name: 'img3',
-					draggable: true,
-				},
-			],
+			diaryAnalysisResult: null,
+			stageSize: {
+				width: 0,
+				height: 0,
+			},
+			image: [],
+			imageObjects: [],
 			selectedShapeName: '',
 		};
 	},
@@ -243,6 +216,10 @@ export default {
 				this.openTheme = false;
 			} else {
 				console.log('이미지를 추가해야 스티커를 사용할 수 있어요:(');
+				bus.$emit(
+					'show:error',
+					'이미지를 추가해야 스티커를 사용할 수 있어요:(',
+				);
 			}
 			bus.$emit('show:stickerModal', '스티커입니다:)');
 		},
@@ -252,27 +229,40 @@ export default {
 			this.openTheme = true;
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
-		openSaveModal() {
+		async fetchAnalysis() {
+			this.diaryData.stickers = this.imageObjects;
+			this.diaryAnalysisData.stickers = this.imageObjects;
+			this.diaryAnalysisData.title = this.diaryData.title;
+			this.diaryAnalysisData.content = this.diaryData.content;
+			this.diaryAnalysisData.search = this.diaryData.search;
+			const { data } = await createDiaryanalysis(this.diaryAnalysisData);
+			console.log(data);
+			this.diaryAnalysisResult = data;
 			this.openSave = true;
 		},
-		setSticker(selctedStickerPath) {
-			const imageWrap = document.querySelector('.diary-image');
+		setSticker(selctedStickerPath, id, emotion) {
 			const imageElem = document.createElement('img');
-			const imageLength = imageWrap.getElementsByTagName('img').length;
 
-			if (imageLength < 4) {
+			if (this.image.length < 3) {
 				imageElem.src = selctedStickerPath;
 				imageElem.classList.add('diary-image__sticker');
-				// imageWrap.appendChild(imageElem);
 				imageElem.onload = () => {
 					// set image only when it is loaded
-					if (!(this.image1 && this.image2 && this.image3)) {
-						this.image1 = imageElem;
-					} else if (this.image1 && !(this.image2 && this.image3)) {
-						this.image2 = imageElem;
-					} else {
-						this.image3 = imageElem;
-					}
+					this.image.push(imageElem);
+					this.imageObjects.push({
+						sticker: id,
+						emotion: emotion,
+						image: null,
+						rotation: 0,
+						x: 50,
+						y: 50,
+						width: 100,
+						height: 100,
+						scaleX: 1,
+						scaleY: 1,
+						name: 'img' + num++,
+						draggable: true,
+					});
 				};
 			} else {
 				console.log('스티커는 3개까지 넣을 수 있어요');
@@ -286,7 +276,7 @@ export default {
 
 			title.style.fontFamily = selectedFont.name;
 			content.style.fontFamily = selectedFont.name;
-			console.log('read', selectedPaper.path);
+
 			if (selectedPaper.path) {
 				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${selectedPaper.path}) center`;
 			} else {
@@ -323,6 +313,17 @@ export default {
 		selectMusic(music) {
 			console.log(music);
 			this.diaryData.music = music;
+			this.diaryData.search = true;
+			bus.$emit(
+				'show:complete',
+				`${music.name.substr(0, 14)}..이 선택되었습니다.`,
+			);
+		},
+		resizeStage() {
+			const stageWrap = document.querySelector('.diary-image');
+
+			this.stageSize.width = stageWrap.clientWidth;
+			this.stageSize.height = stageWrap.clientHeight;
 		},
 		handleTransformEnd(e) {
 			// shape is transformed, let us save new attrs back to the node
@@ -357,12 +358,13 @@ export default {
 			// find clicked rect by its name
 			const name = e.target.name();
 			let imgElem;
-			if (!(this.image1 && this.image2 && this.image3)) {
-				imgElem = this.image1;
-			} else if (this.image1 && !(this.image2 && this.image3)) {
-				imgElem = this.image2;
+
+			if (name === 'img1') {
+				imgElem = this.image[0];
+			} else if (name === 'img2') {
+				imgElem = this.image[1];
 			} else {
-				imgElem = this.image3;
+				imgElem = this.image[2];
 			}
 
 			if (imgElem) {
@@ -393,6 +395,9 @@ export default {
 			}
 			transformerNode.getLayer().batchDraw();
 		},
+	},
+	mounted() {
+		this.resizeStage();
 	},
 };
 </script>
@@ -449,10 +454,6 @@ export default {
 		background: rgba(151, 151, 151, 0.3);
 		position: relative;
 		.konvajs-content {
-			width: 300px !important;
-			height: 200px !important;
-		}
-		canvas {
 			width: 300px !important;
 			height: 200px !important;
 		}
