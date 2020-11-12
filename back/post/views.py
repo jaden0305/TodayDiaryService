@@ -68,12 +68,15 @@ class CreateDiary(APIView, DiaryMixin):
         data = request.data.dict()
         exclude_data = {}
         image = request.data.get('image')
-        search_music = json.loads(request.data.get('search_music'))
-        if search_music == {}:
-            search_music = None
-            data['search_music'] = None
+        if request.data.get('search_music'):
+            search_music = json.loads(request.data.get('search_music'))
+            if search_music == {}:
+                search_music = None
+                data['search_music'] = None
+            else:
+                data['search_music'] = search_music
         else:
-            data['search_music'] = search_music
+            search_music = None
 
         recommend_music = request.data.get('recommend_music')
         if not (search_music or recommend_music):
@@ -109,6 +112,7 @@ class CreateDiary(APIView, DiaryMixin):
             print(search_music_data)
             print(type(search_music_data))
             search_music_data['post'] = post.id
+            search_music_data['user'] = request.user.id
             # search_music_data['emotion'] = 8
             search_music_serializer = SearchMusicSerializer(data=search_music_data)
             search_music_serializer.is_valid(raise_exception=True)

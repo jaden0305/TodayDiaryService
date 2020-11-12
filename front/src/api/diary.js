@@ -32,23 +32,6 @@ export function fetchPapers() {
 export function fetchStickers() {
 	return diary.get(`/sticker/all/`);
 }
-export function updateDiary(diaryData, diaryId) {
-	const formdata = new FormData();
-	if (diaryData.image) {
-		formdata.append('image', diaryData.image);
-	}
-	formdata.append('title', diaryData.title);
-	formdata.append('content', diaryData.content);
-	formdata.append('fontsize', diaryData.fontsize);
-	formdata.append('music_name', diaryData.music_name);
-	formdata.append('music_artist', diaryData.music_artist);
-	formdata.append('postcolor', diaryData.postcolor.id);
-	formdata.append('font', diaryData.font.id);
-	formdata.append('pattern', diaryData.pattern.id);
-	console.log(diaryData.postcolor);
-
-	return diary.put(`/${diaryId}/`, formdata);
-}
 export function deleteDiary(diaryId) {
 	return diary.delete(`/${diaryId}/`);
 }

@@ -343,6 +343,7 @@ export default {
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
+	margin-bottom: 60px;
 	.report-header {
 		width: 100%;
 		background: #f0f0f0;
