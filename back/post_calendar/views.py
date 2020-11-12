@@ -84,7 +84,7 @@ class CalendarView(APIView):
                 created = post['created']
                 calendar_info[created.month][created.day-1]['post'] = {
                     'emotion': report['emotion'],
-                    'user_emotion': report['user_emotion'],
+                    'user_emotion': post['user_emotion_id'],
                     'id': post['id']
                 }
             
