@@ -34,6 +34,7 @@
 						:src="`@/assets/images/emotion/${idx}.png`"
 						class="itemMenu "
 						alt="감정상태"
+						@click="onReselectEmotion(idx)"
 					/>
 				</div>
 				<!-- <div class="itemMenuBox tarsheed">
@@ -88,6 +89,7 @@
 
 <script>
 import { createDiary } from '@/api/diary';
+import { reselectEmotion } from '@/api/analysis';
 
 export default {
 	data() {
@@ -157,6 +159,14 @@ export default {
 				const { data } = await createDiary(this.diaryData);
 				console.log('11111111111112222222222222', data);
 				this.$router.push(`/diary/${data.id}`);
+			} catch (err) {
+				console.log(err.response);
+			}
+		},
+		async onReselectEmotion(id) {
+			try {
+				const { data } = await reselectEmotion(id);
+				console.log(data);
 			} catch (err) {
 				console.log(err.response);
 			}
