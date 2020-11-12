@@ -165,7 +165,9 @@ export default {
 .calendar-wrap {
 	max-width: 100%;
 	height: 100%;
-	padding: 1rem;
+	padding: 0.5rem;
+	padding-top: 1.25rem;
+	margin-bottom: 60px;
 	.calendar-content {
 		border-radius: 1rem;
 		background: #f0f0f0;
