@@ -1,17 +1,14 @@
 <template>
-	<section
-		class="toast"
-		:class="toastAnimationClass"
-		v-if="this.diaryAnalysisResult"
-	>
+	<section class="toast" :class="toastAnimationClass">
 		<section class="toast-wrap">
 			<div class="save-diary">
 				<p class="save-diary-comment">당신의 오늘 하루는</p>
 				<p class="save-diary-comment">
-					{{ this.diaryAnalysisResult.feel[0][0] }}이군요 :)
+					{{ this.diaryData.user_emotion }}이군요 :)
 				</p>
 				<p class="save-diary-comment">
-					{{ this.diaryAnalysisResult.music.name }}으로 마무리하는 건 어때요?
+					{{ this.diaryData.recommend_music.artist }}의
+					{{ this.diaryData.recommend_music.name }}으로 마무리하는 건 어때요?
 				</p>
 				<div class="save-diary-emotion">
 					<img src="@/assets/images/emotion/happy.png" alt="감정상태" />
@@ -97,7 +94,6 @@ export default {
 	props: {
 		open: Boolean,
 		diaryData: Object,
-		diaryAnalysisResult: Object,
 	},
 	computed: {
 		toastAnimationClass() {
@@ -120,8 +116,16 @@ export default {
 			this.$emit('close-theme');
 		},
 		async onSaveDiary() {
-			const { data } = await createDiary(this.diaryData);
-			this.$router.push(`/diary/${data.id}`);
+			try {
+				console.log('1111111111111', this.diaryData);
+				console.log('333333333333', this.$route.query);
+				this.diaryData.created = this.$route.query.day;
+				const { data } = await createDiary(this.diaryData);
+				console.log('11111111111112222222222222', data);
+				this.$router.push(`/diary/${data.id}`);
+			} catch (err) {
+				console.log(err.response);
+			}
 		},
 	},
 };

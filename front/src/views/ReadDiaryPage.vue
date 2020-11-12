@@ -61,6 +61,9 @@ export default {
 				return `@/assets/images/logo3.png`;
 			}
 		},
+		setUrl() {
+			return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}`;
+		},
 	},
 	methods: {
 		onOpenMenu() {
@@ -78,6 +81,20 @@ export default {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
 				console.log(error.response);
 			}
+		},
+		onFetchStickers() {
+			const stickerWrap = document.querySelector('.diary-image');
+			let imgElem = document.createElement('img');
+			imgElem.src =
+				this.setUrl +
+				this.diaryData.stickers[0].sticker.path.replace('images', 'media');
+			imgElem.style.width = `${this.diaryData.stickers[0].width}px`;
+			imgElem.style.position = `absolute`;
+			imgElem.style.top = `${this.diaryData.stickers[0].y}px`;
+			imgElem.style.left = `${this.diaryData.stickers[0].x}px`;
+			imgElem.style.transform = `rotate(${this.diaryData.stickers[0].rotation}deg)`;
+
+			stickerWrap.appendChild(imgElem);
 		},
 		onFetchFont() {
 			const title = document.querySelector('.diary-header__dataTitle');
@@ -106,6 +123,7 @@ export default {
 		this.onFetchDiary();
 	},
 	updated() {
+		this.onFetchStickers();
 		this.onFetchFont();
 		this.onFetchPaper();
 	},
@@ -154,6 +172,7 @@ export default {
 		height: 28vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
+		position: relative;
 		.diary-image__value {
 			width: 100%;
 			border-radius: 4px;
