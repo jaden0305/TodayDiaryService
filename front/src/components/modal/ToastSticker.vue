@@ -122,9 +122,9 @@ export default {
 		justify-content: space-around;
 		margin-top: 20px;
 		.toast-sticker-item__image {
-			width: 70px;
-			max-height: 90px;
-			margin-top: 10px;
+			width: 60px;
+			max-height: 70px;
+			margin: 3px 10px;
 		}
 	}
 }
@@ -134,9 +134,12 @@ export default {
 	align-items: center;
 }
 .toast-sticker__box {
+	overflow: scroll;
 	ul {
 		display: flex;
-		flex-wrap: wrap;
+		li {
+			white-space: nowrap;
+		}
 	}
 }
 .toast-sticker__input {
