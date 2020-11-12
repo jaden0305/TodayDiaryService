@@ -281,6 +281,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus';
 import { likeMusics } from '@/api/auth';
 export default {
 	data() {
@@ -331,7 +332,6 @@ export default {
 	},
 	methods: {
 		selectEmotion(num) {
-			console.log(num);
 			const selected = document.querySelector('.select');
 			const buttons = document.querySelectorAll('.player__button');
 			selected.classList.remove('select');
@@ -426,13 +426,18 @@ export default {
 			].favorited;
 		},
 		async fetchData() {
-			const { data } = await likeMusics();
-			this.tracks = data;
-			this.allMusic = data;
-			data.forEach(music => {
-				this.musicArray[music.emotion].push(music);
-			});
-			this.currentTrack = this.tracks[0];
+			try {
+				const { data } = await likeMusics();
+				this.tracks = data;
+				this.allMusic = data;
+				data.forEach(music => {
+					this.musicArray[music.emotion].push(music);
+				});
+				this.currentTrack = this.tracks[0];
+			} catch (error) {
+				// bus.$emit('show:error', error.response.data);
+				bus.$emit('show:error', '노래를 불러오는데 실패했습니다 :(');
+			}
 		},
 	},
 	created() {

@@ -119,23 +119,17 @@ export default {
 	},
 	methods: {
 		writeDiary(dayString) {
-			console.log(dayString);
 			this.$router.push({ name: 'diary', query: { day: dayString } });
 		},
 		readDiary(diary_pk) {
 			this.$router.push(`/diary/${diary_pk}`);
 		},
 		lastTwo(month) {
-			// console.log(('0' + month).slice(-2));
 			return ('0' + month).slice(-2);
 		},
 	},
 	mounted() {
-		// const day = document.querySelectorAll('.calendar-day');
-		// day.style.height = `${this.weekWidth}px`;
-		// console.log(this.weekWidth, day.clientHeight);
 		const emotions = document.querySelectorAll('.emoticon');
-		// console.log(emotions);
 		emotions.forEach(emotion => {
 			emotion.style.width = this.weekWidth;
 			emotion.style.height = this.weekWidth;
