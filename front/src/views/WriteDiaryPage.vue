@@ -220,15 +220,24 @@ export default {
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
 		async fetchAnalysis() {
-			this.diaryData.stickers = this.imageObjects;
-			this.diaryAnalysisData.stickers = this.imageObjects;
-			this.diaryAnalysisData.title = this.diaryData.title;
-			this.diaryAnalysisData.content = this.diaryData.content;
-			const { data } = await createDiaryanalysis(this.diaryAnalysisData);
-			console.log(data);
-			this.diaryData.user_emotion = data.feel[0][0];
-			this.diaryData.recommend_music = data.music;
-			this.openSave = true;
+			try {
+				if (this.diaryData.title && this.diaryData.content) {
+					this.diaryData.stickers = this.imageObjects;
+					this.diaryAnalysisData.stickers = this.imageObjects;
+					this.diaryAnalysisData.title = this.diaryData.title;
+					this.diaryAnalysisData.content = this.diaryData.content;
+					const { data } = await createDiaryanalysis(this.diaryAnalysisData);
+
+					this.diaryData.user_emotion = data.feel[0][0];
+					this.diaryData.recommend_music = data.music;
+
+					this.openSave = true;
+				} else {
+					console.log('내용을 입력해주세요:(');
+				}
+			} catch (err) {
+				console.log(err.response);
+			}
 		},
 		setSticker(selctedStickerPath, id, emotion) {
 			const imageElem = document.createElement('img');
