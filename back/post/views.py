@@ -35,7 +35,7 @@ def get_date(today):
     return map(int, today.split('-'))
 
 def get_start_day(today):
-    year, month, day = get_date(today)
+    year, month, day = map(int, today.split('-'))
     today = datetime.date(year, month, day)
     for delta in range(7):
         date = today - datetime.timedelta(days=delta)
@@ -44,14 +44,14 @@ def get_start_day(today):
     return date
 
 def delete_week_cache(today, user_id):
-    start_day = get_start_day(today)
     if redis_check():
-        cache.delete(f'w-u{user_id}-s{start_day}')
+        cache.delete(f'w-u{user_id}-s{today}')
 
 def delete_month_cache(today, user_id):
-    year, month, _ = get_date(today)
+    year = today.year
+    month = today.month
     if redis_check():
-        cache.delete(f'm-u{request.user.id}-{year}-{month}')
+        cache.delete(f'm-u{user_id}-{year}-{month}')
     
 class CreateDiary(APIView, DiaryMixin):
 
@@ -149,6 +149,8 @@ class CreateDiary(APIView, DiaryMixin):
         report = get_object_or_404(DailyReport, pk=response['id'])
         post = serializer.save(report=report, search_music=search_music, recommend_music=recommend_music)
         
+        year, month, day = get_date(date)
+        date = datetime.date(year, month, day)
         delete_week_cache(date, request.user.id)
         delete_month_cache(date, request.user.id)
         msg = {
@@ -170,7 +172,13 @@ class diary(APIView, DiaryMixin):
         mypost = self.get_object(post_id)
         if mypost.user.id == request.user.id:
             serializer = ReadPostSerializer(instance=mypost)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            result = serializer.data
+            if result.get('search_music', None):
+                result['search_music']['liked'] = request.user.search_like.filter(video_id=result['search_music']['video_id']).exists()
+            else:
+                music = result['recommend_music']
+                result['recommend_music']['liked'] = request.user.recommend_like.filter(pk=music['id']).exists()
+            return Response(result, status=status.HTTP_200_OK)
         msg = {
             'detail': '유효하지 않은 사용자입니다.'
         }
@@ -181,6 +189,10 @@ class diary(APIView, DiaryMixin):
         if request.user.id == mypost.user.id:
             date = mypost.created
             mypost.delete()
+            # mypost.report.delete()
+            # words = mypost.word_cloud.all()
+            # for word in words:
+            #     word.delete()
             
             delete_week_cache(date, request.user.id)
             delete_month_cache(date, request.user.id)
