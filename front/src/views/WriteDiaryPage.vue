@@ -118,7 +118,6 @@
 			<ToastSave
 				:open="openSave"
 				:diaryData="diaryData"
-				:diaryAnalysisResult="diaryAnalysisResult"
 				@close-theme="openSave = false"
 			/>
 		</div>
@@ -146,17 +145,13 @@ export default {
 			openTheme: false,
 			openSave: false,
 			diaryData: {
-				image: null,
 				title: null,
 				content: null,
-				fontsize: 14,
-				music: null,
-				stickers: [],
-				search: false,
-				postcolor: {
-					id: 1,
-					value: '#646464',
-				},
+				image: null,
+				stickers: '[]',
+				search_music: {},
+				recommend_music: {},
+				user_emotion: null,
 				font: {
 					id: 1,
 					name: 'Poor Story',
@@ -165,7 +160,7 @@ export default {
 					id: 1,
 					path: 'media/paper/1.png',
 				},
-				created: '2020-11-03',
+				created: null,
 			},
 			diaryAnalysisData: {
 				title: null,
@@ -173,7 +168,6 @@ export default {
 				stickers: [],
 				search: false,
 			},
-			diaryAnalysisResult: null,
 			stageSize: {
 				width: 0,
 				height: 0,
@@ -230,10 +224,10 @@ export default {
 			this.diaryAnalysisData.stickers = this.imageObjects;
 			this.diaryAnalysisData.title = this.diaryData.title;
 			this.diaryAnalysisData.content = this.diaryData.content;
-			this.diaryAnalysisData.search = this.diaryData.search;
 			const { data } = await createDiaryanalysis(this.diaryAnalysisData);
 			console.log(data);
-			this.diaryAnalysisResult = data;
+			this.diaryData.user_emotion = data.feel[0][0];
+			this.diaryData.recommend_music = data.music;
 			this.openSave = true;
 		},
 		setSticker(selctedStickerPath, id, emotion) {
@@ -252,8 +246,8 @@ export default {
 						rotation: 0,
 						x: 50,
 						y: 50,
-						width: 100,
-						height: 100,
+						width: 70,
+						height: 70,
 						scaleX: 1,
 						scaleY: 1,
 						name: 'img' + num++,
@@ -263,7 +257,6 @@ export default {
 			} else {
 				console.log('스티커는 3개까지 넣을 수 있어요');
 			}
-
 			this.openSticker = false;
 		},
 		setTheme(selectedFont, selectedPaper) {
@@ -296,20 +289,9 @@ export default {
 			this.diaryData.pattern = selectedPaper;
 			this.openTheme = false;
 		},
-		async onSaveDiary() {
-			try {
-				this.diaryData.created = this.$route.query.day;
-				// 감정이랑 곡정보 요청 받아서 저장 => diaryData
-				// diaryData를 props로 넘겨줌
-			} catch (error) {
-				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
-				console.log(error.response);
-			}
-		},
 		selectMusic(music) {
-			console.log(music);
-			this.diaryData.music = music;
-			this.diaryData.search = true;
+			this.diaryData.search_music = music;
+			this.diaryAnalysisData.search = true;
 		},
 		resizeStage() {
 			const stageWrap = document.querySelector('.diary-image');
@@ -324,8 +306,6 @@ export default {
 			const imgElem = this.imageObjects.find(
 				r => r.name === this.selectedShapeName,
 			);
-			console.log('rotation', e.target.rotation());
-			console.log('x', e.target.x());
 
 			// update the state
 			imgElem.x = e.target.x();
