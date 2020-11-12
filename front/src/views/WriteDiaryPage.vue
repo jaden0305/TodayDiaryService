@@ -216,6 +216,10 @@ export default {
 				this.openTheme = false;
 			} else {
 				console.log('이미지를 추가해야 스티커를 사용할 수 있어요:(');
+				bus.$emit(
+					'show:error',
+					'이미지를 추가해야 스티커를 사용할 수 있어요:(',
+				);
 			}
 			bus.$emit('show:stickerModal', '스티커입니다:)');
 		},
@@ -310,6 +314,10 @@ export default {
 			console.log(music);
 			this.diaryData.music = music;
 			this.diaryData.search = true;
+			bus.$emit(
+				'show:complete',
+				`${music.name.substr(0, 14)}..이 선택되었습니다.`,
+			);
 		},
 		resizeStage() {
 			const stageWrap = document.querySelector('.diary-image');
