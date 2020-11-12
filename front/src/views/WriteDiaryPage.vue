@@ -118,7 +118,6 @@
 			<ToastSave
 				:open="openSave"
 				:diaryData="diaryData"
-				:diaryAnalysisResult="diaryAnalysisResult"
 				@close-theme="openSave = false"
 			/>
 		</div>
@@ -146,17 +145,13 @@ export default {
 			openTheme: false,
 			openSave: false,
 			diaryData: {
-				image: null,
 				title: null,
 				content: null,
-				fontsize: 14,
-				music: null,
-				stickers: [],
-				search: false,
-				postcolor: {
-					id: 1,
-					value: '#646464',
-				},
+				image: null,
+				stickers: '[]',
+				search_music: {},
+				recommend_music: {},
+				user_emotion: null,
 				font: {
 					id: 1,
 					name: 'Poor Story',
@@ -165,7 +160,7 @@ export default {
 					id: 1,
 					path: 'media/paper/1.png',
 				},
-				created: '2020-11-03',
+				created: null,
 			},
 			diaryAnalysisData: {
 				title: null,
@@ -173,7 +168,6 @@ export default {
 				stickers: [],
 				search: false,
 			},
-			diaryAnalysisResult: null,
 			stageSize: {
 				width: 0,
 				height: 0,
@@ -229,15 +223,24 @@ export default {
 			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
 		async fetchAnalysis() {
-			this.diaryData.stickers = this.imageObjects;
-			this.diaryAnalysisData.stickers = this.imageObjects;
-			this.diaryAnalysisData.title = this.diaryData.title;
-			this.diaryAnalysisData.content = this.diaryData.content;
-			this.diaryAnalysisData.search = this.diaryData.search;
-			const { data } = await createDiaryanalysis(this.diaryAnalysisData);
-			console.log(data);
-			this.diaryAnalysisResult = data;
-			this.openSave = true;
+			try {
+				if (this.diaryData.title && this.diaryData.content) {
+					this.diaryData.stickers = this.imageObjects;
+					this.diaryAnalysisData.stickers = this.imageObjects;
+					this.diaryAnalysisData.title = this.diaryData.title;
+					this.diaryAnalysisData.content = this.diaryData.content;
+					const { data } = await createDiaryanalysis(this.diaryAnalysisData);
+
+					this.diaryData.user_emotion = data.feel[0][0];
+					this.diaryData.recommend_music = data.music;
+
+					this.openSave = true;
+				} else {
+					console.log('내용을 입력해주세요:(');
+				}
+			} catch (err) {
+				console.log(err.response);
+			}
 		},
 		setSticker(selctedStickerPath, id, emotion) {
 			const imageElem = document.createElement('img');
@@ -255,8 +258,8 @@ export default {
 						rotation: 0,
 						x: 50,
 						y: 50,
-						width: 100,
-						height: 100,
+						width: 70,
+						height: 70,
 						scaleX: 1,
 						scaleY: 1,
 						name: 'img' + num++,
@@ -266,7 +269,6 @@ export default {
 			} else {
 				bus.$emit('show:error', '스티커는 3개까지 넣을 수 있어요 :(');
 			}
-
 			this.openSticker = false;
 		},
 		setTheme(selectedFont, selectedPaper) {
@@ -311,8 +313,9 @@ export default {
 			}
 		},
 		selectMusic(music) {
-			this.diaryData.music = music;
-			this.diaryData.search = true;
+			console.log(music);
+			this.diaryData.search_music = music;
+			this.diaryAnalysisData.search = true;
 			bus.$emit(
 				'show:complete',
 				`${music.name.substr(0, 14)}..이 선택되었습니다.`,
@@ -331,8 +334,6 @@ export default {
 			const imgElem = this.imageObjects.find(
 				r => r.name === this.selectedShapeName,
 			);
-			console.log('rotation', e.target.rotation());
-			console.log('x', e.target.x());
 
 			// update the state
 			imgElem.x = e.target.x();
