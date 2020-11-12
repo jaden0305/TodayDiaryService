@@ -43,7 +43,7 @@ class Sticker(models.Model):
 
 
 class RecommendMusic(models.Model):
-    title = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     artist = models.CharField(max_length=30, blank=True, null=True)
     video_id = models.CharField(max_length=20)
     cover = models.TextField(blank=True, null=True)
@@ -53,7 +53,7 @@ class RecommendMusic(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    search_music = models.ForeignKey(RecommendMusic, on_delete=models.CASCADE, null=True, related_name='serch_music')
+    search_music = models.ForeignKey('SearchMusic', on_delete=models.CASCADE, null=True, related_name='search_music')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
     font = models.ForeignKey(PostFont, on_delete=models.CASCADE)
     pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE)
@@ -63,10 +63,19 @@ class Post(models.Model):
     image = models.ImageField(blank=True, null=True, upload_to=upload_location)
 
 
+class SearchMusic(models.Model):
+    name = models.CharField(max_length=50)
+    artist = models.CharField(max_length=30, blank=True, null=True)
+    video_id = models.CharField(max_length=20)
+    cover = models.TextField(blank=True, null=True)
+    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='search_musics')
+    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='post')
+
+
 class PostSticker(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='stickers')
     sticker = models.ForeignKey(Sticker, on_delete=models.CASCADE)
     width = models.CharField(max_length=20)
-    deg = models.CharField(max_length=20)
-    top = models.CharField(max_length=20)
-    left = models.CharField(max_length=20)
+    rotation = models.CharField(max_length=20)
+    y = models.CharField(max_length=20)
+    x = models.CharField(max_length=20)

@@ -1,9 +1,80 @@
 <template>
 	<div class="wrapper">
-		<div class="player__comment">
-			<p>오늘 하루를 음악으로 마무리 하는 건 어때요?</p>
-		</div>
 		<div class="player">
+			<div class="player__buttons">
+				<div @click="selectEmotion(0)" class="player__button">
+					<div
+						class="player__btn select"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+					>
+						전체
+					</div>
+				</div>
+				<div @click="selectEmotion(1)" class="player__button">
+					<img
+						class="player__btn"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+						src="@/assets/images/emotion/happy.png"
+						alt=""
+					/>
+				</div>
+				<div @click="selectEmotion(2)" class="player__button">
+					<img
+						class="player__btn"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+						src="@/assets/images/emotion/sad.png"
+						alt=""
+					/>
+				</div>
+				<div @click="selectEmotion(3)" class="player__button">
+					<img
+						class="player__btn"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+						src="@/assets/images/emotion/smile.png"
+						alt=""
+					/>
+				</div>
+				<div @click="selectEmotion(4)" class="player__button">
+					<img
+						class="player__btn"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+						src="@/assets/images/emotion/boring.png"
+						alt=""
+					/>
+				</div>
+				<div @click="selectEmotion(5)" class="player__button">
+					<img
+						class="player__btn"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+						src="@/assets/images/emotion/angry.png"
+						alt=""
+					/>
+				</div>
+				<div @click="selectEmotion(6)" class="player__button">
+					<img
+						class="player__btn"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+						src="@/assets/images/emotion/surprise.png"
+						alt=""
+					/>
+				</div>
+				<div @click="selectEmotion(7)" class="player__button">
+					<img
+						class="player__btn"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+						src="@/assets/images/emotion/dislike.png"
+						alt=""
+					/>
+				</div>
+				<div @click="selectEmotion(8)" class="player__button">
+					<img
+						class="player__btn"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+						src="@/assets/images/emotion/dislike.png"
+						alt=""
+					/>
+				</div>
+			</div>
 			<div class="player__title">
 				플레이어<img
 					class="player-swap"
@@ -210,15 +281,14 @@
 </template>
 
 <script>
+import { likeMusics } from '@/api/auth';
 export default {
 	data() {
 		return {
-			audio: null,
-			circleLeft: null,
-			barWidth: null,
-			duration: null,
-			currentTime: null,
+			buttonWidth: null,
 			isTimerPlaying: false,
+			allMusic: [],
+			musicArray: [[], [], [], [], [], [], [], [], []],
 			tracks: [
 				{
 					name: '야작시',
@@ -257,10 +327,22 @@ export default {
 			},
 			currentTrack: null,
 			currentTrackIndex: 0,
-			transitionName: null,
 		};
 	},
 	methods: {
+		selectEmotion(num) {
+			console.log(num);
+			const selected = document.querySelector('.select');
+			const buttons = document.querySelectorAll('.player__button');
+			selected.classList.remove('select');
+			buttons[num].classList.add('select');
+
+			// if (num !== 0) {
+			// 	this.tracks = this.musicArray[num];
+			// } else {
+			// 	this.tracks = this.allMusic;
+			// }
+		},
 		showSwap() {
 			const Container = document.querySelector('#player-back-container');
 			Container.classList.remove('slide-out-top');
@@ -345,8 +427,18 @@ export default {
 				this.currentTrackIndex
 			].favorited;
 		},
+		async fetchData() {
+			const { data } = await likeMusics();
+			this.tracks = data;
+			this.allMusic = data;
+			data.forEach(music => {
+				this.musicArray[music.emotion].push(music);
+			});
+			this.currentTrack = this.tracks[0];
+		},
 	},
 	created() {
+		// this.fetchData();
 		this.currentTrack = this.tracks[0];
 		// this is optional (for preload covers)
 		for (let index = 0; index < this.tracks.length; index++) {
@@ -358,10 +450,45 @@ export default {
 			document.head.appendChild(link);
 		}
 	},
+	mounted() {
+		const buttons = document.querySelector('.player__buttons');
+		this.buttonWidth = buttons.clientWidth / 9;
+	},
 };
 </script>
 
 <style lang="scss">
+.player__buttons {
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	color: #495057;
+	/* margin-top: 0.5rem; */
+	margin-bottom: 1rem;
+	.player__button {
+		/* padding-top: 10px;
+		padding-bottom: 10px; */
+		width: 100 / 8 * 1%;
+		text-align: center;
+		font-weight: 400;
+		font-size: 12px;
+		img {
+			width: 100%;
+			object-fit: cover;
+		}
+		.player__btn {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+	.select {
+		border-radius: 12px;
+		background: #f0f0f0;
+		box-shadow: inset 8px 8px 4px #e2e2e2, inset -8px -8px 4px #fefefe;
+	}
+}
 #player-back-container {
 	position: absolute;
 	top: 0;

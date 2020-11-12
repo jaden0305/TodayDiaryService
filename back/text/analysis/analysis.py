@@ -34,6 +34,7 @@ class TextAnalysis:
         self.title = data['title']
         self.emotions = []
         if data.get('stickers'):
+            print(data['stickers'])
             self.emotions = [
                 sticker['emotion']['name'] for sticker in data['stickers']
             ]
@@ -191,6 +192,9 @@ class TextAnalysis:
         out = self.mecab.nouns(self.content)
         out_title = self.mecab.nouns(self.title)
         out += out_title
+        for ch in out:
+            if ch in self.stopwords:
+                out.remove(ch)
         word_counts = Counter(out)
         
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
@@ -316,7 +320,7 @@ class TextAnalysis:
 if __name__ == "__main__":
     data = {
         'title' : '다행이다.',
-        'content' : '''약도 아침/자기전으로 잘 챙겨먹고
+        'text' : '''약도 아침/자기전으로 잘 챙겨먹고
 
         옛날보다 더 몸이 건강해진것같다
 
@@ -337,4 +341,4 @@ if __name__ == "__main__":
     }
     a = TextAnalysis(data)
     # print(a)
-    a.text_analysis()
+    print(a.text_analysis())

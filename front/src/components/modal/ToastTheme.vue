@@ -43,6 +43,7 @@
 									:src="`${setUrl}${paper.preview_path}`"
 									alt="속지디자인"
 									class="preview-paper"
+									@click="selectPaper(paper.id)"
 								/>
 							</label>
 							<input
@@ -51,9 +52,9 @@
 								:id="`toast-theme__${paper.id}`"
 								:value="paper"
 								v-model="selectedPaper"
+								hidden
 							/>
 						</li>
-						<!-- <li>hidden</li> -->
 					</ul>
 				</div>
 				<div v-else class="toast-theme__fonts">
@@ -80,7 +81,7 @@
 			</div>
 			<div class="toast-theme__complete">
 				<button @click.prevent="submitTheme">
-					적용
+					선택한 거 적용할래요
 				</button>
 			</div>
 			<div class="toast-close">
@@ -136,6 +137,16 @@ export default {
 			const { data } = await fetchPapers();
 			this.papers = data;
 		},
+		selectPaper(id) {
+			const papers = document.querySelectorAll('.preview-paper');
+
+			papers.forEach(paper => {
+				if (paper.classList.contains('select-paper')) {
+					paper.classList.remove('select-paper');
+				}
+			});
+			papers[id - 1].classList.add('select-paper');
+		},
 	},
 	watch: {
 		selectedFont: function() {
@@ -158,6 +169,12 @@ export default {
 		text-align: center;
 		font-family: 'Nanum Gothic', sans-serif;
 	}
+	li {
+		margin: 8px 0;
+	}
+}
+.toast-theme {
+	margin-top: 20px;
 }
 .toast-themes {
 	display: flex;
@@ -168,14 +185,21 @@ export default {
 	display: flex;
 	flex-wrap: wrap;
 }
-.preview-paper {
-	width: 70px;
-	height: 100px;
-	margin: 10px;
-	object-fit: cover;
-	&:active {
-		border: 1px solid gray;
+.preview-paper-wrap {
+	.preview-paper {
+		width: 70px;
+		height: 100px;
+		margin: 10px;
+		object-fit: cover;
+		&:active {
+			border-radius: 4px;
+			border: 3px solid rgb(168, 168, 168);
+		}
 	}
+}
+.select-paper {
+	border-radius: 4px;
+	border: 3px solid rgb(185, 185, 185);
 }
 .toast-themes__input {
 	position: absolute;
@@ -234,5 +258,18 @@ export default {
 }
 .toast-themes__label:hover .toast-themes__text {
 	opacity: 1;
+}
+.toast-theme__complete {
+	text-align: center;
+	button {
+		width: 75%;
+		margin: 50px auto 0;
+		padding: 12px;
+		border: none;
+		color: rgba(53, 53, 53, 1);
+		border-radius: 20px;
+		background: var(--default-color);
+		box-shadow: 5px 5px 9px #cccccc, -5px -5px 9px #ffffff;
+	}
 }
 </style>

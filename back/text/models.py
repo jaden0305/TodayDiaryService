@@ -20,5 +20,4 @@ class DailyReport(models.Model):
 """
 happy 2 sad 2  -> score에 양수인지 음수인지보고 
 happy 2 delight 2 -> 
-
 """

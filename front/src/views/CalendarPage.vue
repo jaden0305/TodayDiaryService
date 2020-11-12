@@ -32,6 +32,7 @@
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
 					:todayYear="todayYear"
+					:weekWidth="weekWidth"
 					:key="index"
 					v-for="(day, index) in preMonth"
 				></CalendarDay>
@@ -42,6 +43,7 @@
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
 					:todayYear="todayYear"
+					:weekWidth="weekWidth"
 					:key="'B' + index"
 					v-for="(day, index) in nowMonth"
 				></CalendarDay>
@@ -52,6 +54,7 @@
 					:todayMonth="todayMonth"
 					:nowDay="nowDay"
 					:todayYear="todayYear"
+					:weekWidth="weekWidth"
 					:key="'A' + index"
 					v-for="(day, index) in nextMonth"
 				></CalendarDay>
@@ -80,10 +83,21 @@ export default {
 			nowDay: null,
 		};
 	},
+	mounted() {
+		const days = document.querySelector('.calendar-days');
+		this.weekWidth = days.clientWidth / 7;
+	},
+	updated() {
+		const emotions = document.querySelectorAll('.emoticon');
+		// console.log(emotions);
+		emotions.forEach(emotion => {
+			emotion.style.width = this.weekWidth;
+			emotion.style.height = this.weekWidth;
+		});
+	},
 	methods: {
 		writeDiary(dayString) {
-			console.log(dayString);
-			this.$router.push({ name: 'diary' });
+			this.$router.push({ name: 'diary', query: { day: dayString } });
 		},
 		readDiary(diary_pk) {
 			this.$router.push(`/diary/${diary_pk}`);
@@ -91,7 +105,6 @@ export default {
 		async fetchMonth({ year, month }) {
 			try {
 				const { data } = await fetchCalendar({ year, month });
-				console.log(this.month, data);
 				this.preMonth = [];
 				this.nowMonth = [];
 				this.nextMonth = [];
@@ -257,6 +270,7 @@ export default {
 		justify-content: center;
 		align-items: center;
 		width: 100 / 7 * 1%;
+
 		margin-bottom: 1.25rem;
 		text-align: center;
 		i {
@@ -283,7 +297,7 @@ export default {
 		}
 		p {
 			margin: 0;
-			margin-top: 0.15rem;
+			margin-top: 3px;
 			font-size: 0.7rem;
 			font-weight: 600;
 			color: #868e96;

@@ -25,11 +25,6 @@ const routes = [
 		beforeEnter: requireAuth,
 	},
 	{
-		path: '/test2',
-		name: 'test2',
-		component: () => import('@/views/Test2.vue'),
-	},
-	{
 		path: '/calendar',
 		name: 'calendar',
 		component: () => import('@/views/CalendarPage.vue'),
@@ -46,13 +41,6 @@ const routes = [
 		name: 'fetchDiary',
 		props: route => ({ propsDiaryId: Number(route.params.diaryId) }),
 		component: () => import('@/views/ReadDiaryPage.vue'),
-		beforeEnter: notRequireAuth,
-	},
-	{
-		path: '/diary/:diaryId/edit',
-		name: 'editDiary',
-		props: route => ({ diaryId: Number(route.params.diaryId) }),
-		component: () => import('@/views/EditDiaryPage.vue'),
 		beforeEnter: notRequireAuth,
 	},
 	{
