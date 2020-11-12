@@ -67,12 +67,18 @@
 					/>
 				</div>
 				<div @click="selectEmotion(8)" class="player__button">
-					<img
+					<div
+						class="player__btn"
+						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
+					>
+						BGM
+					</div>
+					<!-- <img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
 						src="@/assets/images/emotion/dislike.png"
 						alt=""
-					/>
+					/> -->
 				</div>
 			</div>
 			<div class="player__title">
@@ -381,7 +387,6 @@ export default {
 			}, 300);
 		},
 		prevTrack() {
-			// this.transitionName = 'scale-in';
 			this.isShowCover = false;
 			if (this.currentTrackIndex > 0) {
 				this.currentTrackIndex--;
@@ -396,7 +401,6 @@ export default {
 			// this.resetPlayer();
 		},
 		nextTrack() {
-			// this.transitionName = 'scale-out';
 			this.isShowCover = false;
 			if (this.currentTrackIndex < this.tracks.length - 1) {
 				this.currentTrackIndex++;
@@ -668,6 +672,8 @@ export default {
 	justify-content: center;
 	height: 100%;
 	background-size: cover;
+	padding-top: 1.25rem;
+	margin-bottom: 60px;
 	@media screen and (max-width: 700px), (max-height: 500px) {
 		flex-wrap: wrap;
 		flex-direction: column;
@@ -688,7 +694,6 @@ export default {
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	border-radius: 12px;
 	padding: 1.5rem;
-	margin-bottom: 1rem;
 	@media screen and (max-width: 576px), (max-height: 500px) {
 		width: 95%;
 		padding: 20px;
