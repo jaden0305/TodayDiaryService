@@ -301,17 +301,6 @@ export default {
 			this.diaryData.pattern = selectedPaper;
 			this.openTheme = false;
 		},
-		async onSaveDiary() {
-			try {
-				this.diaryData.created = this.$route.query.day;
-				// 감정이랑 곡정보 요청 받아서 저장 => diaryData
-				// diaryData를 props로 넘겨줌
-			} catch (error) {
-				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
-				bus.$emit('show:error', '일기 저장을 실패했어요 :(');
-				console.log(error.response);
-			}
-		},
 		selectMusic(music) {
 			console.log(music);
 			this.diaryData.search_music = music;
@@ -338,6 +327,8 @@ export default {
 			// update the state
 			imgElem.x = e.target.x();
 			imgElem.y = e.target.y();
+			imgElem.width = e.target.width();
+			imgElem.height = e.target.height();
 			imgElem.rotation = e.target.rotation();
 		},
 		handleStageMouseDown(e) {
@@ -454,8 +445,8 @@ export default {
 		background: rgba(151, 151, 151, 0.3);
 		position: relative;
 		.konvajs-content {
-			width: 300px !important;
-			height: 200px !important;
+			// width: 300px !important;
+			// height: 200px !important;
 		}
 		.diary-image__stickerBg {
 			position: absolute;
