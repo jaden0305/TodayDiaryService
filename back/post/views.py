@@ -56,6 +56,7 @@ class CreateDiary(APIView, DiaryMixin):
     # [{"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
+        print(request.data)
         date = request.data['created']
         stickers = json.loads(request.data.get('stickers', '[]'))
         if Post.objects.filter(created=date, user=request.user).exists():
@@ -67,7 +68,13 @@ class CreateDiary(APIView, DiaryMixin):
         data = request.data.dict()
         exclude_data = {}
         image = request.data.get('image')
-        search_music = request.data.get('search_music')
+        search_music = json.loads(request.data.get('search_music'))
+        if search_music == {}:
+            search_music = None
+            data['search_music'] = None
+        else:
+            data['search_music'] = search_music
+
         recommend_music = request.data.get('recommend_music')
         if not (search_music or recommend_music):
             msg = {
@@ -90,15 +97,19 @@ class CreateDiary(APIView, DiaryMixin):
         post = serializer.save(user=request.user)
 
         self.create_sticker(stickers, post.id)
+            
         response = self.analyze(request.user, data, post.id)
         response = json.loads(response.text)
 
         data['image'] = image
         data['report_id'] = response['id']
+        print(post.id)
         if search_music:
-            search_music_data = json.loads(search_music)
+            search_music_data = search_music
+            print(search_music_data)
+            print(type(search_music_data))
             search_music_data['post'] = post.id
-            search_music_data['emotion'] = response['emotion']['id']
+            # search_music_data['emotion'] = 8
             search_music_serializer = SearchMusicSerializer(data=search_music_data)
             search_music_serializer.is_valid(raise_exception=True)
             search_music = search_music_serializer.save()
@@ -109,6 +120,11 @@ class CreateDiary(APIView, DiaryMixin):
         serializer.is_valid(raise_exception=True)
         report = get_object_or_404(DailyReport, pk=response['id'])
         post = serializer.save(report=report, search_music=search_music, recommend_music=recommend_music)
+        msg = {
+            'id': post.id,
+            'detail': '작성이 완료되었습니다.'
+        }
+        return Response(msg, status=status.HTTP_201_CREATED)
 
 
 class diary(APIView, DiaryMixin):

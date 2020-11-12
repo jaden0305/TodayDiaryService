@@ -36,6 +36,11 @@ def analyze(request):
     title = request.data.get('title')
     text = request.data.get('content')
     stickers = request.data.get('stickers', [])
+    if not text.strip():
+        msg = {
+            'detail': '"content" 내용이 없습니다.'
+        }
+        return Response(msg, status=status.HTTP_400_BAD_REQUEST)
     data = {
         'title': title,
         'text': text,
@@ -43,19 +48,21 @@ def analyze(request):
     }
     ta = TextAnalysis(data)
     result = ta.text_analysis()
+
     feels = result['feel']
     for idx, feel in enumerate(feels):
         if feel[0] == 'no_emotion':
+            feels.pop(idx)
             break
-    feels.pop(idx)
     feels.sort(key=lambda x: -x[1])
-    print(feels)
+
     if feels:
         emotion_id = feels[0][0]
     else:
         result['feel'] = [(4, 0)]
         emotion_id = 4
     emotion = get_object_or_404(Emotion, pk=emotion_id)
+
     if need_music:
         music = emotion.musics.order_by('?')[0]
         result['music'] = RecommandMusicSerializer(instance=music).data
