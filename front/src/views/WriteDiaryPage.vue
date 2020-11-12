@@ -230,7 +230,6 @@ export default {
 					this.diaryAnalysisData.title = this.diaryData.title;
 					this.diaryAnalysisData.content = this.diaryData.content;
 					const { data } = await createDiaryanalysis(this.diaryAnalysisData);
-					console.log(data);
 					this.diaryData.user_emotion = data.feel[0][0];
 					this.diaryData.recommend_music = data.music;
 

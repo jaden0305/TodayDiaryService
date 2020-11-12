@@ -16,12 +16,6 @@
 						"
 						alt="감정상태"
 					/>
-					<!-- <img
-						src="
-							@/assets/images/emotion/1.png
-						"
-						alt="감정상태"
-					/> -->
 				</div>
 			</div>
 			<button class="save-diary-change save-diary-btn" @click="onSaveDiary">
