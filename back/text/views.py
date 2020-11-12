@@ -25,10 +25,10 @@ from post.serializers import RecommandMusicSerializer
 
 User = get_user_model()
 
-redis_host = Redis('127.0.0.1', socket_connect_timeout=1)
 
 def redis_check():
     try:
+        redis_host = Redis('127.0.0.1', socket_connect_timeout=1)
         return redis_host.ping()
     except ConnectionError:
         return False
@@ -148,26 +148,16 @@ def select(request):
 def weekly(request):
     start = request.GET.get('start')
     end = request.GET.get('end')
-    today = request.GET.get('today')
 
-    start_year, start_month, start_day = map(int, start.split('-'))
-    today_year, today_month, today_day = map(int, today.split('-'))
-    
-    today_date = datetime.date(today_year, today_month, today_day)
-    start_date = datetime.date(start_year, start_month, start_day)
-    date_delta = today_date - start_date
-    is_before_week = date_delta > datetime.timedelta(days=6)
-    cache_key = f'w-u{request.user.id}-s{start_year}{start_month}{start_day}'
+    cache_key = f'w-u{request.user.id}-s{start}'
     
     # redis_check() 연결 되는지 확인
     # is_before_week 요청 결과가 이번주 전 인가??
-    if redis_check() and is_before_week:
+    if redis_check():
         cached_data = cache.get(cache_key)
         if cached_data:
             print('cache gotten')
             return Response(cached_data, status=status.HTTP_200_OK)
-        
-    cache.delete(cache_key)
 
     dt_index = pandas.date_range(start=start, end=end)
 
@@ -201,8 +191,9 @@ def weekly(request):
             graph_list.append({})
         
     result = {'score': graph_list, 'wordcloud': wc_list}
-    cache.set(cache_key, result, 3600)
-    print('cache_set')
+    if redis_check():
+        cache.set(cache_key, result, 3600)
+        print('cache_set')
     
     return Response({'score': graph_list, 'wordcloud': wc_list})
 
@@ -211,6 +202,17 @@ def weekly(request):
 def monthly(request):
     year = request.GET.get('year')
     month = request.GET.get('month')
+
+    cache_key = f'm-u{request.user.id}-{year}-{month}'
+    
+    # redis_check() 연결 되는지 확인
+    # is_before_week 요청 결과가 이번주 전 인가??
+    if redis_check():
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            print('cache gotten')
+            return Response(cached_data, status=status.HTTP_200_OK)
+
     daily_report = DailyReport.objects.filter(date__year=year, date__month=month, user_id=request.user.id)
     wordcloud = WordCloudReport.objects.filter(date__year=year, date__month=month, user_id=request.user.id)
 
@@ -237,8 +239,13 @@ def monthly(request):
                 break
         else:
             graph_list.append({})
+    
+    result = {'score':graph_list, 'wordcloud': wc_list}
+    if redis_check():
+        cache.set(cache_key, result, 3600)
+        print('cache_set')
 
-    return Response({'score':graph_list, 'wordcloud': wc_list})
+    return Response(result, status=status.HTTP_200_OK)
 
 @swagger_auto_schema()
 @api_view(['GET'])
