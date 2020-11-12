@@ -346,7 +346,7 @@ class TextAnalysis:
             sorted_feel = [(4, 0)]
         
         # print(sorted_feel)
-
+        print('horror',self.get_horror())
         word_count = self.count_words()
         # print(word_count)
         return {
@@ -357,11 +357,12 @@ class TextAnalysis:
 
 if __name__ == "__main__":
     data = {
-        'title' : '몹시 슬픈하루ㅠ',
+        'title' : '면접 합격',
         'content' : '''
-        난처하게''',
+        무서웠다
+        ''',
 
-        'stickers' : [{'emotion': {'name': 'sad'}}, {'emotion': {'name':'boring'}}]
+        'stickers' : []
     }
     a = TextAnalysis(data)
     print(a.text_analysis())
