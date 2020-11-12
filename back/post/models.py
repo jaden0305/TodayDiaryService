@@ -60,6 +60,7 @@ class Post(models.Model):
     report = models.ForeignKey('text.DailyReport', on_delete=models.CASCADE, blank=True, null=True, related_name='posts')
     recommend_music = models.ForeignKey(RecommendMusic, on_delete=models.CASCADE, null=True, related_name='recommend_music')
     created = models.DateField()
+    user_emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='posts')
     image = models.ImageField(blank=True, null=True, upload_to=upload_location)
 
 
