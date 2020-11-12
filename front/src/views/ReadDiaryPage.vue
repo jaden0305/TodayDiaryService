@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus';
 import { fetchDiary, deleteDiary } from '@/api/diary';
 export default {
 	data() {
@@ -78,8 +79,8 @@ export default {
 				const { data } = await fetchDiary(this.diaryId);
 				this.diaryData = data;
 			} catch (error) {
-				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
-				console.log(error.response);
+				bus.$emit('show:error', '정보를 불러오는데 실패했어요 :(');
+				// console.log(error.response);
 			}
 		},
 		onFetchStickers() {
@@ -115,7 +116,8 @@ export default {
 				await deleteDiary(this.diaryId);
 				this.$router.push({ name: 'calendar' });
 			} catch (error) {
-				console.log(error.response);
+				bus.$emit('show:error', '삭제를 실패했어요 :(');
+				// console.log(error.response.data);
 			}
 		},
 	},

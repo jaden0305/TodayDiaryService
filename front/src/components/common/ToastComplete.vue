@@ -41,6 +41,7 @@ export default {
 
 <style lang="scss" scoped>
 .toast {
+	font-family: 'Poor Story';
 	position: fixed;
 	width: 280px;
 	padding: 1rem 0.5rem;
