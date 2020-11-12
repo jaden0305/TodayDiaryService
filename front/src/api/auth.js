@@ -5,5 +5,8 @@ export function refreshToken(token) {
 }
 
 export function likeMusics() {
-	return auth.get('/likes_music/');
+	return auth.get('/music/like/');
 }
+// export function addLikeMusic() {
+// 	return auth.post('/music/like/', { music_id });
+// }

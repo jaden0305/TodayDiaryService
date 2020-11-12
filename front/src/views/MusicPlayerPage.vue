@@ -73,12 +73,6 @@
 					>
 						BGM
 					</div>
-					<!-- <img
-						class="player__btn"
-						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/dislike.png"
-						alt=""
-					/> -->
 				</div>
 			</div>
 			<div class="player__title">
@@ -202,14 +196,14 @@
 								<img
 									v-if="isTimerPlaying"
 									@click="play"
-									class="back-playbar__button"
+									class="back-playbar__button button-big"
 									src="@/assets/images/pause.svg"
 									alt="정지"
 								/>
 								<img
 									v-else
 									@click="play"
-									class="back-playbar__button"
+									class="back-playbar__button button-big"
 									src="@/assets/images/play.svg"
 									alt="재생"
 								/>
@@ -612,6 +606,10 @@ export default {
 			height: 2rem;
 			cursor: pointer;
 		}
+		.button-big {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
 	}
 }
 .back-song__select {
@@ -737,37 +735,6 @@ export default {
 			border-radius: 15px;
 			background: #f0f0f0;
 			box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
-			// 수정부분
-			/* position: absolute; */
-			/* left: 0; */
-			/* top: -100px; */
-			/* &:before {
-				content: '';
-				background: inherit;
-				width: 100%;
-				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-				display: block;
-				z-index: 1;
-				position: absolute;
-				top: 30px;
-				transform: scale(0.9);
-				filter: blur(10px);
-				opacity: 0.9;
-				border-radius: 15px;
-			} */
-
-			/* &:after {
-				content: '';
-				background: inherit;
-				width: 100%;
-				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-				display: block;
-				z-index: 2;
-				position: absolute;
-				border-radius: 15px;
-			} */
 		}
 
 		&__img {
@@ -882,6 +849,11 @@ export default {
 				}
 			}
 		}
+		@media screen and (max-width: 340px) {
+			.player-controls__item {
+				font-size: 20px;
+			}
+		}
 	}
 }
 [v-cloak] {
@@ -970,6 +942,12 @@ export default {
 	border-radius: 16px;
 	background: #f0f0f0;
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
+	@media screen and (max-width: 340px) {
+		width: 3rem;
+		height: 3rem;
+		font-size: 2rem;
+		border-radius: 12px;
+	}
 }
 .ion-md-play:before {
 	padding: 0 0.2rem 0 0.5rem;
@@ -983,6 +961,11 @@ export default {
 	border-radius: 12px;
 	background: #f0f0f0;
 	box-shadow: inset 5px 5px 10px #d8d8d8, inset -5px -5px 10px #ffffff;
+	@media screen and (max-width: 340px) {
+		border-radius: 8px;
+		font-size: 1.5rem;
+		padding: 1.3rem;
+	}
 }
 #embed-youtube-video-1 {
 	position: absolute;
