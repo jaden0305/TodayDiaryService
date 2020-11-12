@@ -123,11 +123,11 @@ def statistics(request):
 def select(request):
     emotion = request.GET.get('emotion')
     emotion = get_object_or_404(Emotion, pk=emotion)
-    recommend_music = RecommendMusic.objects.filter(emotion=emotion.id).order_by('?')[:1]
+    recommend_music = emotion.musics.order_by('?')[0]
     
     data = {
         'emotion': emotion.id,
-        'recommend_music': recommend_music[0].id
+        'recommend_music': RecommandMusicSerializer(instance=recommend_music).data
     }
 
     return Response(data, status=status.HTTP_200_OK)
