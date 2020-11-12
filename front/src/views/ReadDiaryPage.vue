@@ -121,18 +121,20 @@ export default {
 			}
 		},
 		onFetchStickers() {
-			const stickerWrap = document.querySelector('.diary-image');
-			let imgElem = document.createElement('img');
-			imgElem.src =
-				this.setUrl +
-				this.diaryData.stickers[0].sticker.path.replace('images', 'media');
-			imgElem.style.width = `${this.diaryData.stickers[0].width}px`;
-			imgElem.style.position = `absolute`;
-			imgElem.style.top = `${this.diaryData.stickers[0].y}px`;
-			imgElem.style.left = `${this.diaryData.stickers[0].x}px`;
-			imgElem.style.transform = `rotate(${this.diaryData.stickers[0].rotation}deg)`;
+			if (this.diaryData.stickers.length) {
+				const stickerWrap = document.querySelector('.diary-image');
+				let imgElem = document.createElement('img');
+				imgElem.src =
+					this.setUrl +
+					this.diaryData.stickers[0].sticker.path.replace('images', 'media');
+				imgElem.style.width = `${this.diaryData.stickers[0].width}px`;
+				imgElem.style.position = `absolute`;
+				imgElem.style.top = `${this.diaryData.stickers[0].y}px`;
+				imgElem.style.left = `${this.diaryData.stickers[0].x}px`;
+				imgElem.style.transform = `rotate(${this.diaryData.stickers[0].rotation}deg)`;
 
-			stickerWrap.appendChild(imgElem);
+				stickerWrap.appendChild(imgElem);
+			}
 		},
 		onFetchFont() {
 			const title = document.querySelector('.diary-header__dataTitle');
