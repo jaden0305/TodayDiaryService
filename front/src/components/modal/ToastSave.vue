@@ -1,5 +1,5 @@
 <template>
-	<section class="toast" :class="toastAnimationClass">
+	<section class="toast" v-if="this.diaryData" :class="toastAnimationClass">
 		<section class="toast-wrap">
 			<div class="save-diary">
 				<p class="save-diary-comment">당신의 오늘 하루는</p>
@@ -11,7 +11,18 @@
 					{{ this.diaryData.recommend_music.name }}으로 마무리하는 건 어때요?
 				</p>
 				<div class="save-diary-emotion">
-					<img src="@/assets/images/emotion/1.png" alt="감정상태" />
+					<img
+						:src="
+							require(`@/assets/images/emotion/${this.diaryData.user_emotion}.png`)
+						"
+						alt="감정상태"
+					/>
+					<!-- <img
+						src="
+							@/assets/images/emotion/1.png
+						"
+						alt="감정상태"
+					/> -->
 				</div>
 			</div>
 			<button class="save-diary-change save-diary-btn" @click="onSaveDiary">
@@ -23,51 +34,19 @@
 
 			<div id="mainMenu" class="mainMenuOverlay floating2">
 				<!-- <div class="navire floating3"></div> -->
-				<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
 				<div
-					v-for="(i, idx) in emotion"
+					v-for="(value, idx) in emotionList(this.diaryData.user_emotion)"
 					:key="idx"
-					v-if="idx != diaryData.user_emotion"
-					class="itemMenuBox bills"
+					class="itemMenuBox"
+					:class="emotionDesign[idx]"
 				>
 					<img
-						:src="require(`@/assets/images/emotion/${idx}.png`)"
+						:src="require(`@/assets/images/emotion/${idx + 1}.png`)"
 						class="itemMenu "
 						alt="감정상태"
-						@click="onReselectEmotion(idx)"
+						@click="onReselectEmotion(idx + 1)"
 					/>
 				</div>
-				<!-- <div class="itemMenuBox tarsheed">
-					<img
-						src="@/assets/images/emotion/smile.png"
-						class="itemMenu "
-						alt="감정상태"
-					/>
-				</div>
-				<div class="itemMenuBox employees">
-					<img
-						src="@/assets/images/emotion/boring.png"
-						class="itemMenu "
-						alt="감정상태"
-					/>
-				</div>
-				<div class="itemMenuBox location">
-					
-				</div>
-				<div class="itemMenuBox eservices">
-					<img
-						src="@/assets/images/emotion/angry.png"
-						class="itemMenu "
-						alt="감정상태"
-					/>
-				</div>
-				<div class="itemMenuBox contact">
-					<img
-						src="@/assets/images/emotion/dislike.png"
-						class="itemMenu "
-						alt="감정상태"
-					/>
-				</div> -->
 				<a
 					href="javascript:void(0)"
 					class="toggleMenu floating"
@@ -94,15 +73,7 @@ import { reselectEmotion } from '@/api/analysis';
 export default {
 	data() {
 		return {
-			emotion: {
-				1: '행복',
-				2: '슬픔',
-				3: '기쁨',
-				4: '무료함',
-				5: '화남',
-				6: '놀람',
-				7: '공포',
-			},
+			emotion: ['행복', '슬픔', '기쁨', '무료함', '화남', '놀람', '공포'],
 			emotionDesign: [
 				'bills',
 				'tarsheed',
@@ -126,9 +97,6 @@ export default {
 		},
 	},
 	methods: {
-		// srcEmotion(num) {
-		// 	return `@/assets/images/emotion/${num}.png`;
-		// },
 		onOpenEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
 			mainMenu.classList.add('open');
@@ -156,11 +124,8 @@ export default {
 		},
 		async onSaveDiary() {
 			try {
-				console.log('1111111111111', this.diaryData);
-				console.log('333333333333', this.$route.query);
 				this.diaryData.created = this.$route.query.day;
 				const { data } = await createDiary(this.diaryData);
-				console.log('11111111111112222222222222', data);
 				this.$router.push(`/diary/${data.id}`);
 			} catch (err) {
 				console.log(err.response);
@@ -169,10 +134,19 @@ export default {
 		async onReselectEmotion(id) {
 			try {
 				const { data } = await reselectEmotion(id);
-				console.log(data);
+				this.diaryData.user_emotion = data.emotion;
+				this.diaryData.recommend_music.artist = data.recommend_music.artist;
+				this.diaryData.recommend_music.name = data.recommend_music.name;
+
+				this.onCloseEmotion();
 			} catch (err) {
 				console.log(err.response);
 			}
+		},
+		emotionList(idx) {
+			let emotion = [...this.emotion];
+			emotion.splice(idx - 1, 1);
+			return emotion;
 		},
 	},
 };
