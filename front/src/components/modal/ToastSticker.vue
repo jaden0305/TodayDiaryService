@@ -66,9 +66,12 @@
 						>
 							<ul class="toast-sticker-item__ul">
 								<li v-for="item in sticker.stickers" :key="item.id">
+									<!-- <p>{{ item }}</p> -->
 									<label
 										:for="`toast-sticker__${item.id}`"
-										@click.prevent="submitSticker(item.path)"
+										@click.prevent="
+											submitSticker(item.path, item.id, item.emotion)
+										"
 									>
 										<img
 											:src="`${setUrl}${item.path.replace('images', 'media')}`"
@@ -140,9 +143,9 @@ export default {
 		closeSticker() {
 			this.$emit('close-sticker');
 		},
-		submitSticker(path) {
+		submitSticker(path, id, emotion) {
 			this.selectedItem = this.setUrl + path.replace('images', 'media');
-			this.$emit('submit-sticker', this.selectedItem);
+			this.$emit('submit-sticker', this.selectedItem, id, emotion);
 		},
 	},
 	created() {

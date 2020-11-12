@@ -21,6 +21,9 @@ export const auth = createWithAuth(
 export const diary = createWithAuth(
 	`${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}post`,
 );
+export const analysis = createWithAuth(
+	`${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_REPORT_API_URL}text`,
+);
 export const calendar = createWithAuth(
 	`${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}calendar`,
 );
