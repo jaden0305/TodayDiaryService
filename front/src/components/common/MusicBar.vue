@@ -1,6 +1,7 @@
 <template>
-	<div class="toast" :class="toastAnimationClass">
+	<div class="toast1" :class="toastAnimationClass">
 		<youtube
+			v-if="tracks"
 			:player-vars="playerVars"
 			:video-id="currentTrack.videoId"
 			ref="player"
@@ -140,21 +141,20 @@
 </template>
 
 <script>
+import { likeMusic } from '@/api/auth';
 import bus from '@/utils/bus';
 export default {
 	created() {
 		bus.$on('show:musicplayer', this.openMethod);
-		this.currentTrack = this.tracks[0];
-		for (let index = 0; index < this.tracks.length; index++) {
-			const element = this.tracks[index];
-			let link = document.createElement('link');
-			link.rel = 'prefetch';
-			link.href = element.cover;
-			link.as = 'image';
-			document.head.appendChild(link);
-		}
+		// for (let index = 0; index < this.tracks.length; index++) {
+		// 	const element = this.tracks[index];
+		// 	let link = document.createElement('link');
+		// 	link.rel = 'prefetch';
+		// 	link.href = element.cover;
+		// 	link.as = 'image';
+		// 	document.head.appendChild(link);
+		// }
 	},
-	mounted() {},
 
 	beforeDestroy() {
 		bus.$off('show:musicplayer', this.openMethod);
@@ -192,11 +192,16 @@ export default {
 		},
 	},
 	methods: {
-		favorite() {
-			this.tracks[this.currentTrackIndex].favorited = !this.tracks[
-				this.currentTrackIndex
-			].favorited;
-			this.currentTrack = this.tracks[this.currentTrackIndex];
+		async favorite() {
+			try {
+				this.tracks[this.currentTrackIndex].favorited = !this.tracks[
+					this.currentTrackIndex
+				].favorited;
+				this.currentTrack = this.tracks[this.currentTrackIndex];
+				await likeMusic(this.tracks[0].id, this.tracks[0].search);
+			} catch (error) {
+				bus.$emit('show:error', '좋아요 요청을 실패했습니다 :(');
+			}
 		},
 		swipeUp() {
 			const BAR = document.querySelector('.player-back');
@@ -234,8 +239,10 @@ export default {
 			this.open = false;
 		},
 		openMethod(tracks) {
+			console.log(tracks);
 			this.open = true;
 			this.tracks = tracks;
+			this.currentTrack = this.tracks[0];
 		},
 		play() {
 			this.$refs.player.player.getPlayerState().then(response => {
@@ -270,7 +277,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.toast {
+.toast1 {
 	z-index: 100;
 	position: fixed;
 	width: 100%;
@@ -282,8 +289,9 @@ export default {
 	align-items: center;
 	transform: translateX(-50%);
 	transition: all 1s ease-in-out 0.1s;
+	border-top: 1px solid rgba(#adb5bd, 0.2);
 }
-.toast.none {
+.toast1.none {
 	display: none !important;
 }
 #player-back-container {
@@ -304,8 +312,6 @@ export default {
 .back-playbar {
 	height: 80px;
 	background-color: rgb(240, 240, 240);
-	// border-bottom-left-radius: 12px;
-	// border-bottom-right-radius: 12px;
 	box-shadow: 6px 6px 5px #c7c7c7, -6px -6px 5px #ffffff;
 	padding: 10px 0 10px;
 	display: flex;
@@ -433,7 +439,7 @@ export default {
 	display: none;
 	width: 410px;
 	background: #f0f0f0;
-	box-shadow: 5px 5px 10px #e2e2e2, -5px -5px 10px #fefefe;
+	/* box-shadow: 5px 5px 10px #e2e2e2, -5px -5px 10px #fefefe; */
 	color: #71829e;
 	border-radius: 12px;
 	padding: 1.5rem;
