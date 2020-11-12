@@ -14,7 +14,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/happy.png"
+						src="@/assets/images/emotion/1.png"
 						alt=""
 					/>
 				</div>
@@ -22,7 +22,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/sad.png"
+						src="@/assets/images/emotion/2.png"
 						alt=""
 					/>
 				</div>
@@ -30,7 +30,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/smile.png"
+						src="@/assets/images/emotion/3.png"
 						alt=""
 					/>
 				</div>
@@ -38,7 +38,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/boring.png"
+						src="@/assets/images/emotion/4.png"
 						alt=""
 					/>
 				</div>
@@ -46,7 +46,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/angry.png"
+						src="@/assets/images/emotion/5.png"
 						alt=""
 					/>
 				</div>
@@ -54,7 +54,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/surprise.png"
+						src="@/assets/images/emotion/6.png"
 						alt=""
 					/>
 				</div>
@@ -62,7 +62,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/dislike.png"
+						src="@/assets/images/emotion/7.png"
 						alt=""
 					/>
 				</div>
