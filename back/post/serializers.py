@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from accounts.serializers import UserSerializer
+from text.serializers import DailyReportSerializer
 from .models import *
 
 
@@ -79,6 +80,7 @@ class CreatePostSerializer(serializers.ModelSerializer):
 
 class ReadPostSerializer(serializers.ModelSerializer):
     stickers = PostStickerReadSerializer(many=True)
+    report = DailyReportSerializer()
     class Meta:
         model = Post
         exclude = ('user', 'created')

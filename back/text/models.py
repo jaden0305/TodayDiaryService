@@ -6,6 +6,7 @@ class WordCloudReport(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     word = models.CharField(max_length=50)
     count = models.IntegerField()
+    post = models.ForeignKey('post.Post', on_delete=models.CASCADE, related_name='word_cloud')
     emotion = models.IntegerField() # 1, 0, -1
     date = models.DateField()
 
