@@ -1,24 +1,36 @@
 <template>
 	<div id="app" :class="[appNone ? 'app-none' : 'app-block']">
 		<header>
-			<h1 :class="[NoneLogo ? 'hidden-logo' : 'display-logo']">오늘 하루</h1>
+			<h1
+				@click="$router.push('/calendar')"
+				:class="[NoneLogo ? 'hidden-logo' : 'display-logo']"
+			>
+				오늘 하루
+			</h1>
 		</header>
 		<main class="container">
 			<router-view> </router-view>
 		</main>
-		<MusicBar></MusicBar>
+		<ToastComplete></ToastComplete>
+		<ToastError></ToastError>
+		<MusicBar v-if="$route.name === 'fetchDiary'"></MusicBar>
+		<NavBar v-if="navOn"></NavBar>
 	</div>
 </template>
 
 <script>
+import ToastError from '@/components/common/ToastError.vue';
+import ToastComplete from '@/components/common/ToastComplete.vue';
 import MusicBar from '@/components/common/MusicBar.vue';
+import NavBar from '@/components/common/NavBar.vue';
 export default {
 	computed: {
 		NoneLogo() {
 			return (
 				this.$route.name === 'main' ||
 				this.$route.name === 'calendar' ||
-				this.$route.name === 'report'
+				this.$route.name === 'report' ||
+				this.$route.name === 'music'
 			);
 		},
 		appNone() {
@@ -29,9 +41,19 @@ export default {
 				this.$route.name === 'music'
 			);
 		},
+		navOn() {
+			return (
+				this.$route.name === 'calendar' ||
+				this.$route.name === 'report' ||
+				this.$route.name === 'music'
+			);
+		},
 	},
 	components: {
 		MusicBar,
+		NavBar,
+		ToastComplete,
+		ToastError,
 	},
 };
 </script>

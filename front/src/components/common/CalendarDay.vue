@@ -15,7 +15,7 @@
 		/>
 		<div
 			v-else-if="
-				nowDay < new Date(`${year}-${lastTwo(day.month)}-${lastTwo(day.day)}`)
+				+nowDay < +new Date(`${year}-${lastTwo(day.month)}-${lastTwo(day.day)}`)
 			"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
@@ -39,7 +39,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/happy.png"
+			src="@/assets/images/emotion/1.png"
 			alt=""
 		/>
 		<img
@@ -49,7 +49,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/sad.png"
+			src="@/assets/images/emotion/2.png"
 			alt=""
 		/>
 		<img
@@ -59,7 +59,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/smile.png"
+			src="@/assets/images/emotion/3.png"
 			alt=""
 		/>
 		<img
@@ -69,7 +69,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/boring.png"
+			src="@/assets/images/emotion/4.png"
 			alt=""
 		/>
 		<img
@@ -79,7 +79,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/angry.png"
+			src="@/assets/images/emotion/5.png"
 			alt=""
 		/>
 		<img
@@ -89,7 +89,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/surprise.png"
+			src="@/assets/images/emotion/6.png"
 			alt=""
 		/>
 		<img
@@ -99,7 +99,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/dislike.png"
+			src="@/assets/images/emotion/7.png"
 			alt=""
 		/>
 		<p class="calendar-day__title">{{ day.day }}</p>
@@ -119,23 +119,17 @@ export default {
 	},
 	methods: {
 		writeDiary(dayString) {
-			console.log(dayString);
 			this.$router.push({ name: 'diary', query: { day: dayString } });
 		},
 		readDiary(diary_pk) {
 			this.$router.push(`/diary/${diary_pk}`);
 		},
 		lastTwo(month) {
-			// console.log(('0' + month).slice(-2));
 			return ('0' + month).slice(-2);
 		},
 	},
 	mounted() {
-		// const day = document.querySelectorAll('.calendar-day');
-		// day.style.height = `${this.weekWidth}px`;
-		// console.log(this.weekWidth, day.clientHeight);
 		const emotions = document.querySelectorAll('.emoticon');
-		// console.log(emotions);
 		emotions.forEach(emotion => {
 			emotion.style.width = this.weekWidth;
 			emotion.style.height = this.weekWidth;

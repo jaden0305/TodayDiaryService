@@ -60,10 +60,12 @@ class Post(models.Model):
     report = models.ForeignKey('text.DailyReport', on_delete=models.CASCADE, blank=True, null=True, related_name='posts')
     recommend_music = models.ForeignKey(RecommendMusic, on_delete=models.CASCADE, null=True, related_name='recommend_music')
     created = models.DateField()
+    user_emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='posts')
     image = models.ImageField(blank=True, null=True, upload_to=upload_location)
 
 
 class SearchMusic(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='search_music')
     name = models.CharField(max_length=50)
     artist = models.CharField(max_length=30, blank=True, null=True)
     video_id = models.CharField(max_length=20)

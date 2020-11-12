@@ -12,7 +12,11 @@
 							@keypress.enter="searchYoutube"
 						/>
 						<button class="toast-search__btn">
-							<img src="@/assets/images/search.svg" alt="" />
+							<img
+								@click="searchYoutube"
+								src="@/assets/images/search.svg"
+								alt=""
+							/>
 						</button>
 					</div>
 					<div class="back-playlist">
@@ -47,6 +51,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus';
 import _ from 'lodash';
 import { youtubeSearch } from '@/api/youtube';
 export default {
@@ -76,13 +81,17 @@ export default {
 			this.$emit('close-music');
 		},
 		async searchYoutube() {
-			const { data } = await youtubeSearch(this.searchMusic);
-			console.log(data);
-			this.musicList = data.items;
-			this.musicList = this.musicList.map(music => {
-				music.snippet.title = _.unescape(music.snippet.title, 'text/html');
-				return music;
-			});
+			try {
+				const { data } = await youtubeSearch(this.searchMusic);
+				this.musicList = data.items;
+				this.musicList = this.musicList.map(music => {
+					music.snippet.title = _.unescape(music.snippet.title, 'text/html');
+					return music;
+				});
+			} catch (error) {
+				console.log(error.response.data);
+				bus.$emit('show:error', '노래 검색을 실패했습니다 :(');
+			}
 		},
 		musicSelect(music) {
 			this.selectMusic.name = music.snippet.title;

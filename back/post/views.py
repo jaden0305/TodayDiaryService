@@ -1,9 +1,11 @@
 import json
 import requests
 import copy
+import datetime
 from pprint import pprint
 
 from django.shortcuts import render, get_object_or_404
+from django.core.cache import cache
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -16,6 +18,7 @@ from drf_yasg.utils import swagger_auto_schema
 
 from .models import *
 from .serializers import *
+from text.views import redis_check
 
 
 class DiaryMixin:
@@ -28,7 +31,28 @@ class DiaryMixin:
         post = get_object_or_404(Post, pk=post_id)
         return post
 
+def get_date(today):
+    return map(int, today.split('-'))
 
+def get_start_day(today):
+    year, month, day = map(int, today.split('-'))
+    today = datetime.date(year, month, day)
+    for delta in range(7):
+        date = today - datetime.timedelta(days=delta)
+        if date.day == 6:
+            break
+    return date
+
+def delete_week_cache(today, user_id):
+    if redis_check():
+        cache.delete(f'w-u{user_id}-s{today}')
+
+def delete_month_cache(today, user_id):
+    year = today.year
+    month = today.month
+    if redis_check():
+        cache.delete(f'm-u{user_id}-{year}-{month}')
+    
 class CreateDiary(APIView, DiaryMixin):
 
     parser_classes = (FormParser, MultiPartParser, )
@@ -56,6 +80,7 @@ class CreateDiary(APIView, DiaryMixin):
     # [{"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
+        print(request.data)
         date = request.data['created']
         stickers = json.loads(request.data.get('stickers', '[]'))
         if Post.objects.filter(created=date, user=request.user).exists():
@@ -67,7 +92,16 @@ class CreateDiary(APIView, DiaryMixin):
         data = request.data.dict()
         exclude_data = {}
         image = request.data.get('image')
-        search_music = request.data.get('search_music')
+        if request.data.get('search_music'):
+            search_music = json.loads(request.data.get('search_music'))
+            if search_music == {}:
+                search_music = None
+                data['search_music'] = None
+            else:
+                data['search_music'] = search_music
+        else:
+            search_music = None
+
         recommend_music = request.data.get('recommend_music')
         if not (search_music or recommend_music):
             msg = {
@@ -90,15 +124,20 @@ class CreateDiary(APIView, DiaryMixin):
         post = serializer.save(user=request.user)
 
         self.create_sticker(stickers, post.id)
+            
         response = self.analyze(request.user, data, post.id)
         response = json.loads(response.text)
 
         data['image'] = image
         data['report_id'] = response['id']
+        print(post.id)
         if search_music:
-            search_music_data = json.loads(search_music)
+            search_music_data = search_music
+            print(search_music_data)
+            print(type(search_music_data))
             search_music_data['post'] = post.id
-            search_music_data['emotion'] = response['emotion']['id']
+            search_music_data['user'] = request.user.id
+            # search_music_data['emotion'] = 8
             search_music_serializer = SearchMusicSerializer(data=search_music_data)
             search_music_serializer.is_valid(raise_exception=True)
             search_music = search_music_serializer.save()
@@ -109,6 +148,16 @@ class CreateDiary(APIView, DiaryMixin):
         serializer.is_valid(raise_exception=True)
         report = get_object_or_404(DailyReport, pk=response['id'])
         post = serializer.save(report=report, search_music=search_music, recommend_music=recommend_music)
+        
+        year, month, day = get_date(date)
+        date = datetime.date(year, month, day)
+        delete_week_cache(date, request.user.id)
+        delete_month_cache(date, request.user.id)
+        msg = {
+            'id': post.id,
+            'detail': '작성이 완료되었습니다.'
+        }
+        return Response(msg, status=status.HTTP_201_CREATED)
 
 
 class diary(APIView, DiaryMixin):
@@ -123,7 +172,13 @@ class diary(APIView, DiaryMixin):
         mypost = self.get_object(post_id)
         if mypost.user.id == request.user.id:
             serializer = ReadPostSerializer(instance=mypost)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            result = serializer.data
+            if result.get('search_music', None):
+                result['search_music']['liked'] = request.user.search_like.filter(video_id=result['search_music']['video_id']).exists()
+            else:
+                music = result['recommend_music']
+                result['recommend_music']['liked'] = request.user.recommend_like.filter(pk=music['id']).exists()
+            return Response(result, status=status.HTTP_200_OK)
         msg = {
             'detail': '유효하지 않은 사용자입니다.'
         }
@@ -132,10 +187,17 @@ class diary(APIView, DiaryMixin):
     def delete(self, request, post_id):
         mypost = self.get_object(post_id)
         if request.user.id == mypost.user.id:
+            date = mypost.created
             mypost.delete()
+            # mypost.report.delete()
+            # words = mypost.word_cloud.all()
+            # for word in words:
+            #     word.delete()
             
+            delete_week_cache(date, request.user.id)
+            delete_month_cache(date, request.user.id)
             msg = {
-                'detail': '오늘 하루가 사라졌습니다.'
+                'detail': '삭제되었습니다.'
             }
             return Response(msg, status=status.HTTP_200_OK)
         msg = {

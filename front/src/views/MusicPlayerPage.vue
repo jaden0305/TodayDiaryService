@@ -14,7 +14,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/happy.png"
+						src="@/assets/images/emotion/1.png"
 						alt=""
 					/>
 				</div>
@@ -22,7 +22,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/sad.png"
+						src="@/assets/images/emotion/2.png"
 						alt=""
 					/>
 				</div>
@@ -30,7 +30,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/smile.png"
+						src="@/assets/images/emotion/3.png"
 						alt=""
 					/>
 				</div>
@@ -38,7 +38,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/boring.png"
+						src="@/assets/images/emotion/4.png"
 						alt=""
 					/>
 				</div>
@@ -46,7 +46,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/angry.png"
+						src="@/assets/images/emotion/5.png"
 						alt=""
 					/>
 				</div>
@@ -54,7 +54,7 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/surprise.png"
+						src="@/assets/images/emotion/6.png"
 						alt=""
 					/>
 				</div>
@@ -62,17 +62,17 @@
 					<img
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/dislike.png"
+						src="@/assets/images/emotion/7.png"
 						alt=""
 					/>
 				</div>
 				<div @click="selectEmotion(8)" class="player__button">
-					<img
+					<div
 						class="player__btn"
 						:style="{ width: `${buttonWidth}px`, height: `${buttonWidth}px` }"
-						src="@/assets/images/emotion/dislike.png"
-						alt=""
-					/>
+					>
+						BGM
+					</div>
 				</div>
 			</div>
 			<div class="player__title">
@@ -82,7 +82,7 @@
 					@click="showSwap"
 				/>
 			</div>
-			<div class="player__top">
+			<div v-if="currentTrack" class="player__top">
 				<div class="player-cover">
 					<section class="player-cover__content">
 						<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
@@ -133,14 +133,14 @@
 				</div>
 				<div class="progress" ref="progress">
 					<div class="progress__top">
-						<div class="album-info" v-if="currentTrack">
+						<div class="album-info">
 							<div class="album-info__name">{{ currentTrack.artist }}</div>
 							<div class="album-info__track">{{ currentTrack.name }}</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="player-back-container">
+			<div v-if="currentTrack" id="player-back-container">
 				<div class="back-wrap">
 					<div class="back-header">
 						재생목록<img
@@ -196,14 +196,14 @@
 								<img
 									v-if="isTimerPlaying"
 									@click="play"
-									class="back-playbar__button"
+									class="back-playbar__button button-big"
 									src="@/assets/images/pause.svg"
 									alt="정지"
 								/>
 								<img
 									v-else
 									@click="play"
-									class="back-playbar__button"
+									class="back-playbar__button button-big"
 									src="@/assets/images/play.svg"
 									alt="재생"
 								/>
@@ -218,6 +218,7 @@
 					</div>
 				</div>
 			</div>
+			<div v-if="!currentTrack" class="player__none"></div>
 			<div v-cloak></div>
 			<symbol id="icon-link" viewBox="0 0 32 32">
 				<title>link</title>
@@ -272,6 +273,7 @@
 			</symbol>
 		</div>
 		<youtube
+			v-if="currentTrack"
 			:player-vars="playerVars"
 			:video-id="currentTrack.videoId"
 			ref="player"
@@ -281,7 +283,8 @@
 </template>
 
 <script>
-import { likeMusics } from '@/api/auth';
+import bus from '@/utils/bus';
+import { likeMusics, likeMusic } from '@/api/auth';
 export default {
 	data() {
 		return {
@@ -289,34 +292,35 @@ export default {
 			isTimerPlaying: false,
 			allMusic: [],
 			musicArray: [[], [], [], [], [], [], [], [], []],
-			tracks: [
-				{
-					name: '야작시',
-					artist: '적재',
-					cover:
-						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
-					videoId: 'jXylepYfpk0',
-					url: 'https://youtu.be/26YwXUcUf4I',
-					favorited: false,
-				},
-				{
-					name: '블루밍',
-					artist: '아이유',
-					cover: 'https://i.ytimg.com/vi/D1PvIWdJ8xo/maxresdefault.jpg',
-					videoId: 'D1PvIWdJ8xo',
-					url: 'https://youtu.be/26YwXUcUf4I',
-					favorited: false,
-				},
-				{
-					name: '다른 사람을 사랑하고 있어',
-					artist: '수지',
-					cover:
-						'https://lh3.googleusercontent.com/proxy/VmPLIgf2H6ERjSNi-mtJHNXZ1csmrgEjUUmTRdT2PnouyxNaBOjAhs8lkoZyOm7aP2mXPS_Q5f21Fddh9LYGe-SA4mIyiFs6paOgFjbX2AzrdaubE6zvGyygXvQ-n9x9WKGTVQWy2QFqHcGIhJFZtyzZgngmcao-GBYBrpsf4oKTEsPSE6Nge-3DgvuPsrK4BTc8B0Kz31qTEyAXvoDwL8xXC3QIQMKafwp-4KyxBs0S_W2Lpy2Q6PgEPijUyzP3zNoT04YviIRFekIj7wQ_hB47KEOHP9NfTdqe-uSp1EezF1M8',
-					videoId: 'eQ3gXtX3U7I',
-					url: 'https://youtu.be/eQ3gXtX3U7I',
-					favorited: false,
-				},
-			],
+			// tracks: [
+			// 	{
+			// 		name: '야작시',
+			// 		artist: '적재',
+			// 		cover:
+			// 			'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+			// 		videoId: 'jXylepYfpk0',
+			// 		url: 'https://youtu.be/26YwXUcUf4I',
+			// 		favorited: false,
+			// 	},
+			// 	{
+			// 		name: '블루밍',
+			// 		artist: '아이유',
+			// 		cover: 'https://i.ytimg.com/vi/D1PvIWdJ8xo/maxresdefault.jpg',
+			// 		videoId: 'D1PvIWdJ8xo',
+			// 		url: 'https://youtu.be/26YwXUcUf4I',
+			// 		favorited: false,
+			// 	},
+			// 	{
+			// 		name: '다른 사람을 사랑하고 있어',
+			// 		artist: '수지',
+			// 		cover:
+			// 			'https://lh3.googleusercontent.com/proxy/VmPLIgf2H6ERjSNi-mtJHNXZ1csmrgEjUUmTRdT2PnouyxNaBOjAhs8lkoZyOm7aP2mXPS_Q5f21Fddh9LYGe-SA4mIyiFs6paOgFjbX2AzrdaubE6zvGyygXvQ-n9x9WKGTVQWy2QFqHcGIhJFZtyzZgngmcao-GBYBrpsf4oKTEsPSE6Nge-3DgvuPsrK4BTc8B0Kz31qTEyAXvoDwL8xXC3QIQMKafwp-4KyxBs0S_W2Lpy2Q6PgEPijUyzP3zNoT04YviIRFekIj7wQ_hB47KEOHP9NfTdqe-uSp1EezF1M8',
+			// 		videoId: 'eQ3gXtX3U7I',
+			// 		url: 'https://youtu.be/eQ3gXtX3U7I',
+			// 		favorited: false,
+			// 	},
+			// ],
+			tracks: [],
 			playerVars: {
 				autoplay: 0,
 				playsinline: 1,
@@ -331,17 +335,21 @@ export default {
 	},
 	methods: {
 		selectEmotion(num) {
-			console.log(num);
 			const selected = document.querySelector('.select');
 			const buttons = document.querySelectorAll('.player__button');
 			selected.classList.remove('select');
 			buttons[num].classList.add('select');
-
-			// if (num !== 0) {
-			// 	this.tracks = this.musicArray[num];
-			// } else {
-			// 	this.tracks = this.allMusic;
-			// }
+			this.currentTrackIndex = 0;
+			if (num !== 0) {
+				this.tracks = this.musicArray[num];
+			} else {
+				this.tracks = this.allMusic;
+			}
+			if (this.tracks.length) {
+				this.currentTrack = this.tracks[0];
+			} else {
+				this.currentTrack = null;
+			}
 		},
 		showSwap() {
 			const Container = document.querySelector('#player-back-container');
@@ -381,7 +389,6 @@ export default {
 			}, 300);
 		},
 		prevTrack() {
-			// this.transitionName = 'scale-in';
 			this.isShowCover = false;
 			if (this.currentTrackIndex > 0) {
 				this.currentTrackIndex--;
@@ -396,7 +403,6 @@ export default {
 			// this.resetPlayer();
 		},
 		nextTrack() {
-			// this.transitionName = 'scale-out';
 			this.isShowCover = false;
 			if (this.currentTrackIndex < this.tracks.length - 1) {
 				this.currentTrackIndex++;
@@ -422,33 +428,68 @@ export default {
 				}
 			}, 300);
 		},
-		favorite() {
-			this.tracks[this.currentTrackIndex].favorited = !this.tracks[
-				this.currentTrackIndex
-			].favorited;
+		async favorite() {
+			try {
+				this.tracks[this.currentTrackIndex].favorited = !this.tracks[
+					this.currentTrackIndex
+				].favorited;
+				await likeMusic(
+					this.tracks[this.currentTrackIndex].id,
+					this.tracks[this.currentTrackIndex].search,
+				);
+			} catch (error) {
+				bus.$emit('show:error', '좋아요 요청을 실패했습니다 :(');
+			}
 		},
 		async fetchData() {
-			const { data } = await likeMusics();
-			this.tracks = data;
-			this.allMusic = data;
-			data.forEach(music => {
-				this.musicArray[music.emotion].push(music);
-			});
-			this.currentTrack = this.tracks[0];
+			try {
+				const { data } = await likeMusics();
+				console.log(data);
+				data.forEach(music => {
+					this.tracks.push({
+						artist: music.artist,
+						cover: music.cover,
+						name: music.name,
+						id: music.id,
+						videoId: music.video_id,
+						url: `https://youtube.com/watch?v=${music.video_id}`,
+						emotion: music.emotion,
+						favorited: music.liked,
+						search: music.emotion === 8 ? true : false,
+					});
+				});
+				this.allMusic = [...this.tracks];
+				data.forEach(music => {
+					this.musicArray[music.emotion].push({
+						artist: music.artist,
+						cover: music.cover,
+						name: music.name,
+						id: music.id,
+						videoId: music.video_id,
+						url: `https://youtube.com/watch?v=${music.video_id}`,
+						emotion: music.emotion,
+						favorited: music.liked,
+						search: music.emotion === 8 ? true : false,
+					});
+				});
+				this.currentTrack = this.tracks[0];
+			} catch (error) {
+				// bus.$emit('show:error', error.response.data);
+				bus.$emit('show:error', '노래를 불러오는데 실패했습니다 :(');
+			}
 		},
 	},
 	created() {
-		// this.fetchData();
-		this.currentTrack = this.tracks[0];
+		this.fetchData();
 		// this is optional (for preload covers)
-		for (let index = 0; index < this.tracks.length; index++) {
-			const element = this.tracks[index];
-			let link = document.createElement('link');
-			link.rel = 'prefetch';
-			link.href = element.cover;
-			link.as = 'image';
-			document.head.appendChild(link);
-		}
+		// for (let index = 0; index < this.tracks.length; index++) {
+		// 	const element = this.tracks[index];
+		// 	let link = document.createElement('link');
+		// 	link.rel = 'prefetch';
+		// 	link.href = element.cover;
+		// 	link.as = 'image';
+		// 	document.head.appendChild(link);
+		// }
 	},
 	mounted() {
 		const buttons = document.querySelector('.player__buttons');
@@ -608,6 +649,10 @@ export default {
 			height: 2rem;
 			cursor: pointer;
 		}
+		.button-big {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
 	}
 }
 .back-song__select {
@@ -668,6 +713,8 @@ export default {
 	justify-content: center;
 	height: 100%;
 	background-size: cover;
+	padding-top: 1.25rem;
+	margin-bottom: 60px;
 	@media screen and (max-width: 700px), (max-height: 500px) {
 		flex-wrap: wrap;
 		flex-direction: column;
@@ -688,7 +735,6 @@ export default {
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	border-radius: 12px;
 	padding: 1.5rem;
-	margin-bottom: 1rem;
 	@media screen and (max-width: 576px), (max-height: 500px) {
 		width: 95%;
 		padding: 20px;
@@ -732,37 +778,6 @@ export default {
 			border-radius: 15px;
 			background: #f0f0f0;
 			box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
-			// 수정부분
-			/* position: absolute; */
-			/* left: 0; */
-			/* top: -100px; */
-			/* &:before {
-				content: '';
-				background: inherit;
-				width: 100%;
-				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-				display: block;
-				z-index: 1;
-				position: absolute;
-				top: 30px;
-				transform: scale(0.9);
-				filter: blur(10px);
-				opacity: 0.9;
-				border-radius: 15px;
-			} */
-
-			/* &:after {
-				content: '';
-				background: inherit;
-				width: 100%;
-				height: 100%;
-				box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-				display: block;
-				z-index: 2;
-				position: absolute;
-				border-radius: 15px;
-			} */
 		}
 
 		&__img {
@@ -877,6 +892,11 @@ export default {
 				}
 			}
 		}
+		@media screen and (max-width: 340px) {
+			.player-controls__item {
+				font-size: 20px;
+			}
+		}
 	}
 }
 [v-cloak] {
@@ -965,6 +985,12 @@ export default {
 	border-radius: 16px;
 	background: #f0f0f0;
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
+	@media screen and (max-width: 340px) {
+		width: 3rem;
+		height: 3rem;
+		font-size: 2rem;
+		border-radius: 12px;
+	}
 }
 .ion-md-play:before {
 	padding: 0 0.2rem 0 0.5rem;
@@ -978,6 +1004,11 @@ export default {
 	border-radius: 12px;
 	background: #f0f0f0;
 	box-shadow: inset 5px 5px 10px #d8d8d8, inset -5px -5px 10px #ffffff;
+	@media screen and (max-width: 340px) {
+		border-radius: 8px;
+		font-size: 1.5rem;
+		padding: 1.3rem;
+	}
 }
 #embed-youtube-video-1 {
 	position: absolute;
