@@ -77,6 +77,7 @@ export default {
 		async onFetchDiary() {
 			try {
 				const { data } = await fetchDiary(this.diaryId);
+				console.log(data);
 				this.diaryData = data;
 			} catch (error) {
 				bus.$emit('show:error', '정보를 불러오는데 실패했어요 :(');

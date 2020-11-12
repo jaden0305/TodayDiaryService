@@ -39,7 +39,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/happy.png"
+			src="@/assets/images/emotion/1.png"
 			alt=""
 		/>
 		<img
@@ -49,7 +49,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/sad.png"
+			src="@/assets/images/emotion/2.png"
 			alt=""
 		/>
 		<img
@@ -59,7 +59,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/smile.png"
+			src="@/assets/images/emotion/3.png"
 			alt=""
 		/>
 		<img
@@ -69,7 +69,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/boring.png"
+			src="@/assets/images/emotion/4.png"
 			alt=""
 		/>
 		<img
@@ -79,7 +79,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/angry.png"
+			src="@/assets/images/emotion/5.png"
 			alt=""
 		/>
 		<img
@@ -89,7 +89,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/surprise.png"
+			src="@/assets/images/emotion/6.png"
 			alt=""
 		/>
 		<img
@@ -99,7 +99,7 @@
 			@click="readDiary(day.post.id)"
 			class="emoticon"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
-			src="@/assets/images/emotion/dislike.png"
+			src="@/assets/images/emotion/7.png"
 			alt=""
 		/>
 		<p class="calendar-day__title">{{ day.day }}</p>

@@ -1,9 +1,11 @@
 import json
 import requests
 import copy
+import datetime
 from pprint import pprint
 
 from django.shortcuts import render, get_object_or_404
+from django.core.cache import cache
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -16,6 +18,7 @@ from drf_yasg.utils import swagger_auto_schema
 
 from .models import *
 from .serializers import *
+from text.views import redis_check
 
 
 class DiaryMixin:
@@ -28,7 +31,28 @@ class DiaryMixin:
         post = get_object_or_404(Post, pk=post_id)
         return post
 
+def get_date(today):
+    return map(int, today.split('-'))
 
+def get_start_day(today):
+    year, month, day = get_date(today)
+    today = datetime.date(year, month, day)
+    for delta in range(7):
+        date = today - datetime.timedelta(days=delta)
+        if date.day == 6:
+            break
+    return date
+
+def delete_week_cache(today, user_id):
+    start_day = get_start_day(today)
+    if redis_check():
+        cache.delete(f'w-u{user_id}-s{start_day}')
+
+def delete_month_cache(today, user_id):
+    year, month, _ = get_date(today)
+    if redis_check():
+        cache.delete(f'm-u{request.user.id}-{year}-{month}')
+    
 class CreateDiary(APIView, DiaryMixin):
 
     parser_classes = (FormParser, MultiPartParser, )
@@ -124,6 +148,9 @@ class CreateDiary(APIView, DiaryMixin):
         serializer.is_valid(raise_exception=True)
         report = get_object_or_404(DailyReport, pk=response['id'])
         post = serializer.save(report=report, search_music=search_music, recommend_music=recommend_music)
+        
+        delete_week_cache(date, request.user.id)
+        delete_month_cache(date, request.user.id)
         msg = {
             'id': post.id,
             'detail': '작성이 완료되었습니다.'
@@ -152,10 +179,13 @@ class diary(APIView, DiaryMixin):
     def delete(self, request, post_id):
         mypost = self.get_object(post_id)
         if request.user.id == mypost.user.id:
+            date = mypost.created
             mypost.delete()
             
+            delete_week_cache(date, request.user.id)
+            delete_month_cache(date, request.user.id)
             msg = {
-                'detail': '오늘 하루가 사라졌습니다.'
+                'detail': '삭제되었습니다.'
             }
             return Response(msg, status=status.HTTP_200_OK)
         msg = {
