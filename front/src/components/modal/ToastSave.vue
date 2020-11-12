@@ -1,19 +1,18 @@
 <template>
-	<section class="toast" v-if="this.diaryData" :class="toastAnimationClass">
+	<section class="toast" v-if="diaryData" :class="toastAnimationClass">
 		<section class="toast-wrap">
 			<div class="save-diary">
 				<p class="save-diary-comment">당신의 오늘 하루는</p>
+				<p class="save-diary-comment">{{ diaryData.user_emotion }}이군요 :)</p>
 				<p class="save-diary-comment">
-					{{ this.diaryData.user_emotion }}이군요 :)
-				</p>
-				<p class="save-diary-comment">
-					{{ this.diaryData.recommend_music.artist }}의
-					{{ this.diaryData.recommend_music.name }}으로 마무리하는 건 어때요?
+					{{ diaryData.recommend_music.artist }}의
+					{{ diaryData.recommend_music.name }}으로 마무리하는 건 어때요?
 				</p>
 				<div class="save-diary-emotion">
 					<img
+						v-if="diaryData.user_emotion"
 						:src="
-							require(`@/assets/images/emotion/${this.diaryData.user_emotion}.png`)
+							require(`@/assets/images/emotion/${diaryData.user_emotion}.png`)
 						"
 						alt="감정상태"
 					/>
@@ -35,7 +34,7 @@
 			<div id="mainMenu" class="mainMenuOverlay floating2">
 				<!-- <div class="navire floating3"></div> -->
 				<div
-					v-for="(value, idx) in emotionList(this.diaryData.user_emotion)"
+					v-for="(value, idx) in emotionList(diaryData.user_emotion)"
 					:key="idx"
 					class="itemMenuBox"
 					:class="emotionDesign[idx]"
@@ -148,6 +147,9 @@ export default {
 			emotion.splice(idx - 1, 1);
 			return emotion;
 		},
+	},
+	created() {
+		console.log(this.diaryData);
 	},
 };
 </script>
