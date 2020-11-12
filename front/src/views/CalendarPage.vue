@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus';
 import CalendarDay from '@/components/common/CalendarDay.vue';
 import { fetchCalendar } from '@/api/calendar';
 export default {
@@ -89,7 +90,6 @@ export default {
 	},
 	updated() {
 		const emotions = document.querySelectorAll('.emoticon');
-		// console.log(emotions);
 		emotions.forEach(emotion => {
 			emotion.style.width = this.weekWidth;
 			emotion.style.height = this.weekWidth;
@@ -126,7 +126,9 @@ export default {
 					this.nowMonth.push(day);
 				});
 			} catch (error) {
-				console.log(error.response);
+				// console.log(error.response);
+				// bus.$emit('show:error', error.response.data);
+				bus.$emit('show:error', '캘린더를 불러오는데 실패했습니다 :(');
 			}
 		},
 		movePrevMonth() {

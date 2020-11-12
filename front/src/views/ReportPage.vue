@@ -162,25 +162,29 @@ export default {
 			words.classList.add('display-none');
 		},
 		async fetchMonth(year, month) {
-			const { data } = await fetchMonthReport({ year, month });
-			this.year = year;
-			this.month = month;
-			if (data.wordcloud.length) {
-				this.words = data.wordcloud;
-			} else {
-				this.words = [['데이터가 없습니다', 1, 0]];
-			}
-			this.chartData.chartData[0].data = [];
-			this.chartData.labels = [];
-			data.score.forEach((day, i) => {
-				this.chartData.labels.push(i + 1);
-				if (day.score) {
-					this.chartData.chartData[0].data.push(day.score * 100);
+			try {
+				const { data } = await fetchMonthReport({ year, month });
+				this.year = year;
+				this.month = month;
+				if (data.wordcloud.length) {
+					this.words = data.wordcloud;
 				} else {
-					this.chartData.chartData[0].data.push(0);
+					this.words = [['데이터가 없습니다', 1, 0]];
 				}
-			});
-			bus.$emit('lineUpdate');
+				this.chartData.chartData[0].data = [];
+				this.chartData.labels = [];
+				data.score.forEach((day, i) => {
+					this.chartData.labels.push(i + 1);
+					if (day.score) {
+						this.chartData.chartData[0].data.push(day.score * 100);
+					} else {
+						this.chartData.chartData[0].data.push(0);
+					}
+				});
+				bus.$emit('lineUpdate');
+			} catch (error) {
+				bus.$emit('show:error', '월별 리포트를 불러오는데 실패했습니다 :(');
+			}
 		},
 		movePrevMonth() {
 			if (this.month > 1) {
@@ -243,28 +247,32 @@ export default {
 			bus.$emit('lineUpdate');
 		},
 		async fetchWeek(startWeek, endWeek) {
-			const { data } = await fetchWeekReport(startWeek, endWeek);
-			if (data.wordcloud.length) {
-				this.words = data.wordcloud;
-			} else {
-				this.words = [['데이터가 없습니다', 1, 0]];
-			}
-			const startChart = new Date(this.startWeek);
-			this.year = startChart.getFullYear();
-			startChart.setDate(startChart.getDate() - 1);
-			this.chartData.labels = [];
-			this.chartData.chartData[0].data = [];
-			data.score.forEach(day => {
-				this.chartData.labels.push(
-					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
-				);
-				if (day.score) {
-					this.chartData.chartData[0].data.push(day.score * 100);
+			try {
+				const { data } = await fetchWeekReport(startWeek, endWeek);
+				if (data.wordcloud.length) {
+					this.words = data.wordcloud;
 				} else {
-					this.chartData.chartData[0].data.push(0);
+					this.words = [['데이터가 없습니다', 1, 0]];
 				}
-			});
-			bus.$emit('lineUpdate');
+				const startChart = new Date(this.startWeek);
+				this.year = startChart.getFullYear();
+				startChart.setDate(startChart.getDate() - 1);
+				this.chartData.labels = [];
+				this.chartData.chartData[0].data = [];
+				data.score.forEach(day => {
+					this.chartData.labels.push(
+						new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+					);
+					if (day.score) {
+						this.chartData.chartData[0].data.push(day.score * 100);
+					} else {
+						this.chartData.chartData[0].data.push(0);
+					}
+				});
+				bus.$emit('lineUpdate');
+			} catch (error) {
+				bus.$emit('show:error', '주별 리포트를 불러오는데 실패했습니다 :(');
+			}
 		},
 		rotation: ([word]) => {
 			var chance = new Chance(word[0]);
@@ -321,7 +329,6 @@ export default {
 					const DAY = new Date();
 					const YEAR = DAY.getFullYear();
 					const MONTH = DAY.getMonth() + 1;
-					// console.log(DAY, YEAR, MONTH)
 					this.fetchMonth(YEAR, MONTH);
 					bus.$emit('lineUpdate');
 					break;

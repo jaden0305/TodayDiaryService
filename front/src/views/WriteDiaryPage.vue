@@ -215,7 +215,6 @@ export default {
 				this.openSticker = true;
 				this.openTheme = false;
 			} else {
-				console.log('이미지를 추가해야 스티커를 사용할 수 있어요:(');
 				bus.$emit(
 					'show:error',
 					'이미지를 추가해야 스티커를 사용할 수 있어요:(',
@@ -265,7 +264,7 @@ export default {
 					});
 				};
 			} else {
-				console.log('스티커는 3개까지 넣을 수 있어요');
+				bus.$emit('show:error', '스티커는 3개까지 넣을 수 있어요 :(');
 			}
 
 			this.openSticker = false;
@@ -307,11 +306,11 @@ export default {
 				// diaryData를 props로 넘겨줌
 			} catch (error) {
 				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
+				bus.$emit('show:error', '일기 저장을 실패했어요 :(');
 				console.log(error.response);
 			}
 		},
 		selectMusic(music) {
-			console.log(music);
 			this.diaryData.music = music;
 			this.diaryData.search = true;
 			bus.$emit(
