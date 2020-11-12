@@ -4,6 +4,7 @@ import datetime
 import json
 
 from redis import Redis
+from redis.exceptions import ConnectionError
 
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
@@ -27,7 +28,10 @@ User = get_user_model()
 redis_host = Redis('127.0.0.1', socket_connect_timeout=1)
 
 def redis_check():
-    return redis_host.ping()
+    try:
+        return redis_host.ping()
+    except ConnectionError:
+        return False
 
 @swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
 @api_view(['POST'])

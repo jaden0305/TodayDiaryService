@@ -1,6 +1,7 @@
 staticfiles/
 settings.json
 media/
+migrations/
 # NLP/
 
 # Created by https://www.toptal.com/developers/gitignore/api/django,python,visualstudiocode,windows,macos,venv
