@@ -20,7 +20,7 @@ from drf_yasg.utils import swagger_auto_schema
 from .analysis.analysis import TextAnalysis
 from post.models import Post, Emotion, RecommendMusic
 from .serializers import *
-from post.serializers import RecommandMusicSerializer
+from post.serializers import RecommandMusicSerializer, EmotionSerializer
 
 
 User = get_user_model()
@@ -99,11 +99,11 @@ def statistics(request):
         wordcloud_serializer = WordCloudReportSerializer(data=data)
 
         wordcloud_serializer.is_valid(raise_exception=True)
-        wordcloud_serializer.save(date=date, user=get_object_or_404(User, pk=user))
+        wordcloud_serializer.save(date=date, user=get_object_or_404(User, pk=user), post=get_object_or_404(Post, pk=post_id))
 
     score = round(result['score'],3)
 
-    result['feel'].sort(key=lambda x:x[1])
+    result['feel'].sort(key=lambda x:-x[1])
 
     emotion = get_object_or_404(Emotion, pk=result['feel'][0][0])
 
@@ -154,7 +154,10 @@ def weekly(request):
     # redis_check() 연결 되는지 확인
     # is_before_week 요청 결과가 이번주 전 인가??
     if redis_check():
-        cached_data = cache.get(cache_key)
+        try:
+            cached_data = cache.get(cache_key)
+        except ConnectionError:
+            cached_data = None
         if cached_data:
             print('cache gotten')
             return Response(cached_data, status=status.HTTP_200_OK)
@@ -208,7 +211,10 @@ def monthly(request):
     # redis_check() 연결 되는지 확인
     # is_before_week 요청 결과가 이번주 전 인가??
     if redis_check():
-        cached_data = cache.get(cache_key)
+        try:
+            cached_data = cache.get(cache_key)
+        except ConnectionError:
+            cached_data = None
         if cached_data:
             print('cache gotten')
             return Response(cached_data, status=status.HTTP_200_OK)
