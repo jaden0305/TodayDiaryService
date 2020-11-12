@@ -34,18 +34,24 @@
 				>
 				</textarea>
 			</div>
+			<MusicBar></MusicBar>
 		</div>
 	</section>
 </template>
 
 <script>
+import MusicBar from '@/components/common/MusicBar.vue';
 import bus from '@/utils/bus';
 import { fetchDiary, deleteDiary } from '@/api/diary';
 export default {
+	components: {
+		MusicBar,
+	},
 	data() {
 		return {
 			diaryData: null,
 			diaryId: this.propsDiaryId ? this.propsDiaryId : this.diaryData.id,
+			tracks: null,
 		};
 	},
 	props: {
@@ -78,6 +84,36 @@ export default {
 			try {
 				const { data } = await fetchDiary(this.diaryId);
 				console.log(data);
+				if (data.search_music) {
+					this.tracks = [
+						{
+							artist: data.search_music.artist,
+							cover: data.search_music.cover,
+							name: data.search_music.name,
+							id: data.search_music.id,
+							videoId: data.search_music.video_id,
+							url: `https://youtube.com/watch?v=${data.search_music.video_id}`,
+							emotion: data.search_music.emotion,
+							favorited: data.search_music.liked,
+							search: true,
+						},
+					];
+				} else {
+					this.tracks = [
+						{
+							artist: data.recommend_music.artist,
+							cover: data.recommend_music.cover,
+							name: data.recommend_music.name,
+							id: data.recommend_music.id,
+							videoId: data.recommend_music.video_id,
+							url: `https://youtube.com/watch?v=${data.recommend_music.video_id}`,
+							emotion: data.recommend_music.emotion,
+							favorited: data.recommend_music.liked,
+							search: false,
+						},
+					];
+				}
+				bus.$emit('show:musicplayer', this.tracks);
 				this.diaryData = data;
 			} catch (error) {
 				bus.$emit('show:error', '정보를 불러오는데 실패했어요 :(');

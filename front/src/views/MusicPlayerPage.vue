@@ -82,7 +82,7 @@
 					@click="showSwap"
 				/>
 			</div>
-			<div class="player__top">
+			<div v-if="currentTrack" class="player__top">
 				<div class="player-cover">
 					<section class="player-cover__content">
 						<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
@@ -133,14 +133,14 @@
 				</div>
 				<div class="progress" ref="progress">
 					<div class="progress__top">
-						<div class="album-info" v-if="currentTrack">
+						<div class="album-info">
 							<div class="album-info__name">{{ currentTrack.artist }}</div>
 							<div class="album-info__track">{{ currentTrack.name }}</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="player-back-container">
+			<div v-if="currentTrack" id="player-back-container">
 				<div class="back-wrap">
 					<div class="back-header">
 						재생목록<img
@@ -218,6 +218,7 @@
 					</div>
 				</div>
 			</div>
+			<div v-if="!currentTrack" class="player__none"></div>
 			<div v-cloak></div>
 			<symbol id="icon-link" viewBox="0 0 32 32">
 				<title>link</title>
@@ -272,6 +273,7 @@
 			</symbol>
 		</div>
 		<youtube
+			v-if="currentTrack"
 			:player-vars="playerVars"
 			:video-id="currentTrack.videoId"
 			ref="player"
@@ -282,7 +284,7 @@
 
 <script>
 import bus from '@/utils/bus';
-import { likeMusics } from '@/api/auth';
+import { likeMusics, likeMusic } from '@/api/auth';
 export default {
 	data() {
 		return {
@@ -290,34 +292,35 @@ export default {
 			isTimerPlaying: false,
 			allMusic: [],
 			musicArray: [[], [], [], [], [], [], [], [], []],
-			tracks: [
-				{
-					name: '야작시',
-					artist: '적재',
-					cover:
-						'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
-					videoId: 'jXylepYfpk0',
-					url: 'https://youtu.be/26YwXUcUf4I',
-					favorited: false,
-				},
-				{
-					name: '블루밍',
-					artist: '아이유',
-					cover: 'https://i.ytimg.com/vi/D1PvIWdJ8xo/maxresdefault.jpg',
-					videoId: 'D1PvIWdJ8xo',
-					url: 'https://youtu.be/26YwXUcUf4I',
-					favorited: false,
-				},
-				{
-					name: '다른 사람을 사랑하고 있어',
-					artist: '수지',
-					cover:
-						'https://lh3.googleusercontent.com/proxy/VmPLIgf2H6ERjSNi-mtJHNXZ1csmrgEjUUmTRdT2PnouyxNaBOjAhs8lkoZyOm7aP2mXPS_Q5f21Fddh9LYGe-SA4mIyiFs6paOgFjbX2AzrdaubE6zvGyygXvQ-n9x9WKGTVQWy2QFqHcGIhJFZtyzZgngmcao-GBYBrpsf4oKTEsPSE6Nge-3DgvuPsrK4BTc8B0Kz31qTEyAXvoDwL8xXC3QIQMKafwp-4KyxBs0S_W2Lpy2Q6PgEPijUyzP3zNoT04YviIRFekIj7wQ_hB47KEOHP9NfTdqe-uSp1EezF1M8',
-					videoId: 'eQ3gXtX3U7I',
-					url: 'https://youtu.be/eQ3gXtX3U7I',
-					favorited: false,
-				},
-			],
+			// tracks: [
+			// 	{
+			// 		name: '야작시',
+			// 		artist: '적재',
+			// 		cover:
+			// 			'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
+			// 		videoId: 'jXylepYfpk0',
+			// 		url: 'https://youtu.be/26YwXUcUf4I',
+			// 		favorited: false,
+			// 	},
+			// 	{
+			// 		name: '블루밍',
+			// 		artist: '아이유',
+			// 		cover: 'https://i.ytimg.com/vi/D1PvIWdJ8xo/maxresdefault.jpg',
+			// 		videoId: 'D1PvIWdJ8xo',
+			// 		url: 'https://youtu.be/26YwXUcUf4I',
+			// 		favorited: false,
+			// 	},
+			// 	{
+			// 		name: '다른 사람을 사랑하고 있어',
+			// 		artist: '수지',
+			// 		cover:
+			// 			'https://lh3.googleusercontent.com/proxy/VmPLIgf2H6ERjSNi-mtJHNXZ1csmrgEjUUmTRdT2PnouyxNaBOjAhs8lkoZyOm7aP2mXPS_Q5f21Fddh9LYGe-SA4mIyiFs6paOgFjbX2AzrdaubE6zvGyygXvQ-n9x9WKGTVQWy2QFqHcGIhJFZtyzZgngmcao-GBYBrpsf4oKTEsPSE6Nge-3DgvuPsrK4BTc8B0Kz31qTEyAXvoDwL8xXC3QIQMKafwp-4KyxBs0S_W2Lpy2Q6PgEPijUyzP3zNoT04YviIRFekIj7wQ_hB47KEOHP9NfTdqe-uSp1EezF1M8',
+			// 		videoId: 'eQ3gXtX3U7I',
+			// 		url: 'https://youtu.be/eQ3gXtX3U7I',
+			// 		favorited: false,
+			// 	},
+			// ],
+			tracks: [],
 			playerVars: {
 				autoplay: 0,
 				playsinline: 1,
@@ -336,12 +339,17 @@ export default {
 			const buttons = document.querySelectorAll('.player__button');
 			selected.classList.remove('select');
 			buttons[num].classList.add('select');
-
-			// if (num !== 0) {
-			// 	this.tracks = this.musicArray[num];
-			// } else {
-			// 	this.tracks = this.allMusic;
-			// }
+			this.currentTrackIndex = 0;
+			if (num !== 0) {
+				this.tracks = this.musicArray[num];
+			} else {
+				this.tracks = this.allMusic;
+			}
+			if (this.tracks.length) {
+				this.currentTrack = this.tracks[0];
+			} else {
+				this.currentTrack = null;
+			}
 		},
 		showSwap() {
 			const Container = document.querySelector('#player-back-container');
@@ -420,18 +428,49 @@ export default {
 				}
 			}, 300);
 		},
-		favorite() {
-			this.tracks[this.currentTrackIndex].favorited = !this.tracks[
-				this.currentTrackIndex
-			].favorited;
+		async favorite() {
+			try {
+				this.tracks[this.currentTrackIndex].favorited = !this.tracks[
+					this.currentTrackIndex
+				].favorited;
+				await likeMusic(
+					this.tracks[this.currentTrackIndex].id,
+					this.tracks[this.currentTrackIndex].search,
+				);
+			} catch (error) {
+				bus.$emit('show:error', '좋아요 요청을 실패했습니다 :(');
+			}
 		},
 		async fetchData() {
 			try {
 				const { data } = await likeMusics();
-				this.tracks = data;
-				this.allMusic = data;
+				console.log(data);
 				data.forEach(music => {
-					this.musicArray[music.emotion].push(music);
+					this.tracks.push({
+						artist: music.artist,
+						cover: music.cover,
+						name: music.name,
+						id: music.id,
+						videoId: music.video_id,
+						url: `https://youtube.com/watch?v=${music.video_id}`,
+						emotion: music.emotion,
+						favorited: music.liked,
+						search: music.emotion === 8 ? true : false,
+					});
+				});
+				this.allMusic = [...this.tracks];
+				data.forEach(music => {
+					this.musicArray[music.emotion].push({
+						artist: music.artist,
+						cover: music.cover,
+						name: music.name,
+						id: music.id,
+						videoId: music.video_id,
+						url: `https://youtube.com/watch?v=${music.video_id}`,
+						emotion: music.emotion,
+						favorited: music.liked,
+						search: music.emotion === 8 ? true : false,
+					});
 				});
 				this.currentTrack = this.tracks[0];
 			} catch (error) {
@@ -441,17 +480,16 @@ export default {
 		},
 	},
 	created() {
-		// this.fetchData();
-		this.currentTrack = this.tracks[0];
+		this.fetchData();
 		// this is optional (for preload covers)
-		for (let index = 0; index < this.tracks.length; index++) {
-			const element = this.tracks[index];
-			let link = document.createElement('link');
-			link.rel = 'prefetch';
-			link.href = element.cover;
-			link.as = 'image';
-			document.head.appendChild(link);
-		}
+		// for (let index = 0; index < this.tracks.length; index++) {
+		// 	const element = this.tracks[index];
+		// 	let link = document.createElement('link');
+		// 	link.rel = 'prefetch';
+		// 	link.href = element.cover;
+		// 	link.as = 'image';
+		// 	document.head.appendChild(link);
+		// }
 	},
 	mounted() {
 		const buttons = document.querySelector('.player__buttons');
