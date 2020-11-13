@@ -58,7 +58,7 @@ class CreateDiary(APIView, DiaryMixin):
     parser_classes = (FormParser, MultiPartParser, )
     permission_classes = (IsAuthenticated, )
 
-    TEXT_ANALYZER_PORT = 8002
+    TEXT_ANALYZER_PORT = 9002
     TEXT_ANALYZER_REQUEST_PATH = '/text/'
     TEXT_ANALYZER_HOST = 'http://127.0.0.1'
 
@@ -124,9 +124,10 @@ class CreateDiary(APIView, DiaryMixin):
         post = serializer.save(user=request.user)
 
         self.create_sticker(stickers, post.id)
-            
         response = self.analyze(request.user, data, post.id)
+        print(response.text)
         response = json.loads(response.text)
+        
 
         data['image'] = image
         data['sticker_image'] = sticker_image
