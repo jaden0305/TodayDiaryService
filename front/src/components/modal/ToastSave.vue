@@ -2,11 +2,15 @@
 	<section class="toast" v-if="diaryData" :class="toastAnimationClass">
 		<section class="toast-wrap">
 			<div class="save-diary">
-				<p class="save-diary-comment">당신의 오늘 하루는</p>
-				<p class="save-diary-comment">{{ diaryData.user_emotion }}이군요 :)</p>
 				<p class="save-diary-comment">
-					{{ diaryData.recommend_music.artist }}의
-					{{ diaryData.recommend_music.name }}으로 마무리하는 건 어때요?
+					{{ emotionComment[diaryData.user_emotion] }}
+				</p>
+				<p>이 노래로 오늘 하루를 마무리하는 건 어때요?</p>
+				<p class="save-diary-comment artist">
+					{{ diaryData.recommend_music.artist }}
+				</p>
+				<p class="save-diary-comment music-name">
+					{{ diaryData.recommend_music.name }}
 				</p>
 				<div class="save-diary-emotion">
 					<img
@@ -27,6 +31,7 @@
 
 			<div id="mainMenu" class="mainMenuOverlay floating2">
 				<!-- <div class="navire floating3"></div> -->
+
 				<div
 					v-for="(value, idx) in emotionList(diaryData.user_emotion)"
 					:key="idx"
@@ -34,10 +39,10 @@
 					:class="emotionDesign[idx]"
 				>
 					<img
-						:src="require(`@/assets/images/emotion/${idx + 1}.png`)"
+						:src="require(`@/assets/images/emotion/${value}.png`)"
 						class="itemMenu "
 						alt="감정상태"
-						@click="onReselectEmotion(idx + 1)"
+						@click="onReselectEmotion(emotionDict[value])"
 					/>
 				</div>
 				<a
@@ -66,6 +71,24 @@ import { reselectEmotion } from '@/api/analysis';
 export default {
 	data() {
 		return {
+			emotionDict: {
+				행복: 1,
+				슬픔: 2,
+				기쁨: 3,
+				무료함: 4,
+				화남: 5,
+				놀람: 6,
+				공포: 7,
+			},
+			emotionComment: {
+				1: '당신의 하루가 오늘만 같았으면 좋겠네요.',
+				2: '오늘 하루, 당신을 위로해주고 싶네요.',
+				3: '당신을 보고 있으면 웃음이 나네요.',
+				4: '평범한 일상에서 소소한 행복을 찾아봐요.',
+				5: '스트레스는 만병의 근원이래요.',
+				6: '특별한 하루를 보내셨네요.',
+				7: '당신의 밝은 내일을 응원할게요.',
+			},
 			emotion: ['행복', '슬픔', '기쁨', '무료함', '화남', '놀람', '공포'],
 			emotionDesign: [
 				'bills',
@@ -93,20 +116,6 @@ export default {
 		onOpenEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
 			mainMenu.classList.add('open');
-
-			// for (let key in this.emotion) {
-			// 	if (key != this.diaryData.user_emotion) {
-			// 		const itemMenuBox = document.createElement('div');
-			// 		const emotionImage = document.createElement('img');
-			// 		itemMenuBox.classList.add('itemMenuBox');
-			// 		itemMenuBox.classList.add(this.emotionDesign[key - 1]);
-			// 		emotionImage.src = `@/assets/images/emotion/${key}.png`;
-			// 		emotionImage.alt = '감정이모티콘';
-			// 		emotionImage.classList.add('itemMenu');
-			// 		itemMenuBox.appendChild(emotionImage);
-			// 		mainMenu.appendChild(itemMenuBox);
-			// 	}
-			// }
 		},
 		onCloseEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
@@ -155,13 +164,30 @@ export default {
 	align-items: center;
 }
 .save-diary {
-	margin-top: 8vh;
+	margin-top: 4vh;
 	text-align: center;
+	.artist {
+		margin-top: 30px;
+		font-size: 18px;
+	}
+	.music-name {
+		font-weight: bold;
+		font-size: 18px;
+	}
+	.music-name::before {
+		content: '"';
+	}
+	.music-name::after {
+		content: '"';
+	}
 	.save-diary-comment {
 		margin-bottom: 13px;
 	}
 	.save-diary-emotion {
-		margin: 5vh;
+		margin: 3vh;
+		img {
+			width: 100px;
+		}
 	}
 }
 .save-diary-change {
@@ -202,7 +228,7 @@ export default {
 	position: fixed;
 	left: 0;
 	right: 0;
-	bottom: -60%;
+	bottom: -100%;
 	z-index: 999;
 	height: 60%;
 	box-shadow: 0 0 15px -3px rgba(197, 191, 135, 0.3);
@@ -280,7 +306,6 @@ export default {
 	-ms-transform: rotate(270deg);
 	transform: rotate(270deg);
 }
-
 .mainMenuOverlay .itemMenuBox.tarsheed {
 	-webkit-transform: rotate(330deg);
 	-ms-transform: rotate(330deg);
@@ -337,7 +362,7 @@ export default {
 }
 
 .mainMenuOverlay .itemMenuBox.tarsheed .itemMenu {
-	/* background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/tarsheed.png); 
+	/* background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/tarsheed.png);
     background-size: 38px auto;*/
 	-webkit-transform: rotate(30deg);
 	-ms-transform: rotate(30deg);

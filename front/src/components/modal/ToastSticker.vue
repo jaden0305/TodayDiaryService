@@ -43,7 +43,7 @@
 										"
 									>
 										<img
-											:src="`${setUrl}${item.path.replace('images', 'media')}`"
+											:src="`${setUrl}${item.path}`"
 											class="toast-sticker-item__image"
 											:alt="`${item.name}`"
 										/>
@@ -104,7 +104,7 @@ export default {
 			this.$emit('close-sticker');
 		},
 		submitSticker(path, id, emotion) {
-			this.selectedItem = this.setUrl + path.replace('images', 'media');
+			this.selectedItem = this.setUrl + path;
 			this.$emit('submit-sticker', this.selectedItem, id, emotion);
 		},
 	},
@@ -122,9 +122,9 @@ export default {
 		justify-content: space-around;
 		margin-top: 20px;
 		.toast-sticker-item__image {
-			width: 70px;
-			max-height: 90px;
-			margin-top: 10px;
+			width: 60px;
+			max-height: 70px;
+			margin: 3px 10px;
 		}
 	}
 }
@@ -134,9 +134,12 @@ export default {
 	align-items: center;
 }
 .toast-sticker__box {
+	overflow: scroll;
 	ul {
 		display: flex;
-		flex-wrap: wrap;
+		li {
+			white-space: nowrap;
+		}
 	}
 }
 .toast-sticker__input {

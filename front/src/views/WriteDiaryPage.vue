@@ -132,7 +132,7 @@ import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
 import ToastSave from '@/components/modal/ToastSave.vue';
 import { createDiaryanalysis } from '@/api/analysis';
-
+// import Konva from 'konva';
 let num = 1;
 
 export default {
@@ -149,6 +149,7 @@ export default {
 				title: null,
 				content: null,
 				image: null,
+				sticker_image: null,
 				stickers: '[]',
 				search_music: {},
 				recommend_music: {},
@@ -189,6 +190,7 @@ export default {
 			this.diaryImage = this.$refs.inputImage.files[0];
 			this.diaryImageUrl = URL.createObjectURL(this.diaryImage);
 			this.diaryData.image = this.$refs.inputImage.files[0];
+			console.log(this.diaryData.image);
 			this.diaryImageFile = false;
 		},
 		onOpenMenu() {
@@ -231,6 +233,17 @@ export default {
 					this.diaryAnalysisData.title = this.diaryData.title;
 					this.diaryAnalysisData.content = this.diaryData.content;
 					const { data } = await createDiaryanalysis(this.diaryAnalysisData);
+
+					// console.log('11111');
+					// let canvas = document.querySelector('canvas');
+					// console.log(canvas);
+					// let image = document.createElement('img');
+					// console.log(image);
+					// image.setAttribute('crossorigin', 'anonymous');
+					// let stage = new Konva.Stage();
+					// image.src = stage.toDataURL();
+
+					// this.diaryData.sticker_image = image;
 					this.diaryData.user_emotion = data.feel[0][0];
 					this.diaryData.recommend_music = data.music;
 
@@ -239,7 +252,8 @@ export default {
 					console.log('내용을 입력해주세요:(');
 				}
 			} catch (err) {
-				console.log(err.response);
+				console.log('error');
+				console.log(err);
 			}
 		},
 		setSticker(selctedStickerPath, id, emotion) {
@@ -301,17 +315,6 @@ export default {
 			this.diaryData.pattern = selectedPaper;
 			this.openTheme = false;
 		},
-		async onSaveDiary() {
-			try {
-				this.diaryData.created = this.$route.query.day;
-				// 감정이랑 곡정보 요청 받아서 저장 => diaryData
-				// diaryData를 props로 넘겨줌
-			} catch (error) {
-				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
-				bus.$emit('show:error', '일기 저장을 실패했어요 :(');
-				console.log(error.response);
-			}
-		},
 		selectMusic(music) {
 			console.log(music);
 			this.diaryData.search_music = music;
@@ -338,6 +341,8 @@ export default {
 			// update the state
 			imgElem.x = e.target.x();
 			imgElem.y = e.target.y();
+			imgElem.width = e.target.width();
+			imgElem.height = e.target.height();
 			imgElem.rotation = e.target.rotation();
 		},
 		handleStageMouseDown(e) {
@@ -454,8 +459,8 @@ export default {
 		background: rgba(151, 151, 151, 0.3);
 		position: relative;
 		.konvajs-content {
-			width: 300px !important;
-			height: 200px !important;
+			// width: 300px !important;
+			// height: 200px !important;
 		}
 		.diary-image__stickerBg {
 			position: absolute;
