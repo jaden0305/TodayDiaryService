@@ -5,12 +5,12 @@
 				<p class="diary-header__dataTitle">
 					{{ diaryData.title }}
 				</p>
-				<img
+				<!-- <img
 					src="@/assets/images/menu.svg"
 					class="diary-header__menu"
 					alt="메뉴"
 					@click="onOpenMenu"
-				/>
+				/> -->
 				<ul class="diary-header__func">
 					<li>
 						<img
@@ -66,7 +66,7 @@ export default {
 			if (this.diaryData.image) {
 				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
 			} else {
-				return `@/assets/images/logo3.png`;
+				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_AUTH_API_URL}media/default.png`;
 			}
 		},
 		// canvasImg() {
@@ -79,13 +79,13 @@ export default {
 		},
 	},
 	methods: {
-		onOpenMenu() {
-			const menu = document.querySelector('.diary-header__menu');
-			const menus = document.querySelector('.diary-header__func');
-			menu.style.display = 'none';
-			menus.style.right = '0px';
-			menus.style.transition = '.5s';
-		},
+		// onOpenMenu() {
+		// 	const menu = document.querySelector('.diary-header__menu');
+		// 	const menus = document.querySelector('.diary-header__func');
+		// 	menu.style.display = 'none';
+		// 	menus.style.right = '0px';
+		// 	menus.style.transition = '.5s';
+		// },
 		async onFetchDiary() {
 			try {
 				const { data } = await fetchDiary(this.diaryId);
@@ -193,16 +193,16 @@ export default {
 		.diary-header__dataTitle {
 			margin-left: 10px;
 		}
-		.diary-header__menu {
-			width: 18px;
-		}
+		// .diary-header__menu {
+		// 	width: 18px;
+		// }
 		.diary-header__func {
 			display: flex;
 			margin: 0;
 			padding: 0;
 			position: absolute;
 			top: 0;
-			right: -110px;
+			right: 0;
 			list-style-type: none;
 			li {
 				img {
