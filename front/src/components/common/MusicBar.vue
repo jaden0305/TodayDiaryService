@@ -4,7 +4,7 @@
 			v-if="tracks"
 			:player-vars="playerVars"
 			:video-id="currentTrack.videoId"
-			ref="player"
+			ref="player1"
 			@ended="nextTrack"
 		></youtube>
 		<div class="player slide-out-bottom" v-if="currentTrack">
@@ -97,7 +97,7 @@
 			</symbol>
 		</div>
 		<div
-			id="player-back-container"
+			id="player-back-container1"
 			class="player-back slide-in-top"
 			v-hammer:swipe.up="swipeUp"
 			v-if="currentTrack"
@@ -150,6 +150,7 @@ export default {
 	},
 
 	beforeDestroy() {
+		this.open = false;
 		bus.$off('show:musicplayer', this.openMethod);
 	},
 	data() {
@@ -221,23 +222,22 @@ export default {
 			this.open = false;
 		},
 		openMethod(tracks) {
-			console.log(tracks);
 			this.open = true;
 			this.tracks = tracks;
 			this.currentTrack = this.tracks[0];
 		},
 		play() {
-			this.$refs.player.player.getPlayerState().then(response => {
+			this.$refs.player1.player.getPlayerState().then(response => {
 				if (
 					response === -1 ||
 					response === 2 ||
 					response === 5 ||
 					response === 0
 				) {
-					this.$refs.player.player.playVideo();
+					this.$refs.player1.player.playVideo();
 					this.isTimerPlaying = true;
 				} else {
-					this.$refs.player.player.pauseVideo();
+					this.$refs.player1.player.pauseVideo();
 					this.isTimerPlaying = false;
 				}
 			});
@@ -250,7 +250,7 @@ export default {
 			}
 			this.currentTrack = this.tracks[this.currentTrackIndex];
 			setTimeout(() => {
-				this.$refs.player.player.playVideo();
+				this.$refs.player1.player.playVideo();
 				this.isTimerPlaying = true;
 			}, 300);
 		},
@@ -272,11 +272,12 @@ export default {
 	transform: translateX(-50%);
 	transition: all 1s ease-in-out 0.1s;
 	border-top: 1px solid rgba(#adb5bd, 0.2);
+	border-radius: 12px;
 }
 .toast1.none {
 	display: none !important;
 }
-#player-back-container {
+#player-back-container1 {
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -286,82 +287,83 @@ export default {
 	z-index: 10;
 	border-radius: 12px;
 	height: 80px;
-}
-.back-wrap {
-	width: 100%;
-	height: 100%;
-}
-.back-playbar {
-	height: 80px;
-	background-color: rgb(240, 240, 240);
-	box-shadow: 6px 6px 5px #c7c7c7, -6px -6px 5px #ffffff;
-	padding: 10px 0 10px;
-	display: flex;
-	.back-playbar__img {
-		width: 60px;
-		height: 60px;
-		background-repeat: no-repeat !important;
-		background-position: center !important;
-		background-size: cover !important;
-		border-radius: 8px;
-		margin-left: 1.5rem;
-		@media (max-width: 320px) {
-			margin-left: 0.5rem !important;
-		}
-	}
-	.back-playbar__content {
-		flex: 1;
+	.back-wrap {
+		width: 100%;
 		height: 100%;
-		margin-left: 1rem;
+	}
+	.back-playbar {
+		height: 80px;
+		background-color: rgb(240, 240, 240);
+		box-shadow: 6px 6px 5px #c7c7c7, -6px -6px 5px #ffffff;
+		border-radius: 12px;
+		padding: 10px 0 10px;
 		display: flex;
-		align-items: center;
-		@media (max-width: 320px) {
-			margin-left: 0.7rem;
-		}
-		.back-playbar__info {
-			flex: 1;
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-around;
-			.back-playbar__name {
-				font-size: 1.3rem;
-				color: #71829e;
-				@media (max-width: 320px) {
-					font-size: 1rem;
-				}
-			}
-			.back-playbar__artist {
-				color: rgba(#71829e, 0.7);
-				font-size: 1rem;
-				@media (max-width: 320px) {
-					font-size: 0.8rem;
-				}
+		.back-playbar__img {
+			width: 60px;
+			height: 60px;
+			background-repeat: no-repeat !important;
+			background-position: center !important;
+			background-size: cover !important;
+			border-radius: 8px;
+			margin-left: 1.5rem;
+			@media (max-width: 320px) {
+				margin-left: 0.5rem !important;
 			}
 		}
-		.back-playbar__bar {
+		.back-playbar__content {
 			flex: 1;
-			margin-right: 0.5rem;
 			height: 100%;
+			margin-left: 1rem;
 			display: flex;
-			justify-content: center;
 			align-items: center;
 			@media (max-width: 320px) {
-				flex: 0.7;
+				margin-left: 0.7rem;
+			}
+			.back-playbar__info {
+				flex: 1;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				.back-playbar__name {
+					font-size: 1.3rem;
+					color: #71829e;
+					@media (max-width: 320px) {
+						font-size: 1rem;
+					}
+				}
+				.back-playbar__artist {
+					color: rgba(#71829e, 0.7);
+					font-size: 1rem;
+					@media (max-width: 320px) {
+						font-size: 0.8rem;
+					}
+				}
+			}
+			.back-playbar__bar {
+				flex: 1;
+				margin-right: 0.5rem;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				@media (max-width: 320px) {
+					flex: 0.7;
+				}
+			}
+			.back-playbar__button {
+				height: 100%;
+				box-sizing: border-box;
+				cursor: pointer;
 			}
 		}
-		.back-playbar__button {
-			height: 100%;
-			box-sizing: border-box;
-			cursor: pointer;
-		}
 	}
-}
-.back-song__select {
-	background-color: #dbe4ff;
-}
-.back-song__last {
-	margin-bottom: 80px;
+	.back-song__select {
+		background-color: #dbe4ff;
+	}
+	.back-song__last {
+		margin-bottom: 80px;
+	}
 }
 .player-cover__content {
 	height: 100%;
