@@ -152,11 +152,6 @@ export default {
 	beforeDestroy() {
 		this.open = false;
 		bus.$off('show:musicplayer', this.openMethod);
-		console.log(this.open);
-	},
-	destroyed() {
-		// this.open = false;
-		// console.log(this.open);
 	},
 	data() {
 		return {
