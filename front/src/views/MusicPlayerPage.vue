@@ -218,7 +218,7 @@
 					</div>
 				</div>
 			</div>
-			<div v-if="!currentTrack" class="player__none"></div>
+			<div v-if="!currentTrack" class="player__none">노래가 없어요 :(</div>
 			<div v-cloak></div>
 			<symbol id="icon-link" viewBox="0 0 32 32">
 				<title>link</title>
@@ -339,17 +339,24 @@ export default {
 			const buttons = document.querySelectorAll('.player__button');
 			selected.classList.remove('select');
 			buttons[num].classList.add('select');
-			this.currentTrackIndex = 0;
 			if (num !== 0) {
-				this.tracks = this.musicArray[num];
+				this.tracks = [...this.musicArray[num]];
 			} else {
-				this.tracks = this.allMusic;
+				this.tracks = [...this.allMusic];
 			}
 			if (this.tracks.length) {
-				this.currentTrack = this.tracks[0];
+				this.currentTrack = { ...this.tracks[0] };
 			} else {
 				this.currentTrack = null;
 			}
+			this.currentTrackIndex = 0;
+			setTimeout(() => {
+				if (this.$refs.player) {
+					console.log(this.$refs.player);
+					this.$refs.player.player.playVideo();
+				}
+				this.isTimerPlaying = true;
+			}, 300);
 		},
 		showSwap() {
 			const Container = document.querySelector('#player-back-container');
@@ -364,6 +371,7 @@ export default {
 			Container.style.display = 'none';
 		},
 		play() {
+			console.log('재생');
 			this.$refs.player.player.getPlayerState().then(response => {
 				if (
 					response === -1 ||
@@ -714,7 +722,7 @@ export default {
 	height: 100%;
 	background-size: cover;
 	padding-top: 1.25rem;
-	margin-bottom: 60px;
+	margin-bottom: 75px;
 	@media screen and (max-width: 700px), (max-height: 500px) {
 		flex-wrap: wrap;
 		flex-direction: column;

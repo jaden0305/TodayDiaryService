@@ -176,7 +176,7 @@ export default {
 	height: 100%;
 	padding: 0.5rem;
 	padding-top: 1.25rem;
-	margin-bottom: 60px;
+	margin-bottom: 75px;
 	.calendar-content {
 		border-radius: 1rem;
 		background: #f0f0f0;
