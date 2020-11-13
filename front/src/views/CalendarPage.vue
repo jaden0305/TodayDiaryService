@@ -125,7 +125,6 @@ export default {
 				data[this.month].forEach(day => {
 					this.nowMonth.push(day);
 				});
-				console.log(data);
 			} catch (error) {
 				// console.log(error.response);
 				// bus.$emit('show:error', error.response.data);

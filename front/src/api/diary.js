@@ -12,7 +12,9 @@ export function createDiary(diaryData) {
 	formdata.append('content', diaryData.content);
 	formdata.append('stickers', JSON.stringify(diaryData.stickers));
 	formdata.append('search_music', JSON.stringify(diaryData.search_music));
-	formdata.append('recommend_music', diaryData.recommend_music.id);
+	if (diaryData.recommend_music) {
+		formdata.append('recommend_music', diaryData.recommend_music.id);
+	}
 	formdata.append('user_emotion', diaryData.user_emotion);
 	formdata.append('font', diaryData.font.id);
 	formdata.append('pattern', diaryData.pattern.id);
