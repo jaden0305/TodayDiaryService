@@ -71,6 +71,7 @@ class PostStickerReadSerializer(serializers.ModelSerializer):
 
 class CreatePostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False, allow_null=True)
+    sticker_image = serializers.ImageField(required=False, allow_null=True)
     search_music = serializers.CharField(required=False, allow_null=True)
     recommend_music = serializers.IntegerField(required=False, allow_null=True)
     class Meta:

@@ -12,6 +12,9 @@ def upload_location(instance, filename):
     now = datetime.datetime.now()
     return f"{now.year}/{now.month}/{now.day}/{uuid4()}.{ext}"
 
+def upload_sticker_location(instance, filename):
+    return 'sticker_' + upload_location(instance, filename)
+
 
 class PostColor(models.Model):
     value = models.CharField(max_length=20)
@@ -62,6 +65,7 @@ class Post(models.Model):
     created = models.DateField()
     user_emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, related_name='posts')
     image = models.ImageField(blank=True, null=True, upload_to=upload_location)
+    sticker_image = models.ImageField(blank=True, null=True, upload_to=upload_sticker_location, default=None)
 
 
 class SearchMusic(models.Model):
