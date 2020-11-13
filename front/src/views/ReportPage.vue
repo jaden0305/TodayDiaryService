@@ -513,7 +513,10 @@ export default {
 			color: #495057;
 		}
 		.report-select__month {
-			font-size: 1.5rem;
+			font-size: 1.4rem;
+			@media (max-width: 320px) {
+				font-size: 1rem;
+			}
 		}
 	}
 	.report-select__span {
