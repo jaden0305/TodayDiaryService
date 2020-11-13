@@ -1576,14 +1576,6 @@
       "emotion_id": 3
     },
     {
-      "id": 198,
-      "artist": "Celine Dion",
-      "name": "The power of love",
-      "video_id": "Y8HOfcYWZoo",
-      "cover": "https://cdnimg.melon.co.kr/cm/album/images/000/90/237/90237_500.jpg/melon/quality/80/optimize",
-      "emotion_id": 3
-    },
-    {
       "id": 199,
       "artist": "The Weeknd",
       "name": "I Feel It Coming",
@@ -1821,14 +1813,6 @@
       "name": "옥탑방",
       "video_id": "3jzBzplq_GI",
       "cover": "https://cdnimg.melon.co.kr/cm/album/images/102/38/711/10238711_500.jpg?7cbf13fddf277329634c9a42af6e85ce",
-      "emotion_id": 4
-    },
-    {
-      "id": 229,
-      "artist": "Celine Dion",
-      "name": "Because You Loved Me",
-      "video_id": "fpl4if07ics",
-      "cover": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990CD43359A8275A11",
       "emotion_id": 4
     },
     {
@@ -2573,14 +2557,6 @@
       "name": "사계",
       "video_id": "H30Dguzmrf0",
       "cover": "https://image.bugsm.co.kr/album/images/500/202198/20219840.jpg",
-      "emotion_id": 5
-    },
-    {
-      "id": 323,
-      "artist": "Andrea Bocelli, Celine Dion",
-      "name": "The prayer",
-      "video_id": "W8DGuvab_Lc",
-      "cover": "https://upload.wikimedia.org/wikipedia/en/5/59/The_Prayer_promo.jpg",
       "emotion_id": 5
     },
     {
