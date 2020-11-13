@@ -8,12 +8,12 @@
 					type="text"
 					v-model="diaryData.title"
 				/>
-				<img
+				<!-- <img
 					src="@/assets/images/menu.svg"
 					class="diary-header__menu"
 					alt="메뉴"
 					@click="onOpenMenu"
-				/>
+				/> -->
 				<ul class="diary-header__func">
 					<li>
 						<img
@@ -193,13 +193,13 @@ export default {
 			console.log(this.diaryData.image);
 			this.diaryImageFile = false;
 		},
-		onOpenMenu() {
-			const menu = document.querySelector('.diary-header__menu');
-			const menus = document.querySelector('.diary-header__func');
-			menu.style.display = 'none';
-			menus.style.right = '0px';
-			menus.style.transition = '.5s';
-		},
+		// onOpenMenu() {
+		// 	const menu = document.querySelector('.diary-header__menu');
+		// 	const menus = document.querySelector('.diary-header__func');
+		// 	menu.style.display = 'none';
+		// 	menus.style.right = '0px';
+		// 	menus.style.transition = '.5s';
+		// },
 		openMusicModal() {
 			this.openMusic = true;
 			this.openSticker = false;
@@ -420,16 +420,16 @@ export default {
 		margin: 10px 0;
 		position: relative;
 		overflow: hidden;
-		.diary-header__menu {
-			width: 18px;
-		}
+		// .diary-header__menu {
+		// 	width: 18px;
+		// }
 		.diary-header__func {
 			display: flex;
 			margin: 0;
 			padding: 0;
 			position: absolute;
 			top: 0;
-			right: -110px;
+			right: 0;
 			list-style-type: none;
 			li {
 				img {
