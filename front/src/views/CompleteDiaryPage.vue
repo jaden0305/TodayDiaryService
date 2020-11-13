@@ -4,7 +4,7 @@
 			<p class="save-diary-comment">당신의 오늘 하루는</p>
 			<p class="save-diary-comment">행복이군요 :)</p>
 			<div class="save-diary-emotion">
-				<img src="@/assets/images/emotion/happy.png" alt="감정상태" />
+				<img src="@/assets/images/emotion/1.png" alt="감정상태" />
 			</div>
 			<button class="save-diary-nextBtn">
 				다음으로
@@ -19,42 +19,42 @@
 			<!-- <div class="navire floating3"></div> -->
 			<div class="itemMenuBox bills">
 				<img
-					src="@/assets/images/emotion/sad.png"
+					src="@/assets/images/emotion/2.png"
 					class="itemMenu "
 					alt="감정상태"
 				/>
 			</div>
 			<div class="itemMenuBox tarsheed">
 				<img
-					src="@/assets/images/emotion/smile.png"
+					src="@/assets/images/emotion/3.png"
 					class="itemMenu "
 					alt="감정상태"
 				/>
 			</div>
 			<div class="itemMenuBox employees">
 				<img
-					src="@/assets/images/emotion/boring.png"
+					src="@/assets/images/emotion/4.png"
 					class="itemMenu "
 					alt="감정상태"
 				/>
 			</div>
 			<div class="itemMenuBox location">
 				<img
-					src="@/assets/images/emotion/surprise.png"
+					src="@/assets/images/emotion/5.png"
 					class="itemMenu "
 					alt="감정상태"
 				/>
 			</div>
 			<div class="itemMenuBox eservices">
 				<img
-					src="@/assets/images/emotion/angry.png"
+					src="@/assets/images/emotion/6.png"
 					class="itemMenu "
 					alt="감정상태"
 				/>
 			</div>
 			<div class="itemMenuBox contact">
 				<img
-					src="@/assets/images/emotion/dislike.png"
+					src="@/assets/images/emotion/7.png"
 					class="itemMenu "
 					alt="감정상태"
 				/>
@@ -119,14 +119,6 @@ export default {
 				opacity: 0.5;
 			}
 		}
-	}
-	.save-diary-change {
-		width: 120px;
-		height: 40px;
-		border: none;
-		border-radius: 50px;
-		background: #f0f0f0;
-		box-shadow: 7px 7px 15px #cccccc, -7px -7px 15px #ffffff;
 	}
 }
 

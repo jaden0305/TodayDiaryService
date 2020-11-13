@@ -24,36 +24,6 @@
 						</li>
 					</ul>
 				</div>
-				<!-- <div class="toast-sticker__box">
-					<input
-						class="toast-sticker__input"
-						type="radio"
-						name="sticker"
-						id="toast-sticker__animal"
-						value="animal"
-						v-model="selectedSticker"
-					/>
-					<label class="toast-sticker__label" for="toast-sticker__animal"
-						><div class="toast-sticker__indicator"></div>
-						<span class="toast-sticker__text">동물</span></label
-					>
-				</div>
-				<div class="toast-sticker__box">
-					<input
-						class="toast-sticker__input"
-						type="radio"
-						name="sticker"
-						id="toast-sticker__figure"
-						value="figure"
-						v-model="selectedSticker"
-					/>
-					<label class="toast-sticker__label" for="toast-sticker__figure"
-						><div class="toast-sticker__indicator"></div>
-						<span class="toast-sticker__text toast-sticker__rightzero"
-							>도형</span
-						></label
-					>
-				</div> -->
 			</div>
 			<div class="toast-sticker">
 				<div class="toast-sticker__view">
@@ -68,7 +38,9 @@
 								<li v-for="item in sticker.stickers" :key="item.id">
 									<label
 										:for="`toast-sticker__${item.id}`"
-										@click.prevent="submitSticker(item.path)"
+										@click.prevent="
+											submitSticker(item.path, item.id, item.emotion)
+										"
 									>
 										<img
 											:src="`${setUrl}${item.path.replace('images', 'media')}`"
@@ -83,13 +55,6 @@
 										:value="item.id"
 										hidden
 									/>
-									<!-- <img
-										:src="`${setUrl}${item.path.replace('images', 'media')}`"
-										@click.prevent="submitSticker"
-										class="toast-sticker-item__image"
-										:alt="`${item.name}`"
-										v-model="selectedItem"
-									/> -->
 								</li>
 							</ul>
 						</li>
@@ -134,15 +99,13 @@ export default {
 		async onFetchStickers() {
 			const { data } = await fetchStickers();
 			this.stickers = data;
-			// this.stickers = data.slice(0, 3);
-			console.log(data);
 		},
 		closeSticker() {
 			this.$emit('close-sticker');
 		},
-		submitSticker(path) {
+		submitSticker(path, id, emotion) {
 			this.selectedItem = this.setUrl + path.replace('images', 'media');
-			this.$emit('submit-sticker', this.selectedItem);
+			this.$emit('submit-sticker', this.selectedItem, id, emotion);
 		},
 	},
 	created() {

@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 # from accounts.serializers import UserSerializer
 from .models import *
-from post.serializers import EmotionSerializer
+
 
 class WordCloudReportSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,17 +13,18 @@ class WordCloudReportSerializer(serializers.ModelSerializer):
 class DailyReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyReport
-        fields = ('id', 'score', 'emotion', 'date', 'user_emotion')
+        fields = ('id', 'score', 'emotion', 'date',)
         # depth = 1
 
-class UserSelectEmotionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DailyReport
-        fields = ('user_emotion',)
+# class UserSelectEmotionSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = DailyReport
+#         fields = ('user_emotion',)
 
 class WeeklyDateSerializer(serializers.Serializer):
     start = serializers.DateField()
     end = serializers.DateField()
+    today = serializers.DateField()
 
 
 class MonthlyDateSerializer(serializers.Serializer):
@@ -32,5 +33,11 @@ class MonthlyDateSerializer(serializers.Serializer):
 
 
 class SelectEmotionSerializer(serializers.Serializer):
-    post_id = serializers.IntegerField()
     emotion = serializers.IntegerField()
+
+
+class DiaryAnalysisSerializer(serializers.Serializer):
+    title = serializers.CharField()
+    content = serializers.CharField()
+    stickers = serializers.CharField()
+    search = serializers.BooleanField()

@@ -1,33 +1,88 @@
 import pandas
 import calendar
+import datetime
+import json
+
+from redis import Redis
+from redis.exceptions import ConnectionError
 
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
-
+from django.http import JsonResponse
 from drf_yasg.utils import swagger_auto_schema
 
 from .analysis.analysis import TextAnalysis
-from post.models import Post, Emotion
+from post.models import Post, Emotion, RecommendMusic
 from .serializers import *
+from post.serializers import RecommandMusicSerializer, EmotionSerializer
 
 
 User = get_user_model()
 
-@swagger_auto_schema()
+
+def redis_check():
+    try:
+        redis_host = Redis('127.0.0.1', socket_connect_timeout=1)
+        return redis_host.ping()
+    except ConnectionError:
+        return False
+
+@swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
+@api_view(['POST'])
+def analyze(request):
+    need_music = not request.data.get('search')
+    title = request.data.get('title')
+    text = request.data.get('content')
+    stickers = request.data.get('stickers', [])
+    if not text.strip():
+        msg = {
+            'detail': '"content" 내용이 없습니다.'
+        }
+        return Response(msg, status=status.HTTP_400_BAD_REQUEST)
+    data = {
+        'title': title,
+        'text': text,
+        'stickers': stickers
+    }
+    ta = TextAnalysis(data)
+    result = ta.text_analysis()
+
+    feels = result['feel']
+    for idx, feel in enumerate(feels):
+        if feel[0] == 'no_emotion':
+            feels.pop(idx)
+            break
+    feels.sort(key=lambda x: -x[1])
+
+    if feels:
+        emotion_id = feels[0][0]
+    else:
+        result['feel'] = [(4, 0)]
+        emotion_id = 4
+    emotion = get_object_or_404(Emotion, pk=emotion_id)
+
+    if need_music:
+        music = emotion.musics.order_by('?')[0]
+        result['music'] = RecommandMusicSerializer(instance=music).data
+    else:
+        music = None
+        result['music'] = music
+    return Response(result, status=status.HTTP_200_OK)
+
 @api_view(['POST'])
 def statistics(request):
     user = int(request.data['user'])
     text = request.data['text']
     date = request.data['date']
-    post_id = request.data['post_id']
-    post = get_object_or_404(Post, pk=post_id)
+    post_id = request.data['post']
 
-    ta = TextAnalysis(text)
+    ta = TextAnalysis(request.data)
 
     result = ta.text_analysis()
 
@@ -44,21 +99,20 @@ def statistics(request):
         wordcloud_serializer = WordCloudReportSerializer(data=data)
 
         wordcloud_serializer.is_valid(raise_exception=True)
-        wordcloud_serializer.save(date=date, user=get_object_or_404(User, pk=user))
+        wordcloud_serializer.save(date=date, user=get_object_or_404(User, pk=user), post=get_object_or_404(Post, pk=post_id))
 
     score = round(result['score'],3)
 
-    result['feel'].sort(key=lambda x:x[1])
+    result['feel'].sort(key=lambda x:-x[1])
 
-    emotion = get_object_or_404(Emotion, name=result['feel'][0][0])
+    emotion = get_object_or_404(Emotion, pk=result['feel'][0][0])
 
     data = {
         'user': user,
         'date': date,
-        'user_emotion': emotion.id,
         'score': result['score'],
         'emotion': emotion.id,
-        'post': post.id,
+        'post': post_id,
     }
 
     daily_report_serializer = DailyReportSerializer(data=data)
@@ -66,37 +120,47 @@ def statistics(request):
     daily_report_serializer.save(
         user=get_object_or_404(User, pk=user),
         score=score,
-        post=post,
-        emotion=emotion,
-        user_emotion=emotion)
+        post=get_object_or_404(Post, pk=post_id),
+        emotion=emotion)
 
     result = {
         **daily_report_serializer.data
     }
-    result['user_emotion'] = result['emotion'] = EmotionSerializer(instance=emotion).data
+    result['emotion'] = EmotionSerializer(instance=emotion).data
     return Response(result, status=status.HTTP_201_CREATED)
 
-@swagger_auto_schema(methods=['patch'], query_serializer=SelectEmotionSerializer)
-@api_view(['PATCH'])
+@swagger_auto_schema(methods=['get'], query_serializer=SelectEmotionSerializer)
+@api_view(['GET'])
 def select(request):
-    post_id = request.GET.get('post_id')
     emotion = request.GET.get('emotion')
-    report = get_object_or_404(DailyReport, post_id=post_id)
-
+    emotion = get_object_or_404(Emotion, pk=emotion)
+    recommend_music = emotion.musics.order_by('?')[0]
+    
     data = {
-        'user_emotion': emotion
+        'emotion': emotion.id,
+        'recommend_music': RecommandMusicSerializer(instance=recommend_music).data
     }
-    serializer = UserSelectEmotionSerializer(instance=report, data=data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save()
 
-    return Response(serializer.data)
+    return Response(data, status=status.HTTP_200_OK)
 
 @swagger_auto_schema(methods=['get'], query_serializer=WeeklyDateSerializer)
 @api_view(['GET'])
 def weekly(request):
     start = request.GET.get('start')
     end = request.GET.get('end')
+
+    cache_key = f'w-u{request.user.id}-s{start}'
+    
+    # redis_check() 연결 되는지 확인
+    # is_before_week 요청 결과가 이번주 전 인가??
+    if redis_check():
+        try:
+            cached_data = cache.get(cache_key)
+        except ConnectionError:
+            cached_data = None
+        if cached_data:
+            print('cache gotten')
+            return Response(cached_data, status=status.HTTP_200_OK)
 
     dt_index = pandas.date_range(start=start, end=end)
 
@@ -120,7 +184,7 @@ def weekly(request):
     for key, value in temp.items():
         wc_list.append([key, value[0], value[1]])
     
-    # score data
+    # score data`
     for date in dt_list:
         for qdate in daily_report_serializer.data:
             if date == qdate['date']:
@@ -128,6 +192,11 @@ def weekly(request):
                 break
         else:
             graph_list.append({})
+        
+    result = {'score': graph_list, 'wordcloud': wc_list}
+    if redis_check():
+        cache.set(cache_key, result, 3600)
+        print('cache_set')
     
     return Response({'score': graph_list, 'wordcloud': wc_list})
 
@@ -136,6 +205,20 @@ def weekly(request):
 def monthly(request):
     year = request.GET.get('year')
     month = request.GET.get('month')
+
+    cache_key = f'm-u{request.user.id}-{year}-{month}'
+    
+    # redis_check() 연결 되는지 확인
+    # is_before_week 요청 결과가 이번주 전 인가??
+    if redis_check():
+        try:
+            cached_data = cache.get(cache_key)
+        except ConnectionError:
+            cached_data = None
+        if cached_data:
+            print('cache gotten')
+            return Response(cached_data, status=status.HTTP_200_OK)
+
     daily_report = DailyReport.objects.filter(date__year=year, date__month=month, user_id=request.user.id)
     wordcloud = WordCloudReport.objects.filter(date__year=year, date__month=month, user_id=request.user.id)
 
@@ -162,8 +245,13 @@ def monthly(request):
                 break
         else:
             graph_list.append({})
+    
+    result = {'score':graph_list, 'wordcloud': wc_list}
+    if redis_check():
+        cache.set(cache_key, result, 3600)
+        print('cache_set')
 
-    return Response({'score':graph_list, 'wordcloud': wc_list})
+    return Response(result, status=status.HTTP_200_OK)
 
 @swagger_auto_schema()
 @api_view(['GET'])
@@ -191,7 +279,9 @@ def total(request):
 @swagger_auto_schema()
 @api_view(['GET'])
 def redistest(request):
-    cache.set('test', 1)
-    print(cache.get('test'))
+    print(redis_host.ping())
+    print(cache.get('asdfasdf'))
+    cache.set('test', {'test': 1})
+    print(cache.get('test'), type(cache.get('test')))
     cache.set('test2', 2)
     print(cache.get('test2'))

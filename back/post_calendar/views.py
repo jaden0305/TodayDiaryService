@@ -65,7 +65,8 @@ class CalendarView(APIView):
 
         year = int(request.GET.get('year'))
         month = int(request.GET.get('month'))
-            
+        
+        print(year, month)
         calendar_info = date_to_dict(year, month)
 
         if year and month:
@@ -77,13 +78,13 @@ class CalendarView(APIView):
                     .prefetch_related('posts')[0]\
                     .posts.filter(created__lte=end, created__gte=start)\
                     .values()
-            
+            print(posts)
             for post in posts:
                 report = DailyReportSerializer(instance=get_object_or_404(DailyReport, pk=post['report_id'])).data
                 created = post['created']
                 calendar_info[created.month][created.day-1]['post'] = {
                     'emotion': report['emotion'],
-                    'user_emotion': report['user_emotion'],
+                    'user_emotion': post['user_emotion_id'],
                     'id': post['id']
                 }
             

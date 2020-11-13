@@ -14,13 +14,6 @@
 				<ul class="diary-header__func">
 					<li>
 						<img
-							src="@/assets/images/pencil.svg"
-							alt="수정"
-							@click="onEditDiary"
-						/>
-					</li>
-					<li>
-						<img
 							src="@/assets/images/trash.svg"
 							alt="삭제"
 							@click="onDeleteDiary"
@@ -29,7 +22,6 @@
 				</ul>
 			</div>
 			<div class="diary-image">
-				<!-- <p>{{ diaryData }}</p> -->
 				<img class="diary-image__value" :src="contentImg" alt="일기사진" />
 			</div>
 			<div class="diary-text">
@@ -42,17 +34,24 @@
 				>
 				</textarea>
 			</div>
+			<MusicBar></MusicBar>
 		</div>
 	</section>
 </template>
 
 <script>
+import MusicBar from '@/components/common/MusicBar.vue';
+import bus from '@/utils/bus';
 import { fetchDiary, deleteDiary } from '@/api/diary';
 export default {
+	components: {
+		MusicBar,
+	},
 	data() {
 		return {
 			diaryData: null,
 			diaryId: this.propsDiaryId ? this.propsDiaryId : this.diaryData.id,
+			tracks: null,
 		};
 	},
 	props: {
@@ -69,6 +68,9 @@ export default {
 				return `@/assets/images/logo3.png`;
 			}
 		},
+		setUrl() {
+			return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}`;
+		},
 	},
 	methods: {
 		onOpenMenu() {
@@ -81,10 +83,57 @@ export default {
 		async onFetchDiary() {
 			try {
 				const { data } = await fetchDiary(this.diaryId);
+				console.log(data);
+				if (data.search_music) {
+					this.tracks = [
+						{
+							artist: data.search_music.artist,
+							cover: data.search_music.cover,
+							name: data.search_music.name,
+							id: data.search_music.id,
+							videoId: data.search_music.video_id,
+							url: `https://youtube.com/watch?v=${data.search_music.video_id}`,
+							emotion: data.search_music.emotion,
+							favorited: data.search_music.liked,
+							search: true,
+						},
+					];
+				} else {
+					this.tracks = [
+						{
+							artist: data.recommend_music.artist,
+							cover: data.recommend_music.cover,
+							name: data.recommend_music.name,
+							id: data.recommend_music.id,
+							videoId: data.recommend_music.video_id,
+							url: `https://youtube.com/watch?v=${data.recommend_music.video_id}`,
+							emotion: data.recommend_music.emotion,
+							favorited: data.recommend_music.liked,
+							search: false,
+						},
+					];
+				}
+				bus.$emit('show:musicplayer', this.tracks);
 				this.diaryData = data;
 			} catch (error) {
-				// bus.$emit('show:warning', '정보를 불러오는데 실패했어요 :(');
-				console.log(error.response);
+				bus.$emit('show:error', '정보를 불러오는데 실패했어요 :(');
+				// console.log(error.response);
+			}
+		},
+		onFetchStickers() {
+			if (this.diaryData.stickers.length) {
+				const stickerWrap = document.querySelector('.diary-image');
+				let imgElem = document.createElement('img');
+				imgElem.src =
+					this.setUrl +
+					this.diaryData.stickers[0].sticker.path.replace('images', 'media');
+				imgElem.style.width = `${this.diaryData.stickers[0].width}px`;
+				imgElem.style.position = `absolute`;
+				imgElem.style.top = `${this.diaryData.stickers[0].y}px`;
+				imgElem.style.left = `${this.diaryData.stickers[0].x}px`;
+				imgElem.style.transform = `rotate(${this.diaryData.stickers[0].rotation}deg)`;
+
+				stickerWrap.appendChild(imgElem);
 			}
 		},
 		onFetchFont() {
@@ -101,15 +150,13 @@ export default {
 				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
 			}
 		},
-		onEditDiary() {
-			this.$router.push(`/diary/${this.diaryId}/edit`);
-		},
 		async onDeleteDiary() {
 			try {
 				await deleteDiary(this.diaryId);
 				this.$router.push({ name: 'calendar' });
 			} catch (error) {
-				console.log(error.response);
+				bus.$emit('show:error', '삭제를 실패했어요 :(');
+				// console.log(error.response.data);
 			}
 		},
 	},
@@ -117,6 +164,7 @@ export default {
 		this.onFetchDiary();
 	},
 	updated() {
+		this.onFetchStickers();
 		this.onFetchFont();
 		this.onFetchPaper();
 	},
@@ -165,6 +213,7 @@ export default {
 		height: 28vh;
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
+		position: relative;
 		.diary-image__value {
 			width: 100%;
 			border-radius: 4px;

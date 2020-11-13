@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 import os
 from collections import Counter
 
@@ -10,6 +11,9 @@ from django.conf import settings
 class TextAnalysis:
 
     mecab = Mecab(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'NLP', 'mecab', 'mecab-ko-dic'))
+    emotion_idx = {
+        'happy': 1, 'sad': 2, 'delight': 3, 'boring': 4, 'angry': 5, 'surprise': 6, 'horror': 7
+    }
     tag = ['VCP', 'VCN', 'NNG', 'IC', 'MAG', 'VA', 'VV', 'XR']
     stopwords=['의','가','이','은','들','는','좀','꽤','주','잘','걍','과','도','를','으로','자','에','와','한','하','다','있']
     minus_discard_list = ['웃음', '남부럽', '탄복', '가슴', '기분', '개', '자식', '기집', '터지', '되', '오르', '만족', '속', '유쾌', '의심', '끼치', '치', '안정', '느끼']
@@ -29,11 +33,13 @@ class TextAnalysis:
     # def __init__(self, text):
     #     self.text = text
     def __init__(self, data):
-        self.content = data['content']
-        self.title = data['title']        
-        self.emotions = [
-            sticker['emotion']['name'] for sticker in data['stickers']
-        ]
+        self.content = data['text']
+        self.title = data['title']
+        self.emotions = []
+        if data.get('stickers'):
+            self.emotions = [
+                sticker['emotion']['name'] for sticker in data['stickers']
+            ]
 
     @classmethod
     def decompose(cls, ls):
@@ -92,7 +98,6 @@ class TextAnalysis:
         delight.discard('보')
         delight.discard('좋')
         delight.discard('재미있')
-        # print(delight)
         cls.delight = delight
         return delight
 
@@ -188,6 +193,9 @@ class TextAnalysis:
         out = self.mecab.nouns(self.content)
         out_title = self.mecab.nouns(self.title)
         out += out_title
+        for ch in out:
+            if ch in self.stopwords:
+                out.remove(ch)
         word_counts = Counter(out)
         
         sorted_word_counts = sorted(word_counts.items(), key=lambda x : x[1], reverse=True)
@@ -229,33 +237,33 @@ class TextAnalysis:
             if word in self.get_delight():
                 score += 2 + additional_score
                 cnt += 2 + additional_score
-                feel['delight'] = feel.get('delight',0) + 1 + additional_score  
+                feel[self.emotion_idx['delight']] = feel.get(self.emotion_idx['delight'],0) + 1 + additional_score  
             elif word in self.get_happy():
                 score += 3 + additional_score
                 cnt += 3 + additional_score
-                feel['happy'] = feel.get('happy',0) + 1 + additional_score  
+                feel[self.emotion_idx['happy']] = feel.get(self.emotion_idx['happy'],0) + 1 + additional_score  
             elif word in self.get_minus2():
                 score -= 2 + additional_score
                 cnt += 2 + additional_score
                 if word in self.get_horror():
-                    feel['horror'] = feel.get('horror',0) + 1 + additional_score  
+                    feel[self.emotion_idx['horror']] = feel.get(self.emotion_idx['horror'],0) + 1 + additional_score  
                 elif word in self.get_angry():
-                    feel['angry'] = feel.get('angry',0) + 1 + additional_score  
+                    feel[self.emotion_idx['angry']] = feel.get(self.emotion_idx['angry'],0) + 1 + additional_score  
                 elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 1 + additional_score
+                    feel[self.emotion_idx['sad']] = feel.get(self.emotion_idx['sad'],0) + 1 + additional_score
             elif word in self.get_minus3():
                 score -= 3 + additional_score
                 cnt += 3 + additional_score
                 if word in self.get_horror():
-                    feel['horror'] = feel.get('horror',0) + 1 + additional_score
+                    feel[self.emotion_idx['horror']] = feel.get(self.emotion_idx['horror'],0) + 1 + additional_score
                 elif word in self.get_angry():
-                    feel['angry'] = feel.get('angry',0) + 1 + additional_score
+                    feel[self.emotion_idx['angry']] = feel.get(self.emotion_idx['angry'],0) + 1 + additional_score
                 elif word in self.get_sad():
-                    feel['sad'] = feel.get('sad',0) + 1 + additional_score  
+                    feel[self.emotion_idx['sad']] = feel.get(self.emotion_idx['sad'],0) + 1 + additional_score  
             elif word in self.get_boring():
-                feel['boring'] = feel.get('boring', 0) + 1 + additional_score
+                feel[self.emotion_idx['boring']] = feel.get(self.emotion_idx['boring'], 0) + 1 + additional_score
             elif word in self.get_surprise():
-                feel['surprise'] = feel.get('surprise', 0) + 1 + additional_score
+                feel[self.emotion_idx['surprise']] = feel.get(self.emotion_idx['surprise'], 0) + 1 + additional_score
             elif word in self.get_pos():
                 score += 1 + additional_score
                 cnt += 1 + additional_score
@@ -264,6 +272,7 @@ class TextAnalysis:
                 score -= 1 + additional_score
                 cnt += 1 + additional_score
                 n.append(word)
+        return (cnt, score)
 
     def day_score(self):
         cnt = 0
@@ -272,13 +281,21 @@ class TextAnalysis:
         n = []
 
         feel = {}
-        self.calc_score(self.content, feel, cnt, score, p, n, is_title=False)
-        self.calc_score(self.title, feel, cnt, score, p, n, is_title=True)
+        c1, s1 = self.calc_score(self.content, feel, cnt, score, p, n, is_title=False)
+        c2, s2 = self.calc_score(self.title, feel, cnt, score, p, n, is_title=True)
+        cnt = c1 + c2
+        score = s1 + s2
 
         for emotion in self.emotions:
-            if emotion:
+            if emotion and emotion != 'no_emotion':
                 feel[emotion] = feel.get(emotion, 0) + 2 
-
+                if self.emotion_idx[emotion] in [1,3]:
+                    score += 6
+                    cnt += 6
+                elif self.emotion_idx[emotion] in [2,5,7]:
+                    score -= 6
+                    cnt -= 6  
+                    
         if cnt == 0:
             return cnt, feel
         return score/cnt, feel
@@ -290,15 +307,15 @@ class TextAnalysis:
         # 일일 감정분류
         for key, value in feel.items():
             if score > 0:
-                if key == 'horror' or key == 'angry' or key =='sad':
+                if key == self.emotion_idx['horror'] or key == self.emotion_idx['angry'] or key == self.emotion_idx['sad']:
                     feel[key] = 0
             elif score < 0:
-                if key == 'happy' or key == 'delight':
+                if key == self.emotion_idx['happy'] or key == self.emotion_idx['delight']:
                     feel[key] = 0
                     
         sorted_feel = sorted(feel.items(), key=lambda item:item[1], reverse=True)
         if len(sorted_feel) == 0:
-            sorted_feel = [('boring', 0)]
+            sorted_feel = [(4, 0)]
 
         # 단어 갯수 (wordcloud용)\
         # print('word count', self.count_words())
@@ -312,26 +329,11 @@ class TextAnalysis:
 
 if __name__ == "__main__":
     data = {
-        'title' : '다행이다.',
-        'content' : '''약도 아침/자기전으로 잘 챙겨먹고
-
-        옛날보다 더 몸이 건강해진것같다
-
-        지금 이 몸무게에 들어갈수 없었던 바지도 잘들어가고
-
-        너무 좋다 그리고 과하게 살이 쪘을땐 뭐든지 짜증이 났는데
-
-        별다른 이벤트가 없다면 그냥 그러려니 잘 넘긴다
-
-        나 정말 다행이야
-
-        어제는 사고싶은 옷들이 있어서 인터넷으로 옷을 주문했다
-
-        그리고 돈을 아끼려고 많이 노력중이다
-
-        나 잘할수 있다고 믿을래!''',
-        'stickers' : [{'emotion': {'name': 'happy'}}, {'emotion': {'name':'delight'}}]
+        'title' : 'Test',
+        'text' : '''
+        놀라웠다
+        ''',
+        'stickers': []
     }
     a = TextAnalysis(data)
-    # print(a)
-    a.text_analysis()
+    print(a.text_analysis())

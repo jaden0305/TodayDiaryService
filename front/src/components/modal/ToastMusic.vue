@@ -1,42 +1,75 @@
 <template>
 	<section class="toast" :class="toastAnimationClass">
 		<section class="toast-wrap">
-			<div class="toast-search">
-				<input
-					class="toast-search__input"
-					placeholder="음악을 검색하세요"
-					type="text"
-				/>
-				<button class="toast-search__btn">
-					<img src="@/assets/images/search.svg" alt="" />
-				</button>
+			<div id="player-back-container1">
+				<div class="back-wrap__music">
+					<div class="toast-search">
+						<input
+							class="toast-search__input"
+							placeholder="음악을 검색하세요"
+							type="text"
+							v-model="searchMusic"
+							@keypress.enter="searchYoutube"
+						/>
+						<button class="toast-search__btn">
+							<img
+								@click="searchYoutube"
+								src="@/assets/images/search.svg"
+								alt=""
+							/>
+						</button>
+					</div>
+					<div class="back-playlist">
+						<div
+							class="back-song"
+							:key="i"
+							v-for="(music, i) in musicList"
+							@click="musicSelect(music)"
+						>
+							<div
+								class="back-song__img"
+								:style="{
+									backgroundImage: `url(${music.snippet.thumbnails.default.url})`,
+								}"
+							></div>
+							<div class="back-song__info">
+								<span class="back-song__name">{{
+									music.snippet.title | musicTruncate
+								}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="toast-musics">
-				<ol>
-					<li class="toast-musics__item">DON'T TOUCH ME</li>
-					<li class="toast-musics__item">취기를 빌려</li>
-					<li class="toast-musics__item">오래된 노래</li>
-					<li class="toast-musics__item">힘든 건 사랑이 아니다</li>
-					<li class="toast-musics__item">DON'T TOUCH ME</li>
-					<li class="toast-musics__item">힘든 건 사랑이 아니다</li>
-					<li class="toast-musics__item">취기를 빌려</li>
-					<li class="toast-musics__item">오래된 노래</li>
-				</ol>
-			</div>
-			<div class="toast-close">
-				<button class="toast-close__btn" @click="closeMusic">
-					<img src="@/assets/images/delete.svg" alt="" />
-				</button>
-			</div>
-			<!-- <button class="toast-btn-purple" @click="showToast">삭제</button> -->
 		</section>
+		<div class="toast-close">
+			<button class="toast-close__btn" @click="closeMusic">
+				<img @click="closeMusic" src="@/assets/images/delete.svg" alt="" />
+			</button>
+		</div>
 	</section>
 </template>
 
 <script>
+import bus from '@/utils/bus';
+import _ from 'lodash';
+import { youtubeSearch } from '@/api/youtube';
 export default {
 	props: {
 		open: Boolean,
+	},
+	data() {
+		return {
+			searchMusic: '',
+			musicList: [],
+			selectMusic: {
+				name: null,
+				artist: null,
+				cover: null,
+				videoId: null,
+				emotion: 8,
+			},
+		};
 	},
 	computed: {
 		toastAnimationClass() {
@@ -45,6 +78,29 @@ export default {
 	},
 	methods: {
 		closeMusic() {
+			this.$emit('close-music');
+		},
+		async searchYoutube() {
+			try {
+				const { data } = await youtubeSearch(this.searchMusic);
+				this.musicList = data.items;
+				this.musicList = this.musicList.map(music => {
+					music.snippet.title = _.unescape(music.snippet.title, 'text/html');
+					return music;
+				});
+			} catch (error) {
+				console.log(error.response.data);
+				bus.$emit('show:error', '노래 검색을 실패했습니다 :(');
+			}
+		},
+		musicSelect(music) {
+			this.selectMusic.name = music.snippet.title;
+			this.selectMusic.artist = null;
+			this.selectMusic.cover = music.snippet.thumbnails.high.url;
+			this.selectMusic.videoId = music.id.videoId;
+			this.selectMusic.emotion = 8;
+			// this.searchMusic.favorited = false;
+			this.$emit('selectMusic', this.selectMusic);
 			this.$emit('close-music');
 		},
 	},
@@ -70,11 +126,12 @@ export default {
 	.toast-wrap {
 		width: 90%;
 		height: 85%;
+		position: relative;
 		.toast-search {
 			margin: 20px 20px 50px;
 			position: relative;
 			.toast-search__input {
-				width: 90%;
+				width: 100%;
 				padding: 5px 10px;
 				font-size: 14px;
 				line-height: 2.3;
@@ -86,7 +143,7 @@ export default {
 			.toast-search__btn {
 				position: absolute;
 				top: 12px;
-				right: 20px;
+				right: 6px;
 				border: none;
 				background: none;
 				img {
@@ -100,20 +157,83 @@ export default {
 				line-height: 2.3;
 			}
 		}
-		.toast-close {
-			margin-top: 30px;
-			text-align: center;
-			.toast-close__btn {
-				border: none;
-				background: none;
-				img {
-					width: 30px;
-				}
-			}
+	}
+}
+.toast-close {
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	z-index: 10;
+	transform: translate(-50%, 0);
+	/* margin-top: 30px; */
+	text-align: center;
+	.toast-close__btn {
+		border: none;
+		background: none;
+		img {
+			width: 30px;
 		}
 	}
 }
 .toast.none {
 	display: none;
+}
+#player-back-container1 {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background: #f0f0f0;
+	z-index: 10;
+	border-radius: 12px;
+}
+.back-wrap__music {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	.back-playlist {
+		width: 100%;
+		height: calc(100% - 70px);
+		overflow-y: scroll;
+		.back-song {
+			width: 100%;
+			height: 64px;
+			display: flex;
+			padding: 8px 0 8px;
+			border-bottom: 1px solid rgba(#71829e, 0.1);
+			.back-song__img {
+				width: 48px;
+				height: 48px;
+				background-repeat: no-repeat !important;
+				background-position: center !important;
+				background-size: cover !important;
+				border-radius: 3px;
+				margin-left: 1rem;
+			}
+			.back-song__info {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				margin-left: 1rem;
+				/* overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis; */
+				.back-song__name {
+					/* overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis; */
+					font-size: 1.1rem;
+					font-weight: 600;
+					margin-bottom: 4px;
+				}
+				.back-song__artist {
+					font-size: 0.8rem;
+					color: rgba(#71829e, 0.7);
+				}
+			}
+		}
+	}
 }
 </style>

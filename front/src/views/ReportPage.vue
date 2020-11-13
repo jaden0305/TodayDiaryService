@@ -2,13 +2,10 @@
 	<div class="report-wrap">
 		<div class="report-header">
 			<div class="report-btnbox">
-				<button @click="selectChart(0)" class="report-btn">
-					전체
-				</button>
-				<button @click="selectChart(1)" class="report-btn select">
+				<button @click="selectChart(0)" class="report-btn select">
 					주별
 				</button>
-				<button @click="selectChart(2)" class="report-btn">
+				<button @click="selectChart(1)" class="report-btn">
 					월별
 				</button>
 			</div>
@@ -74,7 +71,6 @@
 <script src="https://unpkg.com/chance@1.1.6/dist/chance.min.js"></script>
 <script>
 import LineChart from '@/components/common/LineChart.vue';
-// import BarChart from '@/components/common/BarChart.vue';
 import bus from '@/utils/bus';
 import cookies from 'vue-cookies';
 import { fetchWeekReport, fetchMonthReport } from '@/api/report';
@@ -90,10 +86,10 @@ export default {
 			endString: null,
 			weekcnt: 0,
 			words: [
-				['romance', 300, 1],
-				['magic', 200, 0],
-				['fantasy', 100, -1],
-				['adventure', 150, 1],
+				// ['romance', 300, 1],
+				// ['magic', 200, 0],
+				// ['fantasy', 100, -1],
+				// ['adventure', 150, 1],
 			],
 			chartLoading: false,
 			chartData: {
@@ -136,17 +132,6 @@ export default {
 		}
 		this.fetchWeek(start, end);
 		bus.$emit('lineUpdate');
-		const tracks = [
-			{
-				name: '야작시',
-				artist: '적재',
-				cover: 'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
-				videoId: 'jXylepYfpk0',
-				url: 'https://youtu.be/26YwXUcUf4I',
-				favorited: false,
-			},
-		];
-		bus.$emit('show:musicplayer', tracks);
 	},
 	methods: {
 		switchWordView() {
@@ -166,25 +151,29 @@ export default {
 			words.classList.add('display-none');
 		},
 		async fetchMonth(year, month) {
-			const { data } = await fetchMonthReport({ year, month });
-			this.year = year;
-			this.month = month;
-			if (data.wordcloud.length) {
-				this.words = data.wordcloud;
-			} else {
-				this.words = [['데이터가 없습니다', 1, 0]];
-			}
-			this.chartData.chartData[0].data = [];
-			this.chartData.labels = [];
-			data.score.forEach((day, i) => {
-				this.chartData.labels.push(i + 1);
-				if (day.score) {
-					this.chartData.chartData[0].data.push(day.score * 100);
+			try {
+				const { data } = await fetchMonthReport({ year, month });
+				this.year = year;
+				this.month = month;
+				if (data.wordcloud.length) {
+					this.words = data.wordcloud;
 				} else {
-					this.chartData.chartData[0].data.push(0);
+					this.words = [['데이터가 없습니다', 1, 0]];
 				}
-			});
-			bus.$emit('lineUpdate');
+				this.chartData.chartData[0].data = [];
+				this.chartData.labels = [];
+				data.score.forEach((day, i) => {
+					this.chartData.labels.push(i + 1);
+					if (day.score) {
+						this.chartData.chartData[0].data.push(day.score * 100);
+					} else {
+						this.chartData.chartData[0].data.push(0);
+					}
+				});
+				bus.$emit('lineUpdate');
+			} catch (error) {
+				bus.$emit('show:error', '월별 리포트를 불러오는데 실패했습니다 :(');
+			}
 		},
 		movePrevMonth() {
 			if (this.month > 1) {
@@ -247,28 +236,33 @@ export default {
 			bus.$emit('lineUpdate');
 		},
 		async fetchWeek(startWeek, endWeek) {
-			const { data } = await fetchWeekReport(startWeek, endWeek);
-			if (data.wordcloud.length) {
-				this.words = data.wordcloud;
-			} else {
-				this.words = [['데이터가 없습니다', 1, 0]];
-			}
-			const startChart = new Date(this.startWeek);
-			this.year = startChart.getFullYear();
-			startChart.setDate(startChart.getDate() - 1);
-			this.chartData.labels = [];
-			this.chartData.chartData[0].data = [];
-			data.score.forEach(day => {
-				this.chartData.labels.push(
-					new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
-				);
-				if (day.score) {
-					this.chartData.chartData[0].data.push(day.score * 100);
+			try {
+				const { data } = await fetchWeekReport(startWeek, endWeek);
+				if (data.wordcloud.length) {
+					this.words = data.wordcloud;
 				} else {
-					this.chartData.chartData[0].data.push(0);
+					this.words = [['데이터가 없습니다', 1, 0]];
 				}
-			});
-			bus.$emit('lineUpdate');
+				console.log(data.wordcloud, data.score);
+				const startChart = new Date(this.startWeek);
+				this.year = startChart.getFullYear();
+				startChart.setDate(startChart.getDate() - 1);
+				this.chartData.labels = [];
+				this.chartData.chartData[0].data = [];
+				data.score.forEach(day => {
+					this.chartData.labels.push(
+						new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
+					);
+					if (day.score) {
+						this.chartData.chartData[0].data.push(day.score * 100);
+					} else {
+						this.chartData.chartData[0].data.push(0);
+					}
+				});
+				bus.$emit('lineUpdate');
+			} catch (error) {
+				bus.$emit('show:error', '주별 리포트를 불러오는데 실패했습니다 :(');
+			}
 		},
 		rotation: ([word]) => {
 			var chance = new Chance(word[0]);
@@ -284,14 +278,6 @@ export default {
 
 			switch (num) {
 				case 0:
-					if (!selectBox.classList.contains('display-none')) {
-						selectBox.classList.add('display-none');
-					}
-					if (!selectWeekBox.classList.contains('display-none')) {
-						selectWeekBox.classList.add('display-none');
-					}
-					break;
-				case 1:
 					if (selectWeekBox.classList.contains('display-none')) {
 						selectWeekBox.classList.remove('display-none');
 					}
@@ -323,7 +309,7 @@ export default {
 					this.fetchWeek(start, end);
 					bus.$emit('lineUpdate');
 					break;
-				case 2:
+				case 1:
 					if (!selectWeekBox.classList.contains('display-none')) {
 						selectWeekBox.classList.add('display-none');
 					}
@@ -333,7 +319,6 @@ export default {
 					const DAY = new Date();
 					const YEAR = DAY.getFullYear();
 					const MONTH = DAY.getMonth() + 1;
-					// console.log(DAY, YEAR, MONTH)
 					this.fetchMonth(YEAR, MONTH);
 					bus.$emit('lineUpdate');
 					break;
@@ -355,6 +340,7 @@ export default {
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
+	margin-bottom: 60px;
 	.report-header {
 		width: 100%;
 		background: #f0f0f0;

@@ -1,5 +1,5 @@
 <template>
-	<div class="calendar-day" :style="{ height: `${weekWidth}px` }">
+	<div class="calendar-day" :style="{ height: `${weekWidth + 14}px` }">
 		<img
 			v-if="
 				!day.post &&
@@ -9,17 +9,17 @@
 			"
 			@click="writeDiary(`${year}-${day.month}-${day.day}`)"
 			class="emoticon"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
 			src="@/assets/images/pencil.png"
 			alt=""
 		/>
-		<img
+		<div
 			v-else-if="
-				nowDay < new Date(`${year}-${lastTwo(day.month)}-${lastTwo(day.day)}`)
+				+nowDay < +new Date(`${year}-${lastTwo(day.month)}-${lastTwo(day.day)}`)
 			"
-			class="calendar-day emoticon display-none"
-			src="@/assets/images/emotion/boring.png"
-			alt=""
-		/>
+			class="emoticon"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
+		></div>
 		<img
 			v-else-if="
 				(!(toDay === day.day) ||
@@ -28,6 +28,7 @@
 					!day.post
 			"
 			class="emoticon"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
 			src="@/assets/images/emotion/normal.png"
 			alt=""
 		/>
@@ -37,7 +38,8 @@
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
-			src="@/assets/images/emotion/happy.png"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
+			src="@/assets/images/emotion/1.png"
 			alt=""
 		/>
 		<img
@@ -46,7 +48,8 @@
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
-			src="@/assets/images/emotion/sad.png"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
+			src="@/assets/images/emotion/2.png"
 			alt=""
 		/>
 		<img
@@ -55,7 +58,8 @@
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
-			src="@/assets/images/emotion/smile.png"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
+			src="@/assets/images/emotion/3.png"
 			alt=""
 		/>
 		<img
@@ -64,7 +68,8 @@
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
-			src="@/assets/images/emotion/boring.png"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
+			src="@/assets/images/emotion/4.png"
 			alt=""
 		/>
 		<img
@@ -72,8 +77,9 @@
 				day.post && (day.post.user_emotion === 5 || day.post.emotion === 5)
 			"
 			@click="readDiary(day.post.id)"
-			class="calendar-day emoticon"
-			src="@/assets/images/emotion/angry.png"
+			class="emoticon"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
+			src="@/assets/images/emotion/5.png"
 			alt=""
 		/>
 		<img
@@ -82,7 +88,8 @@
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
-			src="@/assets/images/emotion/surprise.png"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
+			src="@/assets/images/emotion/6.png"
 			alt=""
 		/>
 		<img
@@ -91,7 +98,8 @@
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
-			src="@/assets/images/emotion/dislike.png"
+			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
+			src="@/assets/images/emotion/7.png"
 			alt=""
 		/>
 		<p class="calendar-day__title">{{ day.day }}</p>
@@ -111,21 +119,21 @@ export default {
 	},
 	methods: {
 		writeDiary(dayString) {
-			console.log(dayString);
 			this.$router.push({ name: 'diary', query: { day: dayString } });
 		},
 		readDiary(diary_pk) {
 			this.$router.push(`/diary/${diary_pk}`);
 		},
 		lastTwo(month) {
-			// console.log(('0' + month).slice(-2));
 			return ('0' + month).slice(-2);
 		},
 	},
 	mounted() {
-		// const day = document.querySelectorAll('.calendar-day');
-		// day.style.height = `${this.weekWidth}px`;
-		// console.log(this.weekWidth, day.clientHeight);
+		const emotions = document.querySelectorAll('.emoticon');
+		emotions.forEach(emotion => {
+			emotion.style.width = this.weekWidth;
+			emotion.style.height = this.weekWidth;
+		});
 	},
 };
 </script>
