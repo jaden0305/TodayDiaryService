@@ -524,7 +524,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .player__buttons {
 	width: 100%;
 	display: flex;
