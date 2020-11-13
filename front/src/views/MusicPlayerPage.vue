@@ -521,10 +521,11 @@ export default {
 		const buttons = document.querySelector('.player__buttons');
 		this.buttonWidth = buttons.clientWidth / 9;
 	},
+	destroyed() {},
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .player__buttons {
 	width: 100%;
 	display: flex;
