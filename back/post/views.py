@@ -90,8 +90,9 @@ class CreateDiary(APIView, DiaryMixin):
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         data = request.data.dict()
-        exclude_data = {}
+
         image = request.data.get('image')
+        sticker_image = request.data.get('sticker_image')
         if request.data.get('search_music'):
             search_music = json.loads(request.data.get('search_music'))
             if search_music == {}:
@@ -111,13 +112,12 @@ class CreateDiary(APIView, DiaryMixin):
 
         if image:
             del data['image']
-            exclude_data['image'] = image
+        if sticker_image:
+            del data['sticker_image']
         if search_music:
             del data['search_music']
-            exclude_data['search_music'] = search_music
         if recommend_music:
             del data['recommend_music']
-            exclude_data['recommend_music'] = recommend_music
 
         serializer = CreatePostSerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -129,6 +129,7 @@ class CreateDiary(APIView, DiaryMixin):
         response = json.loads(response.text)
 
         data['image'] = image
+        data['sticker_image'] = sticker_image
         data['report_id'] = response['id']
         print(post.id)
         if search_music:

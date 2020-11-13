@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus';
 import CalendarDay from '@/components/common/CalendarDay.vue';
 import { fetchCalendar } from '@/api/calendar';
 export default {
@@ -89,7 +90,6 @@ export default {
 	},
 	updated() {
 		const emotions = document.querySelectorAll('.emoticon');
-		// console.log(emotions);
 		emotions.forEach(emotion => {
 			emotion.style.width = this.weekWidth;
 			emotion.style.height = this.weekWidth;
@@ -126,7 +126,9 @@ export default {
 					this.nowMonth.push(day);
 				});
 			} catch (error) {
-				console.log(error.response);
+				// console.log(error.response);
+				// bus.$emit('show:error', error.response.data);
+				bus.$emit('show:error', '캘린더를 불러오는데 실패했습니다 :(');
 			}
 		},
 		movePrevMonth() {
@@ -147,10 +149,17 @@ export default {
 			}
 			this.fetchMonth({ year: this.year, month: this.month });
 		},
+		lastTwo(string) {
+			return ('0' + string).slice(-2);
+		},
 	},
 	created() {
 		const day = new Date();
-		this.nowDay = day;
+		this.nowDay = new Date(
+			`${day.getFullYear()}-${this.lastTwo(day.getMonth() + 1)}-${this.lastTwo(
+				day.getDate(),
+			)}`,
+		);
 		this.todayMonth = day.getMonth() + 1;
 		this.toDay = day.getDate();
 		this.todayYear = day.getFullYear();

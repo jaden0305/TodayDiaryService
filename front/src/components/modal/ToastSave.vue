@@ -1,20 +1,28 @@
 <template>
-	<section
-		class="toast"
-		:class="toastAnimationClass"
-		v-if="this.diaryAnalysisResult"
-	>
+	<section class="toast" v-if="this.diaryData" :class="toastAnimationClass">
 		<section class="toast-wrap">
 			<div class="save-diary">
 				<p class="save-diary-comment">당신의 오늘 하루는</p>
 				<p class="save-diary-comment">
-					{{ this.diaryAnalysisResult.feel[0][0] }}이군요 :)
+					{{ this.diaryData.user_emotion }}이군요 :)
 				</p>
 				<p class="save-diary-comment">
-					{{ this.diaryAnalysisResult.music.name }}으로 마무리하는 건 어때요?
+					{{ this.diaryData.recommend_music.artist }}의
+					{{ this.diaryData.recommend_music.name }}으로 마무리하는 건 어때요?
 				</p>
 				<div class="save-diary-emotion">
-					<img src="@/assets/images/emotion/happy.png" alt="감정상태" />
+					<img
+						:src="
+							require(`@/assets/images/emotion/${this.diaryData.user_emotion}.png`)
+						"
+						alt="감정상태"
+					/>
+					<!-- <img
+						src="
+							@/assets/images/emotion/1.png
+						"
+						alt="감정상태"
+					/> -->
 				</div>
 			</div>
 			<button class="save-diary-change save-diary-btn" @click="onSaveDiary">
@@ -26,46 +34,17 @@
 
 			<div id="mainMenu" class="mainMenuOverlay floating2">
 				<!-- <div class="navire floating3"></div> -->
-				<div class="itemMenuBox bills">
+				<div
+					v-for="(value, idx) in emotionList(this.diaryData.user_emotion)"
+					:key="idx"
+					class="itemMenuBox"
+					:class="emotionDesign[idx]"
+				>
 					<img
-						src="@/assets/images/emotion/sad.png"
+						:src="require(`@/assets/images/emotion/${idx + 1}.png`)"
 						class="itemMenu "
 						alt="감정상태"
-					/>
-				</div>
-				<div class="itemMenuBox tarsheed">
-					<img
-						src="@/assets/images/emotion/smile.png"
-						class="itemMenu "
-						alt="감정상태"
-					/>
-				</div>
-				<div class="itemMenuBox employees">
-					<img
-						src="@/assets/images/emotion/boring.png"
-						class="itemMenu "
-						alt="감정상태"
-					/>
-				</div>
-				<div class="itemMenuBox location">
-					<img
-						src="@/assets/images/emotion/surprise.png"
-						class="itemMenu "
-						alt="감정상태"
-					/>
-				</div>
-				<div class="itemMenuBox eservices">
-					<img
-						src="@/assets/images/emotion/angry.png"
-						class="itemMenu "
-						alt="감정상태"
-					/>
-				</div>
-				<div class="itemMenuBox contact">
-					<img
-						src="@/assets/images/emotion/dislike.png"
-						class="itemMenu "
-						alt="감정상태"
+						@click="onReselectEmotion(idx + 1)"
 					/>
 				</div>
 				<a
@@ -89,15 +68,25 @@
 
 <script>
 import { createDiary } from '@/api/diary';
+import { reselectEmotion } from '@/api/analysis';
 
 export default {
 	data() {
-		return {};
+		return {
+			emotion: ['행복', '슬픔', '기쁨', '무료함', '화남', '놀람', '공포'],
+			emotionDesign: [
+				'bills',
+				'tarsheed',
+				'employees',
+				'location',
+				'eservices',
+				'contact',
+			],
+		};
 	},
 	props: {
 		open: Boolean,
 		diaryData: Object,
-		diaryAnalysisResult: Object,
 	},
 	computed: {
 		toastAnimationClass() {
@@ -111,6 +100,20 @@ export default {
 		onOpenEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
 			mainMenu.classList.add('open');
+
+			// for (let key in this.emotion) {
+			// 	if (key != this.diaryData.user_emotion) {
+			// 		const itemMenuBox = document.createElement('div');
+			// 		const emotionImage = document.createElement('img');
+			// 		itemMenuBox.classList.add('itemMenuBox');
+			// 		itemMenuBox.classList.add(this.emotionDesign[key - 1]);
+			// 		emotionImage.src = `@/assets/images/emotion/${key}.png`;
+			// 		emotionImage.alt = '감정이모티콘';
+			// 		emotionImage.classList.add('itemMenu');
+			// 		itemMenuBox.appendChild(emotionImage);
+			// 		mainMenu.appendChild(itemMenuBox);
+			// 	}
+			// }
 		},
 		onCloseEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
@@ -120,14 +123,36 @@ export default {
 			this.$emit('close-theme');
 		},
 		async onSaveDiary() {
-			const { data } = await createDiary(this.diaryData);
-			this.$router.push(`/diary/${data.id}`);
+			try {
+				this.diaryData.created = this.$route.query.day;
+				const { data } = await createDiary(this.diaryData);
+				this.$router.push(`/diary/${data.id}`);
+			} catch (err) {
+				console.log(err.response);
+			}
+		},
+		async onReselectEmotion(id) {
+			try {
+				const { data } = await reselectEmotion(id);
+				this.diaryData.user_emotion = data.emotion;
+				this.diaryData.recommend_music.artist = data.recommend_music.artist;
+				this.diaryData.recommend_music.name = data.recommend_music.name;
+
+				this.onCloseEmotion();
+			} catch (err) {
+				console.log(err.response);
+			}
+		},
+		emotionList(idx) {
+			let emotion = [...this.emotion];
+			emotion.splice(idx - 1, 1);
+			return emotion;
 		},
 	},
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .toast-save {
 	display: flex;
 	justify-content: center;

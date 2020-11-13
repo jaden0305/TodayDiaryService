@@ -288,8 +288,14 @@ class TextAnalysis:
 
         for emotion in self.emotions:
             if emotion and emotion != 'no_emotion':
-                feel[self.emotion_idx[emotion]] = feel.get(self.emotion_idx[emotion], 0) + 2 
-
+                feel[emotion] = feel.get(emotion, 0) + 2 
+                if self.emotion_idx[emotion] in [1,3]:
+                    score += 6
+                    cnt += 6
+                elif self.emotion_idx[emotion] in [2,5,7]:
+                    score -= 6
+                    cnt -= 6  
+                    
         if cnt == 0:
             return cnt, feel
         return score/cnt, feel
