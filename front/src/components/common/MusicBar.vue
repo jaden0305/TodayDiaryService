@@ -173,7 +173,7 @@ export default {
 				controls: 0,
 				autohide: 1,
 				wmode: 'opaque',
-				origin: 'http://localhost:8080',
+				origin: 'https://k3d104.p.ssafy.io',
 			},
 			isTimerPlaying: false,
 			currentTrack: null,
