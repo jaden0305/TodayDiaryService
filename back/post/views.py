@@ -44,10 +44,8 @@ def get_start_day(today):
     return date
 
 def delete_week_cache(today, user_id):
-    print(cache.keys('*'))
     startday = get_start_day(f'{today.year}-{today.month}-{today.day}')
     if redis_check():
-        print(f'w-u{user_id}-s{startday}')
         cache.delete(f'w-u{user_id}-s{startday.year}-{startday.month}-{startday.day}')
 
 def delete_month_cache(today, user_id):
@@ -83,7 +81,6 @@ class CreateDiary(APIView, DiaryMixin):
     # [{"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
-        print(request.data)
         date = request.data['created']
         stickers = json.loads(request.data.get('stickers', '[]'))
         if Post.objects.filter(created=date, user=request.user).exists():
@@ -128,21 +125,16 @@ class CreateDiary(APIView, DiaryMixin):
 
         self.create_sticker(stickers, post.id)
         response = self.analyze(request.user, data, post.id)
-        print(response.text)
         response = json.loads(response.text)
         
 
         data['image'] = image
         data['sticker_image'] = sticker_image
         data['report_id'] = response['id']
-        print(post.id)
         if search_music:
             search_music_data = search_music
-            print(search_music_data)
-            print(type(search_music_data))
             search_music_data['post'] = post.id
             search_music_data['user'] = request.user.id
-            # search_music_data['emotion'] = 8
             search_music_serializer = SearchMusicSerializer(data=search_music_data)
             search_music_serializer.is_valid(raise_exception=True)
             search_music = search_music_serializer.save()
@@ -194,12 +186,6 @@ class diary(APIView, DiaryMixin):
         if request.user.id == mypost.user.id:
             date = mypost.created
             mypost.delete()
-            # mypost.report.delete()
-            # words = mypost.word_cloud.all()
-            # for word in words:
-            #     word.delete()
-            
-            delete_week_cache(date, request.user.id)
             delete_month_cache(date, request.user.id)
             msg = {
                 'detail': '삭제되었습니다.'
@@ -273,7 +259,7 @@ def make_test(request):
         Emotion.objects.create(name=name)
     
     # pattern
-    for path, preview in [(None, 'media/paper/1_preview.png'),('media/paper/2.png', 'media/paper/2_preview.png'), ('media/paper/3.png', 'media/paper/3_preview.png'), ('media/paper/4.png', 'media/paper/4.png'), ('media/paper/5.png', 'media/paper/5.png'), ('media/paper/6.png', 'media/paper/6.png')]:
+    for path, preview in [(None, 'images/paper/1_preview.png'),('images/paper/2.png', 'images/paper/2_preview.png'), ('images/paper/3.png', 'images/paper/3_preview.png'), ('images/paper/4.png', 'images/paper/4.png'), ('images/paper/5.png', 'images/paper/5.png'), ('images/paper/6.png', 'images/paper/6.png')]:
         Pattern.objects.create(path=path, preview_path=preview)
 
     return Response({
