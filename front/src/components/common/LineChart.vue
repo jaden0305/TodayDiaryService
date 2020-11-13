@@ -69,6 +69,9 @@ export default {
 		bus.$on('lineUpdate', this.init);
 		this.init();
 	},
+	destroyed() {
+		bus.$off('lineUpdate', this.init);
+	},
 	methods: {
 		init() {
 			let data = this.chartData.chartData;

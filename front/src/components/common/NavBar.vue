@@ -94,12 +94,13 @@ export default {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: 60px;
+	height: 70px;
 	/* background: #e6e6e6; */
 	background: #ffffff;
 	border-top: 1px solid rgba(#adb5bd, 0.2);
 	/* box-shadow: 20px 20px 60px #c4c4c4, -20px -20px 60px #ffffff; */
 	z-index: 999;
+	padding-bottom: 10px;
 	.nav-lists {
 		width: 100%;
 		height: 100%;
