@@ -466,7 +466,6 @@ export default {
 		async fetchData() {
 			try {
 				const { data } = await likeMusics();
-				console.log(data);
 				data.forEach(music => {
 					this.tracks.push({
 						artist: music.artist,

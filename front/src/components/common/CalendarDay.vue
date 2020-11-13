@@ -34,7 +34,9 @@
 		/>
 		<img
 			v-else-if="
-				day.post && (day.post.user_emotion === 1 || day.post.emotion === 1)
+				day.post &&
+					(day.post.user_emotion === 1 ||
+						(!day.post.user_emotion && day.post.emotion === 1))
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -44,7 +46,9 @@
 		/>
 		<img
 			v-else-if="
-				day.post && (day.post.user_emotion === 2 || day.post.emotion === 2)
+				day.post &&
+					(day.post.user_emotion === 2 ||
+						(!day.post.user_emotion && day.post.emotion === 2))
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -54,7 +58,9 @@
 		/>
 		<img
 			v-else-if="
-				day.post && (day.post.user_emotion === 3 || day.post.emotion === 3)
+				day.post &&
+					(day.post.user_emotion === 3 ||
+						(!day.post.user_emotion && day.post.emotion === 3))
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -64,7 +70,9 @@
 		/>
 		<img
 			v-else-if="
-				day.post && (day.post.user_emotion === 4 || day.post.emotion === 4)
+				day.post &&
+					(day.post.user_emotion === 4 ||
+						(!day.post.user_emotion && day.post.emotion === 4))
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -74,7 +82,9 @@
 		/>
 		<img
 			v-else-if="
-				day.post && (day.post.user_emotion === 5 || day.post.emotion === 5)
+				day.post &&
+					(day.post.user_emotion === 5 ||
+						(!day.post.user_emotion && day.post.emotion === 5))
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -84,7 +94,9 @@
 		/>
 		<img
 			v-else-if="
-				day.post && (day.post.user_emotion === 6 || day.post.emotion === 6)
+				day.post &&
+					(day.post.user_emotion === 6 ||
+						(!day.post.user_emotion && day.post.emotion === 6))
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"
@@ -94,7 +106,9 @@
 		/>
 		<img
 			v-else-if="
-				day.post && (day.post.user_emotion === 7 || day.post.emotion === 7)
+				day.post &&
+					(day.post.user_emotion === 7 ||
+						(!day.post.user_emotion && day.post.emotion === 7))
 			"
 			@click="readDiary(day.post.id)"
 			class="emoticon"

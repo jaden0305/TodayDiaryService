@@ -7,10 +7,10 @@
 				</p>
 				<p>이 노래로 오늘 하루를 마무리하는 건 어때요?</p>
 				<p class="save-diary-comment artist">
-					{{ diaryData.recommend_music.artist }}
+					{{ musicSelectArtist() }}
 				</p>
 				<p class="save-diary-comment music-name">
-					{{ diaryData.recommend_music.name }}
+					{{ musicSelectName() }}
 				</p>
 				<div class="save-diary-emotion">
 					<img
@@ -113,6 +113,20 @@ export default {
 		},
 	},
 	methods: {
+		musicSelectArtist() {
+			if (this.diaryData.recommend_music) {
+				return this.diaryData.recommend_music.artist;
+			} else {
+				return this.diaryData.search_music.artist;
+			}
+		},
+		musicSelectName() {
+			if (this.diaryData.recommend_music) {
+				return this.diaryData.recommend_music.name;
+			} else {
+				return this.diaryData.search_music.name.substr(0, 16) + '...';
+			}
+		},
 		onOpenEmotion() {
 			const mainMenu = document.querySelector('#mainMenu');
 			mainMenu.classList.add('open');
@@ -137,9 +151,12 @@ export default {
 		async onReselectEmotion(id) {
 			try {
 				const { data } = await reselectEmotion(id);
-				this.diaryData.user_emotion = data.emotion;
-				this.diaryData.recommend_music.artist = data.recommend_music.artist;
-				this.diaryData.recommend_music.name = data.recommend_music.name;
+				if (!Object.keys(this.diaryData.search_music).length) {
+					this.diaryData.recommend_music = data.recommend_music;
+				}
+				this.diaryData.user_emotion = data.recommend_music.emotion;
+				// this.diaryData.recommend_music.artist = data.recommend_music.artist;
+				// this.diaryData.recommend_music.name = data.recommend_music.name;
 
 				this.onCloseEmotion();
 			} catch (err) {
