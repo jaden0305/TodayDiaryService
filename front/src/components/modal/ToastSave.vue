@@ -127,6 +127,7 @@ export default {
 		async onSaveDiary() {
 			try {
 				this.diaryData.created = this.$route.query.day;
+				console.log('save', this.diaryData);
 				const { data } = await createDiary(this.diaryData);
 				this.$router.push(`/diary/${data.id}`);
 			} catch (err) {
