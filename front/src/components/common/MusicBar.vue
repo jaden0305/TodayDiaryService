@@ -272,6 +272,7 @@ export default {
 	transform: translateX(-50%);
 	transition: all 1s ease-in-out 0.1s;
 	border-top: 1px solid rgba(#adb5bd, 0.2);
+	border-radius: 12px;
 }
 .toast1.none {
 	display: none !important;
@@ -294,7 +295,7 @@ export default {
 		height: 80px;
 		background-color: rgb(240, 240, 240);
 		box-shadow: 6px 6px 5px #c7c7c7, -6px -6px 5px #ffffff;
-
+		border-radius: 12px;
 		padding: 10px 0 10px;
 		display: flex;
 		.back-playbar__img {
