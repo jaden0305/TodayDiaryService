@@ -66,7 +66,7 @@ export default {
 			if (this.diaryData.image) {
 				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
 			} else {
-				return `@/assets/images/logo3.png`;
+				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_AUTH_API_URL}media/default.png`;
 			}
 		},
 		// canvasImg() {
