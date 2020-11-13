@@ -85,23 +85,9 @@ class MusicView(APIView):
     @swagger_auto_schema(request_body=LikeSerializer)
     def post(self, request):
         pk = request.data['music_id']
-        recommend = request.data['favorited']
+        search = request.data['search']
         
-        if recommend:
-            music = get_object_or_404(RecommendMusic, pk=pk)
-            if request.user in music.recommend_like_music.all():
-                music.recommend_like_music.remove(request.user)
-                msg = {
-                    'detail' : '좋아요 취소' 
-                }
-                return Response(msg, status=status.HTTP_200_OK)
-            else:
-                music.recommend_like_music.add(request.user)
-                msg = {
-                    'detail' : '좋아요' 
-                }
-                return Response(msg, status=status.HTTP_200_OK)
-        else:
+        if search:
             music = get_object_or_404(SearchMusic, pk=pk)
 
             if request.user in music.search_like_music.all():
@@ -116,7 +102,20 @@ class MusicView(APIView):
                     'detail' : '좋아요' 
                 }
                 return Response(msg, status=status.HTTP_200_OK)
-
+        else:
+            music = get_object_or_404(RecommendMusic, pk=pk)
+            if request.user in music.recommend_like_music.all():
+                music.recommend_like_music.remove(request.user)
+                msg = {
+                    'detail' : '좋아요 취소' 
+                }
+                return Response(msg, status=status.HTTP_200_OK)
+            else:
+                music.recommend_like_music.add(request.user)
+                msg = {
+                    'detail' : '좋아요' 
+                }
+                return Response(msg, status=status.HTTP_200_OK)
 # @api_view(['GET'])
 # def likes_music(request):
 #     recommend_music = request.user.recommend_like.all()

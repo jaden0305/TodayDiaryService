@@ -131,18 +131,7 @@ export default {
 			);
 		}
 		this.fetchWeek(start, end);
-		bus.$emit('lineUpdate');
-		const tracks = [
-			{
-				name: '야작시',
-				artist: '적재',
-				cover: 'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
-				videoId: 'jXylepYfpk0',
-				url: 'https://youtu.be/26YwXUcUf4I',
-				favorited: false,
-			},
-		];
-		bus.$emit('show:musicplayer', tracks);
+		// bus.$emit('lineUpdate');
 	},
 	methods: {
 		switchWordView() {
@@ -194,7 +183,7 @@ export default {
 				this.year -= 1;
 			}
 			this.fetchMonth(this.year, this.month);
-			bus.$emit('lineUpdate');
+			// bus.$emit('lineUpdate');
 		},
 		moveNextMonth() {
 			if (this.month < 12) {
@@ -204,7 +193,7 @@ export default {
 				this.year += 1;
 			}
 			this.fetchMonth(this.year, this.month);
-			bus.$emit('lineUpdate');
+			// bus.$emit('lineUpdate');
 		},
 		movePrevWeek() {
 			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() - 7));
@@ -220,7 +209,7 @@ export default {
 			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
 			this.fetchWeek(start, end);
-			bus.$emit('lineUpdate');
+			// bus.$emit('lineUpdate');
 		},
 		moveNextWeek() {
 			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() + 7));
@@ -244,7 +233,7 @@ export default {
 			// 	);
 			// }
 			this.fetchWeek(start, end);
-			bus.$emit('lineUpdate');
+			// bus.$emit('lineUpdate');
 		},
 		async fetchWeek(startWeek, endWeek) {
 			try {
@@ -373,6 +362,9 @@ export default {
 		box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 		padding: 1rem;
 		margin-bottom: 1rem;
+	}
+	.report-word {
+		margin-top: 2.5rem;
 	}
 	.report-chart {
 		box-sizing: border-box;
@@ -521,7 +513,10 @@ export default {
 			color: #495057;
 		}
 		.report-select__month {
-			font-size: 1.5rem;
+			font-size: 1.4rem;
+			@media (max-width: 320px) {
+				font-size: 1rem;
+			}
 		}
 	}
 	.report-select__span {

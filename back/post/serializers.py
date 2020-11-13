@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from accounts.serializers import UserSerializer
+from text.serializers import DailyReportSerializer
 from .models import *
 
 
@@ -70,6 +71,7 @@ class PostStickerReadSerializer(serializers.ModelSerializer):
 
 class CreatePostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False, allow_null=True)
+    sticker_image = serializers.ImageField(required=False, allow_null=True)
     search_music = serializers.CharField(required=False, allow_null=True)
     recommend_music = serializers.IntegerField(required=False, allow_null=True)
     class Meta:
@@ -79,6 +81,7 @@ class CreatePostSerializer(serializers.ModelSerializer):
 
 class ReadPostSerializer(serializers.ModelSerializer):
     stickers = PostStickerReadSerializer(many=True)
+    report = DailyReportSerializer()
     class Meta:
         model = Post
         exclude = ('user', 'created')

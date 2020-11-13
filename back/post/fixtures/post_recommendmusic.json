@@ -1,0 +1,3482 @@
+[
+    {
+      "id": 1,
+      "artist": "태연",
+      "name": "Happy",
+      "video_id": "uVuhV1VVeEI",
+      "cover": "https://i.pinimg.com/originals/a2/cb/87/a2cb873b21bce7bcd43d54709ae562f6.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 2,
+      "artist": "Electric Light Orchestra",
+      "name": "Mr. Blue Sky",
+      "video_id": "wuJIqmha2Hk",
+      "cover": "https://i.ytimg.com/vi/wuJIqmha2Hk/maxresdefault.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 3,
+      "artist": "동방신기",
+      "name": "풍선",
+      "video_id": "rdTVb64pfMs",
+      "cover": "https://i.ytimg.com/vi/H0MQJfgjl3o/hq720.jpg?sqp=-oaymwEZCNAFEJQDSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLCPDQQE8ZZb3SBLl4p1fd2Zfk2xtQ",
+      "emotion_id": 1
+    },
+    {
+      "id": 4,
+      "artist": "H.O.T",
+      "name": "행복",
+      "video_id": "VBqu26E-K20",
+      "cover": "https://i.ytimg.com/vi/VBqu26E-K20/hq720.jpg?sqp=-oaymwEZCNAFEJQDSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLBEzYWWXCW5ZkToCYpJu4JhCOKBwQ",
+      "emotion_id": 1
+    },
+    {
+      "id": 5,
+      "artist": "Jay And Americans",
+      "name": "Come A Little Bit Closer",
+      "video_id": "e3LVGBB94eY",
+      "cover": "https://passthepaisley.com/wp-content/uploads/2015/09/Jay-and-the-Americans-1-500x480.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 6,
+      "artist": "Billy Joel",
+      "name": "Uptown girl",
+      "video_id": "H6M0EulApMM",
+      "cover": "https://www.lyrics007.com/images/cover_art/0/164/71.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 7,
+      "artist": "Mocca",
+      "name": "Happy",
+      "video_id": "HduKGO9oPPI",
+      "cover": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99F7AB3C5C3595D433",
+      "emotion_id": 1
+    },
+    {
+      "id": 8,
+      "artist": "Bruno Mars",
+      "name": "Just the way You Are",
+      "video_id": "wGUKBXpfU1o",
+      "cover": "https://i.ytimg.com/vi/wGUKBXpfU1o/maxresdefault.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 9,
+      "artist": "A-ha",
+      "name": "Take on Me",
+      "video_id": "MIgK3zOk0zg",
+      "cover": "https://t1.daumcdn.net/cfile/tistory/99E64E3B5C149F7023",
+      "emotion_id": 1
+    },
+    {
+      "id": 10,
+      "artist": "Earth, Wind & Fire",
+      "name": "September",
+      "video_id": "3cKtSlsYVEU",
+      "cover": "https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile7.uf.tistory.com%2Fimage%2F2113323D54232FC83705AF",
+      "emotion_id": 1
+    },
+    {
+      "id": 11,
+      "artist": "Frankie Valli",
+      "name": "Can't Take My Eyes Off You",
+      "video_id": "3pYqVj-FyBk",
+      "cover": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99895A33599E8AFD08",
+      "emotion_id": 1
+    },
+    {
+      "id": 12,
+      "artist": "투투",
+      "name": "일과 이분의 일",
+      "video_id": "9jGnozOVOS8",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/413/971/80413971_1397801265578_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 1
+    },
+    {
+      "id": 13,
+      "artist": "김동률",
+      "name": "감사",
+      "video_id": "CQOmKZh99Vw",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80254/8025429.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 14,
+      "artist": "정은지",
+      "name": "너의 밤은 어때",
+      "video_id": "JicPLKaQHkQ",
+      "cover": "https://image.bugsm.co.kr/album/images/500/9967/996709.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 15,
+      "artist": "Lionel Richie, Diana Ross",
+      "name": "Endless Love",
+      "video_id": "ubrfaD9DIus",
+      "cover": "https://i.pinimg.com/736x/9a/e3/fc/9ae3fc575987acc172181fa43d3231dc.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 16,
+      "artist": "적재",
+      "name": "별 보러 가자",
+      "video_id": "TlaGDYbxnJk",
+      "cover": "https://image.bugsm.co.kr/album/images/500/6248/624831.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 17,
+      "artist": "Abir",
+      "name": "Tango",
+      "video_id": "QhtGc2igBpU",
+      "cover": "https://mblogthumb-phinf.pstatic.net/MjAyMDA1MDFfMTEg/MDAxNTg4MzI0MjU4NTA3.KwZjid2ZUhsCUGGwAAWvTBTzXezlYSFGXgOObXPMy84g.57hhGIqLRsbAawK00g2SrdN83NeeiqqFWmOHNrK3r6wg.JPEG.csh03041/81116963_1540522350149_1_600x600.jpg?type=w800",
+      "emotion_id": 1
+    },
+    {
+      "id": 18,
+      "artist": "아이유",
+      "name": "좋은날",
+      "video_id": "OIHlzvEKncQ",
+      "cover": "https://i1.sndcdn.com/artworks-000216389493-cbiq3w-t500x500.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 19,
+      "artist": "Justin Timberlake",
+      "name": "CAN'T STOP THE FEELING!",
+      "video_id": "YxRothF-QE4",
+      "cover": "https://images-na.ssl-images-amazon.com/images/I/61Pjjy1BCbL._SX342_QL70_ML2_.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 20,
+      "artist": "Michael Jackson",
+      "name": "Love Never Felt So good",
+      "video_id": "0wnuTGGuAVs",
+      "cover": "https://t1.daumcdn.net/cfile/blog/253250375655C23D32",
+      "emotion_id": 1
+    },
+    {
+      "id": 21,
+      "artist": "볼빨간 사춘기",
+      "name": "나비와 고양이",
+      "video_id": "L17NNsFzRi4",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203230/20323074.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 22,
+      "artist": "장나라",
+      "name": "Sweet Dream",
+      "video_id": "jdWu3O0enP8",
+      "cover": "https://e.snmc.io/i/600/w/63176ea56ce6698416cc77dd0bb593d7/4516066",
+      "emotion_id": 1
+    },
+    {
+      "id": 23,
+      "artist": "볼빨간 사춘기",
+      "name": "나만 봄",
+      "video_id": "2ZdgQLJP08c",
+      "cover": "https://i1.sndcdn.com/artworks-000514395429-a7v0o7-t500x500.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 24,
+      "artist": "오마이걸",
+      "name": "Dolphin",
+      "video_id": "4JJFrjkRxmo",
+      "cover": "https://image.bugsm.co.kr/album/images/500/141168/14116820.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 25,
+      "artist": "원모어찬스",
+      "name": "널생각해",
+      "video_id": "vLRBqE3rRKU",
+      "cover": "https://image.bugsm.co.kr/album/images/500/2378/237875.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 26,
+      "artist": "이달의 소녀",
+      "name": "땡땡땡",
+      "video_id": "mntH6yL-4kY",
+      "cover": "https://blog.kakaocdn.net/dn/mL1Fq/btqBM6J0tD9/D9nlnFsUlXRiIivkKIPJO1/img.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 27,
+      "artist": "Frank Sinatra",
+      "name": "L.O.V.E.",
+      "video_id": "tmSzRx9RYLk",
+      "cover": "https://img.youtube.com/vi/tmSzRx9RYLk/0.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 28,
+      "artist": "Kungs",
+      "name": "This Girl",
+      "video_id": "kNtk-CnpL-Y",
+      "cover": "https://images-eu.ssl-images-amazon.com/images/I/719iLQCyt-L._AC_UL600_SR600,600_.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 29,
+      "artist": "7공주",
+      "name": "러브송",
+      "video_id": "GJeIOG8UfkU",
+      "cover": "https://image.aladin.co.kr/product/5990/93/cover/e992437155_1.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 30,
+      "artist": "존박",
+      "name": "이상한사람",
+      "video_id": "0nwUYiucnpM",
+      "cover": "https://image.bugsm.co.kr/album/images/500/9378/937852.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 31,
+      "artist": "Peder Elias",
+      "name": "Bonfire",
+      "video_id": "fBv5lud-q4Q",
+      "cover": "https://image.bugsm.co.kr/album/images/500/9163/916340.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 32,
+      "artist": "제이레빗",
+      "name": "Happy Things",
+      "video_id": "Z10O-rmUDEo",
+      "cover": "https://i1.sndcdn.com/artworks-000096395047-7qpp38-t500x500.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 33,
+      "artist": "홍대광",
+      "name": "잘됐으면 좋겠다",
+      "video_id": "4rH_EjolRfc",
+      "cover": "https://image.bugsm.co.kr/album/images/original/5044/504402.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 34,
+      "artist": "SOLE",
+      "name": "RIDE",
+      "video_id": "fMXsETDG3MU",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_MUZICAT/IV2/Genie_Magazine/4176/Mgz_Sub_IMG_20171103102824.jpg/dims/resize/Q_80,0",
+      "emotion_id": 1
+    },
+    {
+      "id": 35,
+      "artist": "샤이니",
+      "name": "View",
+      "video_id": "nThFdI4VbgA",
+      "cover": "https://1.bp.blogspot.com/-50J1BfXySzw/VVtUvMb2ZqI/AAAAAAAAALs/czfaX00Vc8s/s1600/odddddddddd.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 36,
+      "artist": "첸(엑소)",
+      "name": "최고의 행운",
+      "video_id": "jKkuLPSCydI",
+      "cover": "https://image.bugsm.co.kr/album/images/500/4416/441672.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 37,
+      "artist": "Anne-Marie",
+      "name": 2002,
+      "video_id": "ee2mcqcGL_c",
+      "cover": "https://assets.audiomack.com/rosie18-3/3ec319fcc7fe488b07f9aa157225056b7f6e7d69cabb8e126162ab7f159d993d.jpeg?width=1000&height=1000&max=true",
+      "emotion_id": 1
+    },
+    {
+      "id": 38,
+      "artist": "권진아",
+      "name": "Fly Away",
+      "video_id": "AuuMtPdKUf0",
+      "cover": "https://d3ttbrlvlwtn7f.cloudfront.net/upload/album/4199/ccc534cb-1acd-4be7-9b67-f4ec7609da9a_570.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 39,
+      "artist": "보아",
+      "name": "Milky Way",
+      "video_id": "HlEWgTUKsIk",
+      "cover": "https://image.yes24.com/momo/TopCate09/MidCate06/858887.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 40,
+      "artist": "오마이걸",
+      "name": "BUNGEE",
+      "video_id": "cvC7zYsMVco",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/103/14/743/10314743_500.jpg?9111c765f3c06c197915a761ff0cbf62",
+      "emotion_id": 1
+    },
+    {
+      "id": 41,
+      "artist": "윤하",
+      "name": "Parade",
+      "video_id": "BoTVJvvXNnc",
+      "cover": "https://www.mintpaper.co.kr/wp-content/uploads/2017/12/younha.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 42,
+      "artist": "잔나비",
+      "name": "투게더",
+      "video_id": "1HfsK4rzr5s",
+      "cover": "https://images.genius.com/bc44d786b88f7e4bdbb3834cc94b810b.1000x1000x1.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 43,
+      "artist": "Colde",
+      "name": "와르르",
+      "video_id": "zrbvbBoWQg8",
+      "cover": "https://images.genius.com/aad26f37fb5b95c245f7e5ab38f81205.1000x1000x1.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 44,
+      "artist": "10cm",
+      "name": "너에게 닿기를",
+      "video_id": "xvxYEthSt2U",
+      "cover": "https://c-sf.smule.com/rs-s92/arr/18/24/11dde2da-ca3b-40a6-a926-3626508902e3.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 45,
+      "artist": "비투비",
+      "name": "Call Me",
+      "video_id": "0unJHBOOx1Y",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/072/207/81072207_1529309873134_1_600x600.JPG",
+      "emotion_id": 1
+    },
+    {
+      "id": 46,
+      "artist": "범키",
+      "name": "갖고놀래",
+      "video_id": "zHd1JcExu1k",
+      "cover": "https://www.akbobada.com/home/akbobada/archive/akbo/img/55382.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 47,
+      "artist": "범키",
+      "name": "Bad Girl",
+      "video_id": "TxMnYx3L5lU",
+      "cover": "https://i0.wp.com/colorcodedlyrics.com/wp-content/uploads/2013/06/coveruct.jpg?fit=640%2C640&ssl=1",
+      "emotion_id": 1
+    },
+    {
+      "id": 48,
+      "artist": "아이유",
+      "name": "Blueming",
+      "video_id": "D1PvIWdJ8xo",
+      "cover": "https://images.genius.com/570f182ed6c180ebb64f16182550dda2.1000x1000x1.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 49,
+      "artist": "DAYBREAK",
+      "name": "꽃길만 걷게 해줄게",
+      "video_id": "Umzcia9C-ho",
+      "cover": "https://image.bugsm.co.kr/album/images/500/5687/568771.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 50,
+      "artist": "허각",
+      "name": "행복한 나를",
+      "video_id": "lPz47_lK574",
+      "cover": "https://image.bugsm.co.kr/album/images/500/2460/246074.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 51,
+      "artist": "세븐틴",
+      "name": "예쁘다",
+      "video_id": "pxC7XsOHqxI",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/026/80/682/2680682_500.jpg?cde46cb9eb41b1cb1320c66b74e4f912/melon/resize/282/quality/80/optimize",
+      "emotion_id": 1
+    },
+    {
+      "id": 52,
+      "artist": "B1A4",
+      "name": "이게 무슨 일이야",
+      "video_id": "oqxHy4G9FMI",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3679/367982.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 53,
+      "artist": "안녕바다",
+      "name": "별빛이 내린다",
+      "video_id": "zKEvPG4yhbA",
+      "cover": "https://pic.pimg.tw/indapi/1433553473-3331945930.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 54,
+      "artist": "BTS",
+      "name": "봄날",
+      "video_id": "jIKS7mTbXpM",
+      "cover": "https://i1.sndcdn.com/artworks-000218005904-fimoup-t500x500.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 55,
+      "artist": "DAY6",
+      "name": "예뻤어",
+      "video_id": "Mhyi9p7T7OM",
+      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTeRKegwYmnhqr9qs424IvAQiXqbDcJXhkbrA&usqp=CAU",
+      "emotion_id": 1
+    },
+    {
+      "id": 56,
+      "artist": "윤딴딴",
+      "name": "잘 살고 있지롱",
+      "video_id": "nBBrAvZ8BBk",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202598/20259810.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 57,
+      "artist": "산들",
+      "name": "취기를 빌려",
+      "video_id": "2COAu1l6hUQ",
+      "cover": "https://image.bugsm.co.kr/album/images/500/9887/988734.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 58,
+      "artist": "적재",
+      "name": "나랑 같이 걸을래",
+      "video_id": "cn8gCkw6H5A",
+      "cover": "https://image.bugsm.co.kr/album/images/350/9988/998892.jpg",
+      "emotion_id": 1
+    },
+    {
+      "id": 59,
+      "artist": "Billy Joel",
+      "name": "Piano Man",
+      "video_id": "QwVjTlTdIDQ",
+      "cover": "https://upload.wikimedia.org/wikipedia/ko/0/00/%EB%B9%8C%EB%A6%AC_%EC%A1%B0%EC%97%98_-_Piano_Man_%EC%9D%8C%EB%B0%98.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 60,
+      "artist": "Loving Caliber",
+      "name": "Homesick",
+      "video_id": "K7cEGhQBrqw",
+      "cover": "https://d34qmkt8w5wll9.cloudfront.net/commercial-releases/cover_art/jpeg/2521.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 61,
+      "artist": "Ed Sheeran",
+      "name": "Photograph",
+      "video_id": "SlbfAYvA_gI",
+      "cover": "https://upload.wikimedia.org/wikipedia/ko/f/fc/%EC%97%90%EB%93%9C_%EC%8B%9C%EB%9F%B0_x.png",
+      "emotion_id": 2
+    },
+    {
+      "id": 62,
+      "artist": "John Denver",
+      "name": "Take Me Home, Country Roads",
+      "video_id": "1vrEljMfXYo",
+      "cover": "https://cdn-s3.allmusic.com/release-covers/400/0001/226/0001226070.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 63,
+      "artist": "가비엔제이",
+      "name": "해바라기",
+      "video_id": "NvIvzAtu2LQ",
+      "cover": "https://image.yes24.com/goods/3669685/L",
+      "emotion_id": 2
+    },
+    {
+      "id": 64,
+      "artist": "노라조",
+      "name": "형",
+      "video_id": "K7LnjbxJB9E",
+      "cover": "https://t1.daumcdn.net/cfile/tistory/99AE034D5B3F60F70E",
+      "emotion_id": 2
+    },
+    {
+      "id": 65,
+      "artist": "싸이",
+      "name": "친구놈들아",
+      "video_id": "AdLjSIxzrzc",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80202/8020251.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 66,
+      "artist": "이문세",
+      "name": "소녀",
+      "video_id": "cZQVWlr8AAA",
+      "cover": "https://image.yes24.com/goods/1388414/L",
+      "emotion_id": 2
+    },
+    {
+      "id": 67,
+      "artist": "전상근",
+      "name": "사랑은 지날수록 더욱 선명하게 남아",
+      "video_id": "02GLhppUhZU",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203297/20329794.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 68,
+      "artist": "우효",
+      "name": "민들레",
+      "video_id": "Fwk44SRRO9E",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/100/66/942/10066942_500.jpg?cbb2353535ac02552b9ceb224e9cebac/melon/quality/80/optimize",
+      "emotion_id": 2
+    },
+    {
+      "id": 69,
+      "artist": "SG워너비",
+      "name": "사랑하자",
+      "video_id": "lsntUPqWBYs",
+      "cover": "https://t1.daumcdn.net/cfile/tistory/24421E3A56FD2A1C23",
+      "emotion_id": 2
+    },
+    {
+      "id": 70,
+      "artist": "에픽하이",
+      "name": "빈차",
+      "video_id": "6U2h_iccLXE",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/991/334/80991334_1508741715086_1_600x600.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 71,
+      "artist": "서영은",
+      "name": "웃는거야",
+      "video_id": "qMCtjPSp54I",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80170/8017014.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 72,
+      "artist": "BLACKPINK",
+      "name": "Lovesick Girls",
+      "video_id": "D8RZbI1jfQ0",
+      "cover": "https://t1.daumcdn.net/cfile/tistory/999B794D5F7705C034",
+      "emotion_id": 2
+    },
+    {
+      "id": 73,
+      "artist": "John Mayer",
+      "name": "Gravity",
+      "video_id": "_iGOWk-r614",
+      "cover": "https://e.snmc.io/i/300/w/8fd1aca11ccba0a2079d74c231f0bdb4/1941196",
+      "emotion_id": 2
+    },
+    {
+      "id": 74,
+      "artist": "Yuhki Kuramoto",
+      "name": "Second Romance",
+      "video_id": "nIMNhrmntYo",
+      "cover": "https://i.ytimg.com/vi/flE3vtJaOj8/hqdefault.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 75,
+      "artist": "정인",
+      "name": "오르막길",
+      "video_id": "5DxWlQKC7DI",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3309/330924.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 76,
+      "artist": "비투비",
+      "name": "아름답고도 아프구나",
+      "video_id": "5zae7TdE848",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202024/20202481.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 77,
+      "artist": "황치열",
+      "name": "매일 듣는 노래",
+      "video_id": "s6H5P3UpyJY",
+      "cover": "https://image.bugsm.co.kr/album/images/500/6471/647192.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 78,
+      "artist": "기리보이",
+      "name": "아퍼",
+      "video_id": "veRIGU--tec",
+      "cover": "https://images.genius.com/07bd54969e8a8614433312bd84248eaa.1000x1000x1.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 79,
+      "artist": "XXXTENTACION",
+      "name": "SAD",
+      "video_id": "pgN-vvVVxMA",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/041/210/81041210_1520473116652_1_600x600.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 80,
+      "artist": "윤종신",
+      "name": "탈진",
+      "video_id": "dPrh7gvFWus",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/768/270/80768270_1450773550566_1_600x600.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 81,
+      "artist": "이소라",
+      "name": "바람이 부네요",
+      "video_id": "JfPraFScArI",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203232/20323213.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 82,
+      "artist": "먼데이키즈",
+      "name": "사랑 못해, 남들 쉽게 다 하는 거",
+      "video_id": "aPujgZn2PCg",
+      "cover": "https://img6.yna.co.kr/etc/inner/KR/2020/10/21/AKR20201021030200005_01_i_P2.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 83,
+      "artist": "김효은",
+      "name": "Come Back",
+      "video_id": "6VQJViW_h30",
+      "cover": "https://image.bugsm.co.kr/album/images/200/203520/20352021.jpg?version=20200929002429.0",
+      "emotion_id": 2
+    },
+    {
+      "id": 84,
+      "artist": "권진아",
+      "name": "오늘 뭐 했는지 말해봐",
+      "video_id": "5jZz-QHJ0So",
+      "cover": "https://t1.daumcdn.net/cfile/tistory/9907BE385D84D94317?original",
+      "emotion_id": 2
+    },
+    {
+      "id": 85,
+      "artist": "Crying Nut",
+      "name": "밤이 깊었네",
+      "video_id": "aEib5H5XUzA",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/015/025/205/15025205_1349678982809_1_600x600.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 86,
+      "artist": "어반자카파",
+      "name": "어떤하루",
+      "video_id": "A_Tshv1sWGE",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3987/398757.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 87,
+      "artist": "중식이",
+      "name": "나는 반딧불",
+      "video_id": "Fz1cJ5XRI6I",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203202/20320264.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 88,
+      "artist": "2NE1",
+      "name": "아파",
+      "video_id": "QOlf7o26oOE",
+      "cover": "https://images.genius.com/88013507b6245e945ab4d8aec9e14041.640x640x1.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 89,
+      "artist": "Classified",
+      "name": "3 Foot Tall",
+      "video_id": "NEHJ2xSLGkM",
+      "cover": "https://i1.sndcdn.com/artworks-000053510456-ez455a-t500x500.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 90,
+      "artist": "Post Malone",
+      "name": "Stay",
+      "video_id": "4Ukh9aQBzWc",
+      "cover": "https://i.pinimg.com/originals/73/ce/fb/73cefb0603ddf5b5d6527a09fa7bc4c6.png",
+      "emotion_id": 2
+    },
+    {
+      "id": 91,
+      "artist": "Kiiara",
+      "name": "L*** Is A Bad Word",
+      "video_id": "JoEqOLRYewE",
+      "cover": "https://mblogthumb-phinf.pstatic.net/MjAyMDA0MTVfMTEg/MDAxNTg2ODc4MzEzOTY0.qwfNA_SXs_7jhzMbVmqqtNUMQSSGZpVB8ZKRg09I8Zwg.5Dm4eERBEmsy-Mv4wUrvKVObJ6B1swvRyqouRA_VhO8g.JPEG.mazokiki0405/kiiara_-_l_is_a_bad_word.jpeg?type=w800",
+      "emotion_id": 2
+    },
+    {
+      "id": 92,
+      "artist": "자우림",
+      "name": "스물다섯, 스물하나",
+      "video_id": "Ts20_7v14ZA",
+      "cover": "https://ticketimage.interpark.com/interparkenter/jaurim/discography/jaurim_discography_pc_cover(530x530px)_01.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 93,
+      "artist": "박혜원",
+      "name": "시든 꽃에 물을 주듯",
+      "video_id": "BDqUNyV7UmU",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/179/371/81179371_1553847956575_1_600x600.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 94,
+      "artist": "폴킴",
+      "name": "안녕",
+      "video_id": "ykHXtyVJB0g",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202708/20270833.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 95,
+      "artist": "빅마마",
+      "name": "체념",
+      "video_id": "ULfAaYIuldI",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/015/027/640/15027640_1399965645543_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 2
+    },
+    {
+      "id": 96,
+      "artist": "이문세",
+      "name": "옛사랑",
+      "video_id": "BDH4M5stzqM",
+      "cover": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F221BB2425970507709",
+      "emotion_id": 2
+    },
+    {
+      "id": 97,
+      "artist": "아이유",
+      "name": "Love Poem",
+      "video_id": "kcx0a2OAhN0",
+      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSNz6hwJ6dUPLjZ84MohAeNvgq-L0JtvIuZ5Q&usqp=CAU",
+      "emotion_id": 2
+    },
+    {
+      "id": 98,
+      "artist": "토이",
+      "name": "U & I",
+      "video_id": "VWqblSZDrtY",
+      "cover": "https://upload.wikimedia.org/wikipedia/ko/thumb/9/96/Da_Capo-%ED%86%A0%EC%9D%B4.jpg/220px-Da_Capo-%ED%86%A0%EC%9D%B4.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 99,
+      "artist": "Sam Smith",
+      "name": "I'm Not The Only One",
+      "video_id": "67ibXO8viXE",
+      "cover": "https://mblogthumb-phinf.pstatic.net/MjAyMDAzMDFfMTY5/MDAxNTgzMDAxMjQ4NDU1.D-ceoJ4VNvU5FclYX1Hn8SvD9HYGc1ojlExTG23j3pQg.YDVQ_U-VqwcZD6DyqElCvpbM4MiToA0-KxLelCX3OOMg.JPEG.mm_o_/Sam_Smith_-_I%27m_Not_The_Only_One.jpg?type=w800",
+      "emotion_id": 2
+    },
+    {
+      "id": 100,
+      "artist": "전상근",
+      "name": "사랑이란 멜로는 없어",
+      "video_id": "kWBn-kx5ZZk",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202760/20276025.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 101,
+      "artist": "Christina Aguilera",
+      "name": "Reflection",
+      "video_id": "t5vur4_NO9g",
+      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQYYugbpRnhEYw8heS0jH9s5yhB1Nch0njUwg&usqp=CAU",
+      "emotion_id": 2
+    },
+    {
+      "id": 102,
+      "artist": "SOLE",
+      "name": "Slow",
+      "video_id": "Ms6aW53r67w",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/084/162/81084162_1531447751484_1_600x600.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 103,
+      "artist": "THAMA",
+      "name": "2G Love",
+      "video_id": "27n0nKGHzuU",
+      "cover": "https://images.genius.com/e148d75ba740c15bcf96a6741cdbeb7d.999x999x1.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 104,
+      "artist": "크러쉬",
+      "name": "Alone",
+      "video_id": "5v7b6I2ZoFI",
+      "cover": "https://sleeplessaliana.files.wordpress.com/2019/12/crush-2nd-album-from-midnight-to-sunrise.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 105,
+      "artist": "벤",
+      "name": "갈 수가 없어",
+      "video_id": "qu1ZDoki1PY",
+      "cover": "https://image.bugsm.co.kr/album/images/500/201309/20130956.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 106,
+      "artist": "소녀시대",
+      "name": "힘내!",
+      "video_id": "-Hi1P7LTshM",
+      "cover": "https://upload.wikimedia.org/wikipedia/ko/thumb/1/1f/%EC%86%8C%EB%85%80%EC%8B%9C%EB%8C%80_-_Gee_%28EP%29.jpg/220px-%EC%86%8C%EB%85%80%EC%8B%9C%EB%8C%80_-_Gee_%28EP%29.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 107,
+      "artist": "악동뮤지션",
+      "name": "시간과 낙엽",
+      "video_id": "dbpepFegS6Y",
+      "cover": "https://image.bugsm.co.kr/album/images/500/4560/456069.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 108,
+      "artist": "태연",
+      "name": "내일은 고백할게",
+      "video_id": "BWksgZHmDpc",
+      "cover": "https://blog.kakaocdn.net/dn/u2mti/btqIRZjKi4M/q8OqpALYDcmRNaEys1MoQ1/img.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 109,
+      "artist": "버벌진트",
+      "name": "이게 사랑이 아니면",
+      "video_id": "fKLdmN2X9VI",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3586/358635.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 110,
+      "artist": "케이시",
+      "name": "그때가 좋았어",
+      "video_id": "fD1OjaLdLx4",
+      "cover": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99DB3F435C53874927",
+      "emotion_id": 2
+    },
+    {
+      "id": 111,
+      "artist": "지코",
+      "name": "사랑이었다",
+      "video_id": "if4m99lM24s",
+      "cover": "https://image.bugsm.co.kr/album/images/500/200188/20018879.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 112,
+      "artist": "정승환",
+      "name": "어떤가요",
+      "video_id": "GZBABj18aE0",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/056/658/81056658_1524208645394_1_600x600.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 113,
+      "artist": "윤도현 밴드",
+      "name": "너를 보내고",
+      "video_id": "brKH-IsAA2s",
+      "cover": "https://1.bp.blogspot.com/-jNr5Vutw6J4/WKKRt1AetBI/AAAAAAAAWF0/m0gtuntP7AwZA_qJ40lIWfbaF7pycwZrwCPcB/s1600/YB%2B-%2B%25ED%2595%259C%25EA%25B5%25AD%2BRock%2B%25EB%258B%25A4%25EC%258B%259C%2B%25EB%25B6%2580%25EB%25A5%25B4%25EA%25B8%25B0%2B1999.png",
+      "emotion_id": 2
+    },
+    {
+      "id": 114,
+      "artist": "10cm",
+      "name": "그게 아니고",
+      "video_id": "k1fUhcy-548",
+      "cover": "https://image.bugsm.co.kr/album/images/500/2632/263269.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 115,
+      "artist": "Maroon 5",
+      "name": "Memories",
+      "video_id": "1w6xKlGRg_c",
+      "cover": "https://t1.daumcdn.net/cfile/tistory/99A3D4495F847EF105",
+      "emotion_id": 2
+    },
+    {
+      "id": 116,
+      "artist": "김필",
+      "name": "그때 그 아인",
+      "video_id": "xYvO_mYfOfk",
+      "cover": "https://img.hankyung.com/photo/202002/20200215144446_5e47854ec63f7_1.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 117,
+      "artist": "Izi",
+      "name": "응급실",
+      "video_id": "E-BvyQb7mWE",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/015/029/371/15029371_1342400749964_1_600x600.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 118,
+      "artist": "NCT127",
+      "name": "나의 모든 순간",
+      "video_id": "LM-Oo1zj-u4",
+      "cover": "https://images.genius.com/2f64ace27131f2b1e1205d6aa9741958.1000x1000x1.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 119,
+      "artist": "못",
+      "name": "서울은 흐림",
+      "video_id": "p2FQGboggQI",
+      "cover": "https://image.yes24.com/goods/2546346/L",
+      "emotion_id": 2
+    },
+    {
+      "id": 120,
+      "artist": "신해경",
+      "name": "꽃 피는 계절처럼",
+      "video_id": "kFVItQeRHNQ",
+      "cover": "https://image.bugsm.co.kr/album/images/350/203315/20331520.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 121,
+      "artist": "Sasha Sloan",
+      "name": "Normal",
+      "video_id": "SqK_9tpt_SY",
+      "cover": "https://static.qobuz.com/images/covers/2a/ym/hu1h11qqfym2a_600.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 122,
+      "artist": "태연",
+      "name": "U R",
+      "video_id": "woqRmrtVhgM",
+      "cover": "https://image.bugsm.co.kr/album/images/500/5351/535158.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 123,
+      "artist": "백예린",
+      "name": "London",
+      "video_id": "nOl0E7L2Qz8",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202938/20293803.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 124,
+      "artist": "공기남",
+      "name": "똑같았을거야",
+      "video_id": "aO_Ui_--OKs",
+      "cover": "https://image.bugsm.co.kr/album/images/500/8322/832294.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 125,
+      "artist": "안녕하신가영",
+      "name": "언젠가 설명이 필요한 밤",
+      "video_id": "u6qg5ao9ryM",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/446/491/80446491_1404377892680_1_600x600.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 126,
+      "artist": "적재",
+      "name": "야작시",
+      "video_id": "YyTpnELlb-8",
+      "cover": "https://image.bugsm.co.kr/album/images/350/203478/20347883.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 127,
+      "artist": "패닉",
+      "name": "달팽이",
+      "video_id": "wNV3r3zBQDI",
+      "cover": "https://image.bugsm.co.kr/album/images/500/32/3255.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 128,
+      "artist": "싸이",
+      "name": "아버지",
+      "video_id": "IcOpvfPx1C0",
+      "cover": "https://www.musickorea.com/storage/woo680821EN/www/prefix/product/2018/12/O/product.16553.152153459285550.JPG",
+      "emotion_id": 2
+    },
+    {
+      "id": 129,
+      "artist": "Wiz Khalifa",
+      "name": "See You Again",
+      "video_id": "nugmZqIP0uk",
+      "cover": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F999246495ABCB86610",
+      "emotion_id": 2
+    },
+    {
+      "id": 130,
+      "artist": "애즈원",
+      "name": "원하고 원망하죠",
+      "video_id": "kyoghOpNseY",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/379/172/80379172_1383703320854_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 2
+    },
+    {
+      "id": 131,
+      "artist": "이소라",
+      "name": "신청곡",
+      "video_id": "f6kVxoEPIKY",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/102/44/499/10244499_500.jpg?4fee84ae880e1c6e61ccc739f38032e3/melon/quality/80/optimize",
+      "emotion_id": 2
+    },
+    {
+      "id": 132,
+      "artist": "송민호",
+      "name": "겁",
+      "video_id": "H5lqjJVQIxs",
+      "cover": "https://ilyricsbuzz.com/wp-content/uploads/2015/09/Show-Me-The-Money-4-Episode-5.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 133,
+      "artist": "Emerald Castle",
+      "name": "발걸음",
+      "video_id": "ZKOwyeFgcAo",
+      "cover": "https://image.auction.co.kr/itemimage/e9/00/a5/e900a5a66.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 134,
+      "artist": "최재훈",
+      "name": "비의 랩소디",
+      "video_id": "UdGC9bPtupk",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/000/04/986/4986_500.jpg/melon/quality/80/optimize",
+      "emotion_id": 2
+    },
+    {
+      "id": 135,
+      "artist": "린",
+      "name": "...사랑했잖아...",
+      "video_id": "nj_6geqNPLA",
+      "cover": "https://image.aladin.co.kr/product/17921/35/cover500/scm216137084065.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 136,
+      "artist": "어반자카파",
+      "name": "널 사랑하지 않아",
+      "video_id": "fYsDi91T-SA",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/026/87/420/2687420_500.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 137,
+      "artist": "수지",
+      "name": "다른 사람을 사랑하고 있어",
+      "video_id": "gq0_DO_9_R4",
+      "cover": "https://images.chosun.com/resizer/NV4-DGrWHMjp39dHjO64h41AXdQ=/464x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/4CDCRJ6MEJNSPK55ZOPNPVYZDY.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 138,
+      "artist": "포맨",
+      "name": "못해",
+      "video_id": "2i-hqulIveM",
+      "cover": "https://image.bugsm.co.kr/album/images/500/2150/215087.jpg",
+      "emotion_id": 2
+    },
+    {
+      "id": 139,
+      "artist": "거북이",
+      "name": "비행기",
+      "video_id": "dXQzwNb8G7g",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80201/8020122.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 140,
+      "artist": "거북이",
+      "name": "빙고",
+      "video_id": "mIrEcebqm20",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80019/8001946.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 141,
+      "artist": "Queen",
+      "name": "Don't Stop Me Now",
+      "video_id": "hBp4dgE7Bho",
+      "cover": "https://sangeomusic.com/wp-content/uploads/2020/06/Bohemian-Rhapsody-324x324-1-1.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 142,
+      "artist": "Mark Ronson",
+      "name": "Uptown Funk",
+      "video_id": "tYvFa2ARD24",
+      "cover": "https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile10.uf.tistory.com%2Fimage%2F994E45495CC1927C16E5DE",
+      "emotion_id": 3
+    },
+    {
+      "id": 143,
+      "artist": "Katrina And The Waves",
+      "name": "Walikng On Sunshine",
+      "video_id": "HmR2IZjuMVc",
+      "cover": "https://m.media-amazon.com/images/I/71qu5+dqjpL._SS500_.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 144,
+      "artist": "한요한",
+      "name": "400km",
+      "video_id": "-iPWHBqsWfM",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203151/20315104.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 145,
+      "artist": "Leellamarz",
+      "name": "Trip",
+      "video_id": "5C-UzW1FLiA",
+      "cover": "https://i.kfs.io/album/global/39553216,0v1/fit/500x500.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 146,
+      "artist": "Michael Jackson",
+      "name": "Billie Jean",
+      "video_id": "Kr4EQDVETuA",
+      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIBtdxB0BGouo_G-RzFuz3274OVtRtC_Zv8w&usqp=CAU",
+      "emotion_id": 3
+    },
+    {
+      "id": 147,
+      "artist": "이승기",
+      "name": "여행을떠나요",
+      "video_id": "c39i3mjROmo",
+      "cover": "https://image.bugsm.co.kr/album/images/500/1545/154541.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 148,
+      "artist": "볼빨간사춘기",
+      "name": "여행",
+      "video_id": "aa1iMb-2TJ8",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/101/70/069/10170069_500.jpg?107db514a95bc76cca29db1d2678921b",
+      "emotion_id": 3
+    },
+    {
+      "id": 149,
+      "artist": "이승기",
+      "name": "Smile Boy",
+      "video_id": "fGauJC29ONM",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80293/8029356.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 150,
+      "artist": "이적",
+      "name": "하늘을 달리다",
+      "video_id": "xwaoYLjibeg",
+      "cover": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F2055B52E4CE3CADF37",
+      "emotion_id": 3
+    },
+    {
+      "id": 151,
+      "artist": "마마무",
+      "name": "딩가딩가",
+      "video_id": "LzmdGtzby2s",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/663/433/81663433_1603171261713_1_600x600.JPG",
+      "emotion_id": 3
+    },
+    {
+      "id": 152,
+      "artist": "Imagine Dragons",
+      "name": "Thunder",
+      "video_id": "4AqjqOqNrjw",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/2/28/Imagine_Dragons_Thunder.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 153,
+      "artist": "크러쉬",
+      "name": "OHIO",
+      "video_id": "DsEVgvCB6PE",
+      "cover": "https://images.genius.com/75feed73dd21953a53ac97915e61d1dc.600x600x1.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 154,
+      "artist": "장범준",
+      "name": "흔들리는 꽃들 속에서 네 샴푸향이 느껴진거야",
+      "video_id": "689GoEBjMhY",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202726/20272602.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 155,
+      "artist": "싸이",
+      "name": "뜨거운 안녕",
+      "video_id": "BD3MbtUBuTM",
+      "cover": "https://i.ytimg.com/vi/zDyXwcWM3m0/maxresdefault.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 156,
+      "artist": "싸이",
+      "name": "챔피언",
+      "video_id": "wV8HnthSC90",
+      "cover": "https://s.mxmcdn.net/images-storage/albums/2/6/2/4/4/5/26544262_800_800.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 157,
+      "artist": "싸이",
+      "name": "강남스타일",
+      "video_id": "9bZkp7q19f0",
+      "cover": "https://upload.wikimedia.org/wikipedia/ko/1/15/%EC%8B%B8%EC%9D%B4_-_%EA%B0%95%EB%82%A8%EC%8A%A4%ED%83%80%EC%9D%BC.png",
+      "emotion_id": 3
+    },
+    {
+      "id": 158,
+      "artist": "DJ DOC",
+      "name": "Run To You",
+      "video_id": "pR5sDqm8Wys",
+      "cover": "https://i1.sndcdn.com/artworks-000128746985-743ve3-t500x500.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 159,
+      "artist": "imagine dragon",
+      "name": "Warriors",
+      "video_id": "1uBPOu3si5w",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/f/fb/Song_Cover_for_%22Warriors%22_by_Imagine_Dragons.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 160,
+      "artist": "BTS",
+      "name": "Dynamite",
+      "video_id": "NvK9APEhcdk",
+      "cover": "https://images.genius.com/f3e5004043bf81134c629b0dece156c3.870x870x1.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 161,
+      "artist": "겨울왕국",
+      "name": "Love is an open door",
+      "video_id": "Jf5VVKZVpb8",
+      "cover": "https://images-na.ssl-images-amazon.com/images/I/91EFrR3k2PL._AC_UL600_SR600,600_.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 162,
+      "artist": "화사",
+      "name": "Maria",
+      "video_id": "GCWdUH18pPc",
+      "cover": "https://blog.kakaocdn.net/dn/cyHsOs/btqFoAuBArc/h0tkf2bW0EvKCT58GD4EF0/img.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 163,
+      "artist": "NCT127",
+      "name": "Sit Down",
+      "video_id": "CzRPThEv-uc",
+      "cover": "https://www.wowkorea.live/img/album/47/236106/307856_m.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 164,
+      "artist": "창모",
+      "name": "METEOR",
+      "video_id": "lOrU0MH0bMk",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/321/723/81321723_1575013966692_1_600x600.JPG",
+      "emotion_id": 3
+    },
+    {
+      "id": 165,
+      "artist": "이문세",
+      "name": "깊은 밤을 날아서",
+      "video_id": "4mozUs2aIAg",
+      "cover": "https://i.ytimg.com/vi/_xXLKrRFQUk/maxresdefault.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 166,
+      "artist": "이문세",
+      "name": "조조할인",
+      "video_id": "yFbUis9rieU",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/000/04/428/4428_500.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 167,
+      "artist": "제시",
+      "name": "눈누난나",
+      "video_id": "tJQaUW36pMw",
+      "cover": "https://www.m-i.kr/news/photo/202007/733837_514903_917.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 168,
+      "artist": "BTS",
+      "name": "Savage Love",
+      "video_id": "qvu4nPMyl3U",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/608/342/81608342_1601614360183_1_600x600.JPG",
+      "emotion_id": 3
+    },
+    {
+      "id": 169,
+      "artist": "청하",
+      "name": "PLAY",
+      "video_id": "jPFrHYXYxak",
+      "cover": "https://cdnimg.melon.co.kr/cm2/album/images/104/56/137/10456137_20200706153246_500.jpg?9bb5242191e45f3ff48d5683c8cf723d",
+      "emotion_id": 3
+    },
+    {
+      "id": 170,
+      "artist": "리듬파워",
+      "name": "6am",
+      "video_id": "_BzRiUPntX0",
+      "cover": "https://i.kfs.io/album/global/62793458,0v1/fit/500x500.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 171,
+      "artist": "청하",
+      "name": "롤러코스터",
+      "video_id": "900X9fDFLc4",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/101/29/940/10129940_500.jpg?7927567fafcd0927e9ea69da7ae70582",
+      "emotion_id": 3
+    },
+    {
+      "id": 172,
+      "artist": "소녀시대",
+      "name": "다시 만난 세계",
+      "video_id": "dFkDvvV60-Q",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/051/320/689/51320689_1323228273833_1_600x600.JPG",
+      "emotion_id": 3
+    },
+    {
+      "id": 173,
+      "artist": "헨리",
+      "name": "Trap",
+      "video_id": "vBtlveoOiRE",
+      "cover": "https://withdrama.co.kr/web/product/big/20191211/9afdb1807b75d59d6263e1dde4c824bd.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 174,
+      "artist": "악동뮤지션",
+      "name": "Dinosaur",
+      "video_id": "Slxqols4jLw",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/100/81/450/10081450_500.jpg?33ce1d2928445c509561fe6c1d334f98",
+      "emotion_id": 3
+    },
+    {
+      "id": 175,
+      "artist": "CIX",
+      "name": "MOVIE STAR",
+      "video_id": "eGIdNLh31lY",
+      "cover": "https://images.genius.com/eb4c516c8b2f5e9b38c02dd5364772ea.600x600x1.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 176,
+      "artist": "The Weeknd",
+      "name": "Blinding Lights",
+      "video_id": "fHI8X4OXluQ",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/e/e6/The_Weeknd_-_Blinding_Lights.png",
+      "emotion_id": 3
+    },
+    {
+      "id": 177,
+      "artist": "동방신기",
+      "name": "Rising Sun",
+      "video_id": "VYaC6N4ihDQ",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80111/8011132.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 178,
+      "artist": "동방신기",
+      "name": "주문",
+      "video_id": "9r1lvcI-D6k",
+      "cover": "https://image.bugsm.co.kr/album/images/500/1638/163881.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 179,
+      "artist": "신화",
+      "name": "Brand New",
+      "video_id": "6a5vdG-HigY",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80004/8000428.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 180,
+      "artist": "씨스타",
+      "name": "So Cool",
+      "video_id": "Pj3q0ZChgFE",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/020/06/957/2006957_500.jpg?6f5788f0274873a90899e95202de81d1/melon/resize/282/quality/80/optimize",
+      "emotion_id": 3
+    },
+    {
+      "id": 181,
+      "artist": "아이유",
+      "name": "에잇",
+      "video_id": "5_IYVichXbA",
+      "cover": "https://cdnimg.melon.co.kr/cm2/album/images/104/26/648/10426648_20200506153340_500.jpg?0ed92b652a9149e26387233529a32781",
+      "emotion_id": 3
+    },
+    {
+      "id": 182,
+      "artist": "백예린",
+      "name": "Square",
+      "video_id": "hROi9pWkZfE",
+      "cover": "https://t1.daumcdn.net/cfile/tistory/995A24495DF63E4012",
+      "emotion_id": 3
+    },
+    {
+      "id": 183,
+      "artist": "가호",
+      "name": "시작",
+      "video_id": "uqmv4xBLt5k",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203033/20303385.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 184,
+      "artist": "NCT U",
+      "name": "BOSS",
+      "video_id": "0AUFyFEt35g",
+      "cover": "https://i.pinimg.com/originals/b4/8a/3e/b48a3e53aebbb50eca10a096049c9eef.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 185,
+      "artist": "버즈",
+      "name": "나에게로 떠나는 여행",
+      "video_id": "5mDn3cUktv0",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80070/8007002.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 186,
+      "artist": "버즈",
+      "name": "비망록",
+      "video_id": "UA0oWOCs8_o",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80070/8007002.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 187,
+      "artist": "버즈",
+      "name": "Funny Rock",
+      "video_id": "shDNsOCmllg",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80070/8007002.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 188,
+      "artist": "버스커버스커",
+      "name": "벚꽃엔딩",
+      "video_id": "MzF5bWjKjjI",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/020/97/226/2097226_500.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 189,
+      "artist": "버스커버스커",
+      "name": "막걸리나",
+      "video_id": "TlgXOM2N5fo",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3113/311330.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 190,
+      "artist": "소녀시대-태티서",
+      "name": "Adrenaline (아드레날린)",
+      "video_id": "iWOQ_L7s2Mc",
+      "cover": "https://image.bugsm.co.kr/album/images/500/4507/450789.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 191,
+      "artist": "트와이스",
+      "name": "I CAN'T STOP ME",
+      "video_id": "3d-D5bLDZSk",
+      "cover": "https://sleeplessaliana.files.wordpress.com/2020/10/twice-2nd-album-eyes-wide-open.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 192,
+      "artist": "트와이스",
+      "name": "OOH-AHH하게",
+      "video_id": "0rtV5esQT6I",
+      "cover": "https://m.withdrama.co.kr/web/product/big/withdrama_5081.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 193,
+      "artist": "트와이스",
+      "name": "Cheer up",
+      "video_id": "prWVZFgZ3Zc",
+      "cover": "https://image.melon.co.kr/cm/album/images/026/81/333/2681333_org.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 194,
+      "artist": "MAX",
+      "name": "Checklist",
+      "video_id": "g5WaJyEPP5g",
+      "cover": "https://image.bugsm.co.kr/album/images/500/135627/13562762.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 195,
+      "artist": "블락비",
+      "name": "HER",
+      "video_id": "o0WCva5Stk4",
+      "cover": "https://image.bugsm.co.kr/album/images/500/4245/424591.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 196,
+      "artist": "Jodi Benson",
+      "name": "Part of Your World",
+      "video_id": "sg1Y6Vxl6Nk",
+      "cover": "https://m.media-amazon.com/images/I/51AyimeQitL._SS500_.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 197,
+      "artist": "에이프릴",
+      "name": "LALALILALA",
+      "video_id": "lT31E8V7GIo",
+      "cover": "https://cdnimg.melon.co.kr/cm2/album/images/104/21/256/10421256_20200422151947_500.jpg/melon/sharpen/0x1",
+      "emotion_id": 3
+    },
+    {
+      "id": 198,
+      "artist": "Celine Dion",
+      "name": "The power of love",
+      "video_id": "Y8HOfcYWZoo",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/000/90/237/90237_500.jpg/melon/quality/80/optimize",
+      "emotion_id": 3
+    },
+    {
+      "id": 199,
+      "artist": "The Weeknd",
+      "name": "I Feel It Coming",
+      "video_id": "qFLhGq0060w",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/The_Weeknd_-_I_Feel_It_Coming.png/220px-The_Weeknd_-_I_Feel_It_Coming.png",
+      "emotion_id": 3
+    },
+    {
+      "id": 200,
+      "artist": "MAX",
+      "name": "Worship",
+      "video_id": "qA7hsFLvepc",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/108/893/81108893_1538627533391_1_600x600.JPG",
+      "emotion_id": 3
+    },
+    {
+      "id": 201,
+      "artist": "김하온",
+      "name": "꽃",
+      "video_id": "JnRgyry6rs0",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/102/43/582/10243582_500.jpg?562fb8160ba54ea0d580cbe97d8249b5/melon/resize/282/quality/80/optimize",
+      "emotion_id": 3
+    },
+    {
+      "id": 202,
+      "artist": "김하온",
+      "name": "붕붕",
+      "video_id": "xLuwg23DmW0",
+      "cover": "https://image.bugsm.co.kr/album/images/500/201603/20160373.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 203,
+      "artist": "NCT DREAM",
+      "name": "같은 시간 같은 자리",
+      "video_id": "NOieK5hNXMo",
+      "cover": "https://image.bugsm.co.kr/album/images/500/201139/20113902.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 204,
+      "artist": "박재범",
+      "name": "All I Wanna Do",
+      "video_id": "lT7Q93fy1us",
+      "cover": "https://image.bugsm.co.kr/album/images/500/200620/20062066.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 205,
+      "artist": "박재범",
+      "name": "Drive",
+      "video_id": "8HFxbY8YvDk",
+      "cover": "https://image.bugsm.co.kr/album/images/500/200620/20062066.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 206,
+      "artist": "Dababy",
+      "name": "Suge",
+      "video_id": "KvuQNNVrbtM",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 207,
+      "artist": "프라이머리",
+      "name": "cloud",
+      "video_id": "qEgAzTbBkgQ",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/604/411/81604411_1601272444672_1_600x600.JPG",
+      "emotion_id": 3
+    },
+    {
+      "id": 208,
+      "artist": "프라이머리",
+      "name": "씨스루",
+      "video_id": "Na7voCrpzF0",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3277/327741.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 209,
+      "artist": "오마이걸",
+      "name": "Windy Day",
+      "video_id": "AJqhKWo89FQ",
+      "cover": "https://withdrama.co.kr/web/product/big/201605/5559_shop1_489540.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 210,
+      "artist": "f(x)",
+      "name": "All mine",
+      "video_id": "f4_3dWqu6kM",
+      "cover": "https://image.bugsm.co.kr/album/images/500/200467/20046728.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 211,
+      "artist": "박세아",
+      "name": "희망 (original version)",
+      "video_id": "PPoHpGzcWLI",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/622/512/80622512_1435629628814_1_600x600.JPG",
+      "emotion_id": 3
+    },
+    {
+      "id": 212,
+      "artist": "Dua Lipa",
+      "name": "Physical",
+      "video_id": "Dzs9hf9Cik8",
+      "cover": "https://cdnimg.melon.co.kr/cm2/artistcrop/images/008/89/721/889721_20201021143804_500.jpg?ac19bb78954f9497ec88356cc6a4af8f/melon/quality/80/optimize",
+      "emotion_id": 3
+    },
+    {
+      "id": 213,
+      "artist": "Little Mix",
+      "name": "Holiday",
+      "video_id": "-7cThZB-jCY",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/8/89/Little_Mix_-_Holiday.png",
+      "emotion_id": 3
+    },
+    {
+      "id": 214,
+      "artist": "Glen Check",
+      "name": "French Virgin Party",
+      "video_id": "V1XOBNwAHcw",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3224/322456.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 215,
+      "artist": "Samm Henshaw",
+      "name": "Church",
+      "video_id": "I_8-P4eZ1jA",
+      "cover": "https://m.media-amazon.com/images/I/51RwvMj-0YL._SS500_.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 216,
+      "artist": "Jason Mraz",
+      "name": "Geek in the Pink",
+      "video_id": "FkkzQLf874g",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/022/61/168/2261168_500.jpg/melon/quality/80/optimize",
+      "emotion_id": 3
+    },
+    {
+      "id": 217,
+      "artist": "오마이걸",
+      "name": "불꽃놀이",
+      "video_id": "fqPPmsRfBG8",
+      "cover": "https://image.yes24.com/momo/TopCate1972/MidCate010/197193671.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 218,
+      "artist": "이날치",
+      "name": "Tiger is Coming",
+      "video_id": "vmIhY9k5KYM",
+      "cover": "https://i.ytimg.com/vi/lJPXb2oLhkI/maxresdefault.jpg",
+      "emotion_id": 3
+    },
+    {
+      "id": 219,
+      "artist": "오마이걸",
+      "name": "Coloring Book",
+      "video_id": "7cjZFjWBZI0",
+      "cover": "https://w.namu.la/s/6790662c6b954482e929dc214669848a5104f8f33f359b8a18c74ff1acc58c15a38116c80e18a74f2ea10af00210ae143ce5b7cf3fc8729617bbee9e40d2a0a3c715d07d8021a69df9edeab7c604fab60c87bd320c789b45a7ee807ad896b2848ef9a4bb5d127a9d8ff2e499ba1cab73",
+      "emotion_id": 3
+    },
+    {
+      "id": 220,
+      "artist": "SG워너비",
+      "name": "Ordinary People",
+      "video_id": "LiJ2wV9l8vA",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80229/8022965.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 221,
+      "artist": "지코(ZICO)",
+      "name": "아무 노래",
+      "video_id": "GOtF5_Ow0_Y",
+      "cover": "https://cdnimg.melon.co.kr/cm2/album/images/103/75/118/10375118_20200113150502_500.jpg?b647b682e56da69ebcb1876f019e17c0",
+      "emotion_id": 4
+    },
+    {
+      "id": 222,
+      "artist": "Malena Stark",
+      "name": "A Little Bit Of Faith",
+      "video_id": "-yGHxh4QryY",
+      "cover": "https://m.media-amazon.com/images/I/71Hra4TohtL._SS500_.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 223,
+      "artist": "Kae Sun",
+      "name": "Ship and The Globe",
+      "video_id": "HYJ3aasdMw8",
+      "cover": "https://image.yes24.com/goods/15059950/L",
+      "emotion_id": 4
+    },
+    {
+      "id": 224,
+      "artist": "검정치마",
+      "name": "Hollywood",
+      "video_id": "WKroJiUR1Ag",
+      "cover": "https://image.yes24.com/goods/87608804/L",
+      "emotion_id": 4
+    },
+    {
+      "id": 225,
+      "artist": "지영훈",
+      "name": "흔적",
+      "video_id": "WaAU0tuFrUI",
+      "cover": "https://image.bugsm.co.kr/album/images/500/6706/670695.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 226,
+      "artist": "자이언티",
+      "name": "눈",
+      "video_id": "uUt4lwddk8U",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/101/14/798/10114798_500.jpg?07b84f5713dae3b06aabefe13bceda56",
+      "emotion_id": 4
+    },
+    {
+      "id": 227,
+      "artist": "정인,개리",
+      "name": "사람냄새",
+      "video_id": "-t2BFc8QIrA",
+      "cover": "https://image.bugsm.co.kr/album/images/500/4321/432107.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 228,
+      "artist": "엔플라잉",
+      "name": "옥탑방",
+      "video_id": "3jzBzplq_GI",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/102/38/711/10238711_500.jpg?7cbf13fddf277329634c9a42af6e85ce",
+      "emotion_id": 4
+    },
+    {
+      "id": 229,
+      "artist": "Celine Dion",
+      "name": "Because You Loved Me",
+      "video_id": "fpl4if07ics",
+      "cover": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990CD43359A8275A11",
+      "emotion_id": 4
+    },
+    {
+      "id": 230,
+      "artist": "Jason Mraz",
+      "name": "I'm Yours",
+      "video_id": "DbHhmn8Pl0k",
+      "cover": "https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile6.uf.tistory.com%2Fimage%2F2530B437539B21E127B1D6",
+      "emotion_id": 4
+    },
+    {
+      "id": 231,
+      "artist": "Jason Mraz",
+      "name": "Lucky",
+      "video_id": "GSL6p4MLv2w",
+      "cover": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990D3A335A26F72424",
+      "emotion_id": 4
+    },
+    {
+      "id": 232,
+      "artist": "우원재",
+      "name": "시차",
+      "video_id": "RsHq6Q-7NsU",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/100/93/389/10093389_500.jpg?2850f31c924cff30df757230bb71de13",
+      "emotion_id": 4
+    },
+    {
+      "id": 233,
+      "artist": "cigarettes after sex",
+      "name": "k",
+      "video_id": "L4sbDxR22z4",
+      "cover": "https://www.indeepmusicarchive.net/wp-content/uploads/2019/01/Cigarettes-After-Sex-K-single-cover-2017-300x300.png",
+      "emotion_id": 4
+    },
+    {
+      "id": 234,
+      "artist": "CHEEZE",
+      "name": "퇴근시간",
+      "video_id": "HOJewCP3glw",
+      "cover": "https://image.yes24.com/goods/17881822/L",
+      "emotion_id": 4
+    },
+    {
+      "id": 235,
+      "artist": "CHEEZE",
+      "name": "어떻게 생각해",
+      "video_id": "XQirTwsD_bM",
+      "cover": "https://image.bugsm.co.kr/album/images/500/200407/20040724.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 236,
+      "artist": "하동균&윤종신",
+      "name": "워커홀릭",
+      "video_id": "mNeA5th2DDs",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/267/072/81267072_1568097517557_1_600x600.JPG",
+      "emotion_id": 4
+    },
+    {
+      "id": 237,
+      "artist": "장범준",
+      "name": "노래방에서",
+      "video_id": "BUzI-awsi1s",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202394/20239451.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 238,
+      "artist": "숀",
+      "name": "Way Back Home",
+      "video_id": "1rP7ziPDDt0",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/101/79/508/10179508_500.jpg?7a5f915026311f6a136facc7aa9f196c",
+      "emotion_id": 4
+    },
+    {
+      "id": 239,
+      "artist": "Pink Sweat$",
+      "name": "Honesty",
+      "video_id": "F4_eZI--8Vk",
+      "cover": "https://lastfm.freetls.fastly.net/i/u/ar0/3a42f0e64690260901ed1c716d93a629.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 240,
+      "artist": "화이트",
+      "name": "네모의 꿈",
+      "video_id": "pe-xR_E6v1k",
+      "cover": "https://image.bugsm.co.kr/album/images/500/54/5432.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 241,
+      "artist": "신용재",
+      "name": "첫줄",
+      "video_id": "zFoq37E_61o",
+      "cover": "https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile7.uf.tistory.com%2Fimage%2F99076D415EFC565C1FC17A",
+      "emotion_id": 4
+    },
+    {
+      "id": 242,
+      "artist": "이문세",
+      "name": "붉은 노을",
+      "video_id": "tZN2JcR_9b4",
+      "cover": "https://mblogthumb-phinf.pstatic.net/MjAxODAxMDdfMTg2/MDAxNTE1Mjc3Mjg0MTA1.E9CiMpUnaiEXk4_bD4E1QHJ1kPyShUkWyL0qxCWyMhMg.qD3fHzkvXxKR1B3JgQKQUkG7qWu3boFURh5E7hcYKc4g.JPEG.kjwkkht1125/image_1478160861515277212295.jpg?type=w800",
+      "emotion_id": 4
+    },
+    {
+      "id": 243,
+      "artist": "Taylor Swift",
+      "name": "Daylight",
+      "video_id": "u9raS7-NisU",
+      "cover": "https://static.wikia.nocookie.net/taylor-swift/images/6/66/1856f767aef5bd5a0adb7585d4958c21.png/revision/latest?cb=20191124184711",
+      "emotion_id": 4
+    },
+    {
+      "id": 244,
+      "artist": "아비치",
+      "name": "Wake Me Up",
+      "video_id": "K9fISloOznc",
+      "cover": "https://mblogthumb-phinf.pstatic.net/MjAxODA0MjFfMTEx/MDAxNTI0Mjg2Mjc2NjU1.ZY2YkcdPVKKbJA6I4WpYpEtccId7i7OCZq6SHk7Re6wg.jZ9c6d0LpieKVZxgvi-aQ8DcCsFBT2Bf5AcNoJ8fMZcg.JPEG.kjl784000/1889595988-01_avicii-QQHG.jpg?type=w800",
+      "emotion_id": 4
+    },
+    {
+      "id": 245,
+      "artist": "5 Seconds of Summer",
+      "name": "High",
+      "video_id": "Z4NUIpynH0s",
+      "cover": "https://mblogthumb-phinf.pstatic.net/MjAyMDA0MjlfMTU5/MDAxNTg4MDg4NzA2MjE1.2YuDwfkF_i5hNzfMmZOgA5a8e6yx0vJSLFcDd_Jmyysg.cWcU8OlMRy4R7uiTBVj8NvJdEXh3JLcC6qQtF3WnR28g.JPEG.skh9740/bc53ebe06c0c39d16990e14e1439d802.1000x1000x1.jpg?type=w800",
+      "emotion_id": 4
+    },
+    {
+      "id": 246,
+      "artist": "JIDA",
+      "name": "Autumn Breeze",
+      "video_id": "EzQsoZYY470",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/100/08/087/10008087_500.jpg?bda449fcc56c299fd33a03174ddbc514",
+      "emotion_id": 4
+    },
+    {
+      "id": 247,
+      "artist": "악동뮤지션",
+      "name": "리얼리티",
+      "video_id": "v4mgNaeNQzE",
+      "cover": "https://image.bugsm.co.kr/album/images/500/200752/20075281.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 248,
+      "artist": "Stacey Kent",
+      "name": "This Happy Madness",
+      "video_id": "gq1z9FUBxiE",
+      "cover": "https://i.ytimg.com/vi/eX60Gj2lGH4/hqdefault.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 249,
+      "artist": "원더걸스",
+      "name": "아름다운 그대에게",
+      "video_id": "haPK3oeW02g",
+      "cover": "https://image.bugsm.co.kr/album/images/500/200436/20043693.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 250,
+      "artist": "임창정",
+      "name": "또 다시 사랑",
+      "video_id": "7e54Bvrf3Vs",
+      "cover": "https://image.bugsm.co.kr/album/images/500/5298/529897.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 251,
+      "artist": "헤이즈",
+      "name": "비도 오고 그래서",
+      "video_id": "afxLaQiLu-o",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/100/74/454/10074454_500.jpg?9f3f84a18af60eba11828afcf1ffd1fd/melon/quality/80/optimize",
+      "emotion_id": 4
+    },
+    {
+      "id": 252,
+      "artist": "자우림",
+      "name": "일탈",
+      "video_id": "fD8iCyqcRS8",
+      "cover": "https://image.bugsm.co.kr/album/images/500/46/4667.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 253,
+      "artist": "비와이",
+      "name": "Day Day",
+      "video_id": "AMWOLv4Y_0Y",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/026/96/637/2696637_500.jpg?a73cf7b2dd3889b819d963ace598a054",
+      "emotion_id": 4
+    },
+    {
+      "id": 254,
+      "artist": "ph-1,kidmilli,루피",
+      "name": "good day",
+      "video_id": "GlxCLA2DE2g",
+      "cover": "https://image.bugsm.co.kr/album/images/500/201984/20198427.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 255,
+      "artist": "행주, 영비, 해쉬스완, 킬라그램",
+      "name": "요즘것들",
+      "video_id": "sF8Uk3YyT54",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/975/310/80975310_1501836902302_1_600x600.JPG",
+      "emotion_id": 4
+    },
+    {
+      "id": 256,
+      "artist": "Mena Massoud, Naomi Scott",
+      "name": "A Whole New World",
+      "video_id": "3UAWm-D8in4",
+      "cover": "https://www.broadwayworld.com/ezoimgfmt/cloudimages.broadwayworld.com/columnpic10/8DBB6E23-9A1B-4CC8-BA53F7E83CAE09D2.jpg?ezimgfmt=rs:387x387/rscb12/ng:webp/ngcb12",
+      "emotion_id": 4
+    },
+    {
+      "id": 257,
+      "artist": "디오",
+      "name": "괜찮아도 괜찮아",
+      "video_id": "ZhnVJcP4Mxg",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/103/01/811/10301811_500.jpg?039203f014266d4701100ca6277271f3",
+      "emotion_id": 4
+    },
+    {
+      "id": 258,
+      "artist": "김동률",
+      "name": "출발",
+      "video_id": "wTeiabRmcsQ",
+      "cover": "https://mblogthumb-phinf.pstatic.net/MjAxODEyMDNfMTc3/MDAxNTQzNzkwOTQ0NDI2.Lb5FaF-dR6M8WrMvaSZ5lEViX_M4X-F4Ffw7FIX_OdIg.IsFrm4oMtrl4VJpgitNmSn5nGp58_JeRr08PJ8mLXZQg.JPEG.raintaro/1.jpg?type=w2",
+      "emotion_id": 4
+    },
+    {
+      "id": 259,
+      "artist": "하림",
+      "name": "출국",
+      "video_id": "ASVuwVhpIEg",
+      "cover": "https://image.bugsm.co.kr/album/images/500/157/15709.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 260,
+      "artist": "강산에",
+      "name": "거꾸로 강을 거슬러 오르는 저 힘찬 연어들처럼",
+      "video_id": "tLfPWyfHfWg",
+      "cover": "https://image.bugsm.co.kr/album/images/500/30/3034.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 261,
+      "artist": "Ruel",
+      "name": "Painkiller",
+      "video_id": "dTwj7PhpY9M",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/f/f8/Painkiller_by_Ruel.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 262,
+      "artist": "서교동의 밤",
+      "name": "City Girl City Boy",
+      "video_id": "iZclv_JTD0U",
+      "cover": "https://image.bugsm.co.kr/album/images/500/201881/20188136.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 263,
+      "artist": "Nashpeep",
+      "name": "맴맴",
+      "video_id": "q7OLrkfQolk",
+      "cover": "https://image.bugsm.co.kr/album/images/500/201857/20185714.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 264,
+      "artist": "SOLE, THAMA",
+      "name": "Google Map",
+      "video_id": "Yya_wRvq8ws",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/693/612/81693612_1603781125714_1_600x600.JPG",
+      "emotion_id": 4
+    },
+    {
+      "id": 265,
+      "artist": "Tom Misch",
+      "name": "It Runs Through Me",
+      "video_id": "QU_CoZvbLE4",
+      "cover": "https://image.bugsm.co.kr/album/images/500/7292/729277.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 266,
+      "artist": "god",
+      "name": "길",
+      "video_id": "KgXtSx8ublA",
+      "cover": "https://image.auction.co.kr/itemimage/18/01/c9/1801c9f9e1.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 267,
+      "artist": "god",
+      "name": "반대가 끌리는 이유",
+      "video_id": "jHSleVnZ_QY",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80034/8003496.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 268,
+      "artist": "규현",
+      "name": "화려하지 않은 고백",
+      "video_id": "ftQF5AbDMLM",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203161/20316159.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 269,
+      "artist": "조정석",
+      "name": "아로하",
+      "video_id": "3DOkxQ3HDXE",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203142/20314288.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 270,
+      "artist": "스탠딩 에그",
+      "name": "오래된 노래",
+      "video_id": "bW3XExLBf7A",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/021/48/596/2148596_500.jpg/melon/resize/282/quality/80/optimize",
+      "emotion_id": 4
+    },
+    {
+      "id": 271,
+      "artist": "스탠딩 에그",
+      "name": "Little Star",
+      "video_id": "dI8NZsjRyGk",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/261/762/80261762_1309850875061_1_600x600.JPG",
+      "emotion_id": 4
+    },
+    {
+      "id": 272,
+      "artist": "카더가든",
+      "name": "밤새",
+      "video_id": "IwiU0tdT-t4",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203473/20347347.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 273,
+      "artist": "기리보이",
+      "name": "연기",
+      "video_id": "XPwnhxc3eu8",
+      "cover": "https://i2.wp.com/m.izm.co.kr/wp-content/uploads/2020/10/%EC%98%81%ED%99%94%EA%B0%99%EA%B2%8C.jpg?fit=580%2C580&ssl=1",
+      "emotion_id": 4
+    },
+    {
+      "id": 274,
+      "artist": "어반자카파",
+      "name": "그대 고운 내사랑",
+      "video_id": "vANdEL9vpjw",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203175/20317548.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 275,
+      "artist": "어반자카파",
+      "name": "코끝에겨울",
+      "video_id": "_54sB2ztb4k",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3987/398757.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 276,
+      "artist": "로이킴",
+      "name": "힐링이 필요해",
+      "video_id": "dY8VsUCRbwU",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3487/348705.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 277,
+      "artist": "딕펑스",
+      "name": "VIVA청춘",
+      "video_id": "rl3aRKyDuHg",
+      "cover": "https://image.yes24.com/goods/8768845/L",
+      "emotion_id": 4
+    },
+    {
+      "id": 278,
+      "artist": "프라이머리",
+      "name": "3호선 매봉역",
+      "video_id": "78_q9YGwXts",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3456/345641.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 279,
+      "artist": "오왠",
+      "name": "오늘",
+      "video_id": "NJy0pG7FQrc",
+      "cover": "https://image.bugsm.co.kr/album/images/500/200342/20034282.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 280,
+      "artist": "카더가든",
+      "name": "나무",
+      "video_id": "cHkDZ1ekB9U",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/102/74/611/10274611_500.jpg?90d860a67228d7aeba30f062a0fdae5d",
+      "emotion_id": 4
+    },
+    {
+      "id": 281,
+      "artist": "10cm",
+      "name": "Tight",
+      "video_id": "qKrtPOwwmfg",
+      "cover": "https://image.bugsm.co.kr/album/images/500/9962/996242.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 282,
+      "artist": "오반",
+      "name": "어떻게지내",
+      "video_id": "rVXeArOQIs4",
+      "cover": "https://image.bugsm.co.kr/album/images/500/203103/20310325.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 283,
+      "artist": "존박",
+      "name": "네 생각",
+      "video_id": "QLmOezNMPnY",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/026/97/716/2697716_500.jpg/melon/resize/282/quality/80/optimize",
+      "emotion_id": 4
+    },
+    {
+      "id": 284,
+      "artist": 40,
+      "name": "듣는편지",
+      "video_id": "a5oeNwoCi-s",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3558/355860.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 285,
+      "artist": "죠지",
+      "name": "Boat",
+      "video_id": "OWL1RNX7p90",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/101/11/920/10111920_500.jpg?56adacb0e8416568714ff92fbdc14558/melon/quality/80/optimize",
+      "emotion_id": 4
+    },
+    {
+      "id": 286,
+      "artist": "태연",
+      "name": "Starlight",
+      "video_id": "8zvWtLxCrLw",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/026/93/802/2693802_500.jpg?dbe8660f9fee073a15f54e75b571cfb9",
+      "emotion_id": 4
+    },
+    {
+      "id": 287,
+      "artist": "I.O.I (아이오아이)",
+      "name": "벚꽃이 지면",
+      "video_id": "a7R5XAfFwSk",
+      "cover": "https://image.bugsm.co.kr/album/images/500/200340/20034077.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 288,
+      "artist": "아이유",
+      "name": "시간의바깥",
+      "video_id": "U9aJbs4Prfo",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202860/20286013.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 289,
+      "artist": "아이유",
+      "name": "unlucky",
+      "video_id": "l5Rb1pNre40",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202860/20286013.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 290,
+      "artist": "혁오",
+      "name": "Help",
+      "video_id": "iKx4WvgkaEc",
+      "cover": "https://image.bugsm.co.kr/album/images/350/203029/20302903.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 291,
+      "artist": "언니네 이발관",
+      "name": "아름다운 것",
+      "video_id": "E_A28NAfYdY",
+      "cover": "https://image.bugsm.co.kr/album/images/500/1612/161262.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 292,
+      "artist": "Smashing Pumpkins",
+      "name": 1979,
+      "video_id": "4aeETEoNfOg",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/8/80/SmashingPumpkins-1979.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 293,
+      "artist": "김동률",
+      "name": "여름의 끝자락",
+      "video_id": "YVB8vL7rBjY",
+      "cover": "https://img.hankyung.com/photo/201908/BF.20317963.1-1200x.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 294,
+      "artist": "백예린",
+      "name": "Rest",
+      "video_id": "IqfFZ5cJ-WU",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/329/064/81329064_1575961779895_1_600x600.JPG",
+      "emotion_id": 4
+    },
+    {
+      "id": 295,
+      "artist": "프라이머리",
+      "name": "입장정리",
+      "video_id": "JD42_J2FaoU",
+      "cover": "https://image.bugsm.co.kr/album/images/500/3456/345641.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 296,
+      "artist": "JazzyFact",
+      "name": "아까워",
+      "video_id": "ZxBV5kC4Gcc",
+      "cover": "https://image.bugsm.co.kr/album/images/500/2431/243191.jpg",
+      "emotion_id": 4
+    },
+    {
+      "id": 297,
+      "artist": "블락비",
+      "name": "very good(Rough ver.)",
+      "video_id": "DTdie3u7ROI",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/420/516/80420516_1406124232427_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 5
+    },
+    {
+      "id": 298,
+      "artist": "마미손",
+      "name": "소년점프",
+      "video_id": "Ldoi4jfsZG4",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202064/20206446.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 299,
+      "artist": "panic! At the Disco",
+      "name": "High Hopes",
+      "video_id": "fH_OnJk6QqU",
+      "cover": "https://vignette.wikia.nocookie.net/panicatthedisco/images/5/5c/High_Hopes.jpeg/revision/latest?cb=20190725043757",
+      "emotion_id": 5
+    },
+    {
+      "id": 300,
+      "artist": "Doja Cat",
+      "name": "Boss Bitch",
+      "video_id": "9QAevjELLMs",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/7/7f/Doja_Cat_-_Boss_Bitch.png",
+      "emotion_id": 5
+    },
+    {
+      "id": 301,
+      "artist": "Sax",
+      "name": "Fleur East",
+      "video_id": "N5P2GfF71NI",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/737/902/80737902_1447226438090_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 5
+    },
+    {
+      "id": 302,
+      "artist": "다이나믹 듀오",
+      "name": "출첵",
+      "video_id": "etIEvQ_qsP0",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/003/52/134/352134_500.jpg/melon/resize/282/quality/80/optimize",
+      "emotion_id": 5
+    },
+    {
+      "id": 303,
+      "artist": "Nirvana",
+      "name": "Smells Like Teen Spirit",
+      "video_id": "hTWKbfoikeg",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/020/15/169/2015169_500.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 304,
+      "artist": "마마무",
+      "name": "HIP",
+      "video_id": "KhTeiaCezwM",
+      "cover": "https://post-phinf.pstatic.net/MjAxOTExMTRfMTAy/MDAxNTczNjk5NzMxOTY3.y2OQOAZy63TArDEXw1_0otEEHYYLcQK7nBTW81pEpYkg.D8aTwe52g7BLVUxD8qRWYhyTpySqi1MiL4kmJPcTuGsg.JPEG/%EB%A7%88%EB%A7%88%EB%AC%B4.jpg?type=w1200",
+      "emotion_id": 5
+    },
+    {
+      "id": 305,
+      "artist": "5 Seconds Of Summer",
+      "name": "Teeth",
+      "video_id": "JWeJHN5P-E8",
+      "cover": "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMzFfMjMg/MDAxNTc3NzY5OTc4MzA3.DKZxnQCFkoXrq_Hj_DXn8TJjoT0fq5ufeS9UIMbhEwUg.DGt_-zlo1DgkhdGUGROOzRzpBP18lSULL_7pTxk-J_4g.JPEG.kjl784000/Teeth.jpg?type=w800",
+      "emotion_id": 5
+    },
+    {
+      "id": 306,
+      "artist": "Bruno Mars",
+      "name": "Finesse (Remix) (feat. Cardi B)",
+      "video_id": "LsoLEjrDogU",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/101/25/680/10125680_500.jpg?a3c3a026608b35f26473bf198a67266c/melon/quality/80/optimize",
+      "emotion_id": 5
+    },
+    {
+      "id": 307,
+      "artist": "Taylor Swift",
+      "name": "Bad Blood",
+      "video_id": "QcIy9NiNbmo",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png",
+      "emotion_id": 5
+    },
+    {
+      "id": 308,
+      "artist": "장기하와 얼굴들",
+      "name": "그건 니 생각이고",
+      "video_id": "h28fhU-mjDA",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/102/16/020/10216020_500.jpg?b22a5a35a5d8040e040e0a12bbc2ed5b/melon/quality/80/optimize",
+      "emotion_id": 5
+    },
+    {
+      "id": 309,
+      "artist": "나훈아",
+      "name": "테스형",
+      "video_id": "MRrXRlVd0P0",
+      "cover": "https://img.khan.co.kr/news/2020/09/02/l_2020090201000363900023343.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 310,
+      "artist": "옥상달빛",
+      "name": "수고했어, 오늘도",
+      "video_id": "U3e4AOd-DzE",
+      "cover": "https://image.bugsm.co.kr/album/images/500/2793/279351.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 311,
+      "artist": "John legend",
+      "name": "Never break",
+      "video_id": "QqLvUJiU_DA",
+      "cover": "https://image.bugsm.co.kr/album/images/500/143123/14312380.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 312,
+      "artist": "MAX",
+      "name": "Love me less",
+      "video_id": "ZznsQjzlHIE",
+      "cover": "https://blogthumb.pstatic.net/MjAxOTA0MjFfMTY4/MDAxNTU1ODI2MTYxNDEw.FunyxuCSy5bJb_OwA69ZNuRtFiaq7NIDw-hg4EKVqfsg.IzLvlUOuIP6W9O1mySMy1dPQ708GcJ38rEVOSlGAKqgg.JPEG.mazokiki0405/max_-_love_me_less.jpeg?type=w2",
+      "emotion_id": 5
+    },
+    {
+      "id": 313,
+      "artist": "엠씨더맥스",
+      "name": "잠시만안녕",
+      "video_id": "6ySoUF-9Ofk",
+      "cover": "https://image.bugsm.co.kr/album/images/500/222/22287.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 314,
+      "artist": "이효리",
+      "name": "Chitty Chitty Bang Bang",
+      "video_id": "5cnZrmpk69s",
+      "cover": "https://spnimage.edaily.co.kr/images/Photo/files/NP/P/2010/03/PP10032900004.JPG",
+      "emotion_id": 5
+    },
+    {
+      "id": 315,
+      "artist": "Nell",
+      "name": "믿어선 안될 말",
+      "video_id": "59z78M-E9z0",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/021/71/897/2171897_500.jpg/melon/quality/80/optimize",
+      "emotion_id": 5
+    },
+    {
+      "id": 316,
+      "artist": "Walk The Moon",
+      "name": "Shut Up and Dance",
+      "video_id": "GGsuLVlLObc",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/488/300/80488300_1417599050479_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 5
+    },
+    {
+      "id": 317,
+      "artist": "오아시스",
+      "name": "Don't Look Back in Anger",
+      "video_id": "dxOn-aZZ9z0",
+      "cover": "https://blogthumb.pstatic.net/MjAxOTA5MTZfMjY2/MDAxNTY4NTk5NDM0MDQ3.FosN1hjYklpY63b13ebbtwMjDQ80jYPO_31U801pPlQg.-NtUqjoBEcjTHJ-LOLYOq-j0PWINaBUU5pFxqJ_1N7Ug.JPEG.hemerastella/Don%27t_Look_Back_In_Anger.jpg?type=w2",
+      "emotion_id": 5
+    },
+    {
+      "id": 318,
+      "artist": "자이언티",
+      "name": "헷갈려",
+      "video_id": "rjPK7sKAllk",
+      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQnhujDHkqwVIhNoFPIXCmosUrDywwq-HQSyA&usqp=CAU",
+      "emotion_id": 5
+    },
+    {
+      "id": 319,
+      "artist": "아이유",
+      "name": "에잇",
+      "video_id": "5_IYVichXbA",
+      "cover": "https://t1.daumcdn.net/thumb/R720x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/T0F/image/JscMkKXeH8QTnmeBM6qNTDiXJWc.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 320,
+      "artist": "더 크로스",
+      "name": "Don't Cry",
+      "video_id": "QfiJEggNNnk",
+      "cover": "https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile30.uf.tistory.com%2Fimage%2F2475404852143EF539ABFD",
+      "emotion_id": 5
+    },
+    {
+      "id": 321,
+      "artist": "에픽하이",
+      "name": "노땡큐",
+      "video_id": "IWv9WeuJVMk",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/101/05/030/10105030_500.jpg?ebdf07cb0a796843c67b715cb86a9255/melon/resize/282/quality/80/optimize",
+      "emotion_id": 5
+    },
+    {
+      "id": 322,
+      "artist": "엠씨더맥스",
+      "name": "사계",
+      "video_id": "H30Dguzmrf0",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202198/20219840.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 323,
+      "artist": "Andrea Bocelli, Celine Dion",
+      "name": "The prayer",
+      "video_id": "W8DGuvab_Lc",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/5/59/The_Prayer_promo.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 324,
+      "artist": "태연",
+      "name": "11:11",
+      "video_id": "XReCgXhOg3E",
+      "cover": "https://i1.sndcdn.com/artworks-000192316000-ana50v-t500x500.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 325,
+      "artist": "창모",
+      "name": "Band",
+      "video_id": "bsgBUM2Mnsw",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202588/20258860.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 326,
+      "artist": "무키무키만만수",
+      "name": "안드로메다",
+      "video_id": "0LL8_AFBlGo",
+      "cover": "https://image.yes24.com/goods/6854912/L",
+      "emotion_id": 5
+    },
+    {
+      "id": 327,
+      "artist": "마미손",
+      "name": "별의노래",
+      "video_id": "f1nHP9OdFhc",
+      "cover": "https://image.bugsm.co.kr/album/images/500/9553/955312.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 328,
+      "artist": "마미손",
+      "name": "땡큐땡큐",
+      "video_id": "_x-8tI1V4QQ",
+      "cover": "https://image.bugsm.co.kr/album/images/500/9553/955312.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 329,
+      "artist": "2NE1",
+      "name": "Can't Nobody",
+      "video_id": "NZkDb5144M8",
+      "cover": "https://4.bp.blogspot.com/_zjVydElJEho/TMxksZE83FI/AAAAAAAAAro/yQhQtDcKibI/s1600/Made+by+F**CKED.png",
+      "emotion_id": 5
+    },
+    {
+      "id": 330,
+      "artist": "버스커버스커",
+      "name": "소나기",
+      "video_id": "xtxVjz_dJXI",
+      "cover": "https://p2.music.126.net/-79yip9zu8K1iuEOBBlUcw==/6645448278388950.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 331,
+      "artist": "Simon Dominic",
+      "name": "짠해",
+      "video_id": "BiqVnkNWksc",
+      "cover": "https://1.bp.blogspot.com/-WGbZtwoC-vY/TqS9dqgUPNI/AAAAAAAABeM/KuW2VcYka5w/s280/simond-lyrics-mp3-at-kakakcashierblogspotcom.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 332,
+      "artist": "데이식스",
+      "name": "좀비",
+      "video_id": "TnRdJcrCt6c",
+      "cover": "https://cdnimg.melon.co.kr/cm2/album/images/104/28/497/10428497_20200511134253_500.jpg?19660516aa86598ffe431579a1695f9c/melon/resize/282/quality/80/optimize",
+      "emotion_id": 5
+    },
+    {
+      "id": 333,
+      "artist": "블랙핑크",
+      "name": "Kill this love",
+      "video_id": "EVoGS2m-qyc",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/102/70/288/10270288_500.jpg?a72782078f03aa8b0de1c17c1bf782ba",
+      "emotion_id": 5
+    },
+    {
+      "id": 334,
+      "artist": "블랙핑크",
+      "name": "How you like that",
+      "video_id": "8mA6jIeojnk",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/e/eb/Blackpink_-_How_You_Like_That.png",
+      "emotion_id": 5
+    },
+    {
+      "id": 335,
+      "artist": "트웰브",
+      "name": "Highway",
+      "video_id": "kItao5VA7C0",
+      "cover": "https://t1.daumcdn.net/cfile/tistory/99DD9B4F5F32D32C32",
+      "emotion_id": 5
+    },
+    {
+      "id": 336,
+      "artist": "매드클라운",
+      "name": "나쁜 피",
+      "video_id": "yvEkvSBS0u4",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/845/749/80845749_1468575004187_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 5
+    },
+    {
+      "id": 337,
+      "artist": "방탄소년단",
+      "name": "Fire",
+      "video_id": "ZbWo60LyvXc",
+      "cover": "https://i.pinimg.com/originals/9e/99/c4/9e99c4e82208c4df4686f5626b3052b9.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 338,
+      "artist": "빈지노",
+      "name": "Break",
+      "video_id": "oqPjeXOXKls",
+      "cover": "https://i.pinimg.com/originals/c2/12/9c/c2129caa0106f574fbe2b86f9673773b.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 339,
+      "artist": "루엘",
+      "name": "Painkiller",
+      "video_id": "Lc5kWC2SP8s",
+      "cover": "https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile6.uf.tistory.com%2Fimage%2F999205395CDA7A3A1BC6AA",
+      "emotion_id": 5
+    },
+    {
+      "id": 340,
+      "artist": "TONES AND I",
+      "name": "DANCE MONKEY",
+      "video_id": "Hx4nWW9z0ig",
+      "cover": "https://i1.sndcdn.com/artworks-000590045237-wp59n7-t500x500.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 341,
+      "artist": "식케이",
+      "name": "FIRE",
+      "video_id": "2rOHgG3vUNU",
+      "cover": "https://t1.daumcdn.net/cfile/tistory/99CA68475BCED0B236",
+      "emotion_id": 5
+    },
+    {
+      "id": 342,
+      "artist": "스윙스, 한요한",
+      "name": "호루라기",
+      "video_id": "Ut1zNjierRQ",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/234/429/81234429_1561623895165_1_600x600.JPG",
+      "emotion_id": 5
+    },
+    {
+      "id": 343,
+      "artist": "한요한",
+      "name": "Mood Maker",
+      "video_id": "lC5G6ZLtj8o",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/101/93/595/10193595_500.jpg?0964b146631b7f783ce30b16ba222c23",
+      "emotion_id": 5
+    },
+    {
+      "id": 344,
+      "artist": "당 디기 방",
+      "name": "레게 강 같은 평화 RGP",
+      "video_id": "z035z3A8HDs",
+      "cover": "https://pbs.twimg.com/profile_images/754210722435899394/h0S3ou0Q_400x400.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 345,
+      "artist": "한요한",
+      "name": "Baby I'M A ROCKSTAR",
+      "video_id": "J_kiw_SMRtw",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/093/331/81093331_1533892059598_1_600x600.JPG",
+      "emotion_id": 5
+    },
+    {
+      "id": 346,
+      "artist": "지코(ZICO)",
+      "name": "천둥벌거숭이",
+      "video_id": "NMoSy3B7hZ0",
+      "cover": "https://images.genius.com/70fc402fe83d7220379f7ff6e3ec8dfa.680x680x1.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 347,
+      "artist": "한요한",
+      "name": "헬리콥터",
+      "video_id": "KmFi2DGGTww",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/067/061/81067061_1527062573849_1_600x600.JPG",
+      "emotion_id": 5
+    },
+    {
+      "id": 348,
+      "artist": "장기하와 얼굴들",
+      "name": "그렇고 그런 사이",
+      "video_id": "s67PqkEw-oU",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/013/01/558/1301558_500.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 349,
+      "artist": "Zayde Wolf",
+      "name": "Gladiator",
+      "video_id": "fT67ta4VrQQ",
+      "cover": "https://i1.sndcdn.com/artworks-000280020257-ag08et-t500x500.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 350,
+      "artist": "Grandson",
+      "name": "Blood",
+      "video_id": "Sk-U8ruIQyA",
+      "cover": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/28eec1c5-7348-434e-8682-b7b054102b7b/dcb6hgo-83d1ed5d-0863-4b70-ad83-5e8259ab2b9c.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvMjhlZWMxYzUtNzM0OC00MzRlLTg2ODItYjdiMDU0MTAyYjdiXC9kY2I2aGdvLTgzZDFlZDVkLTA4NjMtNGI3MC1hZDgzLTVlODI1OWFiMmI5Yy5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.m1j34MMrUoFpX4WoO--cutLqfooCBC_x--xkkwmkO1Y",
+      "emotion_id": 5
+    },
+    {
+      "id": 351,
+      "artist": "The Million",
+      "name": "D. M. S",
+      "video_id": "BesMWMNRvio",
+      "cover": "https://cdns-images.dzcdn.net/images/cover/f6031443de768c52358289ec479e23eb/264x264.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 352,
+      "artist": "Renforshort",
+      "name": "I drive me mad",
+      "video_id": "8cgI5VDNFiw",
+      "cover": "https://images.genius.com/284f16357701cf76897b4f21ebc17fe7.1000x1000x1.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 353,
+      "artist": "Flor",
+      "name": "Imho",
+      "video_id": "byguIw36t8M",
+      "cover": "https://image.bugsm.co.kr/album/images/500/9926/992627.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 354,
+      "artist": "UPSAHL",
+      "name": "People I don’t like",
+      "video_id": "EGne6NU1rCc",
+      "cover": "https://mblogthumb-phinf.pstatic.net/MjAyMDA4MjRfODUg/MDAxNTk4MjQ5MjIwMTgy.qMaGsFE_6dnA0IfeNGaG3RF2yx7j2BtlHeoFadJv2Hkg.g2LrwD-kWS1h388RmLL39Cc7gVZ0QjqFywKnUFSPvs0g.JPEG.gold0488/UPSAHL-People-I-Dont-Like.jpg?type=w800",
+      "emotion_id": 5
+    },
+    {
+      "id": 355,
+      "artist": "lola blanc",
+      "name": "Angry too",
+      "video_id": "X1Dhy8a4PFQ",
+      "cover": "https://i.pinimg.com/564x/16/ce/d9/16ced95bdb1e204541cc6aa4dbf16663.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 356,
+      "artist": "Bishop Briggs",
+      "name": "Champion",
+      "video_id": "6QpyB1b5sdg",
+      "cover": "https://music-b26f.kxcdn.com/wp-content/uploads/2019/07/Bishop-Briggs-Single-Artwork-600x600.png",
+      "emotion_id": 5
+    },
+    {
+      "id": 357,
+      "artist": "Nikki Vianna",
+      "name": "Mambo",
+      "video_id": "KK061LaBmco",
+      "cover": "https://m.media-amazon.com/images/I/71JzY6yOj6L._SS500_.jpg",
+      "emotion_id": 5
+    },
+    {
+      "id": 358,
+      "artist": "Lizzo",
+      "name": "Juice",
+      "video_id": "9y4sFUmiwB0",
+      "cover": "https://i.ytimg.com/an/XaCrQL_8eMY/1a428eec-c21d-4c5b-ab96-2cde230ac2f1_mq.jpg?v=5c2f6690",
+      "emotion_id": 5
+    },
+    {
+      "id": 359,
+      "artist": "Ace Hashimoto",
+      "name": "4EVERYTHING",
+      "video_id": "LSu49Fcy3cs",
+      "cover": "https://images.shazam.com/coverart/t440794474-b1483124518_s400.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 360,
+      "artist": "The Hauser Project",
+      "name": "First Date (Feat. Wade & Tyler Alexis)",
+      "video_id": "KQ_u5aqrtZs",
+      "cover": "https://f4.bcbits.com/img/a0524634516_10.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 361,
+      "artist": "PJ Morton",
+      "name": "BUILT FOR LOVE",
+      "video_id": "8ATW2PJsC9k",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202704/20270445.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 362,
+      "artist": "Tom Misch & Laura Misch",
+      "name": "Follow",
+      "video_id": "mdESKtS434k",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/045/232/81045232_1521682951160_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 6
+    },
+    {
+      "id": 363,
+      "artist": "Sound Providers",
+      "name": "Choc Promo",
+      "video_id": "mPOxYAMR80I",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/039/814/787/39814787_1592900709750_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 364,
+      "artist": "halberd",
+      "name": "Summer nights.",
+      "video_id": "Fca2dBp_yJM",
+      "cover": "https://geo-media.beatport.com/image/cdd0d945-7356-4e6f-a2c7-068c4ce95e63.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 365,
+      "artist": "Burbank",
+      "name": "the happiness of seeing someone again",
+      "video_id": "qz6xFSugu_U",
+      "cover": "https://lite-images-i.scdn.co/image/ab67616d00001e02bb6bf28a56b2ee410ac91493",
+      "emotion_id": 6
+    },
+    {
+      "id": 366,
+      "artist": "elijah who",
+      "name": "we used to talk every night",
+      "video_id": "ENLFl2b6raI",
+      "cover": "https://i1.sndcdn.com/artworks-000206899339-3bl0zr-t500x500.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 367,
+      "artist": "prima",
+      "name": "June Gloom.",
+      "video_id": "av6twyhq8gs",
+      "cover": "https://i1.sndcdn.com/artworks-000177382079-1xfrws-t500x500.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 368,
+      "artist": "Jazzinuf",
+      "name": "Be Mine",
+      "video_id": "dUr5yk_FAnE",
+      "cover": "https://image.bugsm.co.kr/album/images/500/202827/20282716.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 369,
+      "artist": "Burbank",
+      "name": "seeing your name makes me happy",
+      "video_id": "G3-AsJ3CKss",
+      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSUqQ3t4GFjrNmSRss-VDSaYA1MAo0NeohsNA&usqp=CAU",
+      "emotion_id": 6
+    },
+    {
+      "id": 370,
+      "artist": "Joey Pecoraro",
+      "name": "Finding Parking",
+      "video_id": "zJySsufaoFc",
+      "cover": "https://i1.sndcdn.com/artworks-000209001949-vlgz82-t500x500.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 371,
+      "artist": "Joey Pecoraro",
+      "name": "Partly Sunny",
+      "video_id": "IJ6E78ZoO54",
+      "cover": "https://i1.sndcdn.com/artworks-000209001949-vlgz82-t500x500.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 372,
+      "artist": "Joey Pecoraro",
+      "name": "Warm",
+      "video_id": "cJlYvAeGvWc",
+      "cover": "https://m.media-amazon.com/images/I/719KdBo+NZL._SS500_.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 373,
+      "artist": "Sophie Meiers",
+      "name": "Sincerely, Yours",
+      "video_id": "U73zB1aH8V0",
+      "cover": "https://s.mxmcdn.net/images-storage/albums4/4/6/9/1/7/7/36771964_800_800.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 374,
+      "artist": "Gowe & Sam Ock",
+      "name": "Wait For You",
+      "video_id": "mhASujJoYcY",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/023/03/464/2303464_500.jpg/melon/quality/80/optimize",
+      "emotion_id": 6
+    },
+    {
+      "id": 375,
+      "artist": "Mickey cho",
+      "name": "Thoughts",
+      "video_id": "QKv8oBhj3B8",
+      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNPwIYM3V_VFYUUY2VCMokCMQeHO7771bzwA&usqp=CAU",
+      "emotion_id": 6
+    },
+    {
+      "id": 376,
+      "artist": "A June",
+      "name": "Do you know",
+      "video_id": "ytQxL_zphKo",
+      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQJHkxKjVH3GdIB-oqnsbarRKb_vq-tl5AN3g&usqp=CAU",
+      "emotion_id": 6
+    },
+    {
+      "id": 377,
+      "artist": "LHA",
+      "name": "Sound Of Music",
+      "video_id": "rj5N26-o8r0",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/275/175/80275175_1322114181591_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 378,
+      "artist": "LeeHahn",
+      "name": "Shoulders Of Giants",
+      "video_id": "HJtICBjiPbY",
+      "cover": "https://is4-ssl.mzstatic.com/image/thumb/Music122/v4/b7/55/62/b7556288-9774-d8b2-6a2c-0b857d806f35/191061221029.jpg/1200x630wp.png",
+      "emotion_id": 6
+    },
+    {
+      "id": 379,
+      "artist": "AZitiZ",
+      "name": "Moving On",
+      "video_id": "SWBzjDTTf2I",
+      "cover": "https://image.bugsm.co.kr/album/images/500/4630/463036.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 380,
+      "artist": "Pe2ny, MYK",
+      "name": 45,
+      "video_id": "zAdX_4bxGM4",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/633/931/80633931_1436345146819_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 381,
+      "artist": "Part Time Cooks",
+      "name": "Nowhere But Up",
+      "video_id": "scJ--aMCjec",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/768/290/80768290_1450767471288_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 6
+    },
+    {
+      "id": 382,
+      "artist": "Cise Star, Marcus D",
+      "name": "Earth Angel",
+      "video_id": "Iey-7hLh1wE",
+      "cover": "https://i.ytimg.com/vi/SZAsVNvteMM/hqdefault.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 383,
+      "artist": "Lisa Ono",
+      "name": "Quizas Quizas Quizas",
+      "video_id": "rmwzAF_pYSA",
+      "cover": "https://cdns-images.dzcdn.net/images/cover/52197a2b713676fb715022a9af2a7004/350x350.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 384,
+      "artist": "Lisa Ono",
+      "name": "I Wish You Love",
+      "video_id": "T_8o2oEt2hg",
+      "cover": "https://image.bugsm.co.kr/album/images/500/221/22162.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 385,
+      "artist": "Laura Fygi",
+      "name": "I Love You For Sentimental Reasons",
+      "video_id": "azN8caKp9hU",
+      "cover": "https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile28.uf.tistory.com%2Fimage%2F99F99B3359A2FBEE1A6F45",
+      "emotion_id": 6
+    },
+    {
+      "id": 386,
+      "artist": "Kei Kobayashi",
+      "name": "Love Came For Me",
+      "video_id": "aLpC5OTg_Ls",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/015/019/113/15019113_1462859278193_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 387,
+      "artist": "Megumi Hayashibara",
+      "name": "Fly Me To The Moon",
+      "video_id": "uhznt0j4rYw",
+      "cover": "https://m.media-amazon.com/images/I/91VRK0sutNL._SS500_.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 388,
+      "artist": "Chet Baker",
+      "name": "My Funny Valentine",
+      "video_id": "0o-XwxKZIQA",
+      "cover": "https://images-na.ssl-images-amazon.com/images/I/513eKpFRAzL.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 389,
+      "artist": "Bryan Ferry",
+      "name": "As Time Goes By",
+      "video_id": "6aXCsy0S4Wk",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/b/b4/As_Time_Goes_By_%28Bryan_Ferry_album%29.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 390,
+      "artist": "윤석철 트리오",
+      "name": "독백이라 착각하기 쉽다",
+      "video_id": "IGOPAnPTQhw",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/056/972/81056972_1524477539072_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 391,
+      "artist": "윤석철 트리오",
+      "name": "Someday My Fxxxxx Will Come",
+      "video_id": "WHRWsrUHgKs",
+      "cover": "https://images.shazam.com/coverart/t161964849-b945256704_s400.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 392,
+      "artist": "강아솔&임보라",
+      "name": "눈 내린 새벽",
+      "video_id": "u1I6WcpIWkY",
+      "cover": "https://image.bugsm.co.kr/album/images/500/4778/477864.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 393,
+      "artist": "강아솔&임보라",
+      "name": "끝 말",
+      "video_id": "eI9P4aZ_13o",
+      "cover": "https://image.bugsm.co.kr/album/images/500/4720/472011.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 394,
+      "artist": "R?mi Panossian Trio",
+      "name": "Water Pig",
+      "video_id": "ghKxzlPn9VM",
+      "cover": "https://images.shazam.com/coverart/t248407103-b980280844_s400.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 395,
+      "artist": "R?mi Panossian Trio",
+      "name": "Morning Smile",
+      "video_id": "l0P-oKo1Gls",
+      "cover": "https://is4-ssl.mzstatic.com/image/thumb/Music128/v4/d9/5a/b0/d95ab06e-788d-de56-f807-f082485a97ec/3341348161273_cover.jpg/1200x630wp.png",
+      "emotion_id": 6
+    },
+    {
+      "id": 396,
+      "artist": "Joe Hisaishi",
+      "name": "Merry-Go-Round (from 'Howl's Moving Castle')",
+      "video_id": "UwxatzcYf9Q",
+      "cover": "https://m.media-amazon.com/images/I/71FlmQfuCsL._SS500_.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 397,
+      "artist": "Giovanni Mirabassi",
+      "name": "Miryang Arirang",
+      "video_id": "ug2kzhtvQnc",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/011/69/251/1169251.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 398,
+      "artist": "Giovanni Mirabassi",
+      "name": "Lloro",
+      "video_id": "gQB-0Dq42Fw",
+      "cover": "https://f4.bcbits.com/img/a4290378795_10.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 399,
+      "artist": "윈터플레이",
+      "name": "Billie Jean",
+      "video_id": "FRNzeipgWn4",
+      "cover": "https://www.akbobada.com/home/akbobada/archive/akbo/img/39973.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 400,
+      "artist": "윈터플레이",
+      "name": "Pure Heart",
+      "video_id": "eDYwtgJeHWI",
+      "cover": "https://images.shazam.com/coverart/t92007075-b1384357270_s400.jpg",
+      "emotion_id": 6
+    },
+    {
+      "id": 401,
+      "artist": "Sweet Jazz",
+      "name": "You Make Me Smile",
+      "video_id": "5cgXKpj8md0",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/074/804/81074804_1529287296089_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 402,
+      "artist": "Sweet Jazz",
+      "name": "When I Miss You",
+      "video_id": "0qGR52q9zrA",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/074/804/81074804_1529287296089_1_600x600.JPGG",
+      "emotion_id": 6
+    },
+    {
+      "id": 403,
+      "artist": "Sweet Jazz",
+      "name": "The Beauty Of Gray",
+      "video_id": "94FxSE-te9w",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/074/804/81074804_1529287296089_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 404,
+      "artist": "Sweet Jazz",
+      "name": "Santa Is Coming",
+      "video_id": "9WXiwejV_ns",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/074/804/81074804_1529287296089_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 405,
+      "artist": "Sweet Jazz",
+      "name": "We Will Be Good",
+      "video_id": "uBC4H-8CY7g",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/074/804/81074804_1529287296089_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 406,
+      "artist": "Sweet Jazz",
+      "name": "Jazz Water",
+      "video_id": "LHJtoA5pFCY",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/074/804/81074804_1529287296089_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 407,
+      "artist": "Sweet Jazz",
+      "name": "Sweet Jazz with Coffee",
+      "video_id": "35TuELobKRU",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/074/804/81074804_1529287296089_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 408,
+      "artist": "Sweet Jazz",
+      "name": "Tokyo Night",
+      "video_id": "dZlaz2hNFU0",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/074/804/81074804_1529287296089_1_600x600.JPG",
+      "emotion_id": 6
+    },
+    {
+      "id": 409,
+      "artist": "DJ Okawari",
+      "name": "Flower Dance",
+      "video_id": "AULG4MoYxQk",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/010/30/317/1030317_500.jpg/melon/quality/80/optimize",
+      "emotion_id": 7
+    },
+    {
+      "id": 410,
+      "artist": "Norihiro Tsuru",
+      "name": "Last Carnival.",
+      "video_id": "hG1gbOjWWdI",
+      "cover": "https://cdnimg.melon.co.kr/cm/album/images/026/41/957/2641957_500.jpg/melon/quality/80/optimize",
+      "emotion_id": 7
+    },
+    {
+      "id": 411,
+      "artist": "Yiruma",
+      "name": "Kiss the Rain",
+      "video_id": "imGaOIm5HOk",
+      "cover": "https://i1.sndcdn.com/artworks-000212199540-6958as-t500x500.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 412,
+      "artist": "DJ Okawari",
+      "name": "Luv Letter",
+      "video_id": "CGvIzFRcRMA",
+      "cover": "https://i1.sndcdn.com/artworks-000108515055-d93asy-t500x500.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 413,
+      "artist": "Yiruma",
+      "name": "Chaconne",
+      "video_id": "8QF1OWtRTVc",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/275/075/80275075_1322033680656_1_600x600.JPG",
+      "emotion_id": 7
+    },
+    {
+      "id": 414,
+      "artist": "Yiruma",
+      "name": "River Flows In You",
+      "video_id": "zwJQE0HkYZw",
+      "cover": "https://image.bugsm.co.kr/album/images/500/104/10411.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 415,
+      "artist": "Yiruma",
+      "name": "Love Me",
+      "video_id": "N7p2UeB_QRM",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/275/075/80275075_1322033680656_1_600x600.JPG",
+      "emotion_id": 7
+    },
+    {
+      "id": 416,
+      "artist": "Yiruma",
+      "name": "May Be",
+      "video_id": "jlitjMNaZPw",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/275/075/80275075_1322033680656_1_600x600.JPG",
+      "emotion_id": 7
+    },
+    {
+      "id": 417,
+      "artist": "Yiruma",
+      "name": "Indigo",
+      "video_id": "acDyYYKxdhE",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/275/075/80275075_1322033680656_1_600x600.JPG",
+      "emotion_id": 7
+    },
+    {
+      "id": 418,
+      "artist": "Yiruma",
+      "name": "Reminiscent",
+      "video_id": "vBNEsK_z6s4",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/275/075/80275075_1322033680656_1_600x600.JPG",
+      "emotion_id": 7
+    },
+    {
+      "id": 419,
+      "artist": "Yuhki Kuramoto",
+      "name": "Romance",
+      "video_id": "lYUGkB5w1SE",
+      "cover": "https://image.bugsm.co.kr/album/images/500/20/2003.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 420,
+      "artist": "Joe Hisaishi",
+      "name": "Summer",
+      "video_id": "Xrj9L2ez6IA",
+      "cover": "https://image.bugsm.co.kr/album/images/500/238/23889.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 421,
+      "artist": "Edward Elgar",
+      "name": "Salut d'Amour Op.12",
+      "video_id": "ecM7_3rs5gU",
+      "cover": "https://post-phinf.pstatic.net/MjAxNzA3MjVfMTY5/MDAxNTAwOTgzMjU5ODcx.Lf_eLpmlJOulj6AN1y5X--poO6FlMjkc9g9ky6osgnsg.At05F6WP68UBZJ5Oymb_AWR0IBs9IG6srJ05TPQlwJYg.JPEG/image_3222617081500983255465.jpg?type=w1200",
+      "emotion_id": 7
+    },
+    {
+      "id": 422,
+      "artist": "Debussy",
+      "name": "Claire de Lune",
+      "video_id": "zpIgoy3Q1OE",
+      "cover": "https://image.yes24.com/goods/77683177/L",
+      "emotion_id": 7
+    },
+    {
+      "id": 423,
+      "artist": "Chopin",
+      "name": "Nocturne op.9 No.2",
+      "video_id": "9E6b3swbnWg",
+      "cover": "https://image.aladin.co.kr/product/832/21/cover500/6976904123_1.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 424,
+      "artist": "Schumann",
+      "name": "Kinderszenen Op.15-VII. Traumerei",
+      "video_id": "ZmpEePYp8gQ",
+      "cover": "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/977/056/80977056_1502335722635_1_600x600.JPG",
+      "emotion_id": 7
+    },
+    {
+      "id": 425,
+      "artist": "Herbert von Karajan",
+      "name": "Cavalleria rusticana: Intermezzo",
+      "video_id": "Xi9_xm3oRzY",
+      "cover": "https://cdns-images.dzcdn.net/images/cover/349df1e8872835dc8004ddf8d15ba58c/350x350.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 426,
+      "artist": "Joe Hisaishi",
+      "name": "Spring",
+      "video_id": "_7jTnc-LUg0",
+      "cover": "https://image.bugsm.co.kr/album/images/500/80069/8006992.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 427,
+      "artist": "Mozart",
+      "name": "Piano Sonata No. 12 in F Major, K. 332 - 1. Allegro",
+      "video_id": "UYUO8W7wVv8",
+      "cover": "https://assets.classicfm.com/2012/31/mozart-1343837321-editorial-short-form-1.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 428,
+      "artist": "Mozart",
+      "name": "Flute Concerto_No_2_in_D_Major_K_314",
+      "video_id": "E7ygLbH2cr8",
+      "cover": "https://assets.classicfm.com/2012/31/mozart-1343837321-editorial-short-form-1.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 429,
+      "artist": "Mozart",
+      "name": "String Quintet No.5 in D major K.593: I. Larghetto - Allegro",
+      "video_id": "IijSFgxcy3M",
+      "cover": "https://assets.classicfm.com/2012/31/mozart-1343837321-editorial-short-form-1.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 430,
+      "artist": "F.Schubert",
+      "name": "Moments Musicaux D.780 No.3",
+      "video_id": "Az9pB4ypuLU",
+      "cover": "https://www.biography.com/.image/t_share/MTE1ODA0OTcxNzgwMTc5NDY5/franz-schubert-9475558-1-402.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 431,
+      "artist": "F.Schubert",
+      "name": "Die Forelle",
+      "video_id": "5paSm3-4gv4",
+      "cover": "https://www.biography.com/.image/t_share/MTE1ODA0OTcxNzgwMTc5NDY5/franz-schubert-9475558-1-402.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 432,
+      "artist": "Herbert von Karajan",
+      "name": "Mascagni: Cavalleria rusticana: Intermezz",
+      "video_id": "Xi9_xm3oRzY",
+      "cover": "https://cdns-images.dzcdn.net/images/cover/349df1e8872835dc8004ddf8d15ba58c/350x350.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 433,
+      "artist": "Amadeus Quartet",
+      "name": "5. Cavatina. Adagio molto espressiv",
+      "video_id": "xm2J20LMdmU",
+      "cover": "https://m.media-amazon.com/images/I/81QNQYjtV9L._SS500_.jpg",
+      "emotion_id": 7
+    },
+    {
+      "id": 434,
+      "artist": "Sviatoslav Richter",
+      "name": "Piano Concerto No. 2 in C Minor, Op. 1",
+      "video_id": "t5jmkRnpxq4",
+      "cover": "https://cdnimg.genie.co.kr/Y/IMAGE/IMG_ALBUM/080/273/421/80273421_1531378151695_1_600x600.JPG/dims/resize/Q_80,0",
+      "emotion_id": 7
+    },
+    {
+      "id": 435,
+      "artist": "Eugene Ormandy",
+      "name": "Scheherazade, Op. 35/III. The Young Prince and the Young Princess",
+      "video_id": "C6lqVmcMye4",
+      "cover": "https://m.media-amazon.com/images/I/71f8JQl4zzL._SS500_.jpg",
+      "emotion_id": 7
+    }
+  ]

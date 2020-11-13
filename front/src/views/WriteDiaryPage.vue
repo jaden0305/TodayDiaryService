@@ -101,6 +101,7 @@
 					id="diary-image__input"
 					ref="inputImage"
 					name="diaryImage"
+					accept="image/*"
 					@change="onChangeDiaryImage"
 				/>
 			</div>

@@ -1,5 +1,5 @@
 <template>
-	<section class="toast" v-if="this.diaryData" :class="toastAnimationClass">
+	<section class="toast" v-if="diaryData" :class="toastAnimationClass">
 		<section class="toast-wrap">
 			<div class="save-diary">
 				<p class="save-diary-comment">
@@ -150,6 +150,9 @@ export default {
 			emotion.splice(idx - 1, 1);
 			return emotion;
 		},
+	},
+	created() {
+		console.log(this.diaryData);
 	},
 };
 </script>

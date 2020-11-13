@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 # from accounts.serializers import UserSerializer
 from .models import *
-from post.serializers import EmotionSerializer
+
 
 class WordCloudReportSerializer(serializers.ModelSerializer):
     class Meta:

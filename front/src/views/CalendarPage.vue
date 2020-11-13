@@ -149,10 +149,17 @@ export default {
 			}
 			this.fetchMonth({ year: this.year, month: this.month });
 		},
+		lastTwo(string) {
+			return ('0' + string).slice(-2);
+		},
 	},
 	created() {
 		const day = new Date();
-		this.nowDay = day;
+		this.nowDay = new Date(
+			`${day.getFullYear()}-${this.lastTwo(day.getMonth() + 1)}-${this.lastTwo(
+				day.getDate(),
+			)}`,
+		);
 		this.todayMonth = day.getMonth() + 1;
 		this.toDay = day.getDate();
 		this.todayYear = day.getFullYear();
@@ -169,7 +176,7 @@ export default {
 	height: 100%;
 	padding: 0.5rem;
 	padding-top: 1.25rem;
-	margin-bottom: 60px;
+	margin-bottom: 75px;
 	.calendar-content {
 		border-radius: 1rem;
 		background: #f0f0f0;
