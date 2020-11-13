@@ -82,7 +82,7 @@
 					@click="showSwap"
 				/>
 			</div>
-			<div v-if="currentTrack" class="player__top">
+			<div class="player__top">
 				<div class="player-cover">
 					<section class="player-cover__content">
 						<!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
@@ -165,7 +165,7 @@
 					</div>
 				</div>
 			</div>
-			<div v-if="currentTrack" id="player-back-container">
+			<div id="player-back-container">
 				<div class="back-wrap">
 					<div class="back-header">
 						재생목록<img
@@ -245,7 +245,6 @@
 					</div>
 				</div>
 			</div>
-			<div v-if="!currentTrack" class="player__none">노래가 없어요 :(</div>
 			<div v-cloak></div>
 			<symbol id="icon-link" viewBox="0 0 32 32">
 				<title>link</title>
@@ -328,7 +327,16 @@ export default {
 				wmode: 'opaque',
 				origin: 'https://k3d104.p.ssafy.io',
 			},
-			currentTrack: null,
+			currentTrack: {
+				name: '노래가 없습니다',
+				artist: 'EMPTY',
+				cover:
+					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADhCAMAAADmr0l2AAAAflBMVEUAAgH///8AAwHU1NTBwcHPz8+srKyTlZS4uLj8/PxVV1bMzMz09PSTk5NHSEjIyMggICDd3d2NjY1CQkLj4+OCgoK7u7sjJSTt7e2amprZ2dmysrKnp6fq6uoUFBRQUFBfX19tbW0rLSxkZGR5e3oyNDM7OzsMDg0ZGRl/f39hy3uPAAAEIklEQVR4nO3ZC1uiQBTG8Rm8JMpKIOUFL6Sl7ff/gnsOAwqVblmG7f5/z25OgDzzOjBzJGMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/Je8XdM9uLBlOLGvdJvu1dfKNFN49/tOxDfz6N8K6Mn/lgRcHTbFNm2sO5fRloD9yu/R/dmnij/fmwt4GXAannumbvsLuvP1XgYcPp55oo09f+wv6WVAd2ce4dX3VX97mtie2+I55TtOnO5b1AOORoc9S/3hrfcdHI+r73uub7pd2CudnuoB2/lEIZlG80AGJNZ1MtrKpmEoLT8uRm08DaZmfa9LTO9WNzz41rdBlCQ3Jo1mopWvNqP2bBb1vj9UVT3g4k5/7tIkX/EjGyS+tZOlmUsrkG26ezydSSvuayb5N9FBf4wH1rbiXzcbacvepDzhvPE7s11dB2PrAo62krCdpEMZBMk1ve9oChmxhbxs47kkawe9bLjpSMJFfi3PrS2HalAJ2LPfmOVNGrCdql4YuSHSy1D6azf5AVM9IG+NJeswb0n8IMtbPUk41UY3D5hPKf39e43xz151vooGDBy/uAbVL2s7+uqZkVyHLpaZlful/Jm7TTuZXCba6B5GUI8buNajffiOEKdowOz5Vo1Hg2rAoo/mEHBQ5pKAN4cDrV6/1YAPxTZjwuDksvMd6pOMfyKgZ0KdeYoCtgw4LIa9GtDI1JTqgWu/+aWjHrBT1pNvjuBbAZ8X7iasBfwtd+Yyf63U8Q2pB4zLQu3dAWUtya/bWkC9MzV1az+bNqca0N0t+Uz4oYA67NWAnr5d7r6tm2Cb9boWzX0oYGZejKC5neidGdtK5deU1wHn2vd3B9zJmqi3Wz2grqOJmc0u2vX3eRVwbDPzgYBb3x0oAatF2VoW1bv9otOkVwFdcfXugHdF1dIt6p1y1Uut7wfry/b9XWq1qLhxwY4HVC27nz4S64qxaVGAlk8in/YVXoP005Y5oiy7xGpQjI0MSMttWlo3i5g8V1o2Ahd6bpO81s6rl8wsw31pJp9c42Watx6l+bPQxSAMB+Eg0mpUZ77dUL8IrqTru2ctu8OxDMzzg351GmseCRj56Wotn0fr1p1rudDzyMAWa42U3JPmkhWW7Vmro1oFbbd3Zpy6renKxO2ZtkL9fpu3Bt1tHjDOErnLksM0skqCIKk80BkV9+t1O9JDN8k8jWoPMcz2qfrb9ArKtL/w3myq6kJ/7L2LReNfJM53OqCnwTY2/mcD5pLGn1V8xsmA86g3kiXzCurs80X2eP837q9wV/BF6Xz69Kl1bKcE9P2yDviR+r38z6ZRGr89h/QkXucH5zPbTV9lWf/IJDnMruBrID7jxy5/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8f/4A/RUtgaK8Rj0AAAAASUVORK5CYII=',
+				// videoId: 'eQ3gXtX3U7I',
+				// url: 'https://youtu.be/eQ3gXtX3U7I',
+				favorited: false,
+				empty: true,
+			},
 			currentTrackIndex: 0,
 		};
 	},
@@ -486,7 +494,20 @@ export default {
 						search: music.emotion === 8 ? true : false,
 					});
 				});
-				this.currentTrack = this.tracks[0];
+				if (this.tracks.length) {
+					this.currentTrack = this.tracks[0];
+				} else {
+					this.currentTrack = {
+						name: '노래가 없습니다',
+						artist: 'EMPTY',
+						cover:
+							'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADhCAMAAADmr0l2AAAAflBMVEUAAgH///8AAwHU1NTBwcHPz8+srKyTlZS4uLj8/PxVV1bMzMz09PSTk5NHSEjIyMggICDd3d2NjY1CQkLj4+OCgoK7u7sjJSTt7e2amprZ2dmysrKnp6fq6uoUFBRQUFBfX19tbW0rLSxkZGR5e3oyNDM7OzsMDg0ZGRl/f39hy3uPAAAEIklEQVR4nO3ZC1uiQBTG8Rm8JMpKIOUFL6Sl7ff/gnsOAwqVblmG7f5/z25OgDzzOjBzJGMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/Je8XdM9uLBlOLGvdJvu1dfKNFN49/tOxDfz6N8K6Mn/lgRcHTbFNm2sO5fRloD9yu/R/dmnij/fmwt4GXAannumbvsLuvP1XgYcPp55oo09f+wv6WVAd2ce4dX3VX97mtie2+I55TtOnO5b1AOORoc9S/3hrfcdHI+r73uub7pd2CudnuoB2/lEIZlG80AGJNZ1MtrKpmEoLT8uRm08DaZmfa9LTO9WNzz41rdBlCQ3Jo1mopWvNqP2bBb1vj9UVT3g4k5/7tIkX/EjGyS+tZOlmUsrkG26ezydSSvuayb5N9FBf4wH1rbiXzcbacvepDzhvPE7s11dB2PrAo62krCdpEMZBMk1ve9oChmxhbxs47kkawe9bLjpSMJFfi3PrS2HalAJ2LPfmOVNGrCdql4YuSHSy1D6azf5AVM9IG+NJeswb0n8IMtbPUk41UY3D5hPKf39e43xz151vooGDBy/uAbVL2s7+uqZkVyHLpaZlful/Jm7TTuZXCba6B5GUI8buNajffiOEKdowOz5Vo1Hg2rAoo/mEHBQ5pKAN4cDrV6/1YAPxTZjwuDksvMd6pOMfyKgZ0KdeYoCtgw4LIa9GtDI1JTqgWu/+aWjHrBT1pNvjuBbAZ8X7iasBfwtd+Yyf63U8Q2pB4zLQu3dAWUtya/bWkC9MzV1az+bNqca0N0t+Uz4oYA67NWAnr5d7r6tm2Cb9boWzX0oYGZejKC5neidGdtK5deU1wHn2vd3B9zJmqi3Wz2grqOJmc0u2vX3eRVwbDPzgYBb3x0oAatF2VoW1bv9otOkVwFdcfXugHdF1dIt6p1y1Uut7wfry/b9XWq1qLhxwY4HVC27nz4S64qxaVGAlk8in/YVXoP005Y5oiy7xGpQjI0MSMttWlo3i5g8V1o2Ahd6bpO81s6rl8wsw31pJp9c42Watx6l+bPQxSAMB+Eg0mpUZ77dUL8IrqTru2ctu8OxDMzzg351GmseCRj56Wotn0fr1p1rudDzyMAWa42U3JPmkhWW7Vmro1oFbbd3Zpy6renKxO2ZtkL9fpu3Bt1tHjDOErnLksM0skqCIKk80BkV9+t1O9JDN8k8jWoPMcz2qfrb9ArKtL/w3myq6kJ/7L2LReNfJM53OqCnwTY2/mcD5pLGn1V8xsmA86g3kiXzCurs80X2eP837q9wV/BF6Xz69Kl1bKcE9P2yDviR+r38z6ZRGr89h/QkXucH5zPbTV9lWf/IJDnMruBrID7jxy5/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8f/4A/RUtgaK8Rj0AAAAASUVORK5CYII=',
+						// videoId: 'eQ3gXtX3U7I',
+						// url: 'https://youtu.be/eQ3gXtX3U7I',
+						favorited: false,
+						empty: true,
+					};
+				}
 			} catch (error) {
 				// bus.$emit('show:error', error.response.data);
 				bus.$emit('show:error', '노래를 불러오는데 실패했습니다 :(');
@@ -495,15 +516,6 @@ export default {
 	},
 	created() {
 		this.fetchData();
-		// this is optional (for preload covers)
-		// for (let index = 0; index < this.tracks.length; index++) {
-		// 	const element = this.tracks[index];
-		// 	let link = document.createElement('link');
-		// 	link.rel = 'prefetch';
-		// 	link.href = element.cover;
-		// 	link.as = 'image';
-		// 	document.head.appendChild(link);
-		// }
 	},
 	mounted() {
 		const buttons = document.querySelector('.player__buttons');
