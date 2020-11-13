@@ -23,6 +23,7 @@
 			</div>
 			<div class="diary-image">
 				<img class="diary-image__value" :src="contentImg" alt="일기사진" />
+				<!-- <img class="diary-image__value" :src="canvasImg" alt="일기사진" /> -->
 			</div>
 			<div class="diary-text">
 				<textarea
@@ -62,6 +63,11 @@ export default {
 				return `@/assets/images/logo3.png`;
 			}
 		},
+		// canvasImg() {
+		// 	if (this.diaryData.sticker_image) {
+		// 		return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
+		// 	}
+		// },
 		setUrl() {
 			return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}`;
 		},
@@ -86,18 +92,17 @@ export default {
 		},
 		onFetchStickers() {
 			if (this.diaryData.stickers.length) {
-				const stickerWrap = document.querySelector('.diary-image');
-				let imgElem = document.createElement('img');
-				imgElem.src =
-					this.setUrl +
-					this.diaryData.stickers[0].sticker.path.replace('images', 'media');
-				imgElem.style.width = `${this.diaryData.stickers[0].width}px`;
-				imgElem.style.position = `absolute`;
-				imgElem.style.top = `${this.diaryData.stickers[0].y}px`;
-				imgElem.style.left = `${this.diaryData.stickers[0].x}px`;
-				imgElem.style.transform = `rotate(${this.diaryData.stickers[0].rotation}deg)`;
-
-				stickerWrap.appendChild(imgElem);
+				// const stickerWrap = document.querySelector('.diary-image');
+				// let imgElem = document.createElement('img');
+				// imgElem.src =
+				// 	this.setUrl +
+				// 	this.diaryData.stickers[0].sticker.path.replace('images', 'media');
+				// imgElem.style.width = `${this.diaryData.stickers[0].width}px`;
+				// imgElem.style.position = `absolute`;
+				// imgElem.style.top = `${this.diaryData.stickers[0].y}px`;
+				// imgElem.style.left = `${this.diaryData.stickers[0].x}px`;
+				// imgElem.style.transform = `rotate(${this.diaryData.stickers[0].rotation}deg)`;
+				// stickerWrap.appendChild(imgElem);
 			}
 		},
 		onFetchFont() {

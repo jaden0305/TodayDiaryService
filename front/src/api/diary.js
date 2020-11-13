@@ -5,6 +5,9 @@ export function createDiary(diaryData) {
 	if (diaryData.image) {
 		formdata.append('image', diaryData.image);
 	}
+	if (diaryData.sticker_image) {
+		formdata.append('sticker_image', diaryData.sticker_image);
+	}
 	formdata.append('title', diaryData.title);
 	formdata.append('content', diaryData.content);
 	formdata.append('stickers', JSON.stringify(diaryData.stickers));

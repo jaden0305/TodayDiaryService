@@ -43,7 +43,7 @@
 										"
 									>
 										<img
-											:src="`${setUrl}${item.path.replace('images', 'media')}`"
+											:src="`${setUrl}${item.path}`"
 											class="toast-sticker-item__image"
 											:alt="`${item.name}`"
 										/>
@@ -104,7 +104,7 @@ export default {
 			this.$emit('close-sticker');
 		},
 		submitSticker(path, id, emotion) {
-			this.selectedItem = this.setUrl + path.replace('images', 'media');
+			this.selectedItem = this.setUrl + path;
 			this.$emit('submit-sticker', this.selectedItem, id, emotion);
 		},
 	},
