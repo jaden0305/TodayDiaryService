@@ -30,7 +30,7 @@ export function filterMonth(month) {
 }
 
 export function truncate(string) {
-	if (string.length > 10) {
+	if (typeof string === 'string' && string.length > 10) {
 		return string.substr(0, 10) + '..';
 	}
 	return string;
