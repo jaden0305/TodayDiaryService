@@ -39,13 +39,16 @@ def get_start_day(today):
     today = datetime.date(year, month, day)
     for delta in range(7):
         date = today - datetime.timedelta(days=delta)
-        if date.day == 6:
+        if date.weekday() == 6:
             break
     return date
 
 def delete_week_cache(today, user_id):
+    print(cache.keys('*'))
+    startday = get_start_day(f'{today.year}-{today.month}-{today.day}')
     if redis_check():
-        cache.delete(f'w-u{user_id}-s{today}')
+        print(f'w-u{user_id}-s{startday}')
+        cache.delete(f'w-u{user_id}-s{startday.year}-{startday.month}-{startday.day}')
 
 def delete_month_cache(today, user_id):
     year = today.year
