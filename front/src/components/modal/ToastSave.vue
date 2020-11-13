@@ -137,9 +137,12 @@ export default {
 		async onReselectEmotion(id) {
 			try {
 				const { data } = await reselectEmotion(id);
-				this.diaryData.user_emotion = data.emotion;
-				this.diaryData.recommend_music.artist = data.recommend_music.artist;
-				this.diaryData.recommend_music.name = data.recommend_music.name;
+				console.log(data);
+				console.log(this.diaryData);
+				this.diaryData.user_emotion = data.recommend_music.emotion;
+				// this.diaryData.recommend_music.artist = data.recommend_music.artist;
+				// this.diaryData.recommend_music.name = data.recommend_music.name;
+				this.diaryData.recommend_music = data.recommend_music;
 
 				this.onCloseEmotion();
 			} catch (err) {
