@@ -121,7 +121,7 @@
 				:diaryData="diaryData"
 				@close-theme="openSave = false"
 			/>
-			<!-- <Tutorial /> -->
+			<!-- <Tutorial :open="openTutorial" @close-tutorial="openTutorial = false" /> -->
 		</div>
 	</section>
 </template>
@@ -146,6 +146,7 @@ export default {
 			openMusic: false,
 			openSticker: false,
 			openTheme: false,
+			openTutorial: true,
 			openSave: false,
 			diaryData: {
 				title: null,

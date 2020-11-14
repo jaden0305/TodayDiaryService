@@ -36,6 +36,9 @@ export default {
 			return process.env.VUE_APP_KAKAO_API;
 		},
 	},
+	mounted() {
+		window.scrollTo(0, 0);
+	},
 };
 </script>
 

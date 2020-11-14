@@ -1,6 +1,11 @@
 <template>
 	<nav class="nav-wrap">
 		<ul class="nav-lists">
+			<router-link class="nav-list" to="/calendar" tag="li">
+				<div class="nav-list__wrap">
+					<img class="nav-img" src="@/assets/images/calendar-fill.svg" alt="" />
+				</div>
+			</router-link>
 			<router-link class="nav-list" to="/report" tag="li">
 				<div class="nav-list__wrap">
 					<img
@@ -8,11 +13,6 @@
 						src="@/assets/images/chart-pie-slice-fill.svg"
 						alt=""
 					/>
-				</div>
-			</router-link>
-			<router-link class="nav-list" to="/calendar" tag="li">
-				<div class="nav-list__wrap">
-					<img class="nav-img" src="@/assets/images/calendar-fill.svg" alt="" />
 				</div>
 			</router-link>
 			<router-link class="nav-list" to="/music" tag="li">
@@ -41,10 +41,10 @@ export default {
 			let num;
 			switch (routeName) {
 				case 'report':
-					num = 0;
+					num = 1;
 					break;
 				case 'calendar':
-					num = 1;
+					num = 0;
 					break;
 				case 'music':
 					num = 2;
@@ -68,10 +68,10 @@ export default {
 		let num;
 		switch (routeName) {
 			case 'report':
-				num = 0;
+				num = 1;
 				break;
 			case 'calendar':
-				num = 1;
+				num = 0;
 				break;
 			case 'music':
 				num = 2;
