@@ -519,6 +519,7 @@ export default {
 	mounted() {
 		const buttons = document.querySelector('.player__buttons');
 		this.buttonWidth = buttons.clientWidth / 9;
+		window.scrollTo(0, 0);
 	},
 };
 </script>

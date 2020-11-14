@@ -76,6 +76,7 @@ export default {
 			margin: 18px 0 25px;
 			font-family: 'pentastic';
 			font-size: 40px;
+			cursor: pointer;
 		}
 		.hidden-logo {
 			display: none;
