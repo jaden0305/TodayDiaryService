@@ -121,7 +121,7 @@
 				:diaryData="diaryData"
 				@close-theme="openSave = false"
 			/>
-			<Tutorial :open="openTutorial" @close-tutorial="openTutorial = false" />
+			<!-- <Tutorial :open="openTutorial" @close-tutorial="openTutorial = false" /> -->
 		</div>
 	</section>
 </template>
@@ -132,7 +132,7 @@ import ToastMusic from '@/components/modal/ToastMusic.vue';
 import ToastSticker from '@/components/modal/ToastSticker.vue';
 import ToastTheme from '@/components/modal/ToastTheme.vue';
 import ToastSave from '@/components/modal/ToastSave.vue';
-import Tutorial from '@/components/modal/Tutorial.vue';
+// import Tutorial from '@/components/modal/Tutorial.vue';
 import { createDiaryanalysis } from '@/api/analysis';
 // import Konva from 'konva';
 let num = 1;
@@ -187,7 +187,7 @@ export default {
 		ToastSticker,
 		ToastTheme,
 		ToastSave,
-		Tutorial,
+		// Tutorial,
 	},
 	methods: {
 		onChangeDiaryImage() {
