@@ -116,29 +116,6 @@ class MusicView(APIView):
                     'detail' : '좋아요' 
                 }
                 return Response(msg, status=status.HTTP_200_OK)
-# @api_view(['GET'])
-# def likes_music(request):
-#     recommend_music = request.user.recommend_like.all()
-#     search_music = request.user.search_like.all()
-
-#     result = []
-
-#     recommend_music_serializer = LikeMusicSerializer(instance=recommend_music, many=True)
-#     search_music_serializer = LikeMusicSerializer(instance=search_music, many=True)
-    
-#     for music in recommend_music_serializer.data:
-#         music = dict(music)
-#         music['liked'] = True
-#         result.append(music)
-    
-#     for music in search_music_serializer.data:
-#         music = dict(music)
-#         music['liked'] = True
-#         result.append(music)
-
-#     random.shuffle(result)
-
-#     return Response(result, status=status.HTTP_200_OK)
 
 @swagger_auto_schema()
 @api_view(['GET'])
@@ -155,45 +132,8 @@ def my_music(request):
             result.append(music_data)
     
     for music in search_music:
-        print(music)
         music_data = SearchMusicSerializer(instance=music).data
         music_data['liked'] = request.user.search_like.filter(video_id=music.video_id).exists()
         result.append(music_data)
     
     return Response(result, status=status.HTTP_200_OK)
-
-# @swagger_auto_schema(methods=['post'], request_body=LikeSerializer)
-# @api_view(['POST'])
-# def like(request):
-#     pk = request.data['music_id']
-#     recommend = request.data['favorited']
-    
-#     if recommend:
-#         music = get_object_or_404(RecommendMusic, pk=pk)
-#         if request.user in music.recommend_like_music.all():
-#             music.recommend_like_music.remove(request.user)
-#             msg = {
-#                 'detail' : '좋아요 취소' 
-#             }
-#             return Response(msg, status=status.HTTP_200_OK)
-#         else:
-#             music.recommend_like_music.add(request.user)
-#             msg = {
-#                 'detail' : '좋아요' 
-#             }
-#             return Response(msg, status=status.HTTP_200_OK)
-#     else:
-#         music = get_object_or_404(SearchMusic, pk=pk)
-
-#         if request.user in music.search_like_music.all():
-#             music.search_like_music.remove(request.user)
-#             msg = {
-#                 'detail' : '좋아요 취소' 
-#             }
-#             return Response(msg, status=status.HTTP_200_OK)
-#         else:
-#             music.search_like_music.add(request.user)
-#             msg = {
-#                 'detail' : '좋아요' 
-#             }
-#             return Response(msg, status=status.HTTP_200_OK)
