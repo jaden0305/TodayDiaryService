@@ -9,7 +9,7 @@
 		></youtube>
 		<div class="player slide-out-bottom" v-if="currentTrack">
 			<div class="player__title" v-hammer:swipe.down="swipeDown">
-				플레이어
+				<span class="player__title__text">플레이어</span>
 				<!-- <img
 					class="player-swap__back"
 					src="@/assets/images/x.svg"
@@ -155,17 +155,6 @@ export default {
 	data() {
 		return {
 			open: false,
-			// tracks: [
-			// 	{
-			// 		name: '야작시',
-			// 		artist: '적재',
-			// 		cover:
-			// 			'https://image.bugsm.co.kr/album/images/500/203478/20347883.jpg',
-			// 		videoId: 'jXylepYfpk0',
-			// 		url: 'https://youtu.be/26YwXUcUf4I',
-			// 		favorited: false,
-			// 	},
-			// ],
 			tracks: null,
 			playerVars: {
 				autoplay: 0,
@@ -273,16 +262,17 @@ export default {
 	transform: translateX(-50%);
 	transition: all 1s ease-in-out 0.1s;
 	border-top: 1px solid rgba(#adb5bd, 0.2);
+	font-family: 'Poor Story';
 }
 .toast1.none {
 	display: none !important;
 }
 #player-back-container {
 	position: fixed;
-	left: 0;
-	right: 0;
+	left: 2.5%;
+	right: 2.5%;
 	bottom: 0;
-	width: 100%;
+	width: 95%;
 	background: #f0f0f0;
 	z-index: 10;
 	border-radius: 12px;
@@ -383,6 +373,10 @@ export default {
 	font-size: 24px;
 	color: #71829e;
 	position: relative;
+	.player__title__text {
+		padding-top: 6px;
+		border-top: 3px solid #71829e;
+	}
 }
 .player-swap {
 	position: absolute;
@@ -423,12 +417,12 @@ export default {
 	display: none;
 	width: 410px;
 	background: #f0f0f0;
-	/* box-shadow: 5px 5px 10px #e2e2e2, -5px -5px 10px #fefefe; */
+	box-shadow: 5px 5px 10px #e2e2e2, -5px -5px 10px #e2e2e2;
 	color: #71829e;
 	border-radius: 12px;
 	padding: 1.5rem;
 	@media screen and (max-width: 576px), (max-height: 500px) {
-		width: 100%;
+		width: 95%;
 		padding: 20px;
 		padding-bottom: 30px;
 		max-width: 410px;
