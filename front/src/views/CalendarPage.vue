@@ -87,6 +87,7 @@ export default {
 	mounted() {
 		const days = document.querySelector('.calendar-days');
 		this.weekWidth = days.clientWidth / 7;
+		window.scrollTo(0, 0);
 	},
 	updated() {
 		const emotions = document.querySelectorAll('.emoticon');

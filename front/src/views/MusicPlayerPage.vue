@@ -466,7 +466,6 @@ export default {
 		async fetchData() {
 			try {
 				const { data } = await likeMusics();
-				console.log(data);
 				data.forEach(music => {
 					this.tracks.push({
 						artist: music.artist,
@@ -520,6 +519,7 @@ export default {
 	mounted() {
 		const buttons = document.querySelector('.player__buttons');
 		this.buttonWidth = buttons.clientWidth / 9;
+		window.scrollTo(0, 0);
 	},
 };
 </script>

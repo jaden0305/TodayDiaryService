@@ -64,7 +64,7 @@ export default {
 			musicList: [],
 			selectMusic: {
 				name: null,
-				artist: null,
+				artist: '',
 				cover: null,
 				videoId: null,
 				emotion: 8,
@@ -95,9 +95,9 @@ export default {
 		},
 		musicSelect(music) {
 			this.selectMusic.name = music.snippet.title;
-			this.selectMusic.artist = null;
+			this.selectMusic.artist = '';
 			this.selectMusic.cover = music.snippet.thumbnails.high.url;
-			this.selectMusic.videoId = music.id.videoId;
+			this.selectMusic.video_id = music.id.videoId;
 			this.selectMusic.emotion = 8;
 			// this.searchMusic.favorited = false;
 			this.$emit('selectMusic', this.selectMusic);
