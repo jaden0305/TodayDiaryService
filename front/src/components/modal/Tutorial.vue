@@ -1,5 +1,13 @@
 <template>
 	<section class="tutorial-wrap" :class="toastAnimationClass">
+		<div class="tutorial-logo">
+			<img
+				class="tutorial-logo__arrow tutorial-arrow"
+				src="@/assets/images/scribble.svg"
+				alt=""
+			/>
+			<p>로고를 누르면 메인페이지로 이동합니다</p>
+		</div>
 		<div class="tutorial-title">
 			<img
 				class="tutorial-title__arrow tutorial-arrow"
@@ -71,6 +79,18 @@ export default {
 	line-height: 1.5;
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	z-index: 100;
+}
+.tutorial-logo {
+	position: absolute;
+	top: 5%;
+	left: 8%;
+	width: 70px;
+	.tutorial-logo__arrow {
+		position: absolute;
+		top: 28%;
+		left: 100%;
+		transform: rotate(290deg);
+	}
 }
 .tutorial-title {
 	position: absolute;
