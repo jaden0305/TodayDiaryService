@@ -84,6 +84,7 @@
 						<v-transformer ref="transformer" />
 					</v-layer>
 				</v-stage>
+				<button id="deleteStickers" @click="onDeleteStickers">지우기</button>
 				<label for="diary-image__input" v-if="diaryImageFile">
 					<img
 						src="@/assets/images/photos.svg"
@@ -242,15 +243,21 @@ export default {
 					bus.$emit('show:error', '한줄평과 내용을 입력해주세요 :(');
 				}
 			} catch (err) {
-				console.log(err);
+				console.log(err.response);
 			}
 		},
 		setSticker(selctedStickerPath, id, emotion) {
+			const imageEelmWrap = document.createElement('span');
 			const imageElem = document.createElement('img');
+			const deleteBtn = document.createElement('button');
 
 			if (this.image.length < 3) {
+				imageEelmWrap.classList.add('diary-image-wrap__sticker');
 				imageElem.src = selctedStickerPath;
 				imageElem.classList.add('diary-image__sticker');
+				deleteBtn.innerText = '지우기';
+				deleteBtn.classList.add('diary-image-delete__sticker');
+				console.log(deleteBtn);
 				imageElem.onload = () => {
 					// set image only when it is loaded
 					this.image.push(imageElem);
@@ -269,10 +276,22 @@ export default {
 						draggable: true,
 					});
 				};
+				imageEelmWrap.appendChild(imageElem);
+				imageEelmWrap.appendChild(deleteBtn);
+				console.log(imageEelmWrap);
 			} else {
 				bus.$emit('show:error', '스티커는 3개까지 넣을 수 있어요 :(');
 			}
 			this.openSticker = false;
+		},
+		onDeleteStickers() {
+			// const tr = layer
+			// 	.find('Transformer')
+			// 	.toArray()
+			// 	.find(tr => tr.nodes()[0] === this.selectedShapeName);
+			// tr.destroy();
+			// this.selectedShapeName.destroy();
+			// layer.draw();
 		},
 		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');
@@ -359,11 +378,15 @@ export default {
 			let imgElem = this.imageObjects.find(
 				r => r.name === this.selectedShapeName,
 			);
+			const imageDeleteBtn = document.querySelector('button');
+			imageDeleteBtn.innerText = '지우기';
 
 			// // update the state
 			if (e.target) {
 				imgElem.x = e.target.x();
 				imgElem.y = e.target.y();
+				imageDeleteBtn.x = e.target.x();
+				imageDeleteBtn.y = e.target.y();
 			}
 			this.updateTransformer();
 		},
@@ -477,11 +500,22 @@ export default {
 			overflow: hidden;
 			border: 0;
 		}
-		.diary-image__sticker {
-			width: 50px;
-			position: absolute;
-			top: 0;
-			left: 0;
+		.diary-image-wrap__sticker {
+			position: relative;
+			width: 100px;
+			height: 100px;
+			.diary-image__sticker {
+				width: 50px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.diary-image-delete__sticker {
+				width: 20px;
+				position: absolute;
+				top: 0;
+				left: 50%;
+			}
 		}
 	}
 	.diary-text {

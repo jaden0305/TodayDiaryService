@@ -38,4 +38,22 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.login-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	.login-input {
+		margin: 5px 0;
+		width: 50%;
+		line-height: 1.6;
+	}
+	button {
+		margin: 10px;
+		padding: 5px 8px;
+		border: none;
+		font-size: 1.1rem;
+	}
+}
+</style>

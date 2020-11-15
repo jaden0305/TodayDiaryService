@@ -9,13 +9,16 @@
 		</div>
 		<div class="main-content">
 			<p class="main-title">당신의 오늘 하루는 어떠셨나요?</p>
-			<KakaoLogin
-				:api-key="kakaoAPI"
-				image="kakao_account_login_btn_medium_wide"
-				:on-success="onSuccess"
-				:on-failure="onFailure"
-				style="cursor:pointer;"
-			/>
+			<div class="accout">
+				<P class="main-test" @click="onTestAccount">테스트 계정으로 로그인</P>
+				<KakaoLogin
+					:api-key="kakaoAPI"
+					image="kakao_account_login_btn_medium_wide"
+					:on-success="onSuccess"
+					:on-failure="onFailure"
+					style="cursor:pointer;"
+				/>
+			</div>
 		</div>
 	</div>
 </template>
@@ -30,6 +33,9 @@ export default {
 	methods: {
 		onSuccess,
 		onFailure,
+		onTestAccount() {
+			this.$router.push('/login');
+		},
 	},
 	computed: {
 		kakaoAPI() {
@@ -85,6 +91,11 @@ export default {
 			margin-top: -5rem;
 			font-size: 1rem;
 		}
+	}
+	.main-test {
+		margin-bottom: 20px;
+		text-align: center;
+		cursor: pointer;
 	}
 }
 </style>
