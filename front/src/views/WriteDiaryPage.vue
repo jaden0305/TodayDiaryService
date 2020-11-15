@@ -448,6 +448,7 @@ export default {
 				img {
 					width: 18px;
 					margin: 0 6px;
+					cursor: pointer;
 				}
 			}
 		}
@@ -567,6 +568,7 @@ export default {
 		border-radius: 20px;
 		background: var(--default-color);
 		box-shadow: 5px 5px 9px #cccccc, -5px -5px 9px #ffffff;
+		cursor: pointer;
 	}
 }
 </style>

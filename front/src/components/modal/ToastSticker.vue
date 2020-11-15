@@ -125,6 +125,7 @@ export default {
 			width: 60px;
 			max-height: 70px;
 			margin: 3px 10px;
+			cursor: pointer;
 		}
 	}
 }

@@ -777,4 +777,7 @@ export default {
 		opacity: 0;
 	}
 }
+.player-controls__item {
+	cursor: pointer;
+}
 </style>

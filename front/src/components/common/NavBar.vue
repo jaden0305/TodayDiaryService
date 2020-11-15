@@ -116,6 +116,7 @@ export default {
 			.nav-img {
 				width: 32px;
 				height: 32px;
+				cursor: pointer;
 			}
 			.nav-list__wrap {
 				display: flex;

@@ -191,6 +191,7 @@ export default {
 		height: 100px;
 		margin: 10px;
 		object-fit: cover;
+		cursor: pointer;
 		&:active {
 			border-radius: 4px;
 			border: 3px solid rgb(168, 168, 168);

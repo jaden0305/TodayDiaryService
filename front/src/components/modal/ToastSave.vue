@@ -210,6 +210,7 @@ export default {
 	border-radius: 50px;
 	background: #f0f0f0;
 	box-shadow: inset 4px 4px 4px #e4e3e3, inset -4px -4px 4px #f7f7f7;
+	cursor: pointer;
 }
 .save-diary-btn {
 	box-shadow: 7px 7px 15px #cccccc, -7px -7px 15px #ffffff;

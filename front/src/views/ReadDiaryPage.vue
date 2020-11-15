@@ -187,6 +187,7 @@ export default {
 				img {
 					width: 16px;
 					margin: 0 6px;
+					cursor: pointer;
 				}
 			}
 		}
