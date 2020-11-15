@@ -8,12 +8,6 @@
 					type="text"
 					v-model="diaryData.title"
 				/>
-				<!-- <img
-					src="@/assets/images/menu.svg"
-					class="diary-header__menu"
-					alt="메뉴"
-					@click="onOpenMenu"
-				/> -->
 				<ul class="diary-header__func">
 					<li>
 						<img
@@ -65,8 +59,9 @@
 					class="diary-image__stickerBg"
 					ref="stage"
 					:config="stageSize"
-					@mousedown="handleStageMouseDown"
-					@touchstart="handleStageMouseDown"
+					@mouseup="handleStageMouseDown"
+					@touchend="handleStageMouseDown"
+					@dragend="handleStageMouseDown"
 				>
 					<v-layer ref="layer">
 						<v-image
@@ -139,7 +134,7 @@ import ToastSave from '@/components/modal/ToastSave.vue';
 import Tutorial from '@/components/modal/Tutorial.vue';
 import { createDiaryanalysis } from '@/api/analysis';
 import { isWritten } from '@/api/diary';
-// import Konva from 'konva';
+
 let num = 1;
 
 export default {
@@ -203,16 +198,8 @@ export default {
 			this.diaryImage = this.$refs.inputImage.files[0];
 			this.diaryImageUrl = URL.createObjectURL(this.diaryImage);
 			this.diaryData.image = this.$refs.inputImage.files[0];
-			console.log(this.diaryData.image);
 			this.diaryImageFile = false;
 		},
-		// onOpenMenu() {
-		// 	const menu = document.querySelector('.diary-header__menu');
-		// 	const menus = document.querySelector('.diary-header__func');
-		// 	menu.style.display = 'none';
-		// 	menus.style.right = '0px';
-		// 	menus.style.transition = '.5s';
-		// },
 		openMusicModal() {
 			this.openMusic = true;
 			this.openSticker = false;
@@ -247,25 +234,14 @@ export default {
 					this.diaryAnalysisData.content = this.diaryData.content;
 					const { data } = await createDiaryanalysis(this.diaryAnalysisData);
 
-					// console.log('11111');
-					// let canvas = document.querySelector('canvas');
-					// console.log(canvas);
-					// let image = document.createElement('img');
-					// console.log(image);
-					// image.setAttribute('crossorigin', 'anonymous');
-					// let stage = new Konva.Stage();
-					// image.src = stage.toDataURL();
-
-					// this.diaryData.sticker_image = image;
 					this.diaryData.user_emotion = data.feel[0][0];
 					this.diaryData.recommend_music = data.music;
 
 					this.openSave = true;
 				} else {
-					console.log('내용을 입력해주세요:(');
+					bus.$emit('show:error', '한줄평과 내용을 입력해주세요 :(');
 				}
 			} catch (err) {
-				console.log('error');
 				console.log(err);
 			}
 		},
@@ -329,7 +305,6 @@ export default {
 			this.openTheme = false;
 		},
 		selectMusic(music) {
-			console.log(music);
 			this.diaryData.search_music = music;
 			this.diaryAnalysisData.search = true;
 			bus.$emit(
@@ -347,16 +322,15 @@ export default {
 			// shape is transformed, let us save new attrs back to the node
 			// find element in our state
 
-			const imgElem = this.imageObjects.find(
+			let imgElem = this.imageObjects.find(
 				r => r.name === this.selectedShapeName,
 			);
-
 			// update the state
-			imgElem.x = e.target.x();
-			imgElem.y = e.target.y();
-			imgElem.width = e.target.width();
-			imgElem.height = e.target.height();
-			imgElem.rotation = e.target.rotation();
+			if (e.target) {
+				imgElem.scaleX = e.target.scaleX();
+				imgElem.scaleY = e.target.scaleY();
+				imgElem.rotation = e.target.rotation();
+			}
 		},
 		handleStageMouseDown(e) {
 			// clicked on stage - clear selection
@@ -375,20 +349,21 @@ export default {
 
 			// find clicked rect by its name
 			const name = e.target.name();
-			let imgElem;
 
-			if (name === 'img1') {
-				imgElem = this.image[0];
-			} else if (name === 'img2') {
-				imgElem = this.image[1];
-			} else {
-				imgElem = this.image[2];
-			}
-
-			if (imgElem) {
+			if (name) {
 				this.selectedShapeName = name;
 			} else {
 				this.selectedShapeName = '';
+			}
+
+			let imgElem = this.imageObjects.find(
+				r => r.name === this.selectedShapeName,
+			);
+
+			// // update the state
+			if (e.target) {
+				imgElem.x = e.target.x();
+				imgElem.y = e.target.y();
 			}
 			this.updateTransformer();
 		},
@@ -436,9 +411,6 @@ export default {
 		margin: 10px 0;
 		position: relative;
 		overflow: hidden;
-		// .diary-header__menu {
-		// 	width: 18px;
-		// }
 		.diary-header__func {
 			display: flex;
 			margin: 0;
@@ -474,10 +446,6 @@ export default {
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
 		position: relative;
-		.konvajs-content {
-			// width: 300px !important;
-			// height: 200px !important;
-		}
 		.diary-image__stickerBg {
 			position: absolute;
 			top: 0;
@@ -487,7 +455,7 @@ export default {
 		}
 		.diary-image__value {
 			width: 100%;
-			object-fit: cover;
+			object-fit: contain;
 		}
 		label {
 			display: flex;

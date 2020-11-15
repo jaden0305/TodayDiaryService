@@ -5,12 +5,6 @@
 				<p class="diary-header__dataTitle">
 					{{ diaryData.title }}
 				</p>
-				<!-- <img
-					src="@/assets/images/menu.svg"
-					class="diary-header__menu"
-					alt="메뉴"
-					@click="onOpenMenu"
-				/> -->
 				<ul class="diary-header__func">
 					<li>
 						<img
@@ -23,7 +17,6 @@
 			</div>
 			<div class="diary-image">
 				<img class="diary-image__value" :src="contentImg" alt="일기사진" />
-				<!-- <img class="diary-image__value" :src="canvasImg" alt="일기사진" /> -->
 			</div>
 			<div class="diary-text">
 				<textarea
@@ -69,23 +62,11 @@ export default {
 				return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_AUTH_API_URL}images/default.png`;
 			}
 		},
-		// canvasImg() {
-		// 	if (this.diaryData.sticker_image) {
-		// 		return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryDataImage}`;
-		// 	}
-		// },
 		setUrl() {
 			return `${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}`;
 		},
 	},
 	methods: {
-		// onOpenMenu() {
-		// 	const menu = document.querySelector('.diary-header__menu');
-		// 	const menus = document.querySelector('.diary-header__func');
-		// 	menu.style.display = 'none';
-		// 	menus.style.right = '0px';
-		// 	menus.style.transition = '.5s';
-		// },
 		async onFetchDiary() {
 			try {
 				const { data } = await fetchDiary(this.diaryId);
@@ -123,22 +104,25 @@ export default {
 				bus.$emit('show:musicplayer', this.tracks);
 			} catch (error) {
 				bus.$emit('show:error', '정보를 불러오는데 실패했어요 :(');
-				// console.log(error.response);
 			}
 		},
 		onFetchStickers() {
 			if (this.diaryData.stickers.length) {
-				// const stickerWrap = document.querySelector('.diary-image');
-				// let imgElem = document.createElement('img');
-				// imgElem.src =
-				// 	this.setUrl +
-				// 	this.diaryData.stickers[0].sticker.path.replace('images', 'media');
-				// imgElem.style.width = `${this.diaryData.stickers[0].width}px`;
-				// imgElem.style.position = `absolute`;
-				// imgElem.style.top = `${this.diaryData.stickers[0].y}px`;
-				// imgElem.style.left = `${this.diaryData.stickers[0].x}px`;
-				// imgElem.style.transform = `rotate(${this.diaryData.stickers[0].rotation}deg)`;
-				// stickerWrap.appendChild(imgElem);
+				const stickerWrap = document.querySelector('.diary-image');
+				for (let stickerElem in this.diaryData.stickers) {
+					let imgElem = document.createElement('img');
+					imgElem.src =
+						this.setUrl + this.diaryData.stickers[stickerElem].sticker.path;
+					imgElem.style.width = `${this.diaryData.stickers[stickerElem].scaleX *
+						70}px`;
+					imgElem.style.height = `${this.diaryData.stickers[stickerElem]
+						.scaleY * 70}px`;
+					imgElem.style.position = `absolute`;
+					imgElem.style.top = `${this.diaryData.stickers[stickerElem].y}px`;
+					imgElem.style.left = `${this.diaryData.stickers[stickerElem].x}px`;
+					imgElem.style.transform = `rotate(${this.diaryData.stickers[stickerElem].rotation}deg)`;
+					stickerWrap.appendChild(imgElem);
+				}
 			}
 		},
 		onFetchFont() {
@@ -161,7 +145,6 @@ export default {
 				this.$router.push({ name: 'calendar' });
 			} catch (error) {
 				bus.$emit('show:error', '삭제를 실패했어요 :(');
-				// console.log(error.response.data);
 			}
 		},
 	},
@@ -218,12 +201,12 @@ export default {
 		margin: 10px 0;
 		height: 28vh;
 		border-radius: 4px;
-		background: rgba(151, 151, 151, 0.3);
+		background: #f0f0f0;
 		position: relative;
 		.diary-image__value {
 			width: 100%;
 			border-radius: 4px;
-			object-fit: cover;
+			object-fit: contain;
 		}
 	}
 	.diary-text {

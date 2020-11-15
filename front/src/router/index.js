@@ -61,6 +61,20 @@ const routes = [
 		component: () => import('@/views/MusicPlayerPage.vue'),
 		beforeEnter: notRequireAuth,
 	},
+	{
+		path: '/login',
+		name: 'login',
+		component: () => import('@/views/LoginPage.vue'),
+		beforeEnter: requireAuth,
+	},
+	{
+		path: '*',
+		redirect: '/404',
+	},
+	{
+		path: '/404',
+		component: () => import('@/views/NotFoundPage.vue'),
+	},
 ];
 
 const router = new VueRouter({
