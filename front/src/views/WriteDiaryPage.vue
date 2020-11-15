@@ -8,12 +8,6 @@
 					type="text"
 					v-model="diaryData.title"
 				/>
-				<!-- <img
-					src="@/assets/images/menu.svg"
-					class="diary-header__menu"
-					alt="메뉴"
-					@click="onOpenMenu"
-				/> -->
 				<ul class="diary-header__func">
 					<li>
 						<img
@@ -140,7 +134,7 @@ import ToastSave from '@/components/modal/ToastSave.vue';
 import Tutorial from '@/components/modal/Tutorial.vue';
 import { createDiaryanalysis } from '@/api/analysis';
 import { isWritten } from '@/api/diary';
-// import Konva from 'konva';
+
 let num = 1;
 
 export default {
@@ -207,13 +201,6 @@ export default {
 			console.log(this.diaryData.image);
 			this.diaryImageFile = false;
 		},
-		// onOpenMenu() {
-		// 	const menu = document.querySelector('.diary-header__menu');
-		// 	const menus = document.querySelector('.diary-header__func');
-		// 	menu.style.display = 'none';
-		// 	menus.style.right = '0px';
-		// 	menus.style.transition = '.5s';
-		// },
 		openMusicModal() {
 			this.openMusic = true;
 			this.openSticker = false;
@@ -250,22 +237,12 @@ export default {
 					this.diaryAnalysisData.content = this.diaryData.content;
 					const { data } = await createDiaryanalysis(this.diaryAnalysisData);
 
-					// console.log('11111');
-					// let canvas = document.querySelector('canvas');
-					// console.log(canvas);
-					// let image = document.createElement('img');
-					// console.log(image);
-					// image.setAttribute('crossorigin', 'anonymous');
-					// let stage = new Konva.Stage();
-					// image.src = stage.toDataURL();
-
-					// this.diaryData.sticker_image = image;
 					this.diaryData.user_emotion = data.feel[0][0];
 					this.diaryData.recommend_music = data.music;
 
 					this.openSave = true;
 				} else {
-					console.log('내용을 입력해주세요:(');
+					bus.$emit('show:error', '한줄평과 내용을 입력해주세요 :(');
 				}
 			} catch (err) {
 				console.log('error');
