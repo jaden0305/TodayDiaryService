@@ -1,9 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+
+    <meta name="description" content="당신의 오늘 하루는 어떠셨냐요?">
+    
+    <meta name="creator" content="김태인">
+    <meta name="creator" content="양진엽">
+    <meta name="creator" content="이종우">
+    <meta name="creator" content="주재성">
+    <meta name="creator" content="홍연주">
+
+    <meta property="og:title" content="오늘 하루" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://k3d104.p.ssafy.io/" />
+    <meta property="og:description" content="당신의 오늘 하루는 어떠셨나요?">
+    <meta property="og:image" content="https://k3d104.p.ssafy.io:8000/images/logo/logo.png" />
+
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <script src="https://unpkg.com/chance@1.1.6/dist/chance.min.js"></script>
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
@@ -13,12 +28,12 @@
         Kakao.init('f6d5d6eb7010ffab1ed46cfdcc20513a');
       }
     </script>
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>오늘 하루</title>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Poor+Story&display=swap" rel="stylesheet">
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>We're sorry but 오늘 하루 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
