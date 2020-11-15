@@ -86,12 +86,7 @@ export default {
 			endString: null,
 			weekcnt: 0,
 			barwords: [],
-			words: [
-				// ['romance', 300, 1],
-				// ['magic', 200, 0],
-				// ['fantasy', 100, -1],
-				// ['adventure', 150, 1],
-			],
+			words: [],
 			chartLoading: false,
 			chartData: {
 				labels: ['01', '02', '03', '04', '05', '06', '07'],
@@ -132,7 +127,6 @@ export default {
 			);
 		}
 		this.fetchWeek(start, end);
-		// bus.$emit('lineUpdate');
 	},
 	mounted() {
 		window.scrollTo(0, 0);
@@ -189,7 +183,6 @@ export default {
 				this.year -= 1;
 			}
 			this.fetchMonth(this.year, this.month);
-			// bus.$emit('lineUpdate');
 		},
 		moveNextMonth() {
 			if (this.month < 12) {
@@ -199,7 +192,6 @@ export default {
 				this.year += 1;
 			}
 			this.fetchMonth(this.year, this.month);
-			// bus.$emit('lineUpdate');
 		},
 		movePrevWeek() {
 			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() - 7));
@@ -215,7 +207,6 @@ export default {
 			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
 			this.fetchWeek(start, end);
-			// bus.$emit('lineUpdate');
 		},
 		moveNextWeek() {
 			this.endWeek = new Date(this.endWeek.setDate(this.endWeek.getDate() + 7));
@@ -230,16 +221,8 @@ export default {
 				1}-${this.startWeek.getDate()}`;
 			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
-			// const startChart = new Date(this.startWeek);
-			// startChart.setDate(startChart.getDate() - 1);
-			// this.chartData.labels.splice(0, this.chartData.labels.length);
-			// for (let i = 0; i < 7; i++) {
-			// 	this.chartData.labels.push(
-			// 		new Date(startChart.setDate(startChart.getDate() + 1)).getDate(),
-			// 	);
-			// }
+
 			this.fetchWeek(start, end);
-			// bus.$emit('lineUpdate');
 		},
 		async fetchWeek(startWeek, endWeek) {
 			try {
@@ -382,9 +365,6 @@ export default {
 		border-radius: 1rem;
 		background: #f0f0f0;
 		box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
-		/* border-radius: 0.5rem;
-		background: white;
-		box-shadow: 13px 32px 36px -14px hsla(0, 0%, 70%, 0.3); */
 	}
 	.report-title::after {
 		content: '';
@@ -420,8 +400,6 @@ export default {
 		color: #343a40;
 		border-radius: 1rem;
 		padding: 0.75rem;
-		/* background: linear-gradient(145deg, #d8d8d8, #ffffff);
-		box-shadow: 5px 5px 10px #b4b4b4, -5px -5px 10px #ffffff; */
 		background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
 		box-shadow: 5px 5px 10px #cccccc, -5px -5px 10px #ffffff;
 	}
@@ -573,7 +551,6 @@ export default {
 .line-container {
 	box-sizing: border-box;
 	width: 100%;
-	/* height: 50%; */
 }
 #line-chart {
 	box-sizing: border-box;

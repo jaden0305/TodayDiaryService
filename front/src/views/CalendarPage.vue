@@ -274,7 +274,6 @@ export default {
 .calendar-days {
 	width: 100%;
 	display: flex;
-	// justify-content: space-evenly;
 	flex-wrap: wrap;
 	.calendar-day {
 		display: flex;
