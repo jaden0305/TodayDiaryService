@@ -287,13 +287,13 @@ export default {
 			this.openSticker = false;
 		},
 		onDeleteStickers() {
-			// const tr = layer
-			// 	.find('Transformer')
-			// 	.toArray()
-			// 	.find(tr => tr.nodes()[0] === this.selectedShapeName);
-			// tr.destroy();
-			// this.selectedShapeName.destroy();
-			// layer.draw();
+			const transformerNode = this.$refs.transformer.getNode();
+			const layer = transformerNode.getLayer();
+
+			this.selectedShapeName = '';
+			this.imageObjects = [];
+			this.image = [];
+			layer.delete();
 		},
 		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');
