@@ -57,7 +57,7 @@
 				<bar-chart
 					class="report-bar display-none"
 					@click.native="switchWordView"
-					:data="words"
+					:data="barwords"
 				></bar-chart>
 			</div>
 			<div class="report-chart">
@@ -85,6 +85,7 @@ export default {
 			startString: null,
 			endString: null,
 			weekcnt: 0,
+			barwords: [],
 			words: [
 				// ['romance', 300, 1],
 				// ['magic', 200, 0],
@@ -160,8 +161,10 @@ export default {
 				this.month = month;
 				if (data.wordcloud.length) {
 					this.words = data.wordcloud;
+					this.barwords = data.wordcloud.slice(0, 20);
 				} else {
 					this.words = [['데이터가 없습니다', 1, 0]];
+					this.barwords = [['데이터가 없습니다', 1, 0]];
 				}
 				this.chartData.chartData[0].data = [];
 				this.chartData.labels = [];
@@ -243,8 +246,10 @@ export default {
 				const { data } = await fetchWeekReport(startWeek, endWeek);
 				if (data.wordcloud.length) {
 					this.words = data.wordcloud;
+					this.barwords = data.wordcloud.slice(0, 20);
 				} else {
 					this.words = [['데이터가 없습니다', 1, 0]];
+					this.barwords = [['데이터가 없습니다', 1, 0]];
 				}
 				const startChart = new Date(this.startWeek);
 				this.year = startChart.getFullYear();

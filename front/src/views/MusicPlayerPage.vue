@@ -192,7 +192,9 @@
 								:style="{ backgroundImage: `url(${track.cover})` }"
 							></div>
 							<div class="back-song__info">
-								<span class="back-song__name">{{ track.name }}</span>
+								<span class="back-song__name">{{
+									track.name | musicTruncate
+								}}</span>
 								<span class="back-song__artist">{{ track.artist }}</span>
 							</div>
 						</div>
