@@ -265,7 +265,7 @@ export default {
 		},
 		rotation: ([word]) => {
 			var chance = new Chance(word[0]);
-			return chance.pickone([0, 1 / 8, 3 / 4, 7 / 8]);
+			return chance.pickone([0, 1 / 8, 7 / 8]);
 		},
 		selectChart(num) {
 			const selected = document.querySelector('.select');
