@@ -127,8 +127,6 @@ export default {
 					this.nowMonth.push(day);
 				});
 			} catch (error) {
-				// console.log(error.response);
-				// bus.$emit('show:error', error.response.data);
 				bus.$emit('show:error', '캘린더를 불러오는데 실패했습니다 :(');
 			}
 		},

@@ -16,7 +16,6 @@
 		</button>
 
 		<div id="mainMenu" class="mainMenuOverlay floating2">
-			<!-- <div class="navire floating3"></div> -->
 			<div class="itemMenuBox bills">
 				<img
 					src="@/assets/images/emotion/2.png"
@@ -123,24 +122,6 @@ export default {
 }
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200);
-// .navire {
-// 	background: url(https://res.cloudinary.com/dioieuprs/image/upload/v1471359656/navire_n02z6s.png)
-// 		no-repeat;
-// 	background-size: 100% auto;
-// 	width: 120px;
-// 	height: 100px;
-// 	position: absolute;
-// 	top: -50px;
-// 	right: -130px;
-// 	-webkit-transition: right 0.2s ease;
-// 	transition: right 0.2s ease;
-// }
-
-// .mainMenuOverlay.open .navire {
-// 	right: 70%;
-// 	-webkit-transition: right 28s ease 1s;
-// 	transition: right 28s ease 1s;
-// }
 /* ### main Menu Overlay */
 .mainMenuOverlay {
 	background-color: rgb(197, 195, 179);
@@ -162,8 +143,6 @@ export default {
 
 .mainMenuOverlay .toggleMenu {
 	display: block;
-	/*background: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/sandwich.png) no-repeat center center #65B5D0;background-size: 23px auto;*/
-	// border: 1px solid #fff;
 	border-radius: 80px;
 	width: 62px;
 	height: 62px;
@@ -187,7 +166,6 @@ export default {
 
 .mainMenuOverlay.open .toggleMenu {
 	top: 50%;
-	// background-color: rgba(197, 191, 135, 0.84);
 	.emotion-close-btn {
 		margin-top: 20px;
 		width: 20px;
@@ -195,8 +173,6 @@ export default {
 }
 
 .mainMenuOverlay .itemMenuBox {
-	// background: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/go2.png)
-	// 	no-repeat center center;
 	background-size: 28px auto;
 	position: absolute;
 	top: 50%;
@@ -214,7 +190,6 @@ export default {
 }
 
 .mainMenuOverlay.open .itemMenuBox {
-	// width: 182px;
 	width: 48%;
 	-webkit-transition: all 1s ease 0s;
 	transition: all 1s ease 0s;
@@ -274,48 +249,36 @@ export default {
 }
 
 .mainMenuOverlay .itemMenuBox.bills .itemMenu {
-	/*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/file.png);
-    background-size: 20px auto;*/
 	-webkit-transform: rotate(90deg);
 	-ms-transform: rotate(90deg);
 	transform: rotate(90deg);
 }
 
 .mainMenuOverlay .itemMenuBox.tarsheed .itemMenu {
-	/* background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/tarsheed.png); 
-    background-size: 38px auto;*/
 	-webkit-transform: rotate(30deg);
 	-ms-transform: rotate(30deg);
 	transform: rotate(30deg);
 }
 
 .mainMenuOverlay .itemMenuBox.employees .itemMenu {
-	/*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/employees.png);
-    background-size: 38px auto;*/
 	-webkit-transform: rotate(330deg);
 	-ms-transform: rotate(330deg);
 	transform: rotate(330deg);
 }
 
 .mainMenuOverlay .itemMenuBox.location .itemMenu {
-	/*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/marker.png);
-    background-size: 24px auto;*/
 	-webkit-transform: rotate(270deg);
 	-ms-transform: rotate(270deg);
 	transform: rotate(270deg);
 }
 
 .mainMenuOverlay .itemMenuBox.eservices .itemMenu {
-	/*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/mouse.png);
-    background-size: 32px auto;*/
 	-webkit-transform: rotate(210deg);
 	-ms-transform: rotate(210deg);
 	transform: rotate(210deg);
 }
 
 .mainMenuOverlay .itemMenuBox.contact .itemMenu {
-	/*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/phone.png);
-    background-size: 19px auto;*/
 	-webkit-transform: rotate(150deg);
 	-ms-transform: rotate(150deg);
 	transform: rotate(150deg);

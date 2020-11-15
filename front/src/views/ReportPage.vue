@@ -221,7 +221,6 @@ export default {
 				1}-${this.startWeek.getDate()}`;
 			this.endString = `${this.endWeek.getMonth() +
 				1}-${this.endWeek.getDate()}`;
-
 			this.fetchWeek(start, end);
 		},
 		async fetchWeek(startWeek, endWeek) {

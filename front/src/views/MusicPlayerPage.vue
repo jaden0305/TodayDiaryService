@@ -500,7 +500,6 @@ export default {
 					};
 				}
 			} catch (error) {
-				// bus.$emit('show:error', error.response.data);
 				bus.$emit('show:error', '노래를 불러오는데 실패했습니다 :(');
 			}
 		},

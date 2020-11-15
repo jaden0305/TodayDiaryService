@@ -64,10 +64,8 @@ export default {
 		width: 320px;
 		margin-left: -160px;
 	}
-	/* transition: transform 750ms ease-out; */
 }
 .toast.show {
 	transform: translateY(150px);
-	/* transition: transform 500ms ease-in-out; */
 }
 </style>
