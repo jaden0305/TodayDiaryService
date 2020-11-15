@@ -36,8 +36,10 @@ def redis_check():
 @swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
 @api_view(['POST'])
 def analyze(request):
+    print(request.data)
     try:
         print(f'<analyze request : user {request.user} | title {request.data.get("title")}>')
+        print(type(request.data.get('date')))
         year, month, day = map(int, request.data.get('date').split('-'))
         date = datetime.date(year, month, day)
         if Post.objects.filter(created=date, user=request.user).exists():
