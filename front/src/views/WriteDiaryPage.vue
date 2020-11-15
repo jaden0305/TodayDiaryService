@@ -198,7 +198,6 @@ export default {
 			this.diaryImage = this.$refs.inputImage.files[0];
 			this.diaryImageUrl = URL.createObjectURL(this.diaryImage);
 			this.diaryData.image = this.$refs.inputImage.files[0];
-			console.log(this.diaryData.image);
 			this.diaryImageFile = false;
 		},
 		openMusicModal() {
@@ -229,8 +228,6 @@ export default {
 		async fetchAnalysis() {
 			try {
 				if (this.diaryData.title && this.diaryData.content) {
-					console.log('this.diaryData.stickers', this.diaryData.stickers);
-					console.log('this.imageObjects', this.imageObjects);
 					this.diaryData.stickers = this.imageObjects;
 					this.diaryAnalysisData.stickers = this.imageObjects;
 					this.diaryAnalysisData.title = this.diaryData.title;
@@ -310,7 +307,6 @@ export default {
 			this.openTheme = false;
 		},
 		selectMusic(music) {
-			console.log(music);
 			this.diaryData.search_music = music;
 			this.diaryAnalysisData.search = true;
 			bus.$emit(
@@ -331,15 +327,12 @@ export default {
 			let imgElem = this.imageObjects.find(
 				r => r.name === this.selectedShapeName,
 			);
-
 			// update the state
-			// imgElem.x = e.target.x();
-			// imgElem.y = e.target.y();
-			imgElem.width = e.target.width();
-			imgElem.height = e.target.height();
-			imgElem.scaleX = e.target.scaleX();
-			imgElem.scaleY = e.target.scaleY();
-			imgElem.rotation = e.target.rotation();
+			if (e.target) {
+				imgElem.scaleX = e.target.scaleX();
+				imgElem.scaleY = e.target.scaleY();
+				imgElem.rotation = e.target.rotation();
+			}
 		},
 		handleStageMouseDown(e) {
 			// clicked on stage - clear selection
@@ -370,8 +363,10 @@ export default {
 			);
 
 			// // update the state
-			imgElem.x = e.target.x();
-			imgElem.y = e.target.y();
+			if (e.target) {
+				imgElem.x = e.target.x();
+				imgElem.y = e.target.y();
+			}
 			this.updateTransformer();
 		},
 		updateTransformer() {
@@ -418,9 +413,6 @@ export default {
 		margin: 10px 0;
 		position: relative;
 		overflow: hidden;
-		// .diary-header__menu {
-		// 	width: 18px;
-		// }
 		.diary-header__func {
 			display: flex;
 			margin: 0;
@@ -456,10 +448,6 @@ export default {
 		border-radius: 4px;
 		background: rgba(151, 151, 151, 0.3);
 		position: relative;
-		.konvajs-content {
-			// width: 300px !important;
-			// height: 200px !important;
-		}
 		.diary-image__stickerBg {
 			position: absolute;
 			top: 0;
@@ -469,7 +457,7 @@ export default {
 		}
 		.diary-image__value {
 			width: 100%;
-			object-fit: cover;
+			object-fit: contain;
 		}
 		label {
 			display: flex;
