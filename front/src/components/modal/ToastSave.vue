@@ -30,8 +30,6 @@
 			</button>
 
 			<div id="mainMenu" class="mainMenuOverlay floating2">
-				<!-- <div class="navire floating3"></div> -->
-
 				<div
 					v-for="(value, idx) in emotionList(diaryData.user_emotion)"
 					:key="idx"
@@ -65,6 +63,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus';
 import { createDiary } from '@/api/diary';
 import { reselectEmotion } from '@/api/analysis';
 
@@ -141,11 +140,10 @@ export default {
 		async onSaveDiary() {
 			try {
 				this.diaryData.created = this.$route.query.day;
-				console.log('save', this.diaryData);
 				const { data } = await createDiary(this.diaryData);
 				this.$router.push(`/diary/${data.id}`);
 			} catch (err) {
-				console.log(err.response);
+				bus.$emit('show:error', '일기 기록을 실패했어요 :(');
 			}
 		},
 		async onReselectEmotion(id) {
@@ -155,12 +153,10 @@ export default {
 					this.diaryData.recommend_music = data.recommend_music;
 				}
 				this.diaryData.user_emotion = data.recommend_music.emotion;
-				// this.diaryData.recommend_music.artist = data.recommend_music.artist;
-				// this.diaryData.recommend_music.name = data.recommend_music.name;
 
 				this.onCloseEmotion();
 			} catch (err) {
-				console.log(err.response);
+				bus.$emit('show:error', '다른 감정 선택에 실패했여요 :(');
 			}
 		},
 		emotionList(idx) {
@@ -168,9 +164,6 @@ export default {
 			emotion.splice(idx - 1, 1);
 			return emotion;
 		},
-	},
-	created() {
-		console.log(this.diaryData);
 	},
 };
 </script>

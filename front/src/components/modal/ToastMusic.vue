@@ -89,7 +89,6 @@ export default {
 					return music;
 				});
 			} catch (error) {
-				console.log(error.response.data);
 				bus.$emit('show:error', '노래 검색을 실패했습니다 :(');
 			}
 		},
@@ -99,7 +98,6 @@ export default {
 			this.selectMusic.cover = music.snippet.thumbnails.high.url;
 			this.selectMusic.video_id = music.id.videoId;
 			this.selectMusic.emotion = 8;
-			// this.searchMusic.favorited = false;
 			this.$emit('selectMusic', this.selectMusic);
 			this.$emit('close-music');
 		},

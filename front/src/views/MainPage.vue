@@ -56,7 +56,6 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* background: rgb(249, 249, 249); */
 	.main-image {
 		width: 100%;
 		height: 60vh;
@@ -86,7 +85,6 @@ export default {
 	.main-title {
 		margin-top: -5.5rem;
 		font-size: 1.1rem;
-		// font-weight: 600;
 		@media (max-width: 300px) {
 			margin-top: -5rem;
 			font-size: 1rem;

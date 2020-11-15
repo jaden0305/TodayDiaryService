@@ -10,11 +10,6 @@
 		<div class="player slide-out-bottom" v-if="currentTrack">
 			<div class="player__title" v-hammer:swipe.down="swipeDown">
 				<span class="player__title__text">플레이어</span>
-				<!-- <img
-					class="player-swap__back"
-					src="@/assets/images/x.svg"
-					@click="closePlayer"
-				/> -->
 			</div>
 			<div class="player__top">
 				<div class="player-cover">
@@ -210,7 +205,6 @@ export default {
 			this.open = false;
 		},
 		openMethod(tracks) {
-			console.log(tracks);
 			this.open = true;
 			this.tracks = tracks;
 			this.currentTrack = this.tracks[0];
@@ -404,12 +398,9 @@ export default {
 }
 .opacity-on {
 	opacity: 1;
-	/* visibility: visible; */
 }
 .opacity-off {
 	opacity: 0;
-	/* visibility: hidden; */
-	/* display: none; */
 }
 
 .player {

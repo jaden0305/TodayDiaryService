@@ -34,7 +34,6 @@ let GetMe = async authObj => {
 					},
 				)
 				.then(res => {
-					console.log(res);
 					if (res.status === 200) {
 						axios
 							.post(
