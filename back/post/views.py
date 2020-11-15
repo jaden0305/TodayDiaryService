@@ -81,6 +81,7 @@ class CreateDiary(APIView, DiaryMixin):
     # [{"sticker":1,"width":0,"deg":0,"top":0,"left":99},{"sticker":1,"width":1,"deg":0,"top":0,"left":0}]
     @swagger_auto_schema(request_body=CreatePostSerializer)
     def post(self, request, format=None):
+        print(f'<post request : user {request.user} | title {request.data.get("title")}>')
         date = request.data['created']
         stickers = json.loads(request.data.get('stickers', '[]'))
         if Post.objects.filter(created=date, user=request.user).exists():
@@ -102,7 +103,7 @@ class CreateDiary(APIView, DiaryMixin):
                 data['search_music'] = search_music
         else:
             search_music = None
-
+        print('test1')
         recommend_music = request.data.get('recommend_music')
         if not (search_music or recommend_music):
             msg = {
@@ -118,7 +119,7 @@ class CreateDiary(APIView, DiaryMixin):
             del data['search_music']
         if recommend_music:
             del data['recommend_music']
-
+        print('test')
         serializer = CreatePostSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         post = serializer.save(user=request.user)
@@ -126,7 +127,7 @@ class CreateDiary(APIView, DiaryMixin):
         self.create_sticker(stickers, post.id)
         response = self.analyze(request.user, data, post.id)
         response = json.loads(response.text)
-        
+        print(response)        
 
         data['image'] = image
         data['sticker_image'] = sticker_image
@@ -184,6 +185,7 @@ class diary(APIView, DiaryMixin):
     def delete(self, request, post_id):
         mypost = self.get_object(post_id)
         if request.user.id == mypost.user.id:
+            print(f'<delete request : user {request.user} post {mypost}')
             date = mypost.created
             mypost.delete()
             delete_month_cache(date, request.user.id)

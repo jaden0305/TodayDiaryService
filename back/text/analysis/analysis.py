@@ -288,7 +288,7 @@ class TextAnalysis:
 
         for emotion in self.emotions:
             if emotion and emotion != 'no_emotion':
-                feel[emotion] = feel.get(emotion, 0) + 2 
+                feel[self.emotion_idx[emotion]] = feel.get(self.emotion_idx[emotion], 0) + 2 
                 if self.emotion_idx[emotion] in [1,3]:
                     score += 6
                     cnt += 6
@@ -303,7 +303,6 @@ class TextAnalysis:
     def text_analysis(self):
         # 일일 감정점수
         score, feel = self.day_score()
-
         # 일일 감정분류
         for key, value in feel.items():
             if score > 0:
@@ -316,11 +315,9 @@ class TextAnalysis:
         sorted_feel = sorted(feel.items(), key=lambda item:item[1], reverse=True)
         if len(sorted_feel) == 0:
             sorted_feel = [(4, 0)]
-
         # 단어 갯수 (wordcloud용)\
         # print('word count', self.count_words())
         word_count = self.count_words()
-
         return {
             "score": score,
             "feel": sorted_feel,

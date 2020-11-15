@@ -36,7 +36,9 @@ def redis_check():
 @swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
 @api_view(['POST'])
 def analyze(request):
-    date = request.data.get('date')
+    print(f'<analyze request : user {request.user} | title {request.data.get("title")}>')
+    year, month, day = map(int, request.data.get('date').split('-'))
+    date = datetime.date(year, month, day)
     if Post.objects.filter(created=date, user=request.user).exists():
         msg = {
             'detail': '해당 날짜에 이미 작성된 일기가 있습니다.',
@@ -59,21 +61,17 @@ def analyze(request):
     }
     ta = TextAnalysis(data)
     result = ta.text_analysis()
-
     feels = result['feel']
     for idx, feel in enumerate(feels):
         if feel[0] == 'no_emotion':
             feels.pop(idx)
             break
     feels.sort(key=lambda x: -x[1])
-
     if feels:
         emotion_id = feels[0][0]
     else:
         result['feel'] = [(4, 0)]
         emotion_id = 4
-    emotion = get_object_or_404(Emotion, pk=emotion_id)
-
     if need_music:
         music = emotion.musics.order_by('?')[0]
         result['music'] = RecommandMusicSerializer(instance=music).data
@@ -92,7 +90,6 @@ def statistics(request):
     ta = TextAnalysis(request.data)
 
     result = ta.text_analysis()
-
     for lis in result['word_count']:
         word, count, emotion = lis
         data = {
@@ -107,7 +104,6 @@ def statistics(request):
 
         wordcloud_serializer.is_valid(raise_exception=True)
         wordcloud_serializer.save(date=date, user=get_object_or_404(User, pk=user), post=get_object_or_404(Post, pk=post_id))
-
     score = round(result['score'],3)
 
     result['feel'].sort(key=lambda x:-x[1])
