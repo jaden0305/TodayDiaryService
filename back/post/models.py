@@ -85,3 +85,5 @@ class PostSticker(models.Model):
     rotation = models.CharField(max_length=20)
     y = models.CharField(max_length=20)
     x = models.CharField(max_length=20)
+    scaleY = models.CharField(max_length=20, default=0)
+    scaleX = models.CharField(max_length=20, default=0)
