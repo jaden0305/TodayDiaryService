@@ -84,7 +84,12 @@
 						<v-transformer ref="transformer" />
 					</v-layer>
 				</v-stage>
-				<button id="deleteStickers" @click="onDeleteStickers">지우기</button>
+				<button id="deletePicture" @click="onDeletePicture">
+					사진 지우기
+				</button>
+				<button id="deleteStickers" @click="onDeleteStickers">
+					이모티콘 지우기
+				</button>
 				<label for="diary-image__input" v-if="diaryImageFile">
 					<img
 						src="@/assets/images/photos.svg"
@@ -249,17 +254,12 @@ export default {
 			}
 		},
 		setSticker(selctedStickerPath, id, emotion) {
-			const imageEelmWrap = document.createElement('span');
 			const imageElem = document.createElement('img');
-			const deleteBtn = document.createElement('button');
 
 			if (this.image.length < 3) {
-				imageEelmWrap.classList.add('diary-image-wrap__sticker');
 				imageElem.src = selctedStickerPath;
 				imageElem.classList.add('diary-image__sticker');
-				deleteBtn.innerText = '지우기';
-				deleteBtn.classList.add('diary-image-delete__sticker');
-				console.log(deleteBtn);
+
 				imageElem.onload = () => {
 					// set image only when it is loaded
 					this.image.push(imageElem);
@@ -278,9 +278,6 @@ export default {
 						draggable: true,
 					});
 				};
-				imageEelmWrap.appendChild(imageElem);
-				imageEelmWrap.appendChild(deleteBtn);
-				console.log(imageEelmWrap);
 			} else {
 				bus.$emit('show:error', '스티커는 3개까지 넣을 수 있어요 :(');
 			}
@@ -333,6 +330,13 @@ export default {
 				`${music.name.substr(0, 14)}..이 선택되었습니다.`,
 			);
 		},
+		onDeletePicture() {
+			this.diaryImage = null;
+			this.diaryImageUrl = null;
+			this.diaryImageFile = true;
+			this.diaryData.image = null;
+			this.onDeleteStickers();
+		},
 		resizeStage() {
 			const stageWrap = document.querySelector('.diary-image');
 
@@ -380,15 +384,11 @@ export default {
 			let imgElem = this.imageObjects.find(
 				r => r.name === this.selectedShapeName,
 			);
-			const imageDeleteBtn = document.querySelector('button');
-			imageDeleteBtn.innerText = '지우기';
 
 			// // update the state
 			if (e.target) {
 				imgElem.x = e.target.x();
 				imgElem.y = e.target.y();
-				imageDeleteBtn.x = e.target.x();
-				imageDeleteBtn.y = e.target.y();
 			}
 			this.updateTransformer();
 		},
@@ -494,6 +494,22 @@ export default {
 				margin-top: 50px;
 			}
 		}
+		#deletePicture {
+			padding: 5px 8px;
+			position: absolute;
+			bottom: -15%;
+			right: 33%;
+			border: none;
+			cursor: pointer;
+		}
+		#deleteStickers {
+			padding: 5px 8px;
+			position: absolute;
+			bottom: -15%;
+			right: 0;
+			border: none;
+			cursor: pointer;
+		}
 		#diary-image__input {
 			position: absolute;
 			width: 0;
@@ -512,18 +528,13 @@ export default {
 				top: 0;
 				left: 0;
 			}
-			.diary-image-delete__sticker {
-				width: 20px;
-				position: absolute;
-				top: 0;
-				left: 50%;
-			}
 		}
 	}
 	.diary-text {
 		margin-top: 10px;
 		.diary-text__content {
 			width: 100%;
+			margin-top: 10px;
 			padding: 5px 10px;
 			line-height: 2;
 			font-size: 15.5px;
