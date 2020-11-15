@@ -119,8 +119,8 @@ export default {
 						},
 					];
 				}
-				bus.$emit('show:musicplayer', this.tracks);
 				this.diaryData = data;
+				bus.$emit('show:musicplayer', this.tracks);
 			} catch (error) {
 				bus.$emit('show:error', '정보를 불러오는데 실패했어요 :(');
 				// console.log(error.response);
@@ -173,6 +173,7 @@ export default {
 		this.onFetchFont();
 		this.onFetchPaper();
 	},
+	mounted() {},
 };
 </script>
 
