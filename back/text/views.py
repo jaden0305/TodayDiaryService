@@ -36,6 +36,13 @@ def redis_check():
 @swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
 @api_view(['POST'])
 def analyze(request):
+    date = request.data.get('date')
+    if Post.objects.filter(created=date, user=request.user).exists():
+        msg = {
+            'detail': '해당 날짜에 이미 작성된 일기가 있습니다.',
+            'exist': True
+        }
+        return Response(msg, status=status.HTTP_400_BAD_REQUEST)
     need_music = not request.data.get('search')
     title = request.data.get('title')
     text = request.data.get('content')
