@@ -11,7 +11,6 @@
 <script>
 import { Login } from '@/api/auth';
 import bus from '@/utils/bus';
-// import { mapMutations } from 'vuex';
 export default {
 	data() {
 		return {
