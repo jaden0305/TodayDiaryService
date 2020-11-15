@@ -235,18 +235,19 @@ export default {
 					this.diaryAnalysisData.stickers = this.imageObjects;
 					this.diaryAnalysisData.title = this.diaryData.title;
 					this.diaryAnalysisData.content = this.diaryData.content;
+					this.diaryAnalysisData.date = this.$route.query.day;
 					const { data } = await createDiaryanalysis(this.diaryAnalysisData);
-
 					this.diaryData.user_emotion = data.feel[0][0];
 					this.diaryData.recommend_music = data.music;
-
 					this.openSave = true;
 				} else {
 					bus.$emit('show:error', '한줄평과 내용을 입력해주세요 :(');
 				}
 			} catch (err) {
-				console.log('error');
-				console.log(err);
+				if (err.response.data.exist) {
+					this.$router.push('/calendar');
+				}
+				bus.$emit('show:error', err.response.detail);
 			}
 		},
 		setSticker(selctedStickerPath, id, emotion) {
