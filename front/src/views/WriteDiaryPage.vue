@@ -65,8 +65,9 @@
 					class="diary-image__stickerBg"
 					ref="stage"
 					:config="stageSize"
-					@mousedown="handleStageMouseDown"
-					@touchstart="handleStageMouseDown"
+					@mouseup="handleStageMouseDown"
+					@touchend="handleStageMouseDown"
+					@dragend="handleStageMouseDown"
 				>
 					<v-layer ref="layer">
 						<v-image
@@ -241,6 +242,8 @@ export default {
 		async fetchAnalysis() {
 			try {
 				if (this.diaryData.title && this.diaryData.content) {
+					console.log('this.diaryData.stickers', this.diaryData.stickers);
+					console.log('this.imageObjects', this.imageObjects);
 					this.diaryData.stickers = this.imageObjects;
 					this.diaryAnalysisData.stickers = this.imageObjects;
 					this.diaryAnalysisData.title = this.diaryData.title;
@@ -347,15 +350,17 @@ export default {
 			// shape is transformed, let us save new attrs back to the node
 			// find element in our state
 
-			const imgElem = this.imageObjects.find(
+			let imgElem = this.imageObjects.find(
 				r => r.name === this.selectedShapeName,
 			);
 
 			// update the state
-			imgElem.x = e.target.x();
-			imgElem.y = e.target.y();
+			// imgElem.x = e.target.x();
+			// imgElem.y = e.target.y();
 			imgElem.width = e.target.width();
 			imgElem.height = e.target.height();
+			imgElem.scaleX = e.target.scaleX();
+			imgElem.scaleY = e.target.scaleY();
 			imgElem.rotation = e.target.rotation();
 		},
 		handleStageMouseDown(e) {
@@ -375,21 +380,20 @@ export default {
 
 			// find clicked rect by its name
 			const name = e.target.name();
-			let imgElem;
 
-			if (name === 'img1') {
-				imgElem = this.image[0];
-			} else if (name === 'img2') {
-				imgElem = this.image[1];
-			} else {
-				imgElem = this.image[2];
-			}
-
-			if (imgElem) {
+			if (name) {
 				this.selectedShapeName = name;
 			} else {
 				this.selectedShapeName = '';
 			}
+
+			let imgElem = this.imageObjects.find(
+				r => r.name === this.selectedShapeName,
+			);
+
+			// // update the state
+			imgElem.x = e.target.x();
+			imgElem.y = e.target.y();
 			this.updateTransformer();
 		},
 		updateTransformer() {
