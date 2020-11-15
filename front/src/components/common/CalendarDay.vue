@@ -152,4 +152,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.emotion {
+	cursor: pointer;
+}
+</style>

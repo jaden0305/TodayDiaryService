@@ -95,10 +95,8 @@ export default {
 	left: 0;
 	right: 0;
 	height: 70px;
-	/* background: #e6e6e6; */
 	background: #ffffff;
 	border-top: 1px solid rgba(#adb5bd, 0.2);
-	/* box-shadow: 20px 20px 60px #c4c4c4, -20px -20px 60px #ffffff; */
 	z-index: 999;
 	padding-bottom: 10px;
 	.nav-lists {
@@ -118,6 +116,7 @@ export default {
 			.nav-img {
 				width: 32px;
 				height: 32px;
+				cursor: pointer;
 			}
 			.nav-list__wrap {
 				display: flex;

@@ -44,12 +44,6 @@ const routes = [
 		beforeEnter: notRequireAuth,
 	},
 	{
-		path: '/saveDiary',
-		name: 'saveDiary',
-		component: () => import('@/views/CompleteDiaryPage.vue'),
-		beforeEnter: notRequireAuth,
-	},
-	{
 		path: '/report',
 		name: 'report',
 		component: () => import('@/views/ReportPage.vue'),

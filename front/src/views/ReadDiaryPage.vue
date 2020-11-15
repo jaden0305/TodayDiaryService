@@ -70,7 +70,6 @@ export default {
 		async onFetchDiary() {
 			try {
 				const { data } = await fetchDiary(this.diaryId);
-				console.log(data);
 				if (data.search_music) {
 					this.tracks = [
 						{
@@ -176,9 +175,6 @@ export default {
 		.diary-header__dataTitle {
 			margin-left: 10px;
 		}
-		// .diary-header__menu {
-		// 	width: 18px;
-		// }
 		.diary-header__func {
 			display: flex;
 			margin: 0;
@@ -191,6 +187,7 @@ export default {
 				img {
 					width: 16px;
 					margin: 0 6px;
+					cursor: pointer;
 				}
 			}
 		}
