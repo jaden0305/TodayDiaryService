@@ -147,7 +147,7 @@ export default {
 			openMusic: false,
 			openSticker: false,
 			openTheme: false,
-			openTutorial: true,
+			openTutorial: false,
 			openSave: false,
 			diaryData: {
 				title: null,
