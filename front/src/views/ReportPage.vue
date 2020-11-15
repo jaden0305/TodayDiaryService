@@ -92,7 +92,7 @@ export default {
 				labels: ['01', '02', '03', '04', '05', '06', '07'],
 				chartData: [
 					{
-						label: `${cookies.get('username')}`,
+						label: `감정 점수`,
 						data: ['0', '0', '0', '0', '0', '0', '0'],
 					},
 				],
