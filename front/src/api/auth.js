@@ -10,3 +10,10 @@ export function likeMusic(musicId, search) {
 export function likeMusics() {
 	return auth.get('/music/like/');
 }
+
+export function Login(email, password) {
+	return auth.post('/login/', {
+		email,
+		password,
+	});
+}
