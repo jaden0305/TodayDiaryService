@@ -36,48 +36,52 @@ def redis_check():
 @swagger_auto_schema(methods=['post'], request_body=DiaryAnalysisSerializer)
 @api_view(['POST'])
 def analyze(request):
-    print(f'<analyze request : user {request.user} | title {request.data.get("title")}>')
-    year, month, day = map(int, request.data.get('date').split('-'))
-    date = datetime.date(year, month, day)
-    if Post.objects.filter(created=date, user=request.user).exists():
-        msg = {
-            'detail': '해당 날짜에 이미 작성된 일기가 있습니다.',
-            'exist': True
+    try:
+        print(f'<analyze request : user {request.user} | title {request.data.get("title")}>')
+        year, month, day = map(int, request.data.get('date').split('-'))
+        date = datetime.date(year, month, day)
+        if Post.objects.filter(created=date, user=request.user).exists():
+            msg = {
+                'detail': '해당 날짜에 이미 작성된 일기가 있습니다.',
+                'exist': True
+            }
+            return Response(msg, status=status.HTTP_400_BAD_REQUEST)
+        need_music = not request.data.get('search')
+        title = request.data.get('title')
+        text = request.data.get('content')
+        stickers = request.data.get('stickers', [])
+        if not text.strip():
+            msg = {
+                'detail': '"content" 내용이 없습니다.'
+            }
+            return Response(msg, status=status.HTTP_400_BAD_REQUEST)
+        data = {
+            'title': title,
+            'text': text,
+            'stickers': stickers
         }
-        return Response(msg, status=status.HTTP_400_BAD_REQUEST)
-    need_music = not request.data.get('search')
-    title = request.data.get('title')
-    text = request.data.get('content')
-    stickers = request.data.get('stickers', [])
-    if not text.strip():
-        msg = {
-            'detail': '"content" 내용이 없습니다.'
-        }
-        return Response(msg, status=status.HTTP_400_BAD_REQUEST)
-    data = {
-        'title': title,
-        'text': text,
-        'stickers': stickers
-    }
-    ta = TextAnalysis(data)
-    result = ta.text_analysis()
-    feels = result['feel']
-    for idx, feel in enumerate(feels):
-        if feel[0] == 'no_emotion':
-            feels.pop(idx)
-            break
-    feels.sort(key=lambda x: -x[1])
-    if feels:
-        emotion_id = feels[0][0]
-    else:
-        result['feel'] = [(4, 0)]
-        emotion_id = 4
-    if need_music:
-        music = emotion.musics.order_by('?')[0]
-        result['music'] = RecommandMusicSerializer(instance=music).data
-    else:
-        music = None
-        result['music'] = music
+        ta = TextAnalysis(data)
+        result = ta.text_analysis()
+        feels = result['feel']
+        for idx, feel in enumerate(feels):
+            if feel[0] == 'no_emotion':
+                feels.pop(idx)
+                break
+        feels.sort(key=lambda x: -x[1])
+        if feels:
+            emotion_id = feels[0][0]
+        else:
+            result['feel'] = [(4, 0)]
+            emotion_id = 4
+        emotion = get_object_or_404(Emotion, pk=emotion_id)
+        if need_music:
+            music = emotion.musics.order_by('?')[0]
+            result['music'] = RecommandMusicSerializer(instance=music).data
+        else:
+            music = None
+            result['music'] = music
+    except Exception as e:
+        print(e)
     return Response(result, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
@@ -151,7 +155,6 @@ def select(request):
 def weekly(request):
     start = request.GET.get('start')
     end = request.GET.get('end')
-
     cache_key = f'w-u{request.user.id}-s{start}'
     
     # redis_check() 연결 되는지 확인
@@ -164,7 +167,6 @@ def weekly(request):
         if cached_data:
             print('cache gotten')
             return Response(cached_data, status=status.HTTP_200_OK)
-
     dt_index = pandas.date_range(start=start, end=end)
 
     dt_list = dt_index.strftime("%Y-%m-%d").tolist()
@@ -174,7 +176,6 @@ def weekly(request):
 
     daily_report_serializer = DailyReportSerializer(instance=daily_report, many=True)
     wordcloud_serializer = WordCloudReportSerializer(instance=wordcloud, many=True)
-
     temp = {}
     wc_list = []
     graph_list = []
@@ -186,7 +187,7 @@ def weekly(request):
             temp[i['word']][0] += i['count']
     for key, value in temp.items():
         wc_list.append([key, value[0], value[1]])
-    
+    wc_list.sort(key=lambda x:-x[1])
     # score data`
     for date in dt_list:
         for qdate in daily_report_serializer.data:
@@ -206,6 +207,7 @@ def weekly(request):
 @swagger_auto_schema(methods=['get'], query_serializer=MonthlyDateSerializer)
 @api_view(['GET'])
 def monthly(request):
+    print(11)
     year = request.GET.get('year')
     month = request.GET.get('month')
 
@@ -240,7 +242,9 @@ def monthly(request):
             temp[i['word']][0] += i['count']
     for key, value in temp.items():
         wc_list.append([key, value[0], value[1]])
-    
+
+    wc_list.sort(key=lambda x:-x[1])
+
     for day in range(1, days + 1):
         for qdate in daily_report_serializer.data:
             if day == int(qdate['date'][-2:]):
