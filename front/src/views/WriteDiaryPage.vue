@@ -84,6 +84,12 @@
 						<v-transformer ref="transformer" />
 					</v-layer>
 				</v-stage>
+				<button id="deletePicture" @click="onDeletePicture">
+					사진 지우기
+				</button>
+				<button id="deleteStickers" @click="onDeleteStickers">
+					이모티콘 지우기
+				</button>
 				<label for="diary-image__input" v-if="diaryImageFile">
 					<img
 						src="@/assets/images/photos.svg"
@@ -146,7 +152,7 @@ export default {
 			openMusic: false,
 			openSticker: false,
 			openTheme: false,
-			openTutorial: true,
+			openTutorial: false,
 			openSave: false,
 			diaryData: {
 				title: null,
@@ -253,6 +259,7 @@ export default {
 			if (this.image.length < 3) {
 				imageElem.src = selctedStickerPath;
 				imageElem.classList.add('diary-image__sticker');
+
 				imageElem.onload = () => {
 					// set image only when it is loaded
 					this.image.push(imageElem);
@@ -275,6 +282,15 @@ export default {
 				bus.$emit('show:error', '스티커는 3개까지 넣을 수 있어요 :(');
 			}
 			this.openSticker = false;
+		},
+		onDeleteStickers() {
+			const transformerNode = this.$refs.transformer.getNode();
+			const layer = transformerNode.getLayer();
+
+			this.selectedShapeName = '';
+			this.imageObjects = [];
+			this.image = [];
+			layer.delete();
 		},
 		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');
@@ -313,6 +329,13 @@ export default {
 				'show:complete',
 				`${music.name.substr(0, 14)}..이 선택되었습니다.`,
 			);
+		},
+		onDeletePicture() {
+			this.diaryImage = null;
+			this.diaryImageUrl = null;
+			this.diaryImageFile = true;
+			this.diaryData.image = null;
+			this.onDeleteStickers();
 		},
 		resizeStage() {
 			const stageWrap = document.querySelector('.diary-image');
@@ -425,6 +448,7 @@ export default {
 				img {
 					width: 18px;
 					margin: 0 6px;
+					cursor: pointer;
 				}
 			}
 		}
@@ -471,6 +495,22 @@ export default {
 				margin-top: 50px;
 			}
 		}
+		#deletePicture {
+			padding: 5px 8px;
+			position: absolute;
+			bottom: -15%;
+			right: 33%;
+			border: none;
+			cursor: pointer;
+		}
+		#deleteStickers {
+			padding: 5px 8px;
+			position: absolute;
+			bottom: -15%;
+			right: 0;
+			border: none;
+			cursor: pointer;
+		}
 		#diary-image__input {
 			position: absolute;
 			width: 0;
@@ -479,17 +519,23 @@ export default {
 			overflow: hidden;
 			border: 0;
 		}
-		.diary-image__sticker {
-			width: 50px;
-			position: absolute;
-			top: 0;
-			left: 0;
+		.diary-image-wrap__sticker {
+			position: relative;
+			width: 100px;
+			height: 100px;
+			.diary-image__sticker {
+				width: 50px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
 		}
 	}
 	.diary-text {
 		margin-top: 10px;
 		.diary-text__content {
 			width: 100%;
+			margin-top: 10px;
 			padding: 5px 10px;
 			line-height: 2;
 			font-size: 15.5px;
@@ -522,6 +568,7 @@ export default {
 		border-radius: 20px;
 		background: var(--default-color);
 		box-shadow: 5px 5px 9px #cccccc, -5px -5px 9px #ffffff;
+		cursor: pointer;
 	}
 }
 </style>

@@ -66,6 +66,5 @@ export default {
 }
 .toast.show {
 	transform: translateY(150px);
-	/* transition: transform 500ms ease-in-out; */
 }
 </style>
