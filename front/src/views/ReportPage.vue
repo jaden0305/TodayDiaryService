@@ -40,7 +40,7 @@
 				</button>
 			</div>
 			<div class="report-wordcloud">
-				<span class="report-title">감정 사전</span>
+				<span class="report-title">단어 빈도</span>
 				<vue-word-cloud
 					class="report-word"
 					@click.native="switchBarView"
