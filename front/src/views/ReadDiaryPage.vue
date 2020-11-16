@@ -36,7 +36,7 @@
 <script>
 import MusicBar from '@/components/common/MusicBar.vue';
 import bus from '@/utils/bus';
-import { fetchDiary, deleteDiary } from '@/api/diary';
+import { fetchDiary } from '@/api/diary';
 export default {
 	components: {
 		MusicBar,
@@ -138,13 +138,14 @@ export default {
 				content.style.background = `url(${process.env.VUE_APP_SERVER_URL}${process.env.VUE_APP_API_URL}${this.diaryData.pattern.path}) center`;
 			}
 		},
-		async onDeleteDiary() {
-			try {
-				await deleteDiary(this.diaryId);
-				this.$router.push({ name: 'calendar' });
-			} catch (error) {
-				bus.$emit('show:error', '삭제를 실패했어요 :(');
-			}
+		onDeleteDiary() {
+			bus.$emit('show:delete', this.diaryId);
+			// try {
+			// 	await deleteDiary(this.diaryId);
+			// 	this.$router.push({ name: 'calendar' });
+			// } catch (error) {
+			// 	bus.$emit('show:error', '삭제를 실패했어요 :(');
+			// }
 		},
 	},
 	created() {

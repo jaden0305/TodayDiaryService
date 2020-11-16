@@ -27,7 +27,7 @@
 					!(todayMonth === day.month)) &&
 					!day.post
 			"
-			class="emoticon"
+			class="emoticon cursor-none"
 			:style="{ width: `${weekWidth}px`, height: `${weekWidth}px` }"
 			src="@/assets/images/emotion/normal.png"
 			alt=""
