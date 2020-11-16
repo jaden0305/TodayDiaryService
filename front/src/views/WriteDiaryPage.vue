@@ -7,6 +7,7 @@
 					placeholder="오늘 하루, 한 줄로 말해주세요:)"
 					type="text"
 					v-model="diaryData.title"
+					autocomplete="off"
 				/>
 				<ul class="diary-header__func">
 					<li>
@@ -111,6 +112,7 @@
 					name="diary-content"
 					class="diary-text__content"
 					rows="6"
+					autocomplete="off"
 					v-model="diaryData.content"
 				></textarea>
 			</div>

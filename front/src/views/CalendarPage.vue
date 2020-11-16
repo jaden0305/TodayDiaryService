@@ -297,6 +297,10 @@ export default {
 			align-items: center;
 			width: 90%;
 			margin: 0;
+			cursor: pointer;
+		}
+		.cursor-none {
+			cursor: default;
 		}
 		.pencil {
 			width: 90%;
