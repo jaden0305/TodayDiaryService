@@ -569,6 +569,7 @@ export default {
 			height: 64px;
 			display: flex;
 			padding: 8px 0 8px;
+			cursor: pointer;
 			border-bottom: 1px solid rgba(#71829e, 0.1);
 			.back-song__img {
 				width: 48px;
