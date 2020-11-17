@@ -199,8 +199,12 @@ export default {
 	},
 	methods: {
 		async onFethcTutorial() {
-			const { data } = await isWritten();
-			this.openTutorial = !data;
+			try {
+				const { data } = await isWritten();
+				this.openTutorial = !data;
+			} catch (err) {
+				bus.$emit('show:error', '튜토리얼을 불러오는데 실패했어요 :(');
+			}
 		},
 		onChangeDiaryImage() {
 			this.diaryImage = this.$refs.inputImage.files[0];
@@ -212,7 +216,6 @@ export default {
 			this.openMusic = true;
 			this.openSticker = false;
 			this.openTheme = false;
-			bus.$emit('show:musicModal', '추천 음악입니다:)');
 		},
 		openStickerModal() {
 			if (this.diaryData.image) {
@@ -225,13 +228,11 @@ export default {
 					'이미지를 추가해야 스티커를 사용할 수 있어요:(',
 				);
 			}
-			bus.$emit('show:stickerModal', '스티커입니다:)');
 		},
 		openThemeModal() {
 			this.openMusic = false;
 			this.openSticker = false;
 			this.openTheme = true;
-			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
 		async fetchAnalysis() {
 			try {
@@ -286,13 +287,15 @@ export default {
 			this.openSticker = false;
 		},
 		onDeleteStickers() {
-			const transformerNode = this.$refs.transformer.getNode();
-			const layer = transformerNode.getLayer();
+			if (this.imageObjects.length) {
+				const transformerNode = this.$refs.transformer.getNode();
+				const layer = transformerNode.getLayer();
 
-			this.selectedShapeName = '';
-			this.imageObjects = [];
-			this.image = [];
-			layer.delete();
+				this.selectedShapeName = '';
+				this.imageObjects = [];
+				this.image = [];
+				layer.childrne = {};
+			}
 		},
 		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');
@@ -335,9 +338,12 @@ export default {
 		onDeletePicture() {
 			this.diaryImage = null;
 			this.diaryImageUrl = null;
-			this.diaryImageFile = true;
 			this.diaryData.image = null;
-			this.onDeleteStickers();
+			this.diaryImageFile = true;
+
+			if (this.imageObjects.length) {
+				this.onDeleteStickers();
+			}
 		},
 		resizeStage() {
 			const stageWrap = document.querySelector('.diary-image');
@@ -498,7 +504,8 @@ export default {
 			}
 		}
 		#deletePicture {
-			padding: 5px 8px;
+			margin-bottom: 10px;
+			padding: 0 8px;
 			position: absolute;
 			bottom: -15%;
 			right: 33%;
@@ -506,7 +513,8 @@ export default {
 			cursor: pointer;
 		}
 		#deleteStickers {
-			padding: 5px 8px;
+			margin-bottom: 10px;
+			padding: 0 8px;
 			position: absolute;
 			bottom: -15%;
 			right: 0;

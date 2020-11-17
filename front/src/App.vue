@@ -76,7 +76,7 @@ export default {
 		display: flex;
 		justify-content: center;
 		.display-logo {
-			margin: 18px 0 25px;
+			margin: 18px 0 15px;
 			font-family: 'pentastic';
 			font-size: 40px;
 			cursor: pointer;
