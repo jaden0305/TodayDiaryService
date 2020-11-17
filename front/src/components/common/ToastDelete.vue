@@ -1,6 +1,6 @@
 <template>
 	<section class="toast" :class="toastAnimationClass">
-		해당 일기를 삭제하시겠습니까 ?
+		<span class="toast-text"> 해당 일기를 삭제하시겠습니까 ?</span>
 		<section>
 			<button class="toast-btn-white" @click="open = false">취소</button>
 			<button class="toast-btn-purple" @click="showToast">삭제</button>
@@ -58,12 +58,12 @@ export default {
 	position: fixed;
 	width: 400px;
 	@media screen and (max-width: 640px) {
-		width: 300px;
+		width: 350px;
 	}
-	height: 8rem;
-	background-color: #22252e;
+	height: 9rem;
 	border-radius: 4px;
-	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2);
+	background: #5a5a5a;
+	// box-shadow: 6px 6px 12px #4d4d4d, -6px -6px 12px #686868;
 	color: white;
 	top: 50%;
 	left: 50%;
@@ -73,28 +73,34 @@ export default {
 	align-items: center;
 	transform: translate(-50%, -50%);
 }
+.toast-text {
+	font-family: 'Poor Story';
+}
 .toast.none {
 	display: none;
 }
 .toast-btn-white {
 	border: none;
-	border-radius: 3px;
 	padding: 0 1rem;
 	font-size: 1rem;
 	font-weight: 700;
-	background: white;
-	color: black;
+	border-radius: 4px;
+	background: #5a5a5a;
+	box-shadow: inset 4px 4px 4px #515151, inset -4px -4px 4px #636363;
+	color: white;
 	height: 2rem;
 	margin-top: 1.5rem;
 	margin-right: 0.5rem;
 }
 .toast-btn-purple {
 	border: none;
-	border-radius: 3px;
 	padding: 0 1rem;
 	font-size: 1rem;
 	font-weight: 700;
-	background: purple;
+	border-radius: 4px;
+	// background: #5a5a5a;
+	background: rgb(187, 40, 40);
+	box-shadow: 7px 7px 15px #515151, -7px -7px 15px #636363;
 	color: white;
 	height: 2rem;
 	margin-top: 1.5rem;
