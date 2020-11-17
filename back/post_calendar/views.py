@@ -44,7 +44,7 @@ class CalendarView(APIView):
             start_year = now.year
             start_month = now.month
             start_day = 1
-        
+
         has_next = calendar_info[nex.month]
         if has_next:
             end_year = nex.year
@@ -53,7 +53,7 @@ class CalendarView(APIView):
         else:
             end_year = now.year
             end_month = now.month
-            end_day = has_next[-1]['day']
+            end_day = calendar_info[now.month][-1]['day']
 
         start = datetime.date(start_year, start_month, start_day)
         end = datetime.date(end_year, end_month, end_day)
@@ -66,19 +66,16 @@ class CalendarView(APIView):
         year = int(request.GET.get('year'))
         month = int(request.GET.get('month'))
         
-        print(year, month)
         calendar_info = date_to_dict(year, month)
 
         if year and month:
 
             now = datetime.date(year, month, 1)
             start, end = self.get_date_range(calendar_info=calendar_info, now=now)
-            
             posts = User.objects.filter(pk=request.user.pk)\
                     .prefetch_related('posts')[0]\
                     .posts.filter(created__lte=end, created__gte=start)\
                     .values()
-            print(posts)
             for post in posts:
                 report = DailyReportSerializer(instance=get_object_or_404(DailyReport, pk=post['report_id'])).data
                 created = post['created']

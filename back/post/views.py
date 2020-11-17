@@ -103,7 +103,6 @@ class CreateDiary(APIView, DiaryMixin):
                 data['search_music'] = search_music
         else:
             search_music = None
-        print('test1')
         recommend_music = request.data.get('recommend_music')
         if not (search_music or recommend_music):
             msg = {
@@ -119,7 +118,6 @@ class CreateDiary(APIView, DiaryMixin):
             del data['search_music']
         if recommend_music:
             del data['recommend_music']
-        print('test')
         serializer = CreatePostSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         post = serializer.save(user=request.user)
@@ -127,7 +125,6 @@ class CreateDiary(APIView, DiaryMixin):
         self.create_sticker(stickers, post.id)
         response = self.analyze(request.user, data, post.id)
         response = json.loads(response.text)
-        print(response)        
 
         data['image'] = image
         data['sticker_image'] = sticker_image
@@ -189,6 +186,7 @@ class diary(APIView, DiaryMixin):
             date = mypost.created
             mypost.delete()
             delete_month_cache(date, request.user.id)
+            delete_week_cache(date, request.user.id)
             msg = {
                 'detail': '삭제되었습니다.'
             }
