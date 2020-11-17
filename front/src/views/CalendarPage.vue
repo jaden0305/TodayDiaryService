@@ -199,6 +199,7 @@ export default {
 			color: #495057;
 		}
 		.calendar-header__month {
+			white-space: nowrap;
 			font-size: 1.5rem;
 			font-weight: 600;
 			color: #495057;
