@@ -63,6 +63,7 @@
 					@mouseup="handleStageMouseDown"
 					@touchend="handleStageMouseDown"
 					@dragend="handleStageMouseDown"
+					@click="alert('되고있다')"
 				>
 					<v-layer ref="layer">
 						<v-image
@@ -285,16 +286,38 @@ export default {
 				bus.$emit('show:error', '스티커는 3개까지 넣을 수 있어요 :(');
 			}
 			this.openSticker = false;
+
+			const transformerNode = this.$refs.transformer.getNode();
+			const layer = transformerNode.getLayer();
+			console.log(layer);
+			// layer.find('Transformer').show();
 		},
 		onDeleteStickers() {
 			if (this.imageObjects.length) {
-				const transformerNode = this.$refs.transformer.getNode();
-				const layer = transformerNode.getLayer();
+				let transformerNode = this.$refs.transformer.getNode();
+				const stage = transformerNode.getStage();
+				// const layer = transformerNode.getLayer();
+
+				const { selectedShapeName } = this;
+
+				const selectedNode = stage.findOne('.' + selectedShapeName);
+
+				// console.log('2222222', layer.children[this.imageObjects.length]);
+				// console.log(layer.find('Transformer'));
+
+				// layer.find('Transformer').hide();
+
+				// console.log(layer);
+				// console.log(transformerNode);
+				// console.log(this.$refs.transformer);
+				// console.log('stage', stage);
+				// console.log(stage.transformer);
 
 				this.selectedShapeName = '';
-				this.imageObjects = [];
-				this.image = [];
-				layer.childrne = {};
+				this.imageObjects.pop(selectedNode);
+				this.image.pop(selectedNode);
+				// this.imageObjects = [];
+				// this.image = [];
 			}
 		},
 		setTheme(selectedFont, selectedPaper) {
@@ -392,9 +415,8 @@ export default {
 			let imgElem = this.imageObjects.find(
 				r => r.name === this.selectedShapeName,
 			);
-
 			// // update the state
-			if (e.target) {
+			if (e.target && imgElem) {
 				imgElem.x = e.target.x();
 				imgElem.y = e.target.y();
 			}
