@@ -26,6 +26,7 @@
 			</div>
 			<div class="calendar-days">
 				<CalendarDay
+					month="pre"
 					:day="day"
 					:year="day.year"
 					:toDay="toDay"
@@ -37,6 +38,7 @@
 					v-for="(day, index) in preMonth"
 				></CalendarDay>
 				<CalendarDay
+					month="now"
 					:day="day"
 					:year="day.year"
 					:toDay="toDay"
@@ -48,6 +50,7 @@
 					v-for="(day, index) in nowMonth"
 				></CalendarDay>
 				<CalendarDay
+					month="next"
 					:day="day"
 					:year="day.year"
 					:toDay="toDay"
@@ -314,7 +317,7 @@ export default {
 			margin-top: 3px;
 			font-size: 0.7rem;
 			font-weight: 600;
-			color: #868e96;
+			color: #495057;
 		}
 	}
 }

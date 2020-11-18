@@ -48,7 +48,7 @@
 					:words="words"
 					:color="
 						([, , emotion]) =>
-							emotion > 0 ? 'DeepPink' : emotion < 0 ? 'RoyalBlue' : 'black'
+							emotion > 0 ? 'DeepPink' : emotion < 0 ? 'RoyalBlue' : '#495057'
 					"
 					:rotation="rotation"
 					font-family="Poor Story"
