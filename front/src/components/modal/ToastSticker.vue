@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus';
 import { fetchStickers } from '@/api/diary';
 export default {
 	data() {
@@ -97,8 +98,12 @@ export default {
 	},
 	methods: {
 		async onFetchStickers() {
-			const { data } = await fetchStickers();
-			this.stickers = data;
+			try {
+				const { data } = await fetchStickers();
+				this.stickers = data;
+			} catch (err) {
+				bus.$emit('show:error', '스티커를 불러오는데 실패했어요 :(');
+			}
 		},
 		closeSticker() {
 			this.$emit('close-sticker');

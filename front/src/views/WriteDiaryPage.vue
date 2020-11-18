@@ -63,6 +63,7 @@
 					@mouseup="handleStageMouseDown"
 					@touchend="handleStageMouseDown"
 					@dragend="handleStageMouseDown"
+					@click="alert('되고있다')"
 				>
 					<v-layer ref="layer">
 						<v-image
@@ -199,8 +200,12 @@ export default {
 	},
 	methods: {
 		async onFethcTutorial() {
-			const { data } = await isWritten();
-			this.openTutorial = !data;
+			try {
+				const { data } = await isWritten();
+				this.openTutorial = !data;
+			} catch (err) {
+				bus.$emit('show:error', '튜토리얼을 불러오는데 실패했어요 :(');
+			}
 		},
 		onChangeDiaryImage() {
 			this.diaryImage = this.$refs.inputImage.files[0];
@@ -212,7 +217,6 @@ export default {
 			this.openMusic = true;
 			this.openSticker = false;
 			this.openTheme = false;
-			bus.$emit('show:musicModal', '추천 음악입니다:)');
 		},
 		openStickerModal() {
 			if (this.diaryData.image) {
@@ -225,13 +229,11 @@ export default {
 					'이미지를 추가해야 스티커를 사용할 수 있어요:(',
 				);
 			}
-			bus.$emit('show:stickerModal', '스티커입니다:)');
 		},
 		openThemeModal() {
 			this.openMusic = false;
 			this.openSticker = false;
 			this.openTheme = true;
-			bus.$emit('show:themeModal', '테마 및 폰트입니다:)');
 		},
 		async fetchAnalysis() {
 			try {
@@ -284,15 +286,39 @@ export default {
 				bus.$emit('show:error', '스티커는 3개까지 넣을 수 있어요 :(');
 			}
 			this.openSticker = false;
-		},
-		onDeleteStickers() {
+
 			const transformerNode = this.$refs.transformer.getNode();
 			const layer = transformerNode.getLayer();
+			console.log(layer);
+			// layer.find('Transformer').show();
+		},
+		onDeleteStickers() {
+			if (this.imageObjects.length) {
+				let transformerNode = this.$refs.transformer.getNode();
+				const stage = transformerNode.getStage();
+				// const layer = transformerNode.getLayer();
 
-			this.selectedShapeName = '';
-			this.imageObjects = [];
-			this.image = [];
-			layer.delete();
+				const { selectedShapeName } = this;
+
+				const selectedNode = stage.findOne('.' + selectedShapeName);
+
+				// console.log('2222222', layer.children[this.imageObjects.length]);
+				// console.log(layer.find('Transformer'));
+
+				// layer.find('Transformer').hide();
+
+				// console.log(layer);
+				// console.log(transformerNode);
+				// console.log(this.$refs.transformer);
+				// console.log('stage', stage);
+				// console.log(stage.transformer);
+
+				this.selectedShapeName = '';
+				this.imageObjects.pop(selectedNode);
+				this.image.pop(selectedNode);
+				// this.imageObjects = [];
+				// this.image = [];
+			}
 		},
 		setTheme(selectedFont, selectedPaper) {
 			const title = document.querySelector('#diary-header__title');
@@ -335,9 +361,12 @@ export default {
 		onDeletePicture() {
 			this.diaryImage = null;
 			this.diaryImageUrl = null;
-			this.diaryImageFile = true;
 			this.diaryData.image = null;
-			this.onDeleteStickers();
+			this.diaryImageFile = true;
+
+			if (this.imageObjects.length) {
+				this.onDeleteStickers();
+			}
 		},
 		resizeStage() {
 			const stageWrap = document.querySelector('.diary-image');
@@ -386,9 +415,8 @@ export default {
 			let imgElem = this.imageObjects.find(
 				r => r.name === this.selectedShapeName,
 			);
-
 			// // update the state
-			if (e.target) {
+			if (e.target && imgElem) {
 				imgElem.x = e.target.x();
 				imgElem.y = e.target.y();
 			}
@@ -498,7 +526,8 @@ export default {
 			}
 		}
 		#deletePicture {
-			padding: 5px 8px;
+			margin-bottom: 10px;
+			padding: 0 8px;
 			position: absolute;
 			bottom: -15%;
 			right: 33%;
@@ -506,7 +535,8 @@ export default {
 			cursor: pointer;
 		}
 		#deleteStickers {
-			padding: 5px 8px;
+			margin-bottom: 10px;
+			padding: 0 8px;
 			position: absolute;
 			bottom: -15%;
 			right: 0;

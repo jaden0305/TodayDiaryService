@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus';
 import { fetchFonts, fetchPapers } from '@/api/diary';
 export default {
 	data() {
@@ -130,12 +131,20 @@ export default {
 			this.$emit('submit-theme', this.selectedFont, this.selectedPaper);
 		},
 		async onFetchFonts() {
-			const { data } = await fetchFonts();
-			this.fonts = data;
+			try {
+				const { data } = await fetchFonts();
+				this.fonts = data;
+			} catch (err) {
+				bus.$emit('show:error', '폰트를 불러오는데 실패했어요 :(');
+			}
 		},
 		async onFetchPapers() {
-			const { data } = await fetchPapers();
-			this.papers = data;
+			try {
+				const { data } = await fetchPapers();
+				this.papers = data;
+			} catch (err) {
+				bus.$emit('show:error', '테마를 불러오는데 실패했어요 :(');
+			}
 		},
 		selectPaper(id) {
 			const papers = document.querySelectorAll('.preview-paper');
