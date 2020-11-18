@@ -102,7 +102,15 @@ export default {
 				this.diaryData = data;
 				bus.$emit('show:musicplayer', this.tracks);
 			} catch (error) {
-				bus.$emit('show:error', '정보를 불러오는데 실패했어요 :(');
+				if (error.response.status === 403) {
+					bus.$emit('show:error', error.response.data.detail);
+					this.$router.push('/calendar');
+				} else if (error.response.status === 404) {
+					bus.$emit('show:error', '존재하지 않는 일기입니다 :(');
+					this.$router.push('/calendar');
+				} else {
+					bus.$emit('show:error', '정보를 불러오는데 실패했어요 :(');
+				}
 			}
 		},
 		onFetchStickers() {
