@@ -116,13 +116,16 @@
 			src="@/assets/images/emotion/7.png"
 			alt=""
 		/>
-		<p class="calendar-day__title">{{ day.day }}</p>
+		<p class="calendar-day__title" :class="isNowMonth">
+			{{ day.day }}
+		</p>
 	</div>
 </template>
 
 <script>
 export default {
 	props: {
+		month: String,
 		day: Object,
 		year: Number,
 		toDay: Number,
@@ -148,6 +151,14 @@ export default {
 			emotion.style.width = this.weekWidth;
 			emotion.style.height = this.weekWidth;
 		});
+		console.log(this.month);
+	},
+	computed: {
+		isNowMonth() {
+			return {
+				'calendar-gray': this.month !== 'now',
+			};
+		},
 	},
 };
 </script>
@@ -155,5 +166,8 @@ export default {
 <style>
 .emotion {
 	cursor: pointer;
+}
+.calendar-gray {
+	color: lightgray !important;
 }
 </style>
