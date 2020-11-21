@@ -8,3 +8,4 @@ from post.models import RecommendMusic, SearchMusic
 class User(AbstractUser):
     recommend_like = models.ManyToManyField(RecommendMusic, related_name='recommend_like_music')
     search_like = models.ManyToManyField(SearchMusic, related_name='search_like_music')
+    show_tutorial = models.BooleanField(default=True)

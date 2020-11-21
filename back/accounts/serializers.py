@@ -22,7 +22,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         fields = (
             'username',
         )
-    
+
 
 class CheckEmailSerializer(serializers.Serializer):
     email = serializers.CharField()
@@ -31,6 +31,7 @@ class CheckEmailSerializer(serializers.Serializer):
 class LikeSerializer(serializers.Serializer):
     music_id = serializers.IntegerField()
     favorited = serializers.BooleanField()
+
 
 class LikeMusicSerializer(serializers.ModelSerializer):
     class Meta:

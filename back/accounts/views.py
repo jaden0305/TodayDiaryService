@@ -137,3 +137,17 @@ def my_music(request):
         result.append(music_data)
     
     return Response(result, status=status.HTTP_200_OK)
+
+
+class TutorialView(APIView):
+
+    def get(self, request):
+        user = request.user
+        result = user.show_tutorial
+        return Response(result, status=status.HTTP_200_OK)
+
+    def patch(self, request):
+        user = request.user
+        user.show_tutorial = False
+        user.save()
+        return Response(status=status.HTTP_200_OK)

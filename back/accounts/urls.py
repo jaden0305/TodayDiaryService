@@ -15,6 +15,7 @@ urlpatterns = [
     path('refresh/', refresh_jwt_token),
     path('music/like/', views.MusicView.as_view()),
     path('music/', views.my_music),
+    path('tutorial/', views.TutorialView.as_view()),
     # path('likes_music/', views.likes_music),
     # path('like/', views.like),
 ]
