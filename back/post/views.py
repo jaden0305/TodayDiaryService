@@ -138,7 +138,6 @@ class CreateDiary(APIView, DiaryMixin):
             search_music = search_music_serializer.save()
         else:
             recommend_music = get_object_or_404(RecommendMusic, pk=int(recommend_music))
-
         serializer = CreatePostSerializer(instance=post, data=data)
         serializer.is_valid(raise_exception=True)
         report = get_object_or_404(DailyReport, pk=response['id'])

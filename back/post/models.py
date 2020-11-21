@@ -8,7 +8,7 @@ from text.models import DailyReport
 
 
 def upload_location(instance, filename):
-    name, ext = filename.split('.')
+    ext = filename.split('.')[-1]
     now = datetime.datetime.now()
     return f"{now.year}/{now.month}/{now.day}/{uuid4()}.{ext}"
 
