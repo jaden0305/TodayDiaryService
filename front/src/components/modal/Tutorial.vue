@@ -6,7 +6,7 @@
 				src="@/assets/images/scribble.svg"
 				alt=""
 			/>
-			<p>로고를 누르면 메인페이지로 이동합니다</p>
+			<p>클릭하면 메인페이지로 이동합니다</p>
 		</div>
 		<div class="tutorial-title">
 			<img
@@ -43,10 +43,13 @@
 				시작하기
 			</button>
 		</div>
+		<p class="tutorial-close__none" @click="onHideTutorial">다시 보지 않기</p>
 	</section>
 </template>
 
 <script>
+import { hideTutorial } from '@/api/auth';
+
 export default {
 	props: {
 		open: Boolean,
@@ -59,6 +62,10 @@ export default {
 	methods: {
 		closeTutorial() {
 			this.$emit('close-tutorial');
+		},
+		async onHideTutorial() {
+			await hideTutorial();
+			this.$emit('hide-tutorial');
 		},
 	},
 };
@@ -75,21 +82,25 @@ export default {
 	border-radius: 1rem;
 	color: #fff;
 	font-size: 13px;
-	background: rgba(43, 43, 43, 0.7);
+	background: linear-gradient(
+		rgba(43, 43, 43, 0.7) 60%,
+		rgba(43, 43, 43, 0.8),
+		rgba(43, 43, 43, 0.85)
+	);
 	line-height: 1.5;
 	box-shadow: 6px 6px 12px #b4b4b4, -6px -6px 12px #ffffff;
 	z-index: 100;
 }
 .tutorial-logo {
 	position: absolute;
-	top: 5%;
-	left: 8%;
-	width: 70px;
+	top: 8%;
+	left: 5%;
+	width: 105px;
 	.tutorial-logo__arrow {
 		position: absolute;
-		top: 28%;
-		left: 100%;
-		transform: rotate(290deg);
+		top: -40%;
+		left: 75%;
+		transform: rotate(110deg);
 	}
 }
 .tutorial-title {
@@ -152,5 +163,10 @@ export default {
 			cursor: pointer;
 		}
 	}
+}
+.tutorial-close__none {
+	position: absolute;
+	bottom: 5%;
+	right: 8%;
 }
 </style>
