@@ -25,9 +25,6 @@ export function createDiary(diaryData) {
 export function fetchDiary(diaryId) {
 	return diary.get(`/${diaryId}/`);
 }
-export function isWritten() {
-	return diary.get(`/written/`);
-}
 export function fetchFonts() {
 	return diary.get(`/fonts/`);
 }

@@ -17,3 +17,10 @@ export function Login(email, password) {
 		password,
 	});
 }
+
+export function isOpenTutorial() {
+	return auth.get(`/tutorial/`);
+}
+export function hideTutorial() {
+	return auth.patch(`/tutorial/`);
+}

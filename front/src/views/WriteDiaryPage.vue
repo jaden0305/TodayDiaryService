@@ -1,5 +1,10 @@
 <template>
 	<section>
+		<img
+			src="@/assets/images/information.svg"
+			class="tutorial-info"
+			alt="튜토리얼"
+		/>
 		<div class="diary-wrap">
 			<div class="diary-header">
 				<input
@@ -129,6 +134,7 @@
 				v-if="openTutorial"
 				:open="openTutorial"
 				@close-tutorial="openTutorial = false"
+				@hide-tutorial="openTutorial = false"
 			/>
 		</div>
 	</section>
@@ -142,7 +148,7 @@ import ToastTheme from '@/components/modal/ToastTheme.vue';
 import ToastSave from '@/components/modal/ToastSave.vue';
 import Tutorial from '@/components/modal/Tutorial.vue';
 import { createDiaryanalysis } from '@/api/analysis';
-import { isWritten } from '@/api/diary';
+import { isOpenTutorial } from '@/api/auth';
 
 let num = 1;
 
@@ -201,8 +207,8 @@ export default {
 	methods: {
 		async onFethcTutorial() {
 			try {
-				const { data } = await isWritten();
-				this.openTutorial = !data;
+				const { data } = await isOpenTutorial();
+				this.openTutorial = data;
 			} catch (err) {
 				bus.$emit('show:error', '튜토리얼을 불러오는데 실패했어요 :(');
 			}
@@ -454,6 +460,22 @@ export default {
 </script>
 
 <style lang="scss">
+.tutorial-info {
+	width: 13px;
+	position: absolute;
+	//로고 옆
+	top: -6%;
+	right: 29%;
+	// 스티커 위
+	// top: 1%;
+	// right: 6.5%;
+	//맨 위 오른쪽
+	// top: -11%;
+	// right: 4%;
+	//진엽
+	top: 7%;
+	right: 40%;
+}
 .diary-wrap {
 	display: flex;
 	flex-direction: column;
@@ -487,7 +509,7 @@ export default {
 			font-size: 14px;
 		}
 		#diary-header__title {
-			width: 60%;
+			width: 52%;
 			margin-left: 8px;
 			padding-bottom: 5px;
 			border: none;
