@@ -2,6 +2,7 @@
 	<section>
 		<img
 			src="@/assets/images/information.svg"
+			@click="openTutorial = true"
 			class="tutorial-info"
 			alt="튜토리얼"
 		/>
@@ -464,17 +465,17 @@ export default {
 	width: 13px;
 	position: absolute;
 	//로고 옆
-	top: -6%;
-	right: 29%;
+	// top: -6%;
+	// right: 29%;
 	// 스티커 위
 	// top: 1%;
 	// right: 6.5%;
 	//맨 위 오른쪽
-	// top: -11%;
-	// right: 4%;
+	top: -11%;
+	right: 4%;
 	//진엽
-	top: 7%;
-	right: 40%;
+	// top: 7%;
+	// right: 40%;
 }
 .diary-wrap {
 	display: flex;
