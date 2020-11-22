@@ -69,7 +69,6 @@
 					@mouseup="handleStageMouseDown"
 					@touchend="handleStageMouseDown"
 					@dragend="handleStageMouseDown"
-					@click="alert('되고있다')"
 				>
 					<v-layer ref="layer">
 						<v-image
@@ -296,35 +295,22 @@ export default {
 
 			const transformerNode = this.$refs.transformer.getNode();
 			const layer = transformerNode.getLayer();
-			console.log(layer);
-			// layer.find('Transformer').show();
+			layer.find('Transformer').show();
 		},
 		onDeleteStickers() {
 			if (this.imageObjects.length) {
 				let transformerNode = this.$refs.transformer.getNode();
 				const stage = transformerNode.getStage();
-				// const layer = transformerNode.getLayer();
-
+				const layer = transformerNode.getLayer();
 				const { selectedShapeName } = this;
-
 				const selectedNode = stage.findOne('.' + selectedShapeName);
 
-				// console.log('2222222', layer.children[this.imageObjects.length]);
-				// console.log(layer.find('Transformer'));
-
-				// layer.find('Transformer').hide();
-
-				// console.log(layer);
-				// console.log(transformerNode);
-				// console.log(this.$refs.transformer);
-				// console.log('stage', stage);
-				// console.log(stage.transformer);
-
+				if (this.imageObjects.length === 1) {
+					layer.find('Transformer').hide();
+				}
 				this.selectedShapeName = '';
 				this.imageObjects.pop(selectedNode);
 				this.image.pop(selectedNode);
-				// this.imageObjects = [];
-				// this.image = [];
 			}
 		},
 		setTheme(selectedFont, selectedPaper) {
@@ -464,18 +450,9 @@ export default {
 .tutorial-info {
 	width: 13px;
 	position: absolute;
-	//로고 옆
-	// top: -6%;
-	// right: 29%;
-	// 스티커 위
-	// top: 1%;
-	// right: 6.5%;
-	//맨 위 오른쪽
 	top: -11%;
 	right: 4%;
-	//진엽
-	// top: 7%;
-	// right: 40%;
+	cursor: pointer;
 }
 .diary-wrap {
 	display: flex;

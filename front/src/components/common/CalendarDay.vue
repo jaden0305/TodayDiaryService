@@ -151,7 +151,6 @@ export default {
 			emotion.style.width = this.weekWidth;
 			emotion.style.height = this.weekWidth;
 		});
-		console.log(this.month);
 	},
 	computed: {
 		isNowMonth() {

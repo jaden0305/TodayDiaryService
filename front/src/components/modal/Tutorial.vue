@@ -168,5 +168,6 @@ export default {
 	position: absolute;
 	bottom: 5%;
 	right: 8%;
+	cursor: pointer;
 }
 </style>
